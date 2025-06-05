@@ -1,0 +1,15 @@
+BAIXAR A PASTA:
+
+1º: Criar uma pasta chamada 'TCC-Etec ', e copiar o endereço
+2º: Abrir o Cmder, dar o comando pra linkar a pasta: CD "pasta"
+3º: Dar o comando, pra baixar a pasta: git clone "https://github.com/raulcommits/TCC-Etec"
+4º: Será baixado os arquivos direto do GitHub para a pasta chamada 'TCC-Etec'.
+
+
+ENVIAR A PASTA:
+
+1º: Com a pasta criada. copiar o endereço e ir no Cmder, dar o comando CD "pasta"
+--	Observação: Aparecerá uma anotação amarela ao lado do caminho da pasta no Cmder
+2º: Dar o comando git add . onde será verificado as alterações feitas que serão enviados pro GitHub
+3º: Dar o comando git commit -m "COMENTÁRIO" pra adicionar um comentário
+4º: Por fim, dar o comando git push pra enviar de fato ao GitHub.
