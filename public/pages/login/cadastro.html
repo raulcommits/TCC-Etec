@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Novo cadastro - VyaSaúde</title>
-        <link href="../../css/__common/__imports.css" rel="stylesheet">
-        <link href="../../css/__common/login.css" rel="stylesheet">
-        <script src="../../js/index.js"></script>
-        <link rel="shortcut icon" href="../../img/Logo/Logo_green.ico" type="image/x-icon">
+        <link href="../../css/__common/__imports.css" rel="stylesheet">                         <!-- Importações externas via CSS -->
+        <link href="../../css/__common/login.css" rel="stylesheet">                             <!-- Estilos personalizados do CSS -->
+        <script src="../../js/index.js"></script>                                               <!-- Validações de Login -->
+        <link rel="shortcut icon" href="../../img/Logo/Logo_green.ico" type="image/x-icon">     <!-- Logo Vyasaúde -->
     </head>
     
-    <body class="d-flex justify-content-center">
+    <body class="">
         <main class="border border-2 border-dark border-opacity-75 shadow-lg rounded-2 bg-secondary-subtle">
             <!-- Logo (VyaSaude) -->
             <div class="d-block gradiente rounded-top-1">
@@ -26,19 +26,19 @@
                 <!-- Campo: Nome completo -->
                 <div class="py-1">
                     <i class="bi bi-person-lines-fill fs-2"></i>
-                    <input id="" type="text" placeholder="Nome completo" class="form-control border-2 border-dark border-opacity-25 rounded-3">
+                    <input id="campo_nome" type="text" placeholder="Nome completo" class="form-control border-2 border-dark border-opacity-25 rounded-3" minlength="5" maxlength="100" required>
                 </div>
 
                 <!-- Campo: CPF -->
                 <div class="py-1">
                     <i class="bi bi-person-lines-fill fs-2"></i>
-                    <input id="" type="text" placeholder="CPF" class="form-control border-2 border-dark border-opacity-25 rounded-3">
+                    <input id="" type="text" placeholder="CPF" class="form-control border-2 border-dark border-opacity-25 rounded-3" oninput="quantidadeCaracteres(this)" required>
                 </div>
                 
                 <!-- Campo: E-mail -->
                 <div class="py-1">
                     <i class="bi bi-person-fill fs-2"></i>
-                    <input id="" type="email" placeholder="E-mail" class="form-control border-2 border-dark border-opacity-25 rounded-3">
+                    <input id="field_email" type="email" placeholder="E-mail" class="form-control border-2 border-dark border-opacity-25 rounded-3" required>
                 </div>
 
                 <!-- Campo: Confirme o E-mail -->
@@ -50,7 +50,7 @@
                 <!-- Campo: Senha -->
                 <div class="py-1">
                     <i class="bi bi-lock-fill fs-2"></i>
-                    <input id="" type="password" placeholder="Senha" class="form-control border-2 border-dark border-opacity-25 rounded-3">
+                    <input id="" type="password" placeholder="Senha" class="form-control border-2 border-dark border-opacity-25 rounded-3" required>
                 </div>
 
                 <!-- Campo: Confirme a senha -->
@@ -66,7 +66,7 @@
 
                 <!-- Botão pra realizar cadastro -->
                 <div class="justify-content-center py-2">
-                    <button id="btn_acessar" class="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
+                    <button id="botao_cadastrar" class="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
                 </div>
 
                 <!-- Tela de login -->

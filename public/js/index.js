@@ -1,4 +1,10 @@
-
+function quantidadeCaracteres() {
+    if (input.value.length !== 11) {
+      input.setCustomValidity("O CPF inserido precisa ser de 11 números válidos.");
+    } else {
+      input.setCustomValidity("");
+    }
+}
 
 
 
