@@ -1,0 +1,30 @@
+/* Estilização do projeto */
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #c7c7c7;
+    margin-top: 23vh !important;
+}
+
+main {
+    min-width: 28rem;
+}
+
+input {
+    margin: 0.5vh;
+}
+
+.gradiente {
+    background-image: linear-gradient(to right, rgb(93, 138, 93), rgb(126, 171, 210));
+}
+
+p {
+    margin-bottom: 0px !important;
+}
+
+div {
+    display: flex;
+}
+
+i {
+    color:rgb(29, 21, 74)
+}
