@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONT: Special Gothic by Alistar McCready -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic&display=swap" rel="stylesheet">
+
+    <!-- FRAMEWORK PAGES  -->
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/00-vivaEmbu-generalSettings.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/01-vivaEmbu-sections.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/02-vivaEmbu-buttons.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/03-vivaEmbu-inputs.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/04-vivaEmbu-badges.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/05-vivaEmbu-popups.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/06-vivaEmbu-headerAndFooter.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/07-vivaEmbu-cards.css">
+    <link rel="stylesheet" href="../Framework Estilização/vivaEmbu_framework_css/v1/css/08-vivaEmbu-genericButtons.css">
+
+    <!-- CSS DA PÁGINA DE LOGIN -->
+    <link rel="stylesheet" href="./css/teste2.css">
+
+    <link rel="shortcut icon" href="./img/Logo/Logo_green.ico" type="image/x-icon">
+
+    <title>TESTE 2 - TCC PEP</title>
+</head>
+<body>
+    
+    <!-- header com logo e opção de perfil com avatar  -->
+    <header>
+        <!-- logo -->
+        <div class="logoField flex_center" id="logoField">
+            <img src="./img/Logo/Logo.png" alt="" id="logo">
+            <!-- <img src="./img/Logo/Logo_all_black.png" alt="" id="logo"> -->
+        </div>
+        <!-- parte direita do header, com config de perfil -->
+        <div class="rightSide_header" id="rightSide_header">
+            <!-- avatar do usuário -->
+            <img src="./img/placeholder.png" alt="" id="perfilIcon">
+            <!-- nome do usuário -->
+            <span id="perfilName">Nome de usuário</span>
+        </div>
+    </header>
+
+    <!-- linha com esteira de guias que fica abaixo do header -->
+    <div class="underHeader" id="underHeader">
+        <!-- campo à esquerda, com botão home e guia atual -->
+        <div class="field-1_underHeader">
+            <!-- imagem de home -->
+            <div class="homeIcon_field flex_center">
+                <img src="./img/iconHome.png" alt="" id="homeIcon">
+            </div>
+            <img src="./img/arrow_right.png" alt="" id="arrowSide_spacer">
+            <a href="" id="a_actualGuide_underHeader"><span id="previousGuide_underHeader">Cadastro</span></a>
+            <img src="./img/arrow_right.png" alt="" id="arrowSide_spacer">
+            <a href="" id="a_actualGuide_underHeader"><span id="previousGuide_underHeader">Cadastrar Paciente</span></a>
+            <img src="./img/arrow_right.png" alt="" id="arrowSide_spacer">
+            <a href="" id="a_actualGuide_underHeader"><span id="actualGuide_underHeader">Página Atual</span></a>
+        </div>
+        <!-- campo à direita, com barra de pesquisa -->
+        <div class="field-2_underHeader">
+            <!-- input de texto -->
+            <input type="text" name="" class="input_text" id="search">
+            <!-- lupa de pesquisa -->
+            <div id="searchButton">
+                <img src="./img/iconSearch.png" alt="" id="searchIcon">
+            </div>
+        </div>
+    </div>
+
+    <main>
+            <!-- barra lateral, por padrão, fechada -->
+        <aside id="closed">
+            <!-- principais opções -->
+            <div class="mainOptions">
+                <!-- botão que abre e fecha a barra lateral -->
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconClosePane.png" alt="" class="iconSideBarImg iconInsideSideBar" id="openSideBarButton">
+                </div>
+                <div class="" id="">
+                    <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                    </div>
+                    <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                    </div>
+                    <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                    </div>
+                    <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                    </div>
+                </div>
+            </div>
+            <div class="footerOptions">
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconOpenPane.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                </div>
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconConfig.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                </div>
+            </div>
+        </aside>
+
+        <aside id="opened">
+            <!-- principais opções -->
+            <div class="mainOptions">
+                <!-- botão que abre e fecha a barra lateral -->
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconClosePane.png" alt="" class="iconSideBarImg iconInsideSideBar" id="openSideBarButton">
+                </div>
+                <div class="" id="">
+                    <div class="displayOptionField" id="">
+                        <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                        </div>
+                        <span>Cadastro de informações</span>
+                    </div>
+                    <div class="displayOptionField" id="">
+                        <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                        </div>
+                        <span>Texto</span>
+                    </div>
+                    <div class="displayOptionField" id="">
+                        <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                        </div>
+                        <span>Texto</span>
+                    </div>
+                    <div class="displayOptionField" id="">
+                        <div class="iconSideBarField">
+                        <img src="./img/Icons in Header and Sidebar/IconUser.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                        </div>
+                        <span>Texto</span>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="footerOptions">
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconOpenPane.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                </div>
+                <div class="iconSideBarField">
+                    <img src="./img/Icons in Header and Sidebar/IconConfig.png" alt="" class="iconSideBarImg iconInsideSideBar">
+                </div>
+            </div>
+        </aside>
+
+        <!-- tela principal, onde adicionaremos os formulários -->
+        <div id="usefullScreen">
+            
+            <!-- <div>
+                <span>Texto Acima</span>
+                <div class="field_simple">
+                    <div class="field_headerFormat"><span>Banana de Pijamas</span></div>
+                    <div class="field_emptyBlock flex_column">
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+
+                        <div class="field_borderless"></div>
+                        <div class="" id="">
+                            <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        </div>
+                        
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        <div class="field_borderless"></div>
+                        <button class="button_colorGreen">Enviar</button>
+                    </div>
+
+                                        <div class="field_emptyBlock flex_column">
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+
+                        <div class="field_borderless"></div>
+                        <div class="" id="">
+                            <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        </div>
+                        
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        <div class="field_borderless"></div>
+                        <button class="button_colorGreen">Enviar</button>
+                    </div>
+
+                                        <div class="field_emptyBlock flex_column">
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+
+                        <div class="field_borderless"></div>
+                        <div class="" id="">
+                            <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        </div>
+                        
+                        <label for="">Texto 1</label>
+                        <input type="text" class="input_text">
+                        <label for="">Texto 2</label>
+                        <input type="text" class="input_text">
+                        <div class="field_borderless"></div>
+                        <button class="button_colorGreen">Enviar</button>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+    </main>
+    
+</body>
+</html>
