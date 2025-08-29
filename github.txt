@@ -9,7 +9,15 @@ BAIXAR A PASTA:
 ENVIAR A PASTA:
 
 1º: Com a pasta criada. copiar o endereço e ir no Cmder, dar o comando CD "pasta"
---	Observação: Aparecerá uma anotação amarela ao lado do caminho da pasta no Cmder
+--	Observação: Aparecerá uma anotação amarela ao lado do caminho da pasta no Cmder, chamada de branch
 2º: Dar o comando git add . onde será verificado as alterações feitas que serão enviados pro GitHub
 3º: Dar o comando git commit -m "COMENTÁRIO" pra adicionar um comentário
 4º: Por fim, dar o comando git push pra enviar de fato ao GitHub.
+
+OBSERVAÇÃO:
+-- Como estamos com o projeto dividido em branches, é necessário conferir em qual branch a alteração está sendo feita.
+Se a alteração é no front-end e ainda precisa de revisão, deverá ser feita na branch de front-end
+
+COMANDO: git checkout "nome da branch" (sem parênteses ou aspas) <- Responsável pela troca de branch.
+Após o git add e git commit, utilize o comando: git push -u origin "nome da branch". Esse comando garantirá que as alterações estão sendo mandadas para a branch trabalhada.
+
