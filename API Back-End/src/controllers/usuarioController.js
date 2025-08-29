@@ -2,7 +2,6 @@ import express, { request, response } from "express";
 import usuario from "../entities/usuario.js";
 import {AppDataSource} from "../database/data-source.js";
 import { Like } from "typeorm";
-// import { cpf } from "cpf-cnpj-validator";
 
 const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
@@ -50,13 +49,9 @@ route.post("/", async (request, response) => {
     }
 });
 
-route.put("/:id", async (request, response) => {
-    const {id} = request.params;
+route.put("/:cpf", async (request, response) => {
+    const {cpf} = request.params;
     const {nome, email, senha, tipoUsuario} = request.body;
-
-    if(isNaN(id)) {
-        return response.status(400).send({"response": "O campo 'id' deve ser numérico."});
-    }
 
     if(nome.length < 1) {
         return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
@@ -72,22 +67,22 @@ route.put("/:id", async (request, response) => {
     }
 
     try {
-        await repositorioUsuario.update({id}, {nome, email, senha, tipoUsuario});
+        await repositorioUsuario.update({cpf}, {nome, email, senha, tipoUsuario});
         return response.status(200).send({"response": "Usuário atualizado com sucesso."});
     } catch (err) {
         return response.status(500).send({"response": err});
     }
 });
 
-route.delete("/:id", async (request, response) => {
-    const {id} = request.params;
+route.delete("/:cpf", async (request, response) => {
+    const {cpf} = request.params;
 
     if(isNaN(id)) {
         return response.status(400).send({"response": "O campo 'id' deve ser numérico."});
     }
 
     try {
-        await repositorioUsuario.update({id}, {deletedAt: () => "CURRENT_TIMESTAMP"});
+        await repositorioUsuario.update({cpf}, {deletedAt: () => "CURRENT_TIMESTAMP"});
         return response.status(200).send({"response": "Usuário deletado com sucesso."});
     } catch (err) {
         return response.status(500).send({"response": err});

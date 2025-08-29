@@ -14,14 +14,13 @@ const endereco = new EntitySchema({
         "PA", "PB", "PR", "PE", "PI", "RJ", "PN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"], nullable: false},
         cep: {type: "varchar", length: 10, nullable: false},
         pais: {type: "varchar", length: 50, nullable: false, default: "Brasil"},
-        ponto_referencia: {type: "varchar", length: 100, nullable: true},
-        tipo_imovel: {type: "int", nullable: false},
-        material_predominante: {type: "int", nullable: false},
-        animal: {type: "int", nullable: false},
-        tipo_animal: {type: "varchar", length: 70, nullable: true}
+        ponto_referencia: {type: "varchar", length: 100, nullable: true}
     },
     relations: {
-        zona: {type: "many-to-one", target: "Zona", nullable: false}
+        zona: {type: "many-to-one", target: "Zona", nullable: false},
+        material_predominante: {type: "many-to-one", target: "MaterialPredominante", nullable: false},
+        tipo_imovel: {type: "many-to-one", target: "TipoImovel", nullable: false},
+        tipo_animal: {type: "many-to-one", target: "TipoAnimal", nullable: false}
     }
 });
 

@@ -5,7 +5,7 @@ const paciente = new EntitySchema({
     tableName: "paciente",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        cpf: {type: "int", nullable: false, unique: true},
+        cpf: {type: "varchar", length: 11, nullable: false, unique: true},
         sus: {type: "char", length: 15, nullable: false, unique: true},
         nome: {type: "varchar", length: 70, nullable: false},
         nome_social: {type: "varchar", length: 70, nullable: true},
@@ -25,7 +25,8 @@ const paciente = new EntitySchema({
     },
     relations: {
         endereco: {type: "many-to-one", target: "Endereco", nullable: false},
-        profissional: {type: "many-to-one", target: "Profissional", nullable: false}
+        profissional: {type: "many-to-one", target: "Profissional", nullable: false},
+        cbo: {type: "many-to-one", target: "Cbo", nullable: true}
     }
 });
 

@@ -7,7 +7,7 @@ const AppDataSource = new DataSource({
     username: "root",
     port: 3306,
     password: "etecembu@123",
-    database: "tcc_pep_2025",
+    database: "vya_saude",
     entities: ["src/entities/*.js"],
     migrations: ["src/database/migrations/*.cjs"]
 });
