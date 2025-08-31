@@ -1,0 +1,45 @@
+content {
+    margin-top: 0 !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    font-family: "Inter", sans-serif;
+    background-color: #c7c7c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    min-width: 28rem;
+}
+
+input {
+    margin: 0.5vh;
+    box-shadow: 2px 2px 10px 1px rgba(199, 199, 199, 0.65) !important;
+}
+
+button {
+    box-shadow: 1px 1px 15px 1px rgba(199, 199, 199, 0.85);
+}
+
+.gradiente {
+    background-image: linear-gradient(to right, rgb(93, 138, 93), rgb(126, 171, 210));
+}
+
+p {
+    margin-bottom: 0px !important;
+}
+
+div {
+    display: flex;
+}
+
+svg {
+
+    fill: #1d154a;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+
+/* btn-light border-black border-opacity-75 px-4 py-2 */
