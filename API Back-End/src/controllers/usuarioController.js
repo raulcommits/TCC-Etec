@@ -18,7 +18,7 @@ route.get("/:encontrarNome", async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {cpf, nome, email, senha, tipoUsuario} = request.body;
+    const { } = request.body;
 
     if(cpf.length != 11) {
         return response.status(400).send({"response": "O CPF deve conter 11 dígitos."});
