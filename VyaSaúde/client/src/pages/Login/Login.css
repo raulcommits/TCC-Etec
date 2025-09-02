@@ -13,21 +13,8 @@ main {
    min-width: 28rem;
 }
 
-input {
-   margin: 0.5vh;
-   box-shadow: 2px 2px 10px 1px #c7c7c7a6 !important;
-}
-
-button {
-   box-shadow: 1px 1px 15px 1px rgba(199, 199, 199, 0.85);
-}
-
 .gradiente {
    background-image: linear-gradient(to right, rgb(93, 138, 93), rgb(126, 171, 210));
-}
-
-p {
-   margin-bottom: 0px !important;
 }
 
 div {
@@ -35,23 +22,7 @@ div {
 }
 
 svg {
-   fill: #292157 !important;
+   fill: #292157;
    height: 2.5rem;
    width: 2.5rem;
-}
-
-a {  /* Link */
-   background-color: transparent;
-   cursor: pointer;
-   text-decoration: none;
-   box-shadow: none;
-   border: none;
-   color: #0000EE;
-   padding: 2px;
-}
-
-a:hover {  /* Link */
-   background-color: transparent;
-   color: #00009e;
-   padding: 2px;
 }

@@ -1,0 +1,62 @@
+#root {
+   display: block;
+}
+
+.Home_Content {
+   width: 75vw;
+   align-items: center;
+   justify-items: center;
+}
+
+.title_Home {
+   text-align: center;
+   justify-content: center;
+   margin: 8vh 0px;
+}
+
+.grid-container_Home {
+   margin-top: 13vh !important;
+   display: grid;
+   border: solid gray 2px;
+   border-radius: 25px;
+   background-color: #C6C6C6;
+   grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+   grid-template-rows: repeat(2, auto);  /* 2 linhas */
+   gap: 5vh 7vw;
+   align-items: center;
+   justify-content: center;
+   margin: 1vh 5vw;
+   padding: 3vh 10vw;
+   max-width: max-content;
+}
+
+.grid-items_Home {
+   background-color: rgb(255, 255, 255);
+   border: solid black 1px;
+   border-radius: 15px;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   font-size: large;
+   height: 8rem;
+   width: 8rem;
+}
+
+p {
+   margin: 15px;
+}
+
+.grid-items_Home a { /* Estilização em conflito com o CSS da página de login*/
+   color: rgb(0, 0, 0);
+}
+
+.grid-items_Home a:hover { /* Estilização em conflito com o CSS da página de login*/
+   color: rgb(12, 0, 119);
+}
+
+/* TELAS ESPECIFICAS */
+/* Agente_novo-paciente */
+
+.teste {
+   overflow-y: auto;
+}
