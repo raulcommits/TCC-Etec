@@ -6,8 +6,8 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1756413928330 {
-    name = 'Db1756413928330'
+module.exports = class Db1756765315269 {
+    name = 'Db1756765315269'
 
     async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE \`paciente\` (\`id\` int NOT NULL AUTO_INCREMENT, \`cpf\` varchar(11) NOT NULL, \`sus\` char(15) NOT NULL, \`nome\` varchar(70) NOT NULL, \`nome_social\` varchar(70) NULL, \`data_nascimento\` date NOT NULL, \`num_telefone\` varchar(15) NOT NULL, \`email\` varchar(100) NOT NULL, \`etnia\` char(15) NOT NULL, \`genero\` char(15) NOT NULL, \`escolaridade\` varchar(20) NOT NULL, \`nacionalidade\` char(15) NOT NULL, \`naturalidade_estado\` char(20) NOT NULL, \`naturalidade_municipio\` char(25) NOT NULL, \`estado_clinico\` varchar(10) NOT NULL, \`responsavel_legal\` varchar(5) NOT NULL, \`filiacao_mae\` char(100) NOT NULL, \`filiacao_pai\` char(100) NOT NULL, \`enderecoId\` int NOT NULL, \`profissionalId\` int NOT NULL, \`cboCodigo\` varchar(4) NULL, UNIQUE INDEX \`IDX_8eb9dba1cf8f89575da9a5cb6d\` (\`cpf\`), UNIQUE INDEX \`IDX_ec68662b30f6a2c0c85005893c\` (\`sus\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);

@@ -11,7 +11,8 @@ const profissional = new EntitySchema({
         data_admissao: {type: "date", nullable: false},
         data_demissao: {type: "date", nullable: true},
         email: {type: "varchar", length: 100, nullable: false},
-        telefone: {type: "varchar", length: 11, nullable: false}
+        telefone: {type: "varchar", length: 11, nullable: false},
+        deletedAt: {type: "datetime", nullable: true}
     },
     relations: {
         posto: {type: "many-to-one", target: "Posto", nullable: false},

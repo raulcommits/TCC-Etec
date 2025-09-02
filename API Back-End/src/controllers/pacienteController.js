@@ -1,28 +1,33 @@
-import paciente from "../entities/paciente.js";
 import express, { request, response } from "express";
+import paciente from "../entities/paciente.js";
+import profissional from "../entities/profissional.js";
+import cbo from "../entities/cbo.js";
+import endereco from '../entities/endereco.js';
 import { AppDataSource } from "../database/data-source.js";
-import { Like } from "typeorm";
+import { IsNull, Like } from "typeorm";
 
 const route = express.Router();
 const repositorioPaciente = AppDataSource.getRepository(paciente);
+const repositorioProfissional = AppDataSource.getRepository(profissional);
+const repositorioCbo = AppDataSource.getRepository(cbo);
+const repositorioEndereco = AppDataSource.getRepository(endereco);
+
 route.get("/", async (request, response) => {
-    const paciente = await repositorioPaciente.find({});
-    return response.status(200).send({"response": paciente});
+    const pacientes = await repositorioPaciente.find();
+    return response.status(200).send({"response": pacientes});
 });
 
 route.get("/:encontrarPaciente", async (request, response) => {
     const {encontrarNome} = request.params;
-    const encontrarPaciente = await repositorioPaciente.findBy({name: Like(`%${encontrarNome}%`)});
+    const encontrarPaciente = await repositorioPaciente.findBy({nome: Like(`%${encontrarNome}%`)});
     return response.status(200).send({"response": encontrarPaciente});
 });
 
 route.post("/", async (request, response) => {
-    const { cpf, sus, nome,nome_social, data_nascimento, num_telefone,
-         email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
-          estado_clinico,responsavel_legal,filiacao_mae,filiacao_pai} = request.body;
+    const {cpf, sus, nome, nome_social, data_nascimento, num_telefone,
+    email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
+    estado_clinico, responsavel_legal, filiacao_mae, filiacao_pai} = request.body;
 
-    
-    
     if(cpf.length != 11) {
         return response.status(400).send({"response": "O CPF deve conter 11 dígitos."});
     }
@@ -38,50 +43,61 @@ route.post("/", async (request, response) => {
     if(nome_social.length < 1) {
         return response.status(400).send({"response": "O nome social deve conter pelo menos 1 caracetere."});
     }
-    if(filiacao_mae < 1) {
-        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
+    if(data_nascimento.length != 8) {
+        return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
     }
-    if(filiacao_pai.length < 1) {
-        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
-    }
-    if(responsavel_legal.length < 1) {
-        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
-    }
-    if(estado_clinico.length < 1) {
-        return response.status(400).send({"response": "O estado cliico deve conter pelo menos 1 caracetere."});
-    }
-    if(naturalidade_estado.length < 1) {
-        return response.status(400).send({"response": "A naturalidade do estado deve conter pelo menos 1 caracetere."});
-    }
-    if(naturalidade_municipio.length < 1) {
-        return response.status(400).send({"response": "A naturalidade do municipio deve conter pelo menos 1 caracetere."});
-    }
-    if(nacionalidade.length < 1) {
-        return response.status(400).send({"response": "A nacionalidade deve conter pelo menos 1 caracetere."});
-    }
-    if(escolaridade.length < 1) {
-        return response.status(400).send({"response": "A escolaridade deve conter pelo menos 1 caracetere."});
-    }
-    if(genero.length < 1) {
-        return response.status(400).send({"response": "O genero deve conter pelo menos 1 caracetere."});
-    }
-    if(etnia.length < 1) {
-        return response.status(400).send({"response": "A etnia deve conter pelo menos 1 caracetere."});
-    }
-    if(num_telefone.length < 10) {
+    
+    if(num_telefone.length < 10 && num_telefone.length > 11) {
         return response.status(400).send({"response": "O numero deve conter pelo menos 10 caraceteres."});
     }
-    if (isNaN(data_nascimento.getTime())) {
-        return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
-      }
+    
     if(!email.includes("@")) {
         return response.status(400).send({"response": "O email deve conter '@'."});
     }
 
- try {
+    if(etnia.length < 1) {
+        return response.status(400).send({"response": "A etnia deve conter pelo menos 1 caracetere."});
+    }
+
+    if(genero.length < 1) {
+        return response.status(400).send({"response": "O genero deve conter pelo menos 1 caracetere."});
+    }
+    
+    if(escolaridade.length < 1) {
+        return response.status(400).send({"response": "A escolaridade deve conter pelo menos 1 caracetere."});
+    }
+    
+    if(nacionalidade.length < 1) {
+        return response.status(400).send({"response": "A nacionalidade deve conter pelo menos 1 caracetere."});
+    }
+    
+    if(naturalidade_estado.length < 1) {
+        return response.status(400).send({"response": "A naturalidade do estado deve conter pelo menos 1 caracetere."});
+    }
+
+    if(naturalidade_municipio.length < 1) {
+        return response.status(400).send({"response": "A naturalidade do municipio deve conter pelo menos 1 caracetere."});
+    }
+    if(estado_clinico.length < 1) {
+        return response.status(400).send({"response": "O estado cliico deve conter pelo menos 1 caracetere."});
+    }
+
+    if(responsavel_legal.length < 1) {
+        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
+    }
+    
+    if(filiacao_mae < 1) {
+        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
+    }
+
+    if(filiacao_pai.length < 1) {
+        return response.status(400).send({"response": "O nome deve conter pelo menos 1 caracetere."});
+    }
+
+    try {
         const novoPaciente = repositorioPaciente.create({cpf, sus, nome,nome_social, data_nascimento, num_telefone,
-         email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
-          estado_clinico,responsavel_legal,filiacao_mae,filiacao_pai});
+        email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
+        estado_clinico,responsavel_legal,filiacao_mae,filiacao_pai});
         await repositorioPaciente.save(novoPaciente);
         return response.status(201).send({"response": "Paciente cadastrado com sucesso."});
     } catch (err) {
@@ -91,10 +107,11 @@ route.post("/", async (request, response) => {
 
  
 route.put("/:id", async (request, response) => {
-      const { cpf, sus, nome,nome_social, data_nascimento, num_telefone,
-         email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
-          estado_clinico,responsavel_legal,filiacao_mae,filiacao_pai} = request.body;
-           const {id} = request.params;
+    const {id} = request.params;
+    
+    const {cpf, sus, nome,nome_social, data_nascimento, num_telefone,
+    email, etnia, genero, escolaridade, nacionalidade, naturalidade_estado, naturalidade_municipio,
+    estado_clinico,responsavel_legal,filiacao_mae,filiacao_pai} = request.body;
 
     if(isNaN(id)) {
         return response.status(400).send({"response": "O campo 'id' deve ser numérico."});
