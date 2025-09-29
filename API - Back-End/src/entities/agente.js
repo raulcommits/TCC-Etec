@@ -5,12 +5,12 @@ const agente = new EntitySchema({
     tableName: "agente",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        nome_agente: {type: "varchar", length: 100, nullable: false},
+        nome: {type: "varchar", length: 100, nullable: false},
         cpf: {type: "varchar", length: 11, unique: true, nullable: false},
-        email_institucional: {type: "varchar", length: 100, nullable: false},
-        telefone: {type: "varchar", length: 11, nullable: false},
         data_admissao: {type: "date", nullable: false},
-        data_demissao: {type: "date", nullable: true}
+        data_demissao: {type: "date", nullable: true},
+        email: {type: "varchar", length: 100, nullable: false},
+        telefone: {type: "varchar", length: 11, nullable: false}
     },
     relations: {
         posto: {type: "many-to-one", target: "Posto", nullable: false},

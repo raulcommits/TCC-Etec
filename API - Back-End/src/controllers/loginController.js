@@ -1,45 +1,88 @@
-import usuario from "../entities/usuario.js";
-import express, { request, response } from "express";
-import { AppDataSource } from "../database/data-source.js";
-import { IsNull } from "typeorm";
+// TEXTOS COMENTADOS são pontos onde está usando bcrypt. Pra realizar os testes, foi desativado essa parte pra ser implantado com mais atenção num momento posterior.
+import { AppDataSource }               from "../database/data-source.js";
+import { IsNull }                      from "typeorm";
+import express                         from "express";
+import usuario                         from "../entities/usuario.js";
+import agente                          from "../entities/agente.js";
+import paciente                        from "../entities/paciente.js";
+// import bcrypt                          from 'bcrypt';   
+import { enviarEmail }                 from "../helpers/nodemailer.js";
+import { authenticate, generateToken } from "../utils/jwt.js";
+import { generateNewPassword }         from "../utils/login.js";
 
 const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
+// const repositorioAgente = AppDataSource.getRepository(agente);
+// const repositorioPaciente = AppDataSource.getRepository(paciente);
+
+route.get("/me", authenticate, async (request, response) => {
+   const usuario = await repositorioUsuario.findOneBy({email: request.usuario.email});
+
+   if (!usuario) {
+      return response.status(404).send({response: "Usuário não encontrado."});
+   }
+
+   return response.status(200).send({
+      nome: usuario.nome,
+      nome_social: usuario.nome_social,
+      cpf: usuario.cpf,
+      email: usuario.email,
+      tipoUsuario: usuario.tipoUsuario,
+      createdAt: usuario.createdAt
+   });
+});
 
 route.post("/", async (request, response) => {
-    const {cpf, senha} = request.body;
+   let {email, senha} = request.body;
 
-    if(cpf.length != 11) {
-        return response.status(400).send({"response": "O CPF deve conter 11 dígitos."});
-    }
+   email = email.toLowerCase().trim(); // Caracteres minusculos, e remoção de espaços em branco no começo e fim
 
-    if(senha.length < 8) {
-        return response.status(400).send({"response": "A senha deve conter ao menos 8 caracteres."});
-    }
+   try {
+      if(!email.includes("@")) {
+         return response.status(400).send({response: "Verifique o formato do e-mail."});
+      }
 
-    const usuario = await repositorioUsuario.findOneBy({
-        cpf, senha
-    });
+      const usuario = await repositorioUsuario.findOneBy({
+         email, senha, deletedAt: IsNull()
+      });
+      
+      if(!usuario) {
+         return response.status(401).send({response: "Usuário não encontrado. Verifique as credenciais e tente novamente."});
+      }
 
-    if(!usuario) {
-        return response.status(401).send({"response": "Usuário ou senha inválido."});
-    }
+      // const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
-    return response.status(200).send({"response": "Login efetuado com sucesso."});
+      const token = generateToken({
+         id: usuario.id,
+         nome: usuario.nome,
+         email: usuario.email,
+         tipoUsuario: usuario.tipoUsuario
+      });
+
+      return response.status(200).send({response: "Login efetuado com sucesso.", token});
+   } catch(error) {
+      console.log(error)
+   }
 });
 
 route.put("/nova-senha", async (request, response) => {
-    const {email} = request.body;
+   const {email} = request.body;
 
-    const usuario = await repositorioUsuario.findOneBy({
-        email, deletedAt: IsNull()
-    });
+   const usuario = await repositorioUsuario.findOneBy({
+      email, deletedAt: IsNull()
+   });
 
-    if(!usuario) {
-        return response.status(400).send({"response": "Email inválido."});
-    }
+   if(!usuario) {
+      return response.status(400).send({response: "Email inválido."});
+   }
 
-    await repositorioUsuario.update({email}, {senha});
+   const novaSenha = generateNewPassword();
+   
+   await repositorioUsuario.update({email}, {senha: novaSenha});
+
+   enviarEmail(novaSenha, usuario.email, usuario.nome);
+
+   return response.status(200).send({response: "Senha enviada ao email cadastrado."});
 });
 
 export default route;

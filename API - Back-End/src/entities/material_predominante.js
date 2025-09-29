@@ -5,7 +5,7 @@ const material_predominante = new EntitySchema({
     tableName: "material_predominante",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        nome_material: {type: "varchar", length: 100, nullable: false}
+        nome_material: {type: "enum", enum: ["Alvenaria", "Madeira", "Misto", "Pré-fabricado"], nullable: false}
     }
 });
 

@@ -10,7 +10,7 @@ const registro_atividade = new EntitySchema({
         acoes_realizadas: {type: "text", nullable: true}
     },
     relations: {
-        agente: {type: "many-to-one", target: "Profissional", nullable: false},
+        agente: {type: "many-to-one", target: "Agente", nullable: false},
         paciente: {type: "many-to-one", target: "Paciente", nullable: false}
     }
 });
