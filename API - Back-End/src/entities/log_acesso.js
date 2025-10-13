@@ -6,7 +6,7 @@ const log_acesso = new EntitySchema({
     columns: {
         id: {primary: true, type: "int", generated: true},
         login: {type: "datetime", default: () => "CURRENT_TIMESTAMP", nullable: false},
-        acao: {type: "text", nullable: false},
+        atividade: {type: "text", nullable: false},
         logout: {type: "datetime", nullable: true}
     },
     relations: {

@@ -1,11 +1,12 @@
 import { EntitySchema } from "typeorm";
 
-const agente = new EntitySchema({
-    name: "Agente",
-    tableName: "agente",
+const medico = new EntitySchema({
+    name: "Medico",
+    tableName: "medico",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        nome_agente: {type: "varchar", length: 100, nullable: false},
+        nome_medico: {type: "varchar", length: 100, nullable: false},
+        crm: {type: "varchar", length: 6, nullable: false, unique: true},
         cpf: {type: "varchar", length: 11, unique: true, nullable: false},
         data_admissao: {type: "date", nullable: false},
         data_demissao: {type: "date", nullable: true},
@@ -18,4 +19,4 @@ const agente = new EntitySchema({
     }
 });
 
-export default agente;
+export default medico;

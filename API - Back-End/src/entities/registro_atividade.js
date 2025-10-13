@@ -6,8 +6,8 @@ const registro_atividade = new EntitySchema({
     columns: {
         id: {primary: true, type: "int", generated: true},
         data_visita: {type: "datetime", nullable: false},
-        observacoes: {type: "text", nullable: true},
-        acoes_realizadas: {type: "text", nullable: true}
+        registro_visita: {type: "text", nullable: false},
+        observacoes: {type: "text", nullable: true}
     },
     relations: {
         agente: {type: "many-to-one", target: "Agente", nullable: false},

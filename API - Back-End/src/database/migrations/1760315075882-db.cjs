@@ -6,8 +6,8 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1758498396416 {
-    name = 'Db1758498396416'
+module.exports = class Db1760315075882 {
+    name = 'Db1760315075882'
 
     async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE \`paciente\` (\`id\` int NOT NULL AUTO_INCREMENT, \`nome\` varchar(70) NOT NULL, \`nome_social\` varchar(70) NULL, \`cpf\` varchar(11) NOT NULL, \`sus\` char(15) NOT NULL, \`data_nascimento\` date NOT NULL, \`genero\` char(15) NOT NULL, \`etnia\` char(15) NOT NULL, \`estado_civil\` char(50) NOT NULL, \`nacionalidade\` char(15) NOT NULL, \`naturalidade_estado\` char(2) NOT NULL, \`naturalidade_municipio\` char(25) NOT NULL, \`filiacao_mae\` char(100) NOT NULL, \`filiacao_pai\` char(100) NOT NULL, \`num_telefone\` varchar(12) NOT NULL, \`email\` varchar(100) NOT NULL, \`escolaridade\` varchar(30) NOT NULL, \`nome_instituicao\` varchar(50) NOT NULL, \`tipo_instituicao\` varchar(50) NOT NULL, \`estado_clinico\` varchar(50) NOT NULL, \`leitura\` tinyint NOT NULL DEFAULT 1, \`escrita\` tinyint NOT NULL DEFAULT 1, \`responsavel_legal\` varchar(70) NOT NULL, \`enderecoId\` int NOT NULL, \`agenteId\` int NULL, \`cboCodigo\` varchar(4) NULL, UNIQUE INDEX \`IDX_8eb9dba1cf8f89575da9a5cb6d\` (\`cpf\`), UNIQUE INDEX \`IDX_ec68662b30f6a2c0c85005893c\` (\`sus\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
