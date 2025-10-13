@@ -55,7 +55,7 @@ route.post("/", async (request, response) => {
     }
 });
 
-route.put("/", async (request, response) => {
+route.put("/:id", async (request, response) => {
     const {id} = request.params;
     const {registro_visita, observacoes, id_agente, id_paciente} = request.body;
     
