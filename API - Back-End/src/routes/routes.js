@@ -30,12 +30,12 @@ const routes = express();
 routes.use("/endereco",          authenticate, enderecoController);
 routes.use("/login",             loginController);
 // routes.use("/registro",          registroController);
-routes.use("/usuario",           authenticate, usuarioController);
+routes.use("/usuario",            usuarioController);
 routes.use("/usuarioCadastro",   usuarioCadastroController);
 
 //       Usuários:
 // routes.use("/admin",             authenticate, adminController);
-routes.use("/gerente",           authenticate, gerenteController);
+routes.use("/gerente",            gerenteController);
 routes.use("/agente",            authenticate, agenteController);
 // routes.use("/recepcao",          authenticate, recepcaoController);
 routes.use("/paciente",          authenticate, pacienteController);

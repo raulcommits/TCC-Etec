@@ -16,6 +16,25 @@ const repositorioagente = AppDataSource.getRepository(agente);
 const repositorioCbo = AppDataSource.getRepository(cbo);
 const repositorioEndereco = AppDataSource.getRepository(endereco);
 
+route.get("/", async (request, response) => {
+    const pacientes = await repositorioPaciente.find();
+    return response.status(200).send({response: pacientes});
+});
+
+route.get("/:encontrarPaciente", async (request, response) => {
+   const {encontrarPaciente} = request.params;
+   const verificarPaciente = await repositorioPaciente.find({where: [
+      {nome: Like(`%${encontrarPaciente}`)},
+      {cpf: encontrarPaciente}
+   ]});
+
+   if (!verificarPaciente || verificarPaciente.length === 0) {
+      return response.status(404).send({ message: "Paciente não encontrado" });
+   }
+
+   return response.status(200).send({response: verificarPaciente});
+});
+
 route.get("/me", authenticate, async (request, response) => {
    const dadosPaciente = await repositorioPaciente.findOne({
       where: {email: request.usuario.email},
@@ -36,25 +55,6 @@ route.get("/me", authenticate, async (request, response) => {
    return response.status(200).send({response: paciente});
 });
 
-route.get("/", async (request, response) => {
-    const pacientes = await repositorioPaciente.find();
-    return response.status(200).send({response: pacientes});
-});
-
-route.get("/:encontrarPaciente", async (request, response) => {
-   const {encontrarPaciente} = request.params;
-   const verificarPaciente = await repositorioPaciente.find({where: [
-      {nome: Like(`%${encontrarPaciente}`)},
-      {cpf: encontrarPaciente}
-   ]});
-
-   if (!verificarPaciente || verificarPaciente.length === 0) {
-      return response.status(404).send({ message: "Paciente não encontrado" });
-   }
-
-   return response.status(200).send({response: verificarPaciente});
-});
-
 route.post("/", async (request, response) => {
    const {cpf, sus, nome, nome_social, data_nascimento, num_telefone, email, estado_civil, etnia, genero, escolaridade, 
       nacionalidade, naturalidade_estado, naturalidade_municipio, estado_clinico, responsavel_legal, filiacao_mae, filiacao_pai, 
@@ -72,9 +72,9 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
 
-   // if(data_nascimento.length != 8) {
-   //    return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
-   // }
+   if(data_nascimento.length != 8) {
+      return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
+   }
    
    if(num_telefone.length < 10 || num_telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter pelo menos 10 caraceteres."});

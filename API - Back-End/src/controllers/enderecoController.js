@@ -15,6 +15,17 @@ const repositorioAnimal = AppDataSource.getRepository(animal);
 const repositorioImovel = AppDataSource.getRepository(imovel);
 const repositorioMaterial = AppDataSource.getRepository(material_predominante);
 
+route.get("/", async (request, response) => {
+    const enderecos = await repositorioEndereco.find();
+    return response.status(200).send({response: enderecos});
+});
+
+route.get("/:encontrarLogradouro", async (request, response) => {
+    const {encontrarLogradouro} = request.params;
+    const encontrarEndereco = await repositorioEndereco.findBy({logradouro: Like(`%${encontrarLogradouro}`)});
+    return response.status(200).send({response: encontrarEndereco});
+});
+
 route.get("/me", authenticate, async (request, response) => {
    const endereco = await repositorioPaciente.findOne({
       where: {email: request.usuario.email},
@@ -28,55 +39,51 @@ route.get("/me", authenticate, async (request, response) => {
    return response.status(200).send({response: endereco});
 });
 
-route.get("/", async (request, response) => {
-    const enderecos = await repositorioEndereco.find();
-    return response.status(200).send({response: enderecos});
-});
-
-route.get("/:encontrarLogradouro", async (request, response) => {
-    const {encontrarLogradouro} = request.params;
-    const encontrarEndereco = await repositorioEndereco.findBy({logradouro: Like(`%${encontrarLogradouro}`)});
-    return response.status(200).send({response: encontrarEndereco});
-});
-
 route.post("/", async (request, response) => {
-      const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
-      try {
-         const zona = await repositorioZona.findOneBy({
-            id: id_zona
-         })
-         if(!zona) {
-            return response.status(400).send({response: "Esse endereço não foi encontrado."});
-         }
+    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
+    
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
 
-         const material_predominante = await repositorioMaterial.findOneBy({
-            id: id_material,
-         })
-         if(!material_predominante) {
-            return response.status(400).send({response: "Esse material não foi encontrado."});
-         }
+    if(!estados.includes(estado.toUpperCase())) {
+        return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
+    }
 
-         const tipo_imovel = await repositorioImovel.findOneBy({
-            id: id_imovel
-         })
-         if(!tipo_imovel) {
-            return response.status(400).send({response: "Esse imovel não foi encontrado."});
-         }
-         const tipo_animal = await repositorioAnimal.findOneBy({
-            id: id_animal
-         })
-         if(!tipo_animal) {
-            return response.status(400).send({response: "Esse animal não foi encontrado."});
-         }
+    try {
+        const zona = await repositorioZona.findOneBy({
+        id: id_zona
+        })
+        if(!zona) {
+        return response.status(400).send({response: "Esse endereço não foi encontrado."});
+        }
 
-         const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zona, material_predominante, tipo_imovel, tipo_animal});
+        const material_predominante = await repositorioMaterial.findOneBy({
+        id: id_material,
+        })
+        if(!material_predominante) {
+        return response.status(400).send({response: "Esse material não foi encontrado."});
+        }
 
-         await repositorioEndereco.save(novo_endereco);
-         return response.status(201).send({response: "Endereco cadastrado com sucesso.", id: novo_endereco.id});
-      } catch (err) {
-         console.log("Erro: ",err)
-         return response.status(500).send({response: err});
-      }
+        const tipo_imovel = await repositorioImovel.findOneBy({
+        id: id_imovel
+        })
+        if(!tipo_imovel) {
+        return response.status(400).send({response: "Esse imovel não foi encontrado."});
+        }
+        const tipo_animal = await repositorioAnimal.findOneBy({
+        id: id_animal
+        })
+        if(!tipo_animal) {
+        return response.status(400).send({response: "Esse animal não foi encontrado."});
+        }
+
+        const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zona, material_predominante, tipo_imovel, tipo_animal});
+
+        await repositorioEndereco.save(novo_endereco);
+        return response.status(201).send({response: "Endereco cadastrado com sucesso.", id: novo_endereco.id});
+    } catch (err) {
+        console.log("Erro: ",err)
+        return response.status(500).send({response: err});
+    }
 });   
 
 route.put("/:id", async (request, response) => {
@@ -107,9 +114,10 @@ route.put("/:id", async (request, response) => {
         return response.status(400).send({response: "A cidade deve conter ao menos 1 caractere."});
     }
 
-    if(estado.toUpperCase() != "AC" && estado.toUpperCase() != "AL" && estado.toUpperCase() != "AP" && estado.toUpperCase() != "AM" && estado.toUpperCase() != "BA" && estado.toUpperCase() != "CE" && estado.toUpperCase() != "DF" && estado.toUpperCase() != "ES" && estado.toUpperCase() != "GO" && estado.toUpperCase() != "MA" && estado.toUpperCase() != "MT" && estado.toUpperCase() != "MS" && estado.toUpperCase() != "MG"
-    && estado.toUpperCase() != "PA" && estado.toUpperCase() != "PB" && estado.toUpperCase() != "PR" && estado.toUpperCase() != "PE" && estado.toUpperCase() != "PI" && estado.toUpperCase() != "RJ" && estado.toUpperCase() != "RN" && estado.toUpperCase() != "RS" && estado.toUpperCase() != "RO" && estado.toUpperCase() != "RR" && estado.toUpperCase() != "SC" && estado.toUpperCase() != "SP" && estado.toUpperCase() != "SE" && estado.toUpperCase() != "TO") {
-        return response.status(400).send({response: "O estado deve ser uma das unidades federativas."});
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", TO];
+
+    if(!estados.includes(estado.toUpperCase())) {
+        return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
     }
 
     if(cep.length != 8) {

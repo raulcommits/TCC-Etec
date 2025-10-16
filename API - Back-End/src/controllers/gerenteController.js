@@ -22,18 +22,18 @@ route.post("/", async (request, response) => {
    const gerente = request.body;
    const cargo = "Administrador da UBS";
 
-   const {nome, num_telefone} = gerente;
+   const {nome, telefone} = gerente;
 
    if(nome.length < 1) {
       return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
    
-   if(num_telefone.length < 10 || num_telefone.length > 11) {
+   if(telefone.length < 10 || telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter pelo menos 10 caraceteres."});
    }
 
    try {
-      const novo_gerente = repositorioGerente.create({nome, num_telefone, cargo});
+      const novo_gerente = repositorioGerente.create({nome, telefone, cargo});
       await repositorioGerente.save(novo_gerente);
    } catch (err) {
       console.log(err)

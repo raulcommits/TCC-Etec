@@ -12,8 +12,6 @@ import { generateNewPassword }         from "../utils/login.js";
 
 const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
-// const repositorioAgente = AppDataSource.getRepository(agente);
-// const repositorioPaciente = AppDataSource.getRepository(paciente);
 
 route.get("/me", authenticate, async (request, response) => {
    const usuario = await repositorioUsuario.findOneBy({email: request.usuario.email});

@@ -4,11 +4,13 @@ import express                from "express";
 import registro               from "../entities/registro_atividade.qjs";
 import agente                 from "../entities/agente.js";
 import paciente               from "../entities/paciente.js";
+import endereco               from "../entities/endereco.js";
 
 const route = express.Router();
 const repositorioRegistro = AppDataSource.getRepository(registro);
 const repositorioAgente = AppDataSource.getRepository(agente);
 const repositorioPaciente = AppDataSource.getRepository(paciente);
+const repositorioEndereco = AppDataSource.getRepository(endereco);
 
 route.get("/", async (request, response) => {
     const registros = await repositorioRegistro.find();
@@ -22,12 +24,30 @@ route.get("encontrarVisita", async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {registro_visita, observacoes, id_agente, id_paciente} = request.body;
+    const {data_visita, registro_visita, motivo, desfecho, descricao, id_agente, id_paciente, id_endereco} = request.body;
     
+    const motivos = ["Cadastramento/Atualização", "Visita Periódica"];
+
+    if(data_visita) {
+
+    }
+
     if(registro_visita.length < 10) {
         return response.status(400).send({"response": "O registro da visita deve possuir no mínimo 10 caracteres."});
     }
 
+    if(!motivos.includes(motivo.toLowerCase())) {
+        return response.status(400).send({response: "O motivo deve corresponder a uma das opções."});
+    }
+
+    if(desfecho) {
+
+    }
+
+    if(descricao) {
+
+    }
+    
     try {
         const agente = await repositorioAgente.findOneBy({
             id: id_agente,
@@ -43,10 +63,15 @@ route.post("/", async (request, response) => {
         if(!paciente) {
             return response.status(400).send({response: "Esse paciente não foi encontrado no sistema."});
         }
-        
-        const observacao = observacoes != null ? observacoes : null;
 
-        const novo_registro = repositorioRegistro.create({registro_visita, observacoes : observacao, agente, paciente});
+        const endereco = await repositorioEndereco.findOneBy({
+            id: id_endereco
+        });
+        if(!endereco) {
+            return response.status(400).send({response: "Esse endereço não foi encontrado."});
+        }
+        
+        const novo_registro = repositorioRegistro.create({data_visita, registro_visita, motivo, desfecho, descricao, agente, paciente, endereco});
         
         await repositorioRegistro.save(novo_registro);
     } catch(err) {
@@ -55,7 +80,7 @@ route.post("/", async (request, response) => {
     }
 });
 
-route.put("/:id", async (request, response) => {
+route.put("/", async (request, response) => {
     const {id} = request.params;
     const {registro_visita, observacoes, id_agente, id_paciente} = request.body;
     

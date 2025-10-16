@@ -7,11 +7,14 @@ const registro_atividade = new EntitySchema({
         id: {primary: true, type: "int", generated: true},
         data_visita: {type: "datetime", nullable: false},
         registro_visita: {type: "text", nullable: false},
-        observacoes: {type: "text", nullable: true}
+        motivo: {type: "enum", enum: ["Cadastramento/Atualização", "Visita Periódica"], nullable: false},
+        desfecho: {type: "varchar", length: 15, nullable: false},
+        descricao: {type: "text", nullable: true}
     },
     relations: {
         agente: {type: "many-to-one", target: "Agente", nullable: false},
-        paciente: {type: "many-to-one", target: "Paciente", nullable: false}
+        paciente: {type: "many-to-one", target: "Paciente", nullable: false},
+        endereco: {type: "many-to-one", target: "Endereco", nullable: false}
     }
 });
 

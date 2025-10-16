@@ -21,6 +21,8 @@ route.get("/:encontrarNome", async (request, response) => {
 route.post("/", async (request, response) => {
    const {cpf, nome, email, senha, tipoUsuario} = request.body;
 
+   const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
+
    if(cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
@@ -37,7 +39,7 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
 
-   if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
+   if(!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
       return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
    }
 
@@ -54,6 +56,8 @@ route.put("/:cpf", async (request, response) => {
    const {cpf} = request.params;
    const {nome, email, senha, tipoUsuario} = request.body;
 
+   const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
+
    if(cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
@@ -67,8 +71,8 @@ route.put("/:cpf", async (request, response) => {
    if(senha.length < 8) {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
-   if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
-      return response.status(400).send({response: "O usuário deve ser um dos três tipos: 'Paciente'; 'Agente'; 'Admin'."});
+   if(!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
+      return response.status(400).send({response: "O usuário deve corresponder a um dos níveis exibidos."});
    }
 
    try {

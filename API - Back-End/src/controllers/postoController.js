@@ -1,7 +1,7 @@
 import { AppDataSource }      from "../database/data-source.js";
 import { Like }               from "typeorm";
 import express                from "express";
-import posto from "../entities/postosaude.js/index.js";
+import posto from "../entities/postosaude.js";
 import endereco from "../entities/endereco.js";
 import gerente from "../entities/gerenteposto.js";
 
