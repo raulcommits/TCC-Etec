@@ -14,7 +14,7 @@ route.get("/", authenticate, async (request, response) => {
 
 route.get("/:encontrarNome", async (request, response) => {
    const {encontrarNome} = request.params;
-   const encontrarUsuario = await repositorioUsuario.findBy({nome: Like(`%${encontrarNome}%`)});
+   const encontrarUsuario = await repositorioUsuario.findOneBy({cpf: encontrarNome});
    return response.status(200).send({response: encontrarUsuario});
 });
 

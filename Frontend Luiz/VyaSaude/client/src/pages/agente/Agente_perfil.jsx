@@ -5,6 +5,7 @@ import Sidenav from "../../components/Sidenav/Sidenav_agente/"
 import ButtonBack from "../../components/ButtonBack/Index"
 // import PageWIP from "../../components/PageWIP/Index"
 import api from '../../services/api';
+import { getUser } from "../../helpers/auth"
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material"
@@ -12,39 +13,56 @@ import { TextField } from "@mui/material"
 function Agente_perfil() {
    const navigate = useNavigate();
 
-   const [dadosAgente, setDadosAgente] = useState({
-      nome: '',
+   const [usuario, setUsuario] = useState(undefined);
+   
+   const [dados, setDados] = useState({
+      nome_agente: '',
       cpf: '',
       email: '',
       telefone: '',
       data_admissao: '',
-      data_demissao: '',
-      posto: '',
-      cbo_codigo: '',
-      cbo_descricao: '',
-      createdAt: '',
-      deletedAt: ''
+      posto: {
+         nome_posto: ''
+      },
+      cbo: {
+         codigo: '',
+         descricao: ''
+      },
+      createdAt: ''
    });
 
+   
+   useEffect(() => {
+      const response = getUser();
+      setUsuario(response);
+   }, []);
+
+   
    useEffect(() => {
       async function buscarDados() {
+         if (!usuario?.cpf) return;
+
          try {
-            const token = sessionStorage.getItem("token");
+            const [dadosAgente, dadosUsuario] = await Promise.all([
+               await api.get(`/agente/${usuario?.cpf}`),
+               await api.get(`/usuario/${usuario?.cpf}`)
+            ]);
+            
+            console.log("Dados agente: ", dadosAgente.data);
+            console.log("Dados usuario: ", dadosUsuario.data.response);
 
-            const response = await api.get('/agente/perfil', {
-               headers: {
-                  Authorization: `Bearer ${token}`  
-               }
+            setDados({
+               ...dadosAgente.data,
+               createdAt: dadosUsuario.data.response.createdAt
             });
-
-            setDadosAgente(response.data);
-            console.log(response);
-         } catch (error) {
-            console.error(error);
          }
-      };
+         catch (error) {
+            console.error(error);
+         } 
+      }
       buscarDados();
-   }, []);
+   }, [usuario]);
+
    
    return(
       <div className="app">
@@ -65,14 +83,14 @@ function Agente_perfil() {
                   </div>
 
                   <div className="form-fields-agente">
-                     <TextField className="width-large disable" variant="outlined" value={dadosAgente.nome} label="Nome completo"/>
-                     <TextField className="width-medium disable" variant="outlined" value={dadosAgente.cpf} label="CPF"/>
+                     <TextField className="width-large disable" variant="outlined" value={dados.nome_agente} label="Nome completo"/>
+                     <TextField className="width-medium disable" variant="outlined" value={dados.cpf} label="CPF"/>
                   </div>
 
                   <div className="form-fields-agente">
-                     <TextField className="width-medium disable" variant="outlined" value={dadosAgente.email} label="E-mail"/>
-                     <TextField className="width-medium" variant="outlined" value={dadosAgente.telefone} label="Telefone" />
-                     <TextField className="width-medium" variant="outlined" value={dadosAgente.posto} label="Posto"/>
+                     <TextField className="width-medium disable" variant="outlined" value={dados.email} label="E-mail"/>
+                     <TextField className="width-medium" variant="outlined" value={dados.telefone} label="Telefone" />
+                     <TextField className="width-medium" variant="outlined" value={dados?.posto?.nome_posto} label="Posto"/>
                   </div>
                </div>
 
@@ -84,13 +102,13 @@ function Agente_perfil() {
 
                <div className="form-fields-agente">
                   <TextField className="width-large disable" variant="outlined" value={""} label="Cadastrado por" disabled/>
-                  <TextField className="width-medium disable" variant="outlined" value={new Date(dadosAgente.createdAt).toLocaleString('pt-BR')} label="Data e Hora de criação" />
+                  <TextField className="width-medium disable" variant="outlined" value={new Date(dados?.createdAt).toLocaleString('pt-BR')} label="Data e Hora de criação" />
                </div>
 
                <div className="form-fields-agente">
-                  <TextField className="width-small disable" variant="outlined" value={dadosAgente.data_admissao} label="Data de Admissão" />
-                  <TextField className="width-small disable" variant="outlined" value={dadosAgente.cbo_codigo} label="Código CBO" />
-                  <TextField className="width-large disable" variant="outlined" value={dadosAgente.cbo_descricao} label="Descrição da Atividade" />
+                  <TextField className="width-small disable" variant="outlined" value={dados.data_admissao} label="Data de Admissão" />
+                  <TextField className="width-small disable" variant="outlined" value={dados?.cbo?.codigo} label="Código CBO" />
+                  <TextField className="width-large disable" variant="outlined" value={dados?.cbo?.descricao} label="Descrição da Atividade" />
                </div>
 
                {/* Botões pra voltar e alterar cadastro*/}
