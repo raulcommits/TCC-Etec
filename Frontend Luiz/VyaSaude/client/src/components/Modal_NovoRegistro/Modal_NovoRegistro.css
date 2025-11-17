@@ -19,6 +19,7 @@
       margin: 2vh 0;
 
       span {
+         display: flex;
          margin: 0;
       }
 

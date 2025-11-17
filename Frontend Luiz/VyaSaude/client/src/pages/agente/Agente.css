@@ -26,7 +26,9 @@
    left: 300px;
 } */
 
-.agente-perfil {
+.agente_perfil-content {
+   position: relative;
+
    input {
       font-size: 1rem !important;
       height: 1.3rem !important;
@@ -36,48 +38,36 @@
       background-color: #c0c5cf34;
       cursor: none !important;
    }
-}
 
 
-.form-fields-agente {
-   display: flex;
-   text-align: center;
-   align-items: center;
-   justify-content: space-between;
-   white-space: nowrap;
-   margin: 20px 0px;
-   /* max-width: 120vw; */
+   .agente_perfil-elements {
+      hr {
+         margin: 5vh 0;
+      }
+      
+      span {
+         display: flex;
+         margin: 20px 0px;
+      }
 
-   .dropDownMenu-A {
-      width: 270px;
-
+      .grid {
+         display: grid;
+         gap: 10px;
+         margin-bottom: 10px;
+      }
+      
+      .grid_1 {
+         grid-template-columns: 2fr 1fr;
+      }
+      
+      .grid_2 {
+         grid-template-columns: 1fr 1fr 1fr;         
+      }
+      
+      .grid_3 {
+         grid-template-columns: 1fr 1fr 2fr;
+      }
    }
-
-   .width-large input {
-      display: flex;
-      align-items: center;
-      width: 47vw;
-   }
-
-   .width-medium input {
-      display: flex;
-      align-items: center;
-      width: 23vw
-   }
-
-   .width-small input {
-      display: flex;
-      align-items: center;
-      width: 10vw
-   }
-
-   label {  /* Labels dos inputs */
-      font-size: 1.2rem;
-   }
-}
-
-.table-inputs {
-   display: flex;
 }
 
 
