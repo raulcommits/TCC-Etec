@@ -18,14 +18,6 @@
    width: 7vw !important;
 }
 
-/* .content-pages {
-   align-items: center;
-   margin-left: 300px;
-   margin-top: 7vh;
-   height: calc(100vh - 7vh);
-   left: 300px;
-} */
-
 .agente_perfil-content {
    position: relative;
 
@@ -83,7 +75,8 @@
 
          button {
             gap: 12px;
-            height: 5vh;
+            height: 4vh;
+            max-height: 50px;
          }
       }
    }

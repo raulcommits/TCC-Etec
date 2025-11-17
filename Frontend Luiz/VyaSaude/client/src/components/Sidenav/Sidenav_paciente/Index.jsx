@@ -1,4 +1,4 @@
-import './Index.css'
+import '../../Sidenav/Index.css'
 import { Link } from "react-router-dom";
 
 import UserManagerIcon from '../iconsSideBar/UserManagerIcon.png';

@@ -12,6 +12,10 @@
    font-style: normal;
 }
 
+body {
+   height: 100vh;
+}
+
 html {
    height: 100vh;
    user-select: none;
@@ -20,7 +24,7 @@ html {
 /* Estilização global */ 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button { /* Remover setas dos inputs(Chrome, Chromium-browsers)*/ 
-  -webkit-appearance: none;
+   -webkit-appearance: none;
 }
 
 input[type=number] { /* Remover setas dos inputs(Firefox) */ 
@@ -39,29 +43,71 @@ button {
    box-shadow: 1px 1px 15px 1px rgba(199, 199, 199, 0.85);
 }
 
-h1, h2, h3, h4, h5 {
-   margin: 0 !important;
+.title_Home {
+   justify-content: center;
+   text-align: center;
+   padding: 5vh 2vh;
+   width: 100%;
+   flex-shrink: 0;
 }
 
-/* Estilização especificas */ 
-main {
-   /* background: #F2F3F4; */
-   /* background: linear-gradient(360deg, #ffffff 95%, #ebe8e8 100%); */
+#logoMore {
+   height: 50px;
+}
+
+.shortcutField {
+   display: flex;
+   gap: 12px;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   flex-shrink: 0;
+   
+   .shortcutClick {
+      background-color: #000000;
+      color: #fff;
+      padding: 17px 30px 0 30px;
+      
+      border: solid 3px #000000;
+      border-bottom: solid 5px #000000;
+      border-radius: 30px;
+   }
+   .shortcutClick:hover {
+      background-color: #39a742;
+   }
+}
+
+.paciente-home {
+   grid-template-columns: repeat(3, auto) !important; /* 3 colunas iguais */
+   grid-template-rows: repeat(2, auto) !important;  /* 2 linhas */
+}
+
+.gridBoxOtherOptions {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+   flex: 1;
+   overflow-y: auto;
+   
+   .gridBoxOptions_lines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+   };
 }
 
 .simpleBoxShadow {
    background-color: #ffffff;
-
+   
    padding: 50px;
-
+   
    border-radius: 20px;
    border: none;
-
+   
    display: flex;
    align-items: center;
    justify-content: center;
    flex-direction: column;
-
+   
    box-shadow: 0px 8px 37px -14px #0000003d;
    -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
    -moz-box-shadow: 0px 8px 37px -14px #0000003d;
@@ -69,15 +115,15 @@ main {
 
 .content-login_app-css {
    user-select: none;
-
+   
    height: 100vh;
    width: 100%;
-
+   
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
-
+   
    background-color: #39a742;
    background: #a7dba7;
    background: linear-gradient(90deg, #d6f2d6 0%, #cae8ff 100%);
@@ -88,7 +134,7 @@ main {
    border-radius: 20px;
    padding: 50px 80px 50px 80px;
    border: none;
-
+   
    box-shadow: 0px 8px 37px -14px #0000003d;
    -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
    -moz-box-shadow: 0px 8px 37px -14px #0000003d;
@@ -98,27 +144,28 @@ main {
 .content-home { /* Telas de Home */ 
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: flex-start;
    align-items: center;
    margin-left: 300px;
-   margin-top: 7vh;
-   height: calc(100vh - 7vh);
+   margin-top: 10vh;
+   height: calc(100vh - 10vh);
+   width: calc(100vw - 300px);
 }
-
 .content-pages { /* Demais telas */ 
    align-items: center;
    margin-left: 300px;
    margin-top: 7vh;
    height: calc(100vh - 7vh);
    left: 300px;
-   padding: 20px 2vw;
+   padding: 40px; /* espaço interno maior para separar do header/sidenav */
+   box-sizing: border-box;
 }
 
 .directAccessDiv {
    margin-top: 20px;
    display: flex;
    gap: 10px;
-
+   
    .directAccessButton {
       background-color: #fff;
       border-radius: 20px;
@@ -144,20 +191,15 @@ main {
 
 .app {
    position: relative;
-   height: calc(100vh - 7vh);
+   height: calc(100vh - 10vh);
+   display: flex;
+   flex-direction: column;
 }
 
 .layout {
    display: flex;
    width: calc(100vw - 300px);
    height: calc(100vh - 7vh);
-}
-
-.title_Home {
-   justify-content: center;
-   text-align: center;
-   padding: 2vh;
-   width: 100%;
 }
 
 
@@ -225,111 +267,54 @@ main {
    flex-direction: column;
 }
 
-.shortcutField {
-   display: flex;
-   gap: 12px;
-   padding-top: 4px;
-   padding-bottom: 4px;
-
-   .shortcutClick {
-      background-color: #000000;
-      color: #fff;
-      padding: 17px 30px 0 30px;
-
-      border: solid 3px #000000;
-      border-bottom: solid 5px #000000;
-      border-radius: 30px;
+@media (max-width: 887px) {
+   .content-home {
+      width: 99.99%;
+      margin-left: 0;
+      margin-top: 10vh;
    }
-   .shortcutClick:hover {
-      background-color: #39a742;
+   .content-pages {
+      width: 99.99%;
+      margin-left: 0;
+      padding: 16px;
+   }
+   .gridBoxOtherOptions .gridBoxOptions_lines {
+      flex-direction: column;
+      align-items: center;
    }
 }
 
-.gridBoxOtherOptions {
-   display: flex;
-   flex-direction: column;
-   gap: 30px;
+@media (min-width: 888px) and (max-width: 1519px) {
+   .content-home {
+      width: 92.7%;
+      margin-left: 90px;
+      margin-top: 10vh;
+   }
+   .content-pages {
+      width: calc(100vw - 180px);
+      margin-left: 90px;
+      padding: 24px;
+   }
+   .gridBoxOtherOptions {
+      align-items: center;
+   }
+   .gridBoxOtherOptions .gridBoxOptions_lines {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      max-width: none;
+   }
+}
 
-   .gridBoxOptions_lines {
-      display: flex;
-      flex-direction: row;
-      gap: 50px;
-
-      .boxSimpleInfos {
-         width:370px;
-
-         /* border: solid 3px #000000; */
-         /* border-bottom: solid 5px #000000; */
-         border-radius: 18px;
-
-         box-shadow: 0px 8px 37px -14px #0000003d;
-         -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
-         -moz-box-shadow: 0px 8px 37px -14px #0000003d;
-         transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out, -moz-box-shadow 0.3s ease-in-out;
-
-         position: relative;
-
-         .headerLine {
-            background-color: #b9dcb9;
-            background: #B9DCB9;
-            background: linear-gradient(90deg, #b9dcb9 63%, #59808f 100%);
-
-            color: #3B653C;
-
-            border-bottom: solid 3px #3B653C;
-            border-radius: 15px 15px 0 0;
-
-            padding: 15px 20px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            font-family: "Montserrat", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 800;
-            font-style: normal;
-
-            h5 {
-               margin: 0;
-            }
-
-            .headerImage {
-               height: 30px;
-            }
-         }
-         .mainLine {
-            padding: 20px 30px 20px 30px;
-         }
-         .buttonLine {
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-            padding: 0 15px 15px 0;
-
-            .buttonB {
-               color: #000;
-               background-color: #bbd9e8;
-               border: solid 1px #a0b2cb;
-               border-radius: 10px;
-               padding: 10px 20px;
-               transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-            }
-            .buttonB:hover {
-               background-color: #5e8891;
-               color: #fff;
-            }
-         }
-
-      }
-      .boxSimpleInfos:hover {
-         box-shadow: 0px 8px 37px -14px rgba(0,0,0,0.6);
-         -webkit-box-shadow: 0px 8px 37px -14px #00000099;
-         -moz-box-shadow: 0px 8px 37px -14px #3d955999;
-      }
-
-      .boxSimpleInfos-larger {
-         width: 790px;
-      }
-   };
+@media (min-width: 1520px) {
+   .content-home {
+      width: calc(100vw - 317px);
+      margin-left: 300px;
+      margin-top: 10vh;
+   }
+   .content-pages {
+      width: calc(100vw - 340px);
+      margin-left: 300px;
+      padding: 40px;
+   }
 }

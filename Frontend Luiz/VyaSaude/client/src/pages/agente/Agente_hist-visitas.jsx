@@ -6,6 +6,12 @@ import api from '../../services/api';
 
 import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_agente"
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 
 import Modal_NovoRegistro from "../../components/Modal_NovoRegistro";
 import Modal_EditarRegistro from "../../components/Modal_EditarRegistro";
@@ -43,6 +49,13 @@ function Agente_histVisitas() {
       <div className="app">
          <Header/>
          <Sidenav/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <NavBar items={[
+            { label: 'Home', href: '/agente_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
+            { label: 'Agenda', href: '/Agente_hist-visitas', icon: query },
+            { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
+         ]} />
          <main className="content-pages">
             <div className="agente-histVisitas d-block" style={{position: "relative"}}>
                <div className="title-pages">

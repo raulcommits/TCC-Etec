@@ -1,6 +1,12 @@
 import "./Admin.css"
 import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_admin"
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png';
 import api from '../../services/api';
 import { useState} from 'react';
 import { useNavigate } from "react-router-dom";
@@ -132,6 +138,13 @@ function Admin_novoCadastro() {
       <div className="app">
          <Header/>
          <Sidenav/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <NavBar items={[
+            { label: 'Home', href: '/admin_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Admin_home-usuario', icon: AddUserMale },
+            { label: 'Agenda', href: '/Admin_hist-visitas', icon: query },
+            { label: 'Banco', href: '/Admin_b-dados', icon: dashIcon }
+         ]} />
          <main className="content-pages content-pages-admin">
             <div className="d-block">
                <div className="title-pages">

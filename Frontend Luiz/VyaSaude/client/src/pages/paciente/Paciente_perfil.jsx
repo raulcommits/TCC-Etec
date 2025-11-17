@@ -4,6 +4,12 @@ import Header from "../../components/Header/"
 import Sidenav from "../../components/Sidenav/Sidenav_paciente/"
 import ButtonBack from "../../components/ButtonBack/Index"
 import PageWIP from "../../components/PageWIP/Index"
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIcon.png';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import api from '../../services/api';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
@@ -70,6 +76,13 @@ function Paciente_perfil() {
       <div className="app">
          <Header/>
          <Sidenav/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <NavBar items={[
+            { label: 'Home', href: '/paciente_home', icon: HomeAddress },
+            { label: 'Perfil', href: '/Paciente_perfil', icon: UserManagerIcon },
+            { label: 'Consultas', href: '/Paciente_hist-consultas', icon: query },
+            { label: 'Dash', href: '/Paciente_dashboards', icon: dashIcon }
+         ]} />
          <main className="content-pages">
             <div className="content-pages-paciente d-block">
                <div className="title-pages">

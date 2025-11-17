@@ -1,8 +1,10 @@
 import "./Recepcao.css"
 import Header from "../../components/Header/"
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
 import Sidenav from "../../components/Sidenav/Sidenav_recepcao/"
 import ButtonAjuda from "../../components/ButtonAjuda"
-import { Link } from "react-router-dom";
 import { useUsuario } from '../../context/UsuarioContext';
 
 import more from '../../components/Sidenav/iconsSideBar/more.png';
@@ -10,6 +12,7 @@ import AddUserMale     from '../../components/Sidenav/iconsSideBar/Add User Male
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIcon.png';
+import HomeAddress     from '../../components/Sidenav/iconsSideBar/Home Address.png';
 
 function Recepcao_home() {
    const { setUsuario, usuario } = useUsuario();
@@ -17,8 +20,15 @@ function Recepcao_home() {
    return(
       <div className="app">
          <Header/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
          <Sidenav/>
          <ButtonAjuda/>
+         <NavBar items={[
+            { label: 'Home', href: '/recepcao_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Recepcao_home-usuario', icon: AddUserMale },
+            { label: 'Consultas', href: '/Recepcao_hist-consultas', icon: query },
+            { label: 'Dash', href: '/Recepcao_dashboards', icon: dashIcon }
+         ]} />
          <main className="content-home">
             <div className="title_Home">
                <img src={more} id="logoMore"/><br /><br />
@@ -53,73 +63,48 @@ function Recepcao_home() {
 
             <div className="gridBoxOtherOptions">
                <div className="gridBoxOptions_lines">
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Cadastro de Pacientes</b></h5>
-                        <img src={AddUserMale} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Cadastre ou altere informações de pacientes na plataforma
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Recepcao_home-usuario" className="buttonB">Acessar pacientes</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={AddUserMale}
+                     title="Cadastro de Pacientes"
+                     description="Cadastre ou altere informações de pacientes na plataforma"
+                     linkTo="/Recepcao_home-usuario"
+                     buttonText="Acessar pacientes"
+                  />
 
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Histórico de Consultas</b></h5>
-                        <img src={query} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Área para visualizar o histórico de consultas, assim como consultas futuras
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Recepcao_hist-consultas" className="buttonB">Acessar consultas</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={query}
+                     title="Histórico de Consultas"
+                     description="Área para visualizar o histórico de consultas, assim como consultas futuras"
+                     linkTo="/Recepcao_hist-consultas"
+                     buttonText="Acessar consultas"
+                  />
 
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Meu Perfil</b></h5>
-                        <img src={UserManagerIcon} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Recepcao_perfil" className="buttonB">Visualizar perfil</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={UserManagerIcon}
+                     title="Meu Perfil"
+                     description="Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)"
+                     linkTo="/Recepcao_perfil"
+                     buttonText="Visualizar perfil"
+                  />
 
                </div>
 
                <div className="gridBoxOptions_lines">
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Cadastro de Endereços</b></h5>
-                        <img src={HomeAddress} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Cadastre ou altere informações de endereços na plataforma
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Recepcao_home-endereco" className="buttonB">Acessar endereços</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={HomeAddress}
+                     title="Cadastro de Endereços"
+                     description="Cadastre ou altere informações de endereços na plataforma"
+                     linkTo="/Recepcao_home-endereco"
+                     buttonText="Acessar endereços"
+                  />
 
-                  <div className="boxSimpleInfos boxSimpleInfos-larger">
-                     <div className="headerLine">
-                        <h5><b>Área de Dashboards</b></h5>
-                        <img src={dashIcon} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Recepcao_dashboards" className="buttonB">Ir para Dashboards</Link>
-                     </div>
-                  </div>                          
+                  <BoxSimpleInfos
+                     icon={dashIcon}
+                     title="Área de Dashboards"
+                     description="Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região"
+                     linkTo="/Recepcao_dashboards"
+                     buttonText="Ir para Dashboards"
+                  />
                </div>
             </div>
          </main>

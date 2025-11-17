@@ -1,4 +1,4 @@
-import './Index.css'
+import '../../Sidenav/Index.css'
 import { Link } from "react-router-dom";
 
 import UserManagerIcon from '../iconsSideBar/UserManagerIcon.png';
@@ -25,45 +25,51 @@ function Sidenav() {
          <div className="sidenav-content">
             <div className='sidenav-group1'>
                
+               <Link to="/Recepcao_home">
                <div className='sidenav-buttons'>
                   <img src={home} className="sideBarIcon"/>
-                  <Link to="/Recepcao_home">
-                  <p>Página Inicial</p></Link>
+                  <p>Página Inicial</p>
                </div>
+               </Link>
 
+               <Link to="/Recepcao_cad-usuario">
                <div className='sidenav-buttons'>
                   <img src={AddUserMale} className="sideBarIcon"/>
-                  <Link to="/Recepcao_cad-usuario">
-                  <p>Cadastro de Pacientes</p></Link>
+                  <p>Cadastro de Pacientes</p>
                </div>
+               </Link>
 
+               <Link to="/Recepcao_cad-endereco">
                <div className='sidenav-buttons'>
                   <img src={HomeAddress} className="sideBarIcon"/>
-                  <Link to="/Recepcao_cad-endereco">
-                  <p>Cadastro de Endereços</p></Link>
+                  <p>Cadastro de Endereços</p>
                </div>
+               </Link>
 
+               <Link to="/Recepcao_hist-consultas">
                <div className='sidenav-buttons'>
                   <img src={query} className="sideBarIcon"/>
-                  <Link to="/Recepcao_hist-consultas">
-                  <p>Histórico de Consultas</p></Link>
+                  <p>Histórico de Consultas</p>
                </div>
+               </Link>
 
             </div>
 
             <div className='sidenav-group2'>
 
+               <Link to="/Recepcao_perfil">
                <div className='sidenav-buttons'>
                   <img src={UserManagerIcon} className="sideBarIcon"/>
-                  <Link to="/Recepcao_perfil">
-                  <p>Meu Perfil</p></Link>
+                  <p>Meu Perfil</p>
                </div>
+               </Link>
 
+               <Link to="/Recepcao_dashboards">
                <div className='sidenav-buttons'>
                   <img src={dashIcon} className="sideBarIcon"/>
-                  <Link to="/Recepcao_dashboards">
-                  <p>Dashboards</p></Link>
+                  <p>Dashboards</p>
                </div>
+               </Link>
 
             </div>
 

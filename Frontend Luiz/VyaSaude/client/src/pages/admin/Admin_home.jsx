@@ -1,8 +1,10 @@
 import "./Admin.css"
 import Header from "../../components/Header/"
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
 import Sidenav from "../../components/Sidenav/Sidenav_admin/"
 import ButtonAjuda from "../../components/ButtonAjuda"
-import { Link } from "react-router-dom";
 import { useUsuario } from '../../context/UsuarioContext';
 
 import more from '../../components/Sidenav/iconsSideBar/more.png';
@@ -18,8 +20,10 @@ function Admin_home() {
    return(
       <div className="app">
          <Header/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={meusLinks} />
          <Sidenav/>
          <ButtonAjuda/>
+         <NavBar items={navItems} />
          <main className="content-home">
             <div className="title_Home">
                <img src={more} id="logoMore"/><br /><br />

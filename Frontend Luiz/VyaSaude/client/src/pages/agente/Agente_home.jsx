@@ -5,6 +5,10 @@ import ButtonAjuda from "../../components/ButtonAjuda/Index"
 import { Link } from "react-router-dom";
 import { getUser } from "../../helpers/auth";
 
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
+
 import more from '../../components/Sidenav/iconsSideBar/more.png';
 import AddUserMale     from '../../components/Sidenav/iconsSideBar/Add User Male.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
@@ -20,6 +24,13 @@ function Agente_home() {
          <Header/>
          <Sidenav/>
          <ButtonAjuda/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <NavBar items={[
+            { label: 'Home', href: '/agente_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
+            { label: 'Agenda', href: '/Agente_hist-visitas', icon: query },
+            { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
+         ]} />
          <main className="content-home">
             <div className="title_Home">
                <img src={more} id="logoMore"/><br /><br />
@@ -33,85 +44,51 @@ function Agente_home() {
 
             <div className="gridBoxOtherOptions">
                <div className="gridBoxOptions_lines">
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Cadastro de Pacientes</b></h5>
-                        <img src={AddUserMale} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Cadastre ou altere informações de pacientes na plataforma
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_home-usuario" className="buttonB">Acessar pacientes</Link>
-                     </div>
-                  </div>
-
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Agenda de Visitas</b></h5>
-                        <img src={query} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Verifique as datas das últimas visitas realizadas e as próximas visitas agendadas
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_hist-visitas" className="buttonB">Acessar agenda</Link>
-                     </div>
-                  </div>
-
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Meu Perfil</b></h5>
-                        <img src={UserManagerIcon} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_perfil" className="buttonB">Visualizar perfil</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={AddUserMale}
+                     title="Cadastro de Pacientes"
+                     description="Cadastre ou altere informações de pacientes na plataforma"
+                     linkTo="/Agente_home-usuario"
+                     buttonText="Acessar pacientes"
+                  />
+                  <BoxSimpleInfos
+                     icon={query}
+                     title="Agenda de Visitas"
+                     description="Verifique as datas das últimas visitas realizadas e as próximas visitas agendadas"
+                     linkTo="/Agente_hist-visitas"
+                     buttonText="Acessar agenda"
+                  />
+                  <BoxSimpleInfos
+                     icon={UserManagerIcon}
+                     title="Meu Perfil"
+                     description="Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)"
+                     linkTo="/Agente_perfil"
+                     buttonText="Visualizar perfil"
+                  />
                </div>
 
                <div className="gridBoxOptions_lines">
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Cadastro de Endereços</b></h5>
-                        <img src={HomeAddress} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Cadastre ou altere informações de endereços na plataforma
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_home-endereco" className="buttonB">Acessar endereços</Link>
-                     </div>
-                  </div>
-
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Histórico de Consultas</b></h5>
-                        <img src={query} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Área para visualizar o histórico de consultas, assim como consultas futuras
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_hist-consultas" className="buttonB">Acessar consultas</Link>
-                     </div>
-                  </div>
-
-                  <div className="boxSimpleInfos">
-                     <div className="headerLine">
-                        <h5><b>Área de Dashboards</b></h5>
-                        <img src={dashIcon} className="headerImage" />
-                     </div>
-                     <div className="mainLine">
-                        Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região
-                     </div>
-                     <div className="buttonLine">
-                        <Link to="/Agente_dashboards" className="buttonB">Ir para Dashboards</Link>
-                     </div>
-                  </div>
+                  <BoxSimpleInfos
+                     icon={HomeAddress}
+                     title="Cadastro de Endereços"
+                     description="Cadastre ou altere informações de endereços na plataforma"
+                     linkTo="/Agente_home-endereco"
+                     buttonText="Acessar endereços"
+                  />
+                  <BoxSimpleInfos
+                     icon={query}
+                     title="Histórico de Consultas"
+                     description="Área para visualizar o histórico de consultas, assim como consultas futuras"
+                     linkTo="/Agente_hist-consultas"
+                     buttonText="Acessar consultas"
+                  />
+                  <BoxSimpleInfos
+                     icon={dashIcon}
+                     title="Área de Dashboards"
+                     description="Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região"
+                     linkTo="/Agente_dashboards"
+                     buttonText="Ir para Dashboards"
+                  />
                </div>
             </div>
          </main>
