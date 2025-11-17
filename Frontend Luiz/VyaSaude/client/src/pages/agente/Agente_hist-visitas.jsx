@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import api from '../../services/api';
 
-import Header from "../../components/Header/Index"
+import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_agente"
 
-import Modal_NovoRegistro from "../../components/Modal_NovoRegistro/Index";
-import Modal_EditarRegistro from "../../components/Modal_EditarRegistro/Index";
-import Modal_DetalhesRegistro from "../../components/Modal_DetalhesRegistro/Index";
+import Modal_NovoRegistro from "../../components/Modal_NovoRegistro";
+import Modal_EditarRegistro from "../../components/Modal_EditarRegistro";
+import Modal_DetalhesRegistro from "../../components/Modal_DetalhesRegistro";
 
 function Agente_histVisitas() {
    const navigate = useNavigate();
@@ -53,7 +53,7 @@ function Agente_histVisitas() {
                
                <div className="subtitle">
                   <h4 className="h4 text-success">Registros realizados</h4>
-                  <div className="d-flex justify-content-between">
+                  <div className="botoes">
                      <Button variant="outline-success" className="icons" onClick={() => setNovoRegistro(true)}>
                         <img src={'client/public/new.svg'}/>
                         <span> Novo registro</span>

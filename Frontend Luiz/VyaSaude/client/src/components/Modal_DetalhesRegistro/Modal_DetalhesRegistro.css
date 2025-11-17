@@ -91,5 +91,10 @@
       justify-content: space-around;
       margin-top: 3vh;
       margin-bottom: 1vh;
+      
+      button {
+         width: 8vw;
+         height: 5vh;
+      }
    }
 }
