@@ -19,7 +19,6 @@
       margin: 2vh 0;
 
       span {
-         display: flex;
          margin: 0;
       }
 
@@ -44,6 +43,11 @@
 
       span {
          margin-bottom: 15px;
+      }
+
+      .subtitulo {
+         display: flex;
+         justify-content: start;
       }
 
 
@@ -95,7 +99,8 @@
 
       button {
          width: 7vw;
-         height: 5vh;
+         height: 4vh;
+         max-height: 50px;
       }
    }
 }

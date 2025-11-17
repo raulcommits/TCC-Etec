@@ -46,6 +46,11 @@
          margin-bottom: 15px;
       }
       
+      .subtitulo {
+         display: flex;
+         justify-content: start;
+      }
+
       
       .grid {
          display: grid;
@@ -95,7 +100,8 @@
       
       button {
          width: 8vw;
-         height: 5vh;
+         height: 4vh;
+         max-height: 50px;
       }
    }
 }

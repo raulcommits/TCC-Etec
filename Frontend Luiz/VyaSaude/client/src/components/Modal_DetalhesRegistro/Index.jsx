@@ -85,7 +85,7 @@ export default function Modal_DetalhesRegistro({onClose, registroId}) {
             </div>
 
             <div className="Modal_DetalhesRegistro-elements">
-               <span className="h5 text-success">Dados do Paciente</span>
+               <span className="subtitulo h5 text-success">Dados do Paciente</span>
                <div className="grid grid_1">
                   <TextField variant="outlined" name="nome" value={dadosPaciente.nome} onChange={(e) => handleFormChange(e)} label="Nome do Paciente"></TextField>
                   <TextField variant="outlined" name="cpf"  value={dadosPaciente.cpf} onChange={(e) => handleFormChange(e)} type="text" label="CPF do Paciente"></TextField>
@@ -93,7 +93,7 @@ export default function Modal_DetalhesRegistro({onClose, registroId}) {
                </div>
                
                <hr/>
-               <span className="h5 text-success">Endereço</span>
+               <span className="subtitulo h5 text-success">Endereço</span>
 
                <div className="grid grid_2">
                   <TextField variant="outlined" name="logradouro"    value={dadosEndereco.logradouro} onChange={(e) => handleFormChange(e)} label="Logradouro"></TextField>
@@ -109,7 +109,7 @@ export default function Modal_DetalhesRegistro({onClose, registroId}) {
                </div>
 
                <hr/>
-               <span className="h5 text-success">Dados do Agente</span>
+               <span className="subtitulo h5 text-success">Dados do Agente</span>
 
                <div className="grid grid_4">
                   <TextField variant="outlined" name="nome_agente"   value={dadosAgente.nome_agente} onChange={(e) => handleFormChange(e)} label="Agente de Saúde"></TextField>
@@ -118,7 +118,7 @@ export default function Modal_DetalhesRegistro({onClose, registroId}) {
                </div>
 
                <hr/>
-               <span className="h5 text-success">Sobre a visita</span>
+               <span className="subtitulo h5 text-success">Sobre a visita</span>
 
                <div className="grid grid_4">
                   <TextField variant="outlined" name="motivo"        value={dadosRegistro.motivo} onChange={(e) => handleFormChange(e)} label="Motivo"></TextField>

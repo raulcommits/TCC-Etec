@@ -159,7 +159,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
             <div className="Modal_NovoRegistro-elements">
                <form id="modal_novoRegistro" onSubmit={handleRegister}>
-                  <span className="h5 text-success">Dados do Paciente</span>
+                  <span className="subtitulo h5 text-success">Dados do Paciente</span>
                   <div className="grid grid_1">
                      <TextField variant="outlined" name="nome" value={dadosPaciente.nome} onChange={(e) => handleFormChange(e)} label="Nome do Paciente"></TextField>
                      <TextField variant="outlined" name="cpf" required error={cpfErro} helperText={cpfValidacao} value={novoRegistro.cpf} onChange={(e) => handleFormChange(e)} type="text" label="CPF do Paciente"></TextField>
@@ -170,7 +170,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   </div>
                   
                   <hr/>
-                  <span className="h5 text-success">Endereço</span>
+                  <span className="subtitulo h5 text-success">Endereço</span>
 
                   <div className="grid grid_2">
                      <TextField variant="outlined" name="logradouro" value={dadosPaciente.logradouro} onChange={(e) => handleFormChange(e)} label="Logradouro"></TextField>
@@ -186,7 +186,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   </div>
 
                   <hr/>
-                  <span className="h5 text-success">Dados do Agente</span>
+                  <span className="subtitulo h5 text-success">Dados do Agente</span>
 
                   <div className="grid grid_2">
                      <TextField variant="outlined" name="nome_agente" value={dadosAgente.nome_agente} onChange={(e) => handleFormChange(e)} label="Agente de Saúde"></TextField>
@@ -201,7 +201,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   </div>
 
                   <hr/>
-                  <span className="h5 text-success">Sobre a visita</span>
+                  <span className="subtitulo h5 text-success">Sobre a visita</span>
 
                   <div className="grid grid_4">
                      <FormControl variant="outlined" required>
