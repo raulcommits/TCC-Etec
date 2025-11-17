@@ -18,9 +18,13 @@ route.get("/", async (request, response) => {
 })
 
 route.get("/:encontrarVisita", async (request, response) => {
-    const {encontrarVisita} = request.params;
-    const encontrarRegistro = await repositorioRegistro.findBy({data_visita: Like(`%${encontrarVisita}`)});
-    return response.status(200).send({response: encontrarRegistro});
+   const {encontrarVisita} = request.params;
+   const encontrarRegistro = await repositorioRegistro.findOne({where: [
+      {id: encontrarVisita}
+   ],
+   relations: ["endereco", "agente.posto", "paciente"]});
+   
+   return response.status(200).send(encontrarRegistro);
 });
 
 route.post("/cadastro", async (request, response) => {

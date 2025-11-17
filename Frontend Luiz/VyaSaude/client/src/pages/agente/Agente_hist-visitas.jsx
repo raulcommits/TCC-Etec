@@ -21,6 +21,8 @@ function Agente_histVisitas() {
    const [recarregar, setRecarregar] = useState(false);
    
    const [registros, setRegistros] = useState([]);
+
+   const [registroId, setRegistroId] = useState(undefined);
    
    useEffect(() => {
       async function buscarRegistros() {
@@ -91,7 +93,7 @@ function Agente_histVisitas() {
                            <td>{registro.motivo}</td>
                            <td>{registro.desfecho}</td>
                            <td>
-                              <div className="table-icons" onClick={() => setDetalhesRegistro(true)}>
+                              <div className="table-icons" onClick={() => (setRegistroId(registro.id), setDetalhesRegistro(true))}>
                                  <img src={'client/public/zoom.svg'}/>
                               </div>
                               </td>
@@ -113,7 +115,7 @@ function Agente_histVisitas() {
                   {exibirModal_editarRegistro && <Modal_EditarRegistro onClose={() => setEditarRegistro(false)} />} 
                      
                   {/* Modal: Detalhes (mais informações) */}
-                  {exibirModal_detalhesRegistro && <Modal_DetalhesRegistro onClose={() => setDetalhesRegistro(false)} />} 
+                  {exibirModal_detalhesRegistro && <Modal_DetalhesRegistro onClose={() => setDetalhesRegistro(false)} registroId={registroId}/>} 
                </div>
             </div>
          </main>

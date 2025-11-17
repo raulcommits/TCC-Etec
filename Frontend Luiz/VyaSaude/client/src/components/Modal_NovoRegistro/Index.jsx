@@ -223,7 +223,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   </div>
 
                   <div className="grid">
-                     <TextField variant="outlined" name="descricao" required value={novoRegistro.descricao} onChange={(e) => handleFormChange(e)} label="Descrição"></TextField>
+                     <TextField variant="outlined" name="descricao" required multiline rows={3} value={novoRegistro.descricao} onChange={(e) => handleFormChange(e)} label="Descrição"></TextField>
                   </div>
 
                   <div className="modal_buttons">

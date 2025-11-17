@@ -1,28 +1,95 @@
-.modal-content {
+.Modal_DetalhesRegistro-content {
    position: relative;
    background: white;
-   padding: 50px;
-   /* margin: 25% 25%; */
-   width: 90%;
-   height: 80%;
+   padding: 3vh 4vw;
+   width: 85%;
+   height: 85%;
    border-radius: 8px;
    text-align: center;
    justify-content: center;
    align-items: center;
    overflow-y: auto;
-}
+   box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.3);
 
-.hist_visitas {
-   width-large input {
-      width: 70%;
+
+   .titulo {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 10fr 0.5fr;
+      margin: 2vh 0;
+
+      span {
+         margin: 0;
+      }
+      
+      .fechar {
+         color: rgba(var(--bs-success-rgb));
+         border-radius: 50%;
+         aspect-ratio: 1/1;
+
+         display: flex;
+         cursor: pointer;
+         text-align: center;
+         justify-content: center;
+         align-items: center;
+      }
    }
 
-   medium-input {
-      width: 40%;
-   }
-}
 
-.buttonModal {
-   padding: 10px 20px;
-   font-size: 16px;
+   .Modal_DetalhesRegistro-elements {
+      hr {
+         margin: 25px 0;
+      }
+      
+      span {
+         margin-bottom: 15px;
+      }
+      
+      
+      .grid {
+         display: grid;
+         gap: 10px;
+         margin-bottom: 10px;
+      }
+      
+      .grid_1 {
+         grid-template-columns: 2fr 1fr 1fr;
+      }
+      
+      .grid_2 {
+         grid-template-columns: 2fr 1fr;
+      }
+      
+      .grid_3 {
+         grid-template-columns: 2fr 2fr 1fr;
+      }
+
+      .grid_4 {
+         grid-template-columns: 1fr 1fr 1fr;         
+      }
+
+      
+      .select-Modal_NovoRegistro { /* Estilização especifica pro Select do Modal de Novo Registro de visita domiciliar*/
+         div {
+            box-shadow: 2px 2px 10px 1px #c7c7c7a6;
+            border: solid #cfcfcf 1px;
+            text-align: start;
+         }
+      }
+
+      
+      .MuiInputBase-multiline  {
+         border: solid #cfcfcf 0.5px;
+         box-shadow: 2px 2px 10px 1px #c7c7c7a6;
+         text-align: start;
+      }
+   }
+   
+   
+   .modal_buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 3vh;
+      margin-bottom: 1vh;
+   }
 }
