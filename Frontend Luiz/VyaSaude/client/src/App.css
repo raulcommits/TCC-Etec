@@ -154,8 +154,8 @@ button {
 .content-pages { /* Demais telas */ 
    align-items: center;
    margin-left: 300px;
-   margin-top: 7vh;
-   height: calc(100vh - 7vh);
+   margin-top: 10vh;
+   height: calc(100vh - 10vh);
    left: 300px;
    padding: 40px; /* espaço interno maior para separar do header/sidenav */
    box-sizing: border-box;
@@ -265,6 +265,10 @@ button {
    justify-content: center;
    align-items: center;
    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5 {
+   margin: 0px;
 }
 
 @media (max-width: 887px) {

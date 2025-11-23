@@ -6,48 +6,50 @@
    margin-bottom: 48vh;
 }
 
-.title-pages {
-   display: flex;
-   text-align: center;
-   padding: 2vh;
-   width: 100%;
-}
-
-.form-fields {
-   display: flex;
-   text-align: center;
-   align-items: center;
-   justify-content: space-around;
-   white-space: nowrap;
-
-   .dropDownMenu-A {
-      width: 270px;
+.content-pages-recepcao {
+   .title-pages {
+      display: flex;
+      text-align: center;
+      padding: 2vh;
+      width: 100%;
    }
-}
-.form-fields label{
-   margin: 0;
    
-}
-
-.form-fields .compact-input{
-   width: 35vw;
-}
-
-
-.form-registro {
-   padding: 1vh 10vw !important;
-}
-
-.form-button {
-   display: flex;
-   justify-content: space-around;
-   margin: 0 15vw 20vw 15vw;
-}
-
-.formDados.leitura {
-   padding: 15px;
-}
-
-.paddingTypeUser {
-   padding: 0 10vw !important;
+   .form-fields {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: space-around;
+      white-space: nowrap;
+   
+      .dropDownMenu-A {
+         width: 270px;
+      }
+   }
+   .form-fields label{
+      margin: 0;
+      
+   }
+   
+   .form-fields .compact-input{
+      width: 35vw;
+   }
+   
+   
+   .form-registro {
+      padding: 1vh 10vw !important;
+   }
+   
+   .form-button {
+      display: flex;
+      justify-content: space-around;
+      margin: 0 15vw 20vw 15vw;
+   }
+   
+   .formDados.leitura {
+      padding: 15px;
+   }
+   
+   .paddingTypeUser {
+      padding: 0 10vw !important;
+   }
 }

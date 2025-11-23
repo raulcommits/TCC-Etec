@@ -32,6 +32,11 @@
          text-align: center;
          justify-content: center;
          align-items: center;
+
+         svg {
+            height: 2.5rem;
+            width: 2.5rem;
+         }
       }
    }
 

@@ -18,6 +18,22 @@
    width: 7vw !important;
 }
 
+
+.content-pages-agente {
+   .title-pages {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      padding: 2vh 0;
+      
+      svg {
+         cursor: pointer;
+         width: 4rem;
+         height: 2rem;
+      }
+   }
+}
+
 .agente_perfil-content {
    position: relative;
 
@@ -63,7 +79,7 @@
 }
 
 
-.agente-histVisitas {
+.agente_histVisitas-content {
    .subtitle {
       display: flex;
       justify-content: space-between;
@@ -78,6 +94,10 @@
             height: 4vh;
             max-height: 50px;
          }
+      }
+
+      h4 {
+         margin-bottom: 0;
       }
    }
 

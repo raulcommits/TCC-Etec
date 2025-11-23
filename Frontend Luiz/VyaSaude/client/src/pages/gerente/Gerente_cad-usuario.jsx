@@ -134,7 +134,7 @@ function Gerente_cadUsuario() {
       <div className="app">
          <Header/>
          <Sidenav/>
-         <main className="content-pages content-pages-admin">
+         <main className="content-pages content-pages-gerente">
             <div className="d-block pb-3">
                <div className="title-pages">
                   <svg onClick={() => navigate(-1)} style={{ cursor:"pointer" }} className="align-self-start"
@@ -408,7 +408,7 @@ function Gerente_cadUsuario() {
                
                {/* Botões pra voltar pra tela inicial/realizar cadastro */}
                <div className="form-button">
-                  <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</button>
+                  <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Gerente_home')}}>Voltar pra tela inicial</button>
                   <button form="form-registro" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
                </div>
             </div>

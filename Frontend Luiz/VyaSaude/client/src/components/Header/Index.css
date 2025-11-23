@@ -30,16 +30,17 @@ header {
    max-width: none;
    min-width: 0;
    white-space: nowrap;
+   
+   svg {
+      padding: 1vh;
+      height: 5.5vh;
+   }
 }
+
 .accountmenu_img {
    border-radius: 50px;
    padding: 1vh;
-   height: 5.3vh;
-
-}
-
-svg {
-   padding: 0 5px;
+   height: 5.5vh;
 }
 
 .cursorPointer {

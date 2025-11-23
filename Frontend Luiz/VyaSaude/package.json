@@ -1,7 +1,7 @@
 {
   "name": "vyasaude",
   "private": true,
-  "version": "4.6.0",
+  "version": "4.6.1",
   "description": "Front-end do Projeto de TCC",
   "type": "module",
   "scripts": {
