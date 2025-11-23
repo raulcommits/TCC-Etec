@@ -17,7 +17,7 @@ import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIc
 import HomeAddress     from '../../components/Sidenav/iconsSideBar/Home Address.png';
 
 function Agente_home() {
-   const user = getUser();
+   const usuario = getUser();
    
    return(
       <div className="app">
@@ -34,7 +34,7 @@ function Agente_home() {
          <main className="content-home">
             <div className="title_Home">
                <img src={more} id="logoMore"/><br /><br />
-               <h2><b>Olá, {user.nome}!</b></h2>
+               <h2><b>Olá, {usuario.nome}!</b></h2>
                <h4>Bem-vindo(a) à sua área do agente.</h4>
             </div>
 

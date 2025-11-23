@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { useUsuario } from "../context/UsuarioContext";
+import { getUser } from "../helpers/auth";
 
 // Função que verifica se o usuario logado pode acessar o componente. Caso não, retorna pra tela de login.
-// tipoPermitido: Recebe do UsuarioContext os dados do usuário logado, e depois verifica se o tipo desse usuário (tipoUsuario) pode acessar o componente ou não (definido em App.jsx).
+// tipoPermitido: Recebe do { getUser } os dados do usuário logado, e depois verifica se o tipo desse usuário (tipoUsuario) pode acessar o componente ou não (definido em App.jsx).
 // Children: Caso passe pelas validações, o "return children" permite que o componente seja renderizado.
+
 function AccessControl({ children, tipoPermitido }) {
-   const {usuario} = useUsuario();
+   const usuario = getUser();
    
    if (!usuario) return <Navigate to="/login" />;
 

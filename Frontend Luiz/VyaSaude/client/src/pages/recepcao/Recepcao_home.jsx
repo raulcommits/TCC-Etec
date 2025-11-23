@@ -5,7 +5,7 @@ import NavBar from "../../components/NavBar/Index.jsx";
 import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
 import Sidenav from "../../components/Sidenav/Sidenav_recepcao/"
 import ButtonAjuda from "../../components/ButtonAjuda"
-import { useUsuario } from '../../context/UsuarioContext';
+import { getUser } from "../../helpers/auth";
 
 import more from '../../components/Sidenav/iconsSideBar/more.png';
 import AddUserMale     from '../../components/Sidenav/iconsSideBar/Add User Male.png';
@@ -15,7 +15,7 @@ import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIc
 import HomeAddress     from '../../components/Sidenav/iconsSideBar/Home Address.png';
 
 function Recepcao_home() {
-   const { setUsuario, usuario } = useUsuario();
+   const usuario = getUser();
    
    return(
       <div className="app">

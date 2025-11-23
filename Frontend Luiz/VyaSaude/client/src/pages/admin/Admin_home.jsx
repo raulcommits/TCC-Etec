@@ -5,7 +5,7 @@ import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
 import Sidenav from "../../components/Sidenav/Sidenav_admin/"
 import ButtonAjuda from "../../components/ButtonAjuda"
-import { useUsuario } from '../../context/UsuarioContext';
+import { getUser } from "../../helpers/auth";
 
 import more from '../../components/Sidenav/iconsSideBar/more.png';
 import AddUserMale     from '../../components/Sidenav/iconsSideBar/Add User Male.png';
@@ -13,14 +13,26 @@ import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIcon.png';
 import HomeAddress     from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import { Link } from "react-router-dom";
 
 function Admin_home() {
-   const { setUsuario, usuario } = useUsuario();
+   const usuario = getUser();
+
+   const meusLinks = [
+      { label: 'Home', href: '' }
+   ];
+
+   const navItems = [
+      { label: 'Home', href: '/admin_home', icon: HomeAddress },
+      { label: 'Pacientes', href: '/admin_home-usuario', icon: AddUserMale },
+      { label: 'Agenda', href: '/admin_hist-visitas', icon: query },
+      { label: 'Banco', href: '/admin_b-dados', icon: dashIcon }
+   ];
    
    return(
       <div className="app">
          <Header/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={meusLinks} />
+         {/* <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={meusLinks} /> */}
          <Sidenav/>
          <ButtonAjuda/>
          <NavBar items={navItems} />

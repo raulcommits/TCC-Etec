@@ -3,7 +3,7 @@ import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_paciente"
 import PageWIP from "../../components/PageWIP"
 import { Link } from "react-router-dom";
-import { useUsuario } from '../../context/UsuarioContext';
+import { getUser } from "../../helpers/auth";
 
 import more from '../../components/Sidenav/iconsSideBar/more.png';
 import AddUserMale     from '../../components/Sidenav/iconsSideBar/Add User Male.png';
@@ -12,7 +12,7 @@ import query from '../../components/Sidenav/iconsSideBar/query.png';
 import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIcon.png';
 
 function ButtonAjuda() {
-   const { setUsuario, usuario } = useUsuario();
+   const usuario = getUser();
 
    return(
       <div className="app">

@@ -14,13 +14,6 @@
    background-color: #e2e3e5;
 }
 
-.gradiente {
-   display: block;
-   border-top-left-radius: 10px !important;
-   border-top-right-radius: 10px !important;
-   background-image: linear-gradient(to right, rgb(93, 138, 93), rgb(126, 171, 210));
-}
-
 .content-login p {
    display: flex;
    justify-content: center;
@@ -44,21 +37,15 @@ a:hover {  /* Link */
    padding: 2px;
 }
 
-svg {
-   fill: #292157;
-   height: 2.5rem;
-   width: 2.5rem;
-}
-
 #sLogin-newCad  {
    display: flex;
    justify-content: center;
    align-items: center;
-
+   
    #preRegister {
       padding-left: 5px;
    }
-
+   
    .px-0 {
       padding-left: 10px !important;
       padding-right: 10px !important;
@@ -70,4 +57,10 @@ svg {
    display: flex;
    align-items: center;
    justify-content: center;
+
+   svg {
+      fill: #292157;
+      height: 2.5rem;
+      width: 2.5rem;
+   }
 }
