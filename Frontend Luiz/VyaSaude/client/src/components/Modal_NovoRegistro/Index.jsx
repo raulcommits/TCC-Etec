@@ -1,10 +1,12 @@
 import "./Modal_NovoRegistro.css";
 import api from '../../services/api';
 import { TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { NumericFormat, PatternFormat } from 'react-number-format';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { getUser } from "../../helpers/auth";
-import SVG_Close from '../../../public/close.svg'
+
+import { GoX } from "react-icons/go";
 
 export default function Modal_NovoRegistro({onClose, onSuccess}) {
    const usuarioLogado = getUser();
@@ -153,51 +155,55 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
             <div className="titulo">
                <span className="h3">Novo registro de visita domiciliar</span>
                <div className="fechar" onClick={onClose}> {/* TROCAR PRA ICONE SVG*/}
-                  <img src={SVG_Close} width={20} height={20} ></img>
+                  <GoX color="var(--bs-success-rgb)"/>
                </div>
             </div>
 
             <div className="Modal_NovoRegistro-elements">
                <form id="modal_novoRegistro" onSubmit={handleRegister}>
                   <span className="subtitulo h5 text-success">Dados do Paciente</span>
-                  <div className="grid grid_1">
-                     <TextField variant="outlined" name="nome" value={dadosPaciente.nome} onChange={(e) => handleFormChange(e)} label="Nome do Paciente"></TextField>
-                     <TextField variant="outlined" name="cpf" required error={cpfErro} helperText={cpfValidacao} value={novoRegistro.cpf} onChange={(e) => handleFormChange(e)} type="text" label="CPF do Paciente"></TextField>
-                     <TextField variant="outlined" name="sus" value={dadosPaciente.sus} onChange={(e) => handleFormChange(e)} label="Nº SUS" type="number"></TextField>
-                     <TextField variant="outlined" name="data_nascimento" value={dadosPaciente.data_nascimento} InputLabelProps={{ shrink: true }} onChange={(e) => handleFormChange(e)} label="Data de Nascimento" type="date"></TextField> {/* InputLabelProps: Remove placeholder quando a data for vazia. */}
-                     <TextField variant="outlined" name="num_telefone" value={dadosPaciente.num_telefone} onChange={(e) => handleFormChange(e)} label="Telefone" type="number"></TextField>
-                     <TextField variant="outlined" name="email" value={dadosPaciente.email} onChange={(e) => handleFormChange(e)} label="Email" type="email"></TextField>
+                  <div className="grid grid_2">
+                     <TextField name="nome" label="Nome do Paciente" value={dadosPaciente.nome} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                     <TextField name="data_nascimento" label="Data de Nascimento" value={dadosPaciente.data_nascimento} InputLabelProps={{ shrink: true }} type="date" variant="outlined" onChange={(e) => handleFormChange(e)}/> {/* InputLabelProps: Remove placeholder quando a data for vazia. */}
+                  </div>
+                  <div className="grid grid_2">
+                     <PatternFormat name="cpf" label="CPF do Paciente" value={novoRegistro.cpf} required error={cpfErro} helperText={cpfValidacao} format="###.###.###-##" mask=" " customInput={TextField} variant="outlined" onValueChange={(values) => {setNovoRegistro(prev => ({ ...prev, cpf: values.value }) )} }/>
+                     <PatternFormat name="sus" label="Nº SUS" value={dadosPaciente.sus} format="### #### #### ####" mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                  </div>
+                  <div className="grid grid_2">
+                     <PatternFormat name="num_telefone" label="Telefone" value={dadosPaciente.num_telefone} format={(dadosPaciente.num_telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                     <TextField name="email" label="Email" value={dadosPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                   </div>
                   
                   <hr/>
                   <span className="subtitulo h5 text-success">Endereço</span>
 
                   <div className="grid grid_2">
-                     <TextField variant="outlined" name="logradouro" value={dadosPaciente.logradouro} onChange={(e) => handleFormChange(e)} label="Logradouro"></TextField>
-                     <TextField variant="outlined" name="numero" value={dadosPaciente.numero} onChange={(e) => handleFormChange(e)} label="Número" type="number"></TextField>
-                     <TextField variant="outlined" name="complemento" value={dadosPaciente.complemento} onChange={(e) => handleFormChange(e)} label="Complemento"></TextField>
-                     <TextField variant="outlined" name="cep" value={dadosPaciente.cep} onChange={(e) => handleFormChange(e)} label="CEP" type="number"></TextField>
+                     <TextField name="logradouro" value={dadosPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
+                     <TextField name="numero" value={dadosPaciente.numero} variant="outlined" onChange={(e) => handleFormChange(e)} label="Número" type="number"/>
+                     <TextField name="complemento" value={dadosPaciente.complemento} variant="outlined" onChange={(e) => handleFormChange(e)} label="Complemento"/>
+                     <PatternFormat name="cep" label="CEP" value={dadosPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={(e) => handleFormChange(e)}/>
                   </div>
                   
                   <div className="grid grid_3">
-                     <TextField variant="outlined" name="bairro" value={dadosPaciente.bairro} onChange={(e) => handleFormChange(e)} label="Bairro"></TextField>
-                     <TextField variant="outlined" name="cidade" value={dadosPaciente.cidade} onChange={(e) => handleFormChange(e)} label="Cidade"></TextField>
-                     <TextField variant="outlined" name="estado" value={dadosPaciente.estado} onChange={(e) => handleFormChange(e)} label="UF"></TextField>
+                     <TextField name="bairro" value={dadosPaciente.bairro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Bairro"/>
+                     <TextField name="cidade" value={dadosPaciente.cidade} variant="outlined" onChange={(e) => handleFormChange(e)} label="Cidade"/>
+                     <TextField name="estado" value={dadosPaciente.estado} variant="outlined" onChange={(e) => handleFormChange(e)} label="UF"/>
                   </div>
 
                   <hr/>
                   <span className="subtitulo h5 text-success">Dados do Agente</span>
 
                   <div className="grid grid_2">
-                     <TextField variant="outlined" name="nome_agente" value={dadosAgente.nome_agente} onChange={(e) => handleFormChange(e)} label="Agente de Saúde"></TextField>
-                     <TextField variant="outlined" disabled name="cns" value={dadosAgente.cns} onChange={(e) => handleFormChange(e)} label="CNS" type="number"></TextField>
-                     <TextField variant="outlined" name="ubs_nome" value={dadosAgente.ubs_nome} onChange={(e) => handleFormChange(e)} label="Unidade Básica de Saúde"></TextField>
-                     <TextField variant="outlined" name="ubs_codigo" value={dadosAgente.ubs_codigo} onChange={(e) => handleFormChange(e)} label="Código da Unidade" type="number"></TextField>
+                     <TextField name="nome_agente" value={dadosAgente.nome_agente} variant="outlined" onChange={(e) => handleFormChange(e)} label="Agente de Saúde"/>
+                     <TextField disabled name="cns" value={dadosAgente.cns} variant="outlined" onChange={(e) => handleFormChange(e)} label="CNS" type="number"/>
+                     <TextField name="ubs_nome" value={dadosAgente.ubs_nome} variant="outlined" onChange={(e) => handleFormChange(e)} label="Unidade Básica de Saúde"/>
+                     <TextField name="ubs_codigo" value={dadosAgente.ubs_codigo} variant="outlined" onChange={(e) => handleFormChange(e)} label="Código da Unidade" type="number"/>
                   </div>
 
                   <div className="grid grid_4">
-                     <TextField variant="outlined" name="ubs_email" value={dadosAgente.ubs_email} onChange={(e) => handleFormChange(e)} label="Email da UBS" type="email"></TextField>
-                     <TextField variant="outlined" name="ubs_telefone" value={dadosAgente.ubs_telefone} onChange={(e) => handleFormChange(e)} label="Telefone da UBS" type="number"></TextField>
+                     <TextField name="ubs_email" label="Email da UBS" value={dadosAgente.ubs_email} variant="outlined" onChange={(e) => handleFormChange(e)} type="email"/>
+                     <PatternFormat name="ubs_telefone" label="Telefone da UBS" value={dadosAgente.ubs_telefone} variant="outlined" format={(dadosAgente.ubs_telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} onChange={(e) => handleFormChange(e)}/>
                   </div>
 
                   <hr/>
@@ -206,7 +212,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   <div className="grid grid_4">
                      <FormControl variant="outlined" required>
                         <InputLabel id="selectMotivo">Motivo</InputLabel>
-                        <Select className="select-Modal_NovoRegistro" variant="outlined" name="motivo" value={novoRegistro.motivo} onChange={(e) => handleFormChange(e)} labelId="selectMotivo" >
+                        <Select className="select-Modal_NovoRegistro" name="motivo" value={novoRegistro.motivo} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectMotivo" >
                            <MenuItem value="Cadastramento/Atualização">Cadastramento/Atualização</MenuItem>
                            <MenuItem value="Visita Periódica">Visita Periódica</MenuItem>
                         </Select>
@@ -214,7 +220,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
                      <FormControl variant="outlined" required>
                         <InputLabel id="selectDesfecho">Desfecho</InputLabel>
-                        <Select className="select-Modal_NovoRegistro" variant="outlined" name="desfecho" value={novoRegistro.desfecho} onChange={(e) => handleFormChange(e)} labelId="selectDesfecho" >
+                        <Select className="select-Modal_NovoRegistro" name="desfecho" value={novoRegistro.desfecho} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectDesfecho" >
                            <MenuItem value="Visita realizada">Visita realizada</MenuItem>
                            <MenuItem value="Visita recusada">Visita recusada</MenuItem>
                            <MenuItem value="Ausente">Ausente</MenuItem>
@@ -223,7 +229,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   </div>
 
                   <div className="grid">
-                     <TextField variant="outlined" name="descricao" required multiline rows={3} value={novoRegistro.descricao} onChange={(e) => handleFormChange(e)} label="Descrição"></TextField>
+                     <TextField name="descricao" required multiline rows={3} value={novoRegistro.descricao} variant="outlined" onChange={(e) => handleFormChange(e)} label="Descrição"/>
                   </div>
 
                   <div className="modal_buttons">
