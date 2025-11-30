@@ -7,6 +7,8 @@ import { getUser } from "../../helpers/auth"
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material"
+import { Button } from 'react-bootstrap';
+import { PatternFormat } from 'react-number-format';
 
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
@@ -15,10 +17,14 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 
+import { GoReply } from "react-icons/go";
+
 function Agente_perfil() {
    const navigate = useNavigate();
 
    const [usuario, setUsuario] = useState(undefined);
+
+   const [modoEdicao, setModoEdicao] = useState(false);
    
    const [dados, setDados] = useState({
       nome_agente: '',
@@ -34,6 +40,10 @@ function Agente_perfil() {
          descricao: ''
       },
       createdAt: ''
+   });
+
+   const [dadosParaAtualizar, setDadosParaAtualizar] = useState({
+      telefone: dados?.telefone
    });
 
    
@@ -60,6 +70,10 @@ function Agente_perfil() {
                ...dadosAgente.data,
                createdAt: dadosUsuario.data.response.createdAt
             });
+
+            setDadosParaAtualizar({
+               telefone: dadosAgente.data.telefone
+            });
          }
          catch (error) {
             console.error(error);
@@ -68,8 +82,45 @@ function Agente_perfil() {
       buscarDados();
    }, [usuario]);
 
+
+   async function atualizarDados() {
+      if (!usuario?.cpf) return;
+      if (modoEdicao === false) return;
+
+      try {
+         const telefoneLimpo = dadosParaAtualizar.telefone.replace(/\D/g, '');
+
+         // atualizar o email e telefone no repositorio do usuario e do {agente}
+         console.log("dadosParaAtualizar", telefoneLimpo);
+
+         await api.put(`/agente/atualizarAgente/${usuario?.email}`, {telefone: telefoneLimpo})
+         .then(res => console.log(res))
+
+         // await api.put(`/usuarioCadastro/${usuario?.cpf}`, dadosParaAtualizar);
+         
+      }
+      catch (error) {
+         console.log(error);
+      }
+   }
+
+
+   useEffect(() => {
+      console.log("modoEdicao", modoEdicao);
+   }, [modoEdicao]);
+
+
+   const handleFormChange = (e) => {
+      const {name, value} = e.target;
+      
+      setDadosParaAtualizar((dados) => ({
+         ...dados,
+         [name]: value
+      }));
+   };
+
    
-   return(
+   return (
       <div className="app">
          <Header/>
          <Sidenav/>
@@ -81,45 +132,49 @@ function Agente_perfil() {
             { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
          ]} />
          <main className="content-pages">
-            <div className="agente_perfil-content">
-               <div className="title-pages">
-                  <svg onClick={() => navigate(-1)} style={{ cursor:"pointer" }} className="align-self-start"
-                  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z" fill="#000000"></path> </g></svg>
-                  <h1 className="align-self-center h2 px-5">Meu Perfil</h1>
-               </div>
-               {/* <ButtonBack text="Meu Perfil"/> */}
-
-               <div className="agente_perfil-elements">
-                  <span className="h4 text-success">Registro</span>
-                  <div className="grid grid_1">
-                     <TextField className="width-large disable" variant="outlined" value={dados.nome_agente} label="Nome completo"/>
-                     <TextField className="width-medium disable" variant="outlined" value={dados.cpf} label="CPF"/>
+            <div className="content-pages-agente ">
+               <div className="content-agente_perfil">
+                  <div className="title-pages">
+                     <GoReply onClick={() => {setModoEdicao(false), navigate(-1)}}/>
+                     <h1 className="align-self-center h2 px-5">Meu Perfil</h1>
                   </div>
+                  {/* <ButtonBack text="Meu Perfil"/> */}
 
-                  <div className="grid grid_2">
-                     <TextField className="width-medium disable" variant="outlined" value={dados.email} label="E-mail"/>
-                     <TextField className="width-medium" variant="outlined" value={dados.telefone} label="Telefone" />
-                     <TextField className="width-medium" variant="outlined" value={dados?.posto?.nome_posto} label="Posto"/>
+                  <div className="elements-agente_perfil">
+                     <span className="h4 text-success">Registro</span>
+                     <div className="grid grid_1">
+                        <TextField disabled variant="outlined" value={dados.nome_agente} label="Nome completo"/>
+                        <PatternFormat disabled name="cpf" label="CPF" value={dados.cpf} format="###.###.###-##" mask=" " customInput={TextField} variant="outlined"/>
+                     </div>
+
+                     <div className="grid grid_2">
+                        <TextField disabled variant="outlined" value={dados.email} label="E-mail"/>
+                        <PatternFormat disabled={!modoEdicao} name="telefone" label="Telefone" value={dados.telefone} onChange={(e) => handleFormChange(e)} format={(dados.telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} variant="outlined"/>
+                        <TextField disabled variant="outlined" value={dados?.posto?.nome_posto} label="Posto de Saúde"/>
+                     </div>
+
+                     <hr/>
+
+                     <span className="h4 text-success">Informações sobre o cadastro</span>
+                     <div className="grid grid_1">
+                        <TextField disabled variant="outlined" value={""} label="Cadastrado por"/>
+                        <TextField disabled variant="outlined" value={new Date(dados?.createdAt).toLocaleString('pt-BR')} label="Data e Hora de criação" />
+                     </div>
+
+                     <div className="grid grid_3">
+                        <TextField disabled variant="outlined" value={new Date(dados.data_admissao).toLocaleDateString('pt-BR')} label="Data de Admissão" />
+                        <TextField disabled variant="outlined" value={dados?.cbo?.codigo} label="Código CBO" />
+                        <TextField disabled variant="outlined" value={dados?.cbo?.descricao} label="Descrição da Atividade" />
+                     </div>
+
+                     {/* Botões pra voltar e alterar cadastro*/}
+                     <div className="form-buttons">
+                        <Button variant="outline-success" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</Button>
+                     <div style={{display: "flex", gap: "20px"}}>
+                        {modoEdicao === true ? <Button variant="outline-danger" onClick={() => {setModoEdicao(false); setDadosParaAtualizar({email: dados.email, telefone: dados.telefone})}}>Cancelar</Button> : ""}
+                        <Button variant="outline-success" onClick={() => {modoEdicao === true ? (atualizarDados(), setModoEdicao(false)) : setModoEdicao(!modoEdicao)}}>{modoEdicao === false ? "Alterar Cadastro" : "Salvar alterações"}</Button>
+                     </div>
                   </div>
-
-                  <hr/>
-
-                  <span className="h4 text-success">Informações sobre o cadastro</span>
-                  <div className="grid grid_1">
-                     <TextField className="width-large disable" variant="outlined" value={""} label="Cadastrado por" disabled/>
-                     <TextField className="width-medium disable" variant="outlined" value={new Date(dados?.createdAt).toLocaleString('pt-BR')} label="Data e Hora de criação" />
-                  </div>
-
-                  <div className="grid grid_3">
-                     <TextField className="width-small disable" variant="outlined" value={dados.data_admissao} label="Data de Admissão" />
-                     <TextField className="width-small disable" variant="outlined" value={dados?.cbo?.codigo} label="Código CBO" />
-                     <TextField className="width-large disable" variant="outlined" value={dados?.cbo?.descricao} label="Descrição da Atividade" />
-                  </div>
-
-                  {/* Botões pra voltar e alterar cadastro*/}
-                  <div className="form-button">
-                     <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</button>
-                     <button form="form-registro" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Alterar Cadastro</button>
                   </div>
                </div>
             </div>

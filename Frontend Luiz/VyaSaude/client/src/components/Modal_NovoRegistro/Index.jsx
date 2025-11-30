@@ -1,7 +1,7 @@
 import "./Modal_NovoRegistro.css";
 import api from '../../services/api';
 import { TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-import { NumericFormat, PatternFormat } from 'react-number-format';
+import { PatternFormat } from 'react-number-format';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { getUser } from "../../helpers/auth";
@@ -151,16 +151,16 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
    return (
       <div className="modal-overlay">
-         <div className="Modal_NovoRegistro-content">
+         <div className="content-modal_novoRegistro">
             <div className="titulo">
                <span className="h3">Novo registro de visita domiciliar</span>
-               <div className="fechar" onClick={onClose}> {/* TROCAR PRA ICONE SVG*/}
+               <div className="fechar" onClick={onClose}>
                   <GoX color="var(--bs-success-rgb)"/>
                </div>
             </div>
 
-            <div className="Modal_NovoRegistro-elements">
-               <form id="modal_novoRegistro" onSubmit={handleRegister}>
+            <div className="elements-modal_novoRegistro">
+               <form id="form-modal_novoRegistro" onSubmit={handleRegister}>
                   <span className="subtitulo h5 text-success">Dados do Paciente</span>
                   <div className="grid grid_2">
                      <TextField name="nome" label="Nome do Paciente" value={dadosPaciente.nome} variant="outlined" onChange={(e) => handleFormChange(e)}/>
@@ -180,7 +180,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
                   <div className="grid grid_2">
                      <TextField name="logradouro" value={dadosPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
-                     <TextField name="numero" value={dadosPaciente.numero} variant="outlined" onChange={(e) => handleFormChange(e)} label="Número" type="number"/>
+                     <PatternFormat name="numero" label="Número" value={dadosPaciente.numero} format={(dadosPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                      <TextField name="complemento" value={dadosPaciente.complemento} variant="outlined" onChange={(e) => handleFormChange(e)} label="Complemento"/>
                      <PatternFormat name="cep" label="CEP" value={dadosPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={(e) => handleFormChange(e)}/>
                   </div>
@@ -196,9 +196,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
                   <div className="grid grid_2">
                      <TextField name="nome_agente" value={dadosAgente.nome_agente} variant="outlined" onChange={(e) => handleFormChange(e)} label="Agente de Saúde"/>
-                     <TextField disabled name="cns" value={dadosAgente.cns} variant="outlined" onChange={(e) => handleFormChange(e)} label="CNS" type="number"/>
                      <TextField name="ubs_nome" value={dadosAgente.ubs_nome} variant="outlined" onChange={(e) => handleFormChange(e)} label="Unidade Básica de Saúde"/>
-                     <TextField name="ubs_codigo" value={dadosAgente.ubs_codigo} variant="outlined" onChange={(e) => handleFormChange(e)} label="Código da Unidade" type="number"/>
                   </div>
 
                   <div className="grid grid_4">
@@ -212,7 +210,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                   <div className="grid grid_4">
                      <FormControl variant="outlined" required>
                         <InputLabel id="selectMotivo">Motivo</InputLabel>
-                        <Select className="select-Modal_NovoRegistro" name="motivo" value={novoRegistro.motivo} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectMotivo" >
+                        <Select className="select-modal_novoRegistro" name="motivo" value={novoRegistro.motivo} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectMotivo" >
                            <MenuItem value="Cadastramento/Atualização">Cadastramento/Atualização</MenuItem>
                            <MenuItem value="Visita Periódica">Visita Periódica</MenuItem>
                         </Select>
@@ -220,7 +218,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
 
                      <FormControl variant="outlined" required>
                         <InputLabel id="selectDesfecho">Desfecho</InputLabel>
-                        <Select className="select-Modal_NovoRegistro" name="desfecho" value={novoRegistro.desfecho} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectDesfecho" >
+                        <Select className="select-modal_novoRegistro" name="desfecho" value={novoRegistro.desfecho} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectDesfecho" >
                            <MenuItem value="Visita realizada">Visita realizada</MenuItem>
                            <MenuItem value="Visita recusada">Visita recusada</MenuItem>
                            <MenuItem value="Ausente">Ausente</MenuItem>
@@ -232,9 +230,9 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                      <TextField name="descricao" required multiline rows={3} value={novoRegistro.descricao} variant="outlined" onChange={(e) => handleFormChange(e)} label="Descrição"/>
                   </div>
 
-                  <div className="modal_buttons">
+                  <div className="button-modal_novoRegistro">
                      <Button variant="outline-success" onClick={onClose}>Cancelar</Button>
-                     <Button variant="success" form="modal_novoRegistro" type="submit">Cadastrar</Button>
+                     <Button variant="success" form="form-modal_novoRegistro" type="submit">Cadastrar</Button>
                   </div>
                </form>
             </div>
