@@ -6,6 +6,7 @@ import { IoPerson } from "react-icons/io5";
 import { IoLockClosed } from "react-icons/io5";
 import { Link, useNavigate  } from "react-router-dom";
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function Login() {
    const navigate = useNavigate();
@@ -28,9 +29,20 @@ function Login() {
          const usuarioLogado = await api.get('/login/me', {
             headers: {Authorization: `Bearer ${token}`}
          });
+
+         toast.success('Login efetuado com sucesso.', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+            });
          
          console.log(`usuarioLogado: `, usuarioLogado.data);
-         alert(response.data.response); // Status do login (erro ou sucesso). -- Remover --
+         // alert(response.data.response); // Status do login (erro ou sucesso). -- Remover --
   
          navigate(`/${usuarioLogado.data.tipoUsuario}_home`);
          // -- toast (sucesso) --

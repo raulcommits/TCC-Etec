@@ -1,6 +1,7 @@
 import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AccessControl          from './pages/AccessControl'; // Verifica se o usuário logado pode acessar a página.
+import { ToastContainer } from "react-toastify";
 
 // ROTAS: LOGIN
 import Login                  from './pages/login/Login'
@@ -136,6 +137,7 @@ function App() {
             <Route path="/Paciente_dashboards"        element={<AccessControl    tipoPermitido="paciente"><Paciente_dashboards />   </AccessControl>} />
 
          </Routes>
+         <ToastContainer/>
       </Router>
    );
 }

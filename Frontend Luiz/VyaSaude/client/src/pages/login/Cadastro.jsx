@@ -4,6 +4,7 @@ import api from '../../services/api';
 import { Form } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function Cadastro() {
    const navigate = useNavigate();
@@ -29,8 +30,18 @@ function Cadastro() {
          // Cadastro do usuário
          const payloadCadastro = {cpf, nome, senha, email, tipoUsuario: "paciente"};
          await api.post('/usuarioCadastro', payloadCadastro);
+
+         toast.success('Cadastro realizado com sucesso. Realize login para continuar', {
+            position: "top-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
          
-         alert("Cadastro realizado com sucesso. Realize login para continuar");
          navigate("/login");
       } catch(err) {
          console.log(`Erro:`, err.response)
