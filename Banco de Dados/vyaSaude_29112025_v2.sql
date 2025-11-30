@@ -228,16 +228,16 @@ alter table endereco modify complemento varchar(20);
 
 -- 3. Inserir usuários (pacientes + funcionários)
 INSERT INTO usuario (cpf, nome, senha, email, telefone, tipoUsuario, createdAt)
-VALUES ('47332687142', 'Ana Laura Teixeira', 'senha123', 'ana@example.org', '(081)3822-7675', 'paciente', NOW());
+VALUES ('47332687142', 'Ana Laura Teixeira', 'senha123', 'ana@example.org', '8138227675', 'paciente', NOW());
 
 INSERT INTO usuario (cpf, nome, senha, email, telefone, tipoUsuario, createdAt)
-VALUES ('12345678901', 'Carlos Silva', 'senha456', 'carlos@example.org', '(011)91234-5678', 'paciente', NOW());
+VALUES ('12345678901', 'Carlos Silva', 'senha456', 'carlos@example.org', '11912345678', 'paciente', NOW());
 
 INSERT INTO usuario (cpf, nome, senha, email, telefone, tipoUsuario, createdAt)
-VALUES ('11122233344', 'Joana Pereira', 'senha789', 'joana@example.org', '(011)95555-1111', 'recepcao', NOW());
+VALUES ('11122233344', 'Joana Pereira', 'senha789', 'joana@example.org', '11955551111', 'recepcao', NOW());
 
 INSERT INTO usuario (cpf, nome, senha, email, telefone, tipoUsuario, createdAt)
-VALUES ('55566677788', 'Rafael Gomes', 'senha321', 'rafael@example.org', '(011)97777-2222', 'agente', NOW());
+VALUES ('55566677788', 'Rafael Gomes', 'senha321', 'rafael@example.org', '11977772222', 'agente', NOW());
 
 -- 4. Inserir pacientes
 INSERT INTO paciente (
@@ -248,7 +248,7 @@ INSERT INTO paciente (
 ) VALUES (
     'Ana Laura Teixeira','Ana Novaes','47332687142','329966053505838','1966-04-17',
     'Feminino','Branco','Casado','Brasileiro','SP','Embu das Artes','Júlia Porto',
-    'Felipe Azevedo','(081)3822-7675','ana@example.org','Médio','Pastor',
+    'Felipe Azevedo','8138227675','ana@example.org','Médio','Pastor',
     'Pública','Crítico','Sim','Não','Dr. Ravi Lopes','2025-08-17 20:40:07',1
 );
 
@@ -260,35 +260,35 @@ INSERT INTO paciente (
 ) VALUES (
     'Carlos Silva','Carlão','12345678901','987654321000000','1980-05-10',
     'Masculino','Pardo','Solteiro','Brasileiro','SP','São Paulo','Maria Silva',
-    'João Silva','(011)91234-5678','carlos@example.org','Superior','USP',
+    'João Silva','11912345678','carlos@example.org','Superior','USP',
     'Privada','Estável','Sim','Sim','Maria Silva','2025-08-17 20:40:07',2
 );
 
 -- 5. Inserir médico
 INSERT INTO medico (nome_medico, crm, cpf, data_admissao, email, telefone)
-VALUES ('Dr. Pedro Almeida', 'CRM12345', '98765432100', '2020-01-15', 'pedro@example.org', '(011)99876-5432');
+VALUES ('Dr. Pedro Almeida', 'CRM12345', '98765432100', '2020-01-15', 'pedro@example.org', '11998765432');
 
 -- 6. Inserir gerente de posto
 INSERT INTO gerentePosto (nome, telefone, cargo)
-VALUES ('Mariana Souza', '(011)91234-0000', 'Gerente Geral');
+VALUES ('Mariana Souza', '11912340000', 'Gerente Geral');
 
 -- 7. Inserir posto de saúde
 INSERT INTO posto (
     nome_posto, telefone, email, horario_funcionamento, tipo_atendimento,
     capacidade, servicos_disponiveis, id_endereco, id_gerente
 ) VALUES (
-    'UBS Jardim das Flores', '(011)4002-8922', 'ubsjardim@example.org',
+    'UBS Jardim das Flores', '1140028922', 'ubsjardim@example.org',
     'Seg-Sex 08h-18h', 'UBS', 200, 'Clínico geral, pediatria, vacinação',
     1, 1
 );
 
 -- 8. Inserir recepcionista
 INSERT INTO recepcao (nome_recepcionista, cpf, data_admissao, email, telefone)
-VALUES ('Joana Pereira', '11122233344', '2022-03-01', 'joana@example.org', '(011)95555-1111');
+VALUES ('Joana Pereira', '11122233344', '2022-03-01', 'joana@example.org', '11955551111');
 
 -- 9. Inserir agente de saúde
 INSERT INTO agente (nome_admin, cpf, data_admissao, email, telefone, codigo_cbo)
-VALUES ('Rafael Gomes', '55566677788', '2021-05-10', 'rafael@example.org', '(011)97777-2222', 2235);
+VALUES ('Rafael Gomes', '55566677788', '2021-05-10', 'rafael@example.org', '11977772222', 2235);
 
 -- 10. Inserir registro de atividade
 INSERT INTO registro_atividade (
@@ -298,9 +298,9 @@ INSERT INTO registro_atividade (
     1, 1, 1
 );
 INSERT INTO usuario (cpf, nome, senha, email, telefone, tipoUsuario, createdAt)
-VALUES ('55566677788', 'Rafael Gomes', 'senha321', 'rafael@example.org', '(011)97777-2222', 'agente', NOW());
+VALUES ('55566677788', 'Rafael Gomes', 'senha321', 'rafael@example.org', '11977772222', 'agente', NOW());
 INSERT INTO agente (nome, cpf, data_admissao, email, telefone, codigo_cbo)
-VALUES ('Rafael Gomes', '55566677788', '2021-05-10', 'rafael@example.org', '(011)97777-2222', 2235);
+VALUES ('Rafael Gomes', '55566677788', '2021-05-10', 'rafael@example.org', '11977772222', 2235);
 
 select * from agente;
 SELECT id, logradouro, bairro, cidade FROM endereco;
@@ -320,7 +320,7 @@ INSERT INTO paciente (
 ) VALUES (
     'Ana Laura Teixeira','Ana Novaes','47332687142','329966053505838','1966-04-17',
     'Feminino','Branco','Casado','Brasileiro','SP','Embu das Artes','Júlia Porto',
-    'Felipe Azevedo','(081)3822-7675','almeidaerick@example.org','Médio','Pastor',
+    'Felipe Azevedo','8138227675','almeidaerick@example.org','Médio','Pastor',
     'Pública','Crítico','Sim','Não','Dr. Ravi Lopes','2025-08-17 20:40:07', <id_endereco_correto>
 );
 

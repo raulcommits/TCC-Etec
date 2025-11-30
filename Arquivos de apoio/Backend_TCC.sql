@@ -790,8 +790,10 @@ insert into cbo(codigo, descricao) values(9922, 'Trabalhadores operacionais de c
 insert into gerente_posto(id, nome, telefone, cargo) values
 (1, "Cristiano de Souza", "11932456723", "Administrador da UBS");
 
-insert into endereco(id, logradouro, numero, complemento, bairro, cidade, estado, cep, pais, zonaId, materialPredominanteId, tipoImovelId, tipoAnimalId) values
-(1, "Rua São Bernardo", 390, "Casa", "Jardim São Marcos", "Embu das Artes", "SP", "06814090", "Brasil", 3, 3, 1, 2);
+insert into endereco(id, logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialPredominanteId, tipoImovelId, tipoAnimalId) values
+(1, "Rua São Bernardo", 390, "Casa", "Jardim São Marcos", "Embu das Artes", "SP", "06814090", "Brasil", null, 3, 3, 1, 2),
+(2, "Rua Marcelino Pinto Teixeira", 529, "Etec de Embu", "Gramado", "Embu das Artes", "SP", "06816-000", "Câmara Municipal", "Brasil", 15, 1, 3, null),
+(3, "Rua Marechal Izidoro Lopes", 1681, null, "Centro", "Embu das Artes", "SP", "06803-480", "Pronto Socorro Central", "Brasil", 10, 1, 3, null);
 
 insert into posto(id, nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, enderecoId, gerenteId) values
 (1, "UBS São Marcos", "11934276826", "ubssaomarcos@gmail.com", "04:00 às 18:00", "UBS", 150, 1, 1),

@@ -152,6 +152,26 @@ route.put("/:id", async (request, response) => {
     }
 });
 
+route.put("/atualizarAgente/:email", async (request, response) => {
+    const {email} = request.params;
+    const {telefone} = request.body;
+
+    if(telefone.length < 10 && telefone.length > 11) {
+        return response.status(400).send({response: "O telefone deve conter até 11 caracteres."});
+    }
+
+    try {
+         // teste pra saber se o dado do request.params está sendo achado
+         // await repositorioAgente.findOneBy({email}).then(res => console.log("resposta agente", res))
+         // console.log("email", email, "telefone", telefone)
+
+        await repositorioAgente.update({email}, {telefone});
+        return response.status(200).send({response: "Agente atualizado com sucesso."});
+    } catch (err) {
+        return response.status(500).send({response: err})
+    }
+});
+
 route.delete("/:id", async (request, response) => {
     const {id} = request.params;
 
