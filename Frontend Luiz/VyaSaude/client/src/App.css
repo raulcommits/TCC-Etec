@@ -55,6 +55,24 @@ button {
    height: 50px;
 }
 
+.title-pages { /* Cabeçalho contendo botão de voltar e título da página */
+   display: flex;
+   text-align: center;
+   align-items: center;
+   padding: 3vh 0;
+   width: 100%;
+   
+   svg {
+      cursor: pointer;
+      width: 4rem;
+      height: 2rem;
+   }
+
+   h1 {
+      margin: 0;
+   }
+}
+
 .shortcutField {
    display: flex;
    gap: 12px;
@@ -267,10 +285,6 @@ button {
    flex-direction: column;
 }
 
-h1, h2, h3, h4, h5 {
-   margin: 0px;
-}
-
 @media (max-width: 887px) {
    .content-home {
       width: 99.99%;
@@ -295,7 +309,7 @@ h1, h2, h3, h4, h5 {
       margin-top: 10vh;
    }
    .content-pages {
-      width: calc(100vw - 180px);
+      width: calc(100vw - 100px); /* 180 -> 100 */
       margin-left: 90px;
       padding: 24px;
    }
@@ -317,7 +331,7 @@ h1, h2, h3, h4, h5 {
       margin-top: 10vh;
    }
    .content-pages {
-      width: calc(100vw - 340px);
+      width: calc(100vw - 300px); /* 340 -> 300 */ 
       margin-left: 300px;
       padding: 40px;
    }

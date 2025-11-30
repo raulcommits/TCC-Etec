@@ -7,13 +7,6 @@
 }
 
 .content-pages-recepcao {
-   .title-pages {
-      display: flex;
-      text-align: center;
-      padding: 2vh;
-      width: 100%;
-   }
-   
    .form-fields {
       display: flex;
       text-align: center;
@@ -34,10 +27,6 @@
       width: 35vw;
    }
    
-   
-   .form-registro {
-      padding: 1vh 10vw !important;
-   }
    
    .form-button {
       display: flex;

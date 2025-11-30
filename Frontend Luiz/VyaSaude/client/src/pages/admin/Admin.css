@@ -6,14 +6,7 @@
    margin-bottom: 48vh;
 }
 
-.content-pages-admin {
-   .title-pages {
-      display: flex;
-      text-align: center;
-      padding: 2vh;
-      width: 100%;
-   }
-   
+.content-pages-admin {  
    .form-fields {
       display: flex;
       text-align: center;
@@ -25,6 +18,7 @@
          width: 270px;
       }
    }
+   
    .form-fields label{
       margin: 0;
       
@@ -34,10 +28,6 @@
       width: 35vw;
    }
    
-   
-   .form-registro {
-      padding: 1vh 10vw !important;
-   }
    
    .form-button {
       display: flex;
