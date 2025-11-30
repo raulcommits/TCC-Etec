@@ -49,9 +49,6 @@ function Paciente_dashboards() {
 
             <PageWIP />
 
-            {/* <div className="grid-container_Home agente-home">
-
-            </div> */}
          </main>
       </div>
    )

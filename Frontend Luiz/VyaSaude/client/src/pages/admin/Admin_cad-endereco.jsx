@@ -170,7 +170,7 @@ function Admin_novoCadastro() {
                   </div>
                </div>
 
-               <Form id="form-registro" className="form-registro" onSubmit={handleRegister}>
+               <Form id="form-registro" onSubmit={handleRegister}>
                   <div>
                      <div className="form-fields">
                         <Form.Label>Nome</Form.Label>

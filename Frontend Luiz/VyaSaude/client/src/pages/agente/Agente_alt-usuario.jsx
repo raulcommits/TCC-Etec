@@ -33,9 +33,6 @@ function Agente_altUsuario() {
 
             <PageWIP />
 
-            {/* <div className="grid-container_Home agente-home">
-
-            </div> */}
          </main>
       </div>
    )
