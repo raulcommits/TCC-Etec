@@ -5,6 +5,7 @@ import registro               from "../entities/registro_atividade.js";
 import agente                 from "../entities/agente.js";
 import paciente               from "../entities/paciente.js";
 import endereco               from "../entities/endereco.js";
+import CodigoRegistro         from "../utils/codVisita.js";
 
 const route = express.Router();
 const repositorioRegistro = AppDataSource.getRepository(registro);
@@ -18,9 +19,13 @@ route.get("/", async (request, response) => {
 })
 
 route.get("/:encontrarVisita", async (request, response) => {
-    const {encontrarVisita} = request.params;
-    const encontrarRegistro = await repositorioRegistro.findBy({data_visita: Like(`%${encontrarVisita}`)});
-    return response.status(200).send({response: encontrarRegistro});
+   const {encontrarVisita} = request.params;
+   const encontrarRegistro = await repositorioRegistro.findOne({where: [
+      {id: encontrarVisita}
+   ],
+   relations: ["endereco", "agente.posto", "paciente"]});
+   
+   return response.status(200).send(encontrarRegistro);
 });
 
 route.post("/cadastro", async (request, response) => {
@@ -29,9 +34,8 @@ route.post("/cadastro", async (request, response) => {
     const motivos = ["Cadastramento/Atualização", "Visita Periódica"];
     const desfechos = ["Visita realizada", "Visita recusada", "Ausente"];
 
-    if(registro_visita.length < 10) {
-      return response.status(400).send({response: "O registro da visita deve possuir no mínimo 10 caracteres."});
-    }
+   //  registro_visita = CodigoRegistro();
+   registro_visita = "2039247"
 
     if(!motivos.includes(motivo)) {
       return response.status(400).send({response: "O motivo deve corresponder a uma das opções."});
@@ -84,6 +88,10 @@ route.put("/atualizacao/:id", async (request, response) => {
 
     if(isNaN(id)) {
         return response.status(400).send({response: "O id deve ser númerico."});
+    }
+
+    if(registro_visita.length < 10) {
+        return response.status(400).send({response: "O registro da visita deve possuir no mínimo 10 caracteres."});
     }
 
     if(!motivos.includes(motivo.toLowerCase())) {

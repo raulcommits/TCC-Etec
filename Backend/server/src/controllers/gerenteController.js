@@ -24,11 +24,11 @@ route.post("/", async (request, response) => {
 
    const {nome, telefone} = gerente;
 
-   if(nome.length < 1) {
+   if (nome.length < 1) {
       return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
    
-   if(telefone.length < 10 || telefone.length > 11) {
+   if (telefone.length < 10 || telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter pelo menos 10 caraceteres."});
    }
 

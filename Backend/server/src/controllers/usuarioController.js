@@ -8,13 +8,13 @@ const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
 
 route.get("/", authenticate, async (request, response) => {
-   const usuarios = await repositorioUsuario.find({deletedAt:IsNull()});
+   const usuarios = await repositorioUsuario.find({data_exclusao: IsNull()});
    return response.status(200).send({response: usuarios});
 });
 
 route.get("/:encontrarNome", async (request, response) => {
    const {encontrarNome} = request.params;
-   const encontrarUsuario = await repositorioUsuario.findBy({nome: Like(`%${encontrarNome}%`)});
+   const encontrarUsuario = await repositorioUsuario.findOneBy({cpf: encontrarNome});
    return response.status(200).send({response: encontrarUsuario});
 });
 
@@ -23,24 +23,24 @@ route.post("/", async (request, response) => {
 
    const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
 
-   if(cpf.length != 11) {
+   if (cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
    
-   if(nome.length < 1) {
-      return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
+   if (nome.length < 3) {
+      return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
    }
 
-   if(!email.includes("@")) {
+   if (!email.includes("@")) {
       return response.status(400).send({response: "O email deve conter '@'."});
    }
 
-   if(senha.length < 8) {
+   if (senha.length < 8) {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
 
-   if(!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
-      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
+   if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
+      return response.status(400).send({response: "O usuário deve corresponder a um dos níveis exibidos."});
    }
 
    try {
@@ -54,24 +54,28 @@ route.post("/", async (request, response) => {
 
 route.put("/:cpf", async (request, response) => {
    const {cpf} = request.params;
+
    const {nome, email, senha, tipoUsuario} = request.body;
 
    const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
 
-   if(cpf.length != 11) {
+   if (cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
 
-   if(nome.length < 1) {
-      return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
+   if (nome.length < 3) {
+      return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
    }
-   if(!email.includes("@")) {
+
+   if (!email.includes("@")) {
       return response.status(400).send({response: "O email deve conter '@'."});
    }
-   if(senha.length < 8) {
+
+   if (senha.length < 8) {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
-   if(!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
+
+   if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
       return response.status(400).send({response: "O usuário deve corresponder a um dos níveis exibidos."});
    }
 
@@ -91,7 +95,7 @@ route.delete("/:cpf", async (request, response) => {
    }
 
    try {
-      await repositorioUsuario.update({cpf}, {deletedAt: () => "CURRENT_TIMESTAMP"});
+      await repositorioUsuario.update({cpf}, {data_exclusao: () => "CURRENT_TIMESTAMP"});
       return response.status(200).send({response: "Usuário deletado com sucesso."});
    } catch (err) {
       return response.status(500).send({response: err});
