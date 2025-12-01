@@ -40,75 +40,43 @@ route.get("/me", authenticate, async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
+    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
     
-    if (isNaN(id)) {
-      return response.status(400).send({response: "O id deve ser numérico."});
-    }
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
 
-    if (logradouro.length < 3) {
-        return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});
-    }
-
-    if (numero.length < 1 && numero.length > 5) {
-        return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
-    }
-
-    if (bairro.length < 1) {
-        return response.status(400).send({response: "O bairro deve conter pelo mrnos 1 caractere."});
-    }
-
-    if (cidade.length < 1) {
-        return response.status(400).send({response: "A cidade deve conter ao menos 1 caractere."});
-    }
-
-    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
-    "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
-
-    if (!estados.includes(estado.toUpperCase())) {
+    if(!estados.includes(estado.toUpperCase())) {
         return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
-    }
-
-    if (cep.length != 8) {
-        return response.status(400).send({response: "O cep deve conter 8 caracteres."});
-    }
-
-    if (pais.length < 1) {
-        return response.status(400).send({response: "O país deve conter pelo menos 1 caractere."});
     }
 
     try {
         const zona = await repositorioZona.findOneBy({
-        id: zonaId
+        id: id_zona
         })
         if(!zona) {
         return response.status(400).send({response: "Esse endereço não foi encontrado."});
         }
 
         const material_predominante = await repositorioMaterial.findOneBy({
-        id: materialId,
+        id: id_material,
         })
         if(!material_predominante) {
         return response.status(400).send({response: "Esse material não foi encontrado."});
         }
 
         const tipo_imovel = await repositorioImovel.findOneBy({
-        id: imovelId
+        id: id_imovel
         })
         if(!tipo_imovel) {
         return response.status(400).send({response: "Esse imovel não foi encontrado."});
         }
         const tipo_animal = await repositorioAnimal.findOneBy({
-        id: animalId
+        id: id_animal
         })
         if(!tipo_animal) {
         return response.status(400).send({response: "Esse animal não foi encontrado."});
         }
 
-        const complementoEndereco = complemento != null ? complemento : null;
-        const pontoReferencia = ponto_referencia != null ? ponto_referencia : null;
-
-        const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento: complementoEndereco, bairro, cidade, estado, cep, pais, ponto_referencia: pontoReferencia, zona, material_predominante, tipo_imovel, tipo_animal});
+        const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zona, material_predominante, tipo_imovel, tipo_animal});
 
         await repositorioEndereco.save(novo_endereco);
         return response.status(201).send({response: "Endereco cadastrado com sucesso.", id: novo_endereco.id});
@@ -120,73 +88,72 @@ route.post("/", async (request, response) => {
 
 route.put("/:id", async (request, response) => {
     const {id} = request.params;
-    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
+    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
 
-    if (isNaN(id)) {
+    if(isNaN(id)) {
         return response.status(400).send({response: "O id deve ser numérico."});
     }
 
-    if (logradouro.length < 3) {
+    if(logradouro.length < 3) {
         return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});
     }
 
-    if (numero.length < 1 && numero.length > 5) {
+    if(numero.length < 1 && numero.length > 5) {
         return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
     }
 
-    if (bairro.length < 1) {
+    if(complemento.length < 1) {
+        return response.status(400).send({response: "O complemento deve conter pelo menos 1 caractere."});
+    }
+
+    if(bairro.length < 1) {
         return response.status(400).send({response: "O bairro deve conter pelo mrnos 1 caractere."});
     }
 
-    if (cidade.length < 1) {
+    if(cidade.length < 1) {
         return response.status(400).send({response: "A cidade deve conter ao menos 1 caractere."});
     }
 
-    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
-    "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", TO];
 
-    if (!estados.includes(estado.toUpperCase())) {
+    if(!estados.includes(estado.toUpperCase())) {
         return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
     }
 
-    if (cep.length != 8) {
+    if(cep.length != 8) {
         return response.status(400).send({response: "O cep deve conter 8 caracteres."});
     }
 
-    if (pais.length < 1) {
+    if(pais.length < 1) {
         return response.status(400).send({response: "O país deve conter pelo menos 1 caractere."});
     }
 
     try {
         const zona = await repositorioZona.findOneBy({
-            id: zonaId
+            id: id_zona
         });
         if(!zona) {
             return response.status(400).send({response: "Essa zona não foi encontrada."});
         }
         const material = await repositorioMaterial.findOneBy({
-            id: materialId
+            id: id_material
         });
         if(!material) {
             return response.status(400).send({response: "Esse material não foi encontrado."});
         }
         const imovel = await repositorioImovel.findOneBy({
-            id: imovelId
+            id: id_imovel
         });
         if(!imovel) {
             return response.status(400).send({response: "Esse imovel não foi encontrado."});
         }
         const animal = await repositorioAnimal.findOneBy({
-            id: animalId
+            id: id_animal
         });
         if(!animal) {
             return response.status(400).send({response: "Esse animal não foi encontrado."});
         }
-
-        const complementoEndereco = complemento != null ? complemento : null;
-        const pontoReferencia = ponto_referencia != null ? ponto_referencia : null;
-
-        await repositorioEndereco.update({id}, {logradouro, numero, complemento: complementoEndereco, bairro, cidade, estado, cep, pais, ponto_referencia: pontoReferencia, zona, material, imovel, animal});
+        await repositorioEndereco.update({id}, {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, zona, material, imovel, animal});
         return response.status(200).send({response: "Endereço atualizado com sucesso."});
     } catch (err) {
         return response.status(500).send({response: err})
