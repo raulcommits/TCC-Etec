@@ -49,18 +49,3 @@
    
    /* ============ */
 }
-
-/* Estilo do botão de exportar, inspirado em BoxSimpleInfos .buttonB */
-.exportBtn {
-   color: #000;
-   background-color: #bbd9e8;
-   border: solid 1px #a0b2cb;
-   border-radius: 10px;
-   padding: 10px 20px;
-   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-   cursor: pointer;
-}
-.exportBtn:hover {
-   background-color: #5e8891;
-   color: #fff;
-}
