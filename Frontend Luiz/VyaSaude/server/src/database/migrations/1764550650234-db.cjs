@@ -7,8 +7,8 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1764121884460 {
-    name = 'Db1764121884460'
+module.exports = class Db1764550650234 {
+    name = 'Db1764550650234'
 
     /**
      * @param {QueryRunner} queryRunner

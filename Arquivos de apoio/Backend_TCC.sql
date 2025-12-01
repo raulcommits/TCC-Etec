@@ -17,7 +17,7 @@ select * from endereco;
 select * from posto;
 
 # TABELAS DE CADASTRO
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from administrador;
 select * from gerente;
 select * from agente;

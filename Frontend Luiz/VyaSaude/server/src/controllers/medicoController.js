@@ -16,14 +16,19 @@ route.get("/", async (request, response) => {
     return response.status(200).send({response: medicos});
 });
 
-route.get("/:encontrarNome", async (request, response) => {
-    const {encontrarNome} = request.params;
-    const encontrarMedico = await repositorioMedico.find({
-        where: [
-            {nome_medico: Like(`%${encontrarNome}`)},
-            {cpf: encontrarNome}
-        ]});
-        return response.status(200).send({response: encontrarMedico});
+route.get("/:encontrarMedico", async (request, response) => {
+   const {encontrarMedico} = request.params;
+   const verificarMedico = await repositorioMedico.findOne({where: [
+            {nome_medico: Like(`%${encontrarMedico}`)},
+            {cpf: encontrarMedico}
+   ],
+      relations: ["posto", "cbo"]});
+
+   if (!verificarMedico || verificarMedico.length === 0) {
+      return response.status(404).send({response: "Agente não encontrado"})
+   }
+
+   return response.status(200).send({response: encontrarMedico});
 });
 
 route.get("/perfil", authenticate, async (request, response) => {
@@ -58,34 +63,34 @@ route.get("/perfil", authenticate, async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {nome_medico, cpf, data_admissao, email, telefone, id_posto, id_cbo} = request.body;
+    const {nome_medico, cpf, data_admissao, email, telefone, postoId, cboCodigo} = request.body;
 
-    if(nome_medico.length < 1) {
-        return response.status(400).send({response: "O nome deve conter no mínimo 1 caractere."});
+    if (nome_medico.length < 3) {
+        return response.status(400).send({response: "O nome deve conter no mínimo 3 caracteres."});
     }
-    if(cpf.length != 11) {
+    if (cpf.length != 11) {
         return response.status(400).send({response: "O cpf deve conter 11 caracteres."});
     }
-    if(data_admissao.length != 8) {
+    if (data_admissao.length != 8) {
         return response.status(400).send({response: "A data deve estar no formato de data"});
     }
-    if(!email.includes("@")) {
+    if (!email.includes("@")) {
         return response.status(400).send({response: "O email deve conter '@'"});
     }
-    if(telefone.length < 10 && telefone.length > 11) {
-        return response.status(400).send({response: "O telefone deve conter até 11 caracteres."});
+    if (telefone.length < 10 && telefone.length > 11) {
+        return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)."});
     }
     
     try {
         const posto = await repositorioPosto.findOneBy({
-            id: id_posto
+            id: postoId
         });
         if(!posto) {
             return response.status(400).send({response: "Esse posto não foi encontrado."});
         }
 
         const cbo = await repositorioCbo.findOneBy({
-            codigo: id_cbo
+            codigo: cboCodigo
         });
         if(!cbo) {
             return response.status(400).send({response: "O cbo não foi encontrado."});
@@ -101,34 +106,34 @@ route.post("/", async (request, response) => {
 
 route.put("/:id", async (request, response) => {
     const {id} = request.params;
-    const {nome_medico, cpf, data_admissao, email, telefone, id_posto, id_cbo} = request.body;
+    const {nome_medico, cpf, data_admissao, email, telefone, postoId, cboCodigo} = request.body;
 
-    if(nome_medico.length < 1) {
-        return response.status(400).send({response: "O nome deve conter no mínimo 1 caractere."});
+    if (nome_medico.length < 3) {
+        return response.status(400).send({response: "O nome deve conter no mínimo 3 caracteres."});
     }
-    if(cpf.length != 11) {
+    if (cpf.length != 11) {
         return response.status(400).send({response: "O cpf deve conter 11 caracteres."});
     }
-    if(data_admissao.length != 8) {
+    if (data_admissao.length != 8) {
         return response.status(400).send({response: "A data deve estar no formato de data"});
     }
-    if(!email.includes("@")) {
+    if (!email.includes("@")) {
         return response.status(400).send({response: "O email deve conter '@'"});
     }
-    if(telefone.length < 10 && telefone.length > 11) {
-        return response.status(400).send({response: "O telefone deve conter até 11 caracteres."});
+    if (telefone.length < 10 && telefone.length > 11) {
+        return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)."});
     }
 
     try {
         const posto = await repositorioPosto.findOneBy({
-            id: id_posto
+            id: postoId
         });
         if(!posto) {
             return response.status(400).send({response: "Esse posto não foi encontrado."});
         }
 
         const cbo = await repositorioCbo.findOneBy({
-            codigo: id_cbo
+            codigo: cboCodigo
         });
         if(!cbo) {
             return response.status(400).send({response: "O cbo não foi encontrado."});
@@ -141,10 +146,26 @@ route.put("/:id", async (request, response) => {
     }
 });
 
+route.put("atualizarMedico/:email", async (request, response) => {
+   const {email} = request.params;
+   const {telefone} = request.body;
+
+   if (telefone.length < 10 && telefone.length > 11) {
+      return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)."});
+   }
+
+   try {
+      await repositorioMedico.update({email}, {telefone});
+      return response.status(200).send({response: "Email/telefone de médico atualizado com sucesso."});
+   } catch (err) {
+      return response.status(500).send({response: err});
+   }
+});
+
 route.delete("/", async (request, response) => {
     const {id} = request.params;
 
-    if(isNaN(id)) {
+    if (isNaN(id)) {
         return response.status(400).send({response: "O id deve ser numérico."});
     }
 

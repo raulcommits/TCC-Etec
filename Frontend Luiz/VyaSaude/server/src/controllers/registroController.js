@@ -5,6 +5,7 @@ import registro               from "../entities/registro_atividade.js";
 import agente                 from "../entities/agente.js";
 import paciente               from "../entities/paciente.js";
 import endereco               from "../entities/endereco.js";
+import CodigoRegistro         from "../utils/codVisita.js";
 
 const route = express.Router();
 const repositorioRegistro = AppDataSource.getRepository(registro);
@@ -32,10 +33,6 @@ route.post("/cadastro", async (request, response) => {
     
     const motivos = ["Cadastramento/Atualização", "Visita Periódica"];
     const desfechos = ["Visita realizada", "Visita recusada", "Ausente"];
-
-    if(registro_visita.length < 10) {
-      return response.status(400).send({response: "O registro da visita deve possuir no mínimo 10 caracteres."});
-    }
 
     if(!motivos.includes(motivo)) {
       return response.status(400).send({response: "O motivo deve corresponder a uma das opções."});

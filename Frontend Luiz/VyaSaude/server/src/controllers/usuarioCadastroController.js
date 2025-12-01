@@ -7,7 +7,7 @@ const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
 
 route.get("/", async (request, response) => {
-   const usuarios = await repositorioUsuario.find({deletedAt:IsNull()});
+   const usuarios = await repositorioUsuario.find({data_exclusao: IsNull()});
    return response.status(200).send({response: usuarios});
 });
 
@@ -37,26 +37,27 @@ route.post("/verificarDados", async (request, response) => {
 route.post("/", async (request, response) => {
    const {cpf, nome, email, senha, tipoUsuario} = request.body;
 
-   if(cpf.length != 11) {
+   const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
+
+   if (cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
    
-   if(nome.length < 1) {
+   if (nome.length < 1) {
       return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
 
-   if(!email.includes("@")) {
+   if (!email.includes("@")) {
       return response.status(400).send({response: "O email deve conter '@'."});
    }
 
-   if(senha.length < 8) {
+   if (senha.length < 8) {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
 
-
-   // if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
-   //    return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
-   // }
+   if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
+      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
+   }
 
    try {
       const novoUsuario = repositorioUsuario.create({cpf, nome, email, senha, tipoUsuario});
@@ -70,23 +71,29 @@ route.post("/", async (request, response) => {
 
 route.put("/:cpf", async (request, response) => {
    const {cpf} = request.params;
+
    const {nome, email, senha, tipoUsuario} = request.body;
 
-   if(cpf.length != 11) {
+   const tipos_usuario = ["admin", "agente", "gerente", "paciente", "recepcao"];
+
+   if (cpf.length != 11) {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
 
-   if(nome.length < 1) {
+   if (nome.length < 1) {
       return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
-   if(!email.includes("@")) {
+
+   if (!email.includes("@")) {
       return response.status(400).send({response: "O email deve conter '@'."});
    }
-   if(senha.length < 8) {
+
+   if (senha.length < 8) {
       return response.status(400).send({response: "A senha deve conter pelo menos 8 caraceteres."});
    }
-   if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
-      return response.status(400).send({response: "O usuário deve ser um dos três tipos: 'Paciente'; 'Agente'; 'Admin'."});
+
+   if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
+      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
    }
 
    try {
@@ -96,20 +103,5 @@ route.put("/:cpf", async (request, response) => {
       return response.status(500).send({response: err});
    }
 });
-
-// route.delete("/:cpf", async (request, response) => {
-//    const {cpf} = request.params;
-
-//    if(cpf.length != 11) {
-//       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
-//    }
-
-//    try {
-//       await repositorioUsuario.update({cpf}, {deletedAt: () => "CURRENT_TIMESTAMP"});
-//       return response.status(200).send({response: "Usuário deletado com sucesso."});
-//    } catch (err) {
-//       return response.status(500).send({response: err});
-//    }
-// });
 
 export default route;
