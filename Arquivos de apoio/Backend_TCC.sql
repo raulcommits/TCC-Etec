@@ -5,7 +5,7 @@ use vya_saude;
 #TABELAS DE CHAVE PRIMÁRIA
 select * from cbo;
 select * from zona;
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from gerente_posto;
 select * from tipo_animal;
 select * from tipo_imovel;
