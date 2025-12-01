@@ -23,16 +23,7 @@ function Cadastro() {
          const respostaVerificacao = await api.post('/usuarioCadastro/verificarDados', payloadVerificacao);
 
          if (respostaVerificacao?.data?.response === "Usuário já cadastrado no sistema.") {
-            toast.error('Usuário já cadastrado no sistema.', {
-            position: "top-right",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light"
-         });
+            alert(respostaVerificacao.data.response);
             return;
          };
 

@@ -54,7 +54,7 @@ function Paciente_perfil() {
       localidade: '',
       uf: '',
       
-      data_criacao: ''
+      createdAt: ''
    });
 
    useEffect(() => {
@@ -261,7 +261,7 @@ function Paciente_perfil() {
                   <Form.Control disabled name="escolaridade" value={""} placeholder=''/>
 
                   <Form.Label>Data e Hora</Form.Label>
-                  <Form.Control disabled name="data_criacao" value={new Date(formDados.data_criacao).toLocaleString('pt-BR')} type='text' placeholder='Data e Hora de criação'/>
+                  <Form.Control disabled name="createdAt" value={new Date(formDados.createdAt).toLocaleString('pt-BR')} type='text' placeholder='Data e Hora de criação'/>
                </div>
 
                {/* Botões pra voltar e alterar cadastro*/}
