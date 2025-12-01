@@ -5,8 +5,8 @@ const registro_atividade = new EntitySchema({
     tableName: "registro_atividade",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        data_visita: {type: "datetime", nullable: false},
-        registro_visita: {type: "text", nullable: false},
+        data_visita: {type: "datetime", nullable: false, default: () => "CURRENT_TIMESTAMP"},
+        registro_visita: {type: "varchar", nullable: false},
         motivo: {type: "enum", enum: ["Cadastramento/Atualização", "Visita Periódica"], nullable: false},
         desfecho: {type: "enum", enum: ["Visita realizada", "Visita recusada", "Ausente"], nullable: false},
         descricao: {type: "text", nullable: true}

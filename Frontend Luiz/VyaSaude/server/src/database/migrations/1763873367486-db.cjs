@@ -7,20 +7,20 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1764121884460 {
-    name = 'Db1764121884460'
+module.exports = class Db1763873367486 {
+    name = 'Db1763873367486'
 
     /**
      * @param {QueryRunner} queryRunner
      */
     async up(queryRunner) {
-        await queryRunner.query(`ALTER TABLE \`endereco\` CHANGE \`complemento\` \`complemento\` varchar(50) NULL`);
+        await queryRunner.query(`ALTER TABLE \`registro_atividade\` CHANGE \`data_visita\` \`data_visita\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP`);
     }
 
     /**
      * @param {QueryRunner} queryRunner
      */
     async down(queryRunner) {
-        await queryRunner.query(`ALTER TABLE \`endereco\` CHANGE \`complemento\` \`complemento\` varchar(50) NOT NULL`);
+        await queryRunner.query(`ALTER TABLE \`registro_atividade\` CHANGE \`data_visita\` \`data_visita\` datetime NOT NULL`);
     }
 }
