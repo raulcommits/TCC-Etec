@@ -7,11 +7,14 @@ import loginController           from "../controllers/loginController.js";
 
 // Usuários:
 import usuarioController          from "../controllers/usuarioController.js";
-import usuarioCadastroController  from "../controllers/usuarioCadastroController.js";
+import usuarioCadastroController  from "../controllers/crud_usuarios/usuarioCadastroController.js";
 import adminController            from "../controllers/adminController.js";
+import adminCadastroController    from "../controllers/crud_usuarios/adminCadastroController.js";
 import gerenteController          from "../controllers/gerenteController.js";
 import agenteController           from "../controllers/agenteController.js"
+// import agenteCadastroController   from "../controllers/crud_usuarios/agenteCadastroController.js";
 import recepcaoController         from "../controllers/recepcaoController.js";
+// import recepcaoCadastroController from "../controllers/crud_usuarios/recepcaoCadastroController.js";
 import medicoController           from "../controllers/medicoController.js";
 import pacienteController         from "../controllers/pacienteController.js";
 
@@ -41,6 +44,7 @@ routes.use("/medico",            authenticate, medicoController);
 routes.use("/agente",            authenticate, agenteController);
 routes.use("/recepcao",          authenticate, recepcaoController);
 routes.use("/paciente",          authenticate, pacienteController);
+routes.use("/admin",             authenticate, adminCadastroController);
 
 // Relacionamentos:
 routes.use("/zona",              zonaController);

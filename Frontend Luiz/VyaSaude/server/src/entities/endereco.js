@@ -7,7 +7,7 @@ const endereco = new EntitySchema({
         id: {primary: true, type: "int", generated: true},
         logradouro: {type: "varchar", length: 100, nullable: false},
         numero: {type: "varchar", length: 100, nullable: false},
-        complemento: {type: "varchar", length: 50, nullable: false},
+        complemento: {type: "varchar", length: 50, nullable: true},
         bairro: {type: "varchar", length: 50, nullable: false},
         cidade: {type: "varchar", length: 50, nullable: false},
         estado: {type: "enum", enum: ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG",

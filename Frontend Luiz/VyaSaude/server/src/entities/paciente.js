@@ -5,10 +5,10 @@ const paciente = new EntitySchema({
     tableName: "paciente",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        cpf: {type: "varchar", length: 11, nullable: false, unique: true},
-        sus: {type: "char", length: 15, nullable: false, unique: true},
         nome: {type: "varchar", length: 70, nullable: false},
         nome_social: {type: "varchar", length: 70, nullable: true},
+        cpf: {type: "varchar", length: 11, nullable: false, unique: true},
+        sus: {type: "char", length: 15, nullable: false, unique: true},
         data_nascimento: {type: "date", nullable: false},
         genero: {type: "char", length: 15, nullable: false},
         etnia: {type: "char", length: 15, nullable: false},

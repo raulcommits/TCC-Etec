@@ -1,7 +1,7 @@
-import { AppDataSource }      from "../database/data-source.js";
+import { AppDataSource }      from "../../database/data-source.js";
 import { Like, IsNull }       from "typeorm";
 import express                from "express";
-import usuario                from "../entities/usuario.js";
+import usuario                from "../../entities/usuario.js";
 
 const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
@@ -54,9 +54,9 @@ route.post("/", async (request, response) => {
    }
 
 
-   // if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
-   //    return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
-   // }
+   if(tipoUsuario.toLowerCase() != tipoUsuario.toLowerCase() != "admin" && tipoUsuario.toLowerCase() != "gerente" && tipoUsuario.toLowerCase() != "agente" && tipoUsuario.toLowerCase() != "recepcao" && tipoUsuario.toLowerCase() != "paciente") {
+      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
+   }
 
    try {
       const novoUsuario = repositorioUsuario.create({cpf, nome, email, senha, tipoUsuario});

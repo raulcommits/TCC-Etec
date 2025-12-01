@@ -48,16 +48,8 @@ function Login() {
          // -- toast (sucesso) --
       }
       catch(error) {
-         toast.error('Erro ao efetuar login.', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+         alert(error.response); // -- Remover --
+         // -- toast (erro) --
          console.log(error.response);
       };
    };

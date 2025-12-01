@@ -17,7 +17,6 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import { GoReply } from "react-icons/go";
-import { toast } from "react-toastify";
 
 async function verificarExistencia(endpoint, dados) {
    
@@ -125,32 +124,14 @@ function Agente_cadUsuario() {
             const cadastroPayload = {...formNovoPaciente, id_endereco: enderecoCriadoId, id_agente: 1}
             await api.post(`/paciente`, cadastroPayload);
             console.log(`\n Paciente cadastrado com sucesso. \n`)
-            toast.success('Cadastro efetuado com sucesso.', {
-               position: "top-right",
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: false,
-               pauseOnHover: true,
-               draggable: true,
-               progress: undefined,
-               theme: "light"
-            });
+            alert(`Paciente cadastrado com sucesso.`);
 
          } catch(err) {
             console.log(err)
             throw(err)
          }
       } catch(err) {
-         toast.success('Erro no servidor.', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light"
-         });
+         alert(err)
          console.log(err.response)
       }
    }

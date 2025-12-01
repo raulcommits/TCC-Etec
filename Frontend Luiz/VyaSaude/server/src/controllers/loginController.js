@@ -26,7 +26,7 @@ route.get("/me", authenticate, async (request, response) => {
       cpf: usuario.cpf,
       email: usuario.email,
       tipoUsuario: usuario.tipoUsuario,
-      data_criacao: usuario.data_criacao
+      createdAt: usuario.createdAt
    });
 });
 
@@ -36,15 +36,15 @@ route.post("/", async (request, response) => {
    email = email.toLowerCase().trim(); // Caracteres minusculos, e remoção de espaços em branco no começo e fim
 
    try {
-      if (!email.includes("@")) {
+      if(!email.includes("@")) {
          return response.status(400).send({response: "Verifique o formato do e-mail."});
       }
 
       const usuario = await repositorioUsuario.findOneBy({
-         email, senha, data_exclusao: IsNull()
+         email, senha, deletedAt: IsNull()
       });
       
-      if (!usuario) {
+      if(!usuario) {
          return response.status(401).send({response: "Usuário não encontrado. Verifique as credenciais e tente novamente."});
       }
 
@@ -69,10 +69,10 @@ route.put("/nova-senha", async (request, response) => {
    const {email} = request.body;
 
    const usuario = await repositorioUsuario.findOneBy({
-      email, data_exclusao: IsNull()
+      email, deletedAt: IsNull()
    });
 
-   if (!usuario) {
+   if(!usuario) {
       return response.status(400).send({response: "Email inválido."});
    }
 

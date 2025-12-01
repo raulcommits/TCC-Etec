@@ -4,7 +4,6 @@ import api from '../../services/api';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
 
 function Recuperar() {
    const navigate = useNavigate();
@@ -15,32 +14,12 @@ function Recuperar() {
       
       try {
          const solicitarSenha = await api.put('/login/nova-senha', {email});
-         // alert(solicitarSenha.data.response)
-         toast.success('Senha solicitada com sucesso.', {
-                         position: "top-right",
-                         autoClose: 2000,
-                         hideProgressBar: false,
-                         closeOnClick: false,
-                         pauseOnHover: true,
-                         draggable: true,
-                         progress: undefined,
-                         theme: "light"
-                     });
+         alert(solicitarSenha.data.response)
          console.log(solicitarSenha.data.response)
          navigate("/login")
       } catch(err) {
          console.log(err);
-         // alert(err);
-         toast.error('Erro ao solicitar senha.', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light"
-         });
+         alert(err);
       }
    }
 
