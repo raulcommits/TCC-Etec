@@ -5,7 +5,7 @@ use vya_saude;
 #TABELAS DE CHAVE PRIMÁRIA
 select * from cbo;
 select * from zona;
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from gerente_posto;
 select * from tipo_animal;
 select * from tipo_imovel;
@@ -17,7 +17,7 @@ select * from endereco;
 select * from posto;
 
 # TABELAS DE CADASTRO
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from administrador;
 select * from gerente;
 select * from agente;
@@ -158,6 +158,7 @@ INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (108, 'Jard
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (109, 'Pindorama', 'Ressaca', 'Oeste');
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (110, 'Ressaca', 'Ressaca', 'Oeste');
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (111, 'Votorantim', 'Ressaca', 'Oeste');
+INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (112, 'Não-identificado', 'Não-identificado', 'N/D');
 
 insert into cbo(codigo, descricao) values(0101, 'Oficiais generais das forças armadas');
 insert into cbo(codigo, descricao) values(0102, 'Oficiais das forças armadas');
@@ -792,8 +793,8 @@ insert into gerente_posto(id, nome, telefone, cargo) values
 
 insert into endereco(id, logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialPredominanteId, tipoImovelId, tipoAnimalId) values
 (1, "Rua São Bernardo", 390, "Casa", "Jardim São Marcos", "Embu das Artes", "SP", "06814090", "Brasil", null, 3, 3, 1, 2),
-(2, "Rua Marcelino Pinto Teixeira", 529, "Etec de Embu", "Gramado", "Embu das Artes", "SP", "06816-000", "Câmara Municipal", "Brasil", 15, 1, 3, null),
-(3, "Rua Marechal Izidoro Lopes", 1681, null, "Centro", "Embu das Artes", "SP", "06803-480", "Pronto Socorro Central", "Brasil", 10, 1, 3, null);
+(2, "Rua Marcelino Pinto Teixeira", 529, "Etec de Embu", "Gramado", "Embu das Artes", "SP", "06816000", "Câmara Municipal", "Brasil", 15, 1, 3, null),
+(3, "Rua Marechal Izidoro Lopes", 1681, null, "Centro", "Embu das Artes", "SP", "06803480", "Pronto Socorro Central", "Brasil", 10, 1, 3, null);
 
 insert into posto(id, nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, enderecoId, gerenteId) values
 (1, "UBS São Marcos", "11934276826", "ubssaomarcos@gmail.com", "04:00 às 18:00", "UBS", 150, 1, 1),
