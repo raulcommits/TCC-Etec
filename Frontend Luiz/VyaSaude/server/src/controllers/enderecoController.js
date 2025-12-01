@@ -42,9 +42,9 @@ route.get("/me", authenticate, async (request, response) => {
 route.post("/", async (request, response) => {
     const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
     
-    if (isNaN(id)) {
-      return response.status(400).send({response: "O id deve ser numérico."});
-    }
+   //  if (isNaN(id)) {
+   //    return response.status(400).send({response: "O id deve ser numérico."});
+   //  }
 
     if (logradouro.length < 3) {
         return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});

@@ -13,14 +13,14 @@ route.get("/", async (request, response) => {
 
 route.get("/:encontrarNome", async (request, response) => {
    const {encontrarNome} = request.params;
-   const encontrarZona = await repositorioZona.find({
+   const encontrarZona = await repositorioZona.findOne({
       where: [
          {bairro: Like(`%${encontrarNome}`)},
          {unidade_administrativa: Like(`%${encontrarNome}`)},
          {regiao: Like(`%${encontrarNome}`)}
       ]
    });
-   return response.status(200).send({response: encontrarZona});
+   return response.status(200).send(encontrarZona);
 });
 
 export default route;
