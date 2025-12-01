@@ -39,7 +39,7 @@ function Agente_perfil() {
          codigo: '',
          descricao: ''
       },
-      createdAt: ''
+      data_criacao: ''
    });
 
    const [dadosParaAtualizar, setDadosParaAtualizar] = useState({
@@ -68,7 +68,7 @@ function Agente_perfil() {
 
             setDados({
                ...dadosAgente.data,
-               createdAt: dadosUsuario.data.response.createdAt
+               data_criacao: dadosUsuario.data.response.data_criacao
             });
 
             setDadosParaAtualizar({
@@ -158,7 +158,7 @@ function Agente_perfil() {
                      <span className="h4 text-success">Informações sobre o cadastro</span>
                      <div className="grid grid_1">
                         <TextField disabled variant="outlined" value={""} label="Cadastrado por"/>
-                        <TextField disabled variant="outlined" value={new Date(dados?.createdAt).toLocaleString('pt-BR')} label="Data e Hora de criação" />
+                        <TextField disabled variant="outlined" value={new Date(dados?.data_criacao).toLocaleString('pt-BR')} label="Data e Hora de criação" />
                      </div>
 
                      <div className="grid grid_3">

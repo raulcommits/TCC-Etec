@@ -40,37 +40,70 @@ route.get("/me", authenticate, async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
+    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
     
-    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
+    if (isNaN(id)) {
+      return response.status(400).send({response: "O id deve ser numérico."});
+    }
 
-    if(!estados.includes(estado.toUpperCase())) {
+    if (logradouro.length < 3) {
+        return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});
+    }
+
+    if (numero.length < 1 && numero.length > 5) {
+        return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
+    }
+
+    if (complemento.length < 1) {
+        return response.status(400).send({response: "O complemento deve conter pelo menos 1 caractere."});
+    }
+
+    if (bairro.length < 1) {
+        return response.status(400).send({response: "O bairro deve conter pelo mrnos 1 caractere."});
+    }
+
+    if (cidade.length < 1) {
+        return response.status(400).send({response: "A cidade deve conter ao menos 1 caractere."});
+    }
+
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+    "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
+
+    if (!estados.includes(estado.toUpperCase())) {
         return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
+    }
+
+    if (cep.length != 8) {
+        return response.status(400).send({response: "O cep deve conter 8 caracteres."});
+    }
+
+    if (pais.length < 1) {
+        return response.status(400).send({response: "O país deve conter pelo menos 1 caractere."});
     }
 
     try {
         const zona = await repositorioZona.findOneBy({
-        id: id_zona
+        id: zonaId
         })
         if(!zona) {
         return response.status(400).send({response: "Esse endereço não foi encontrado."});
         }
 
         const material_predominante = await repositorioMaterial.findOneBy({
-        id: id_material,
+        id: materialId,
         })
         if(!material_predominante) {
         return response.status(400).send({response: "Esse material não foi encontrado."});
         }
 
         const tipo_imovel = await repositorioImovel.findOneBy({
-        id: id_imovel
+        id: imovelId
         })
         if(!tipo_imovel) {
         return response.status(400).send({response: "Esse imovel não foi encontrado."});
         }
         const tipo_animal = await repositorioAnimal.findOneBy({
-        id: id_animal
+        id: animalId
         })
         if(!tipo_animal) {
         return response.status(400).send({response: "Esse animal não foi encontrado."});
@@ -88,67 +121,68 @@ route.post("/", async (request, response) => {
 
 route.put("/:id", async (request, response) => {
     const {id} = request.params;
-    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, id_zona, id_material, id_imovel, id_animal} = request.body;
+    const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
 
-    if(isNaN(id)) {
+    if (isNaN(id)) {
         return response.status(400).send({response: "O id deve ser numérico."});
     }
 
-    if(logradouro.length < 3) {
+    if (logradouro.length < 3) {
         return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});
     }
 
-    if(numero.length < 1 && numero.length > 5) {
+    if (numero.length < 1 && numero.length > 5) {
         return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
     }
 
-    if(complemento.length < 1) {
+    if (complemento.length < 1) {
         return response.status(400).send({response: "O complemento deve conter pelo menos 1 caractere."});
     }
 
-    if(bairro.length < 1) {
+    if (bairro.length < 1) {
         return response.status(400).send({response: "O bairro deve conter pelo mrnos 1 caractere."});
     }
 
-    if(cidade.length < 1) {
+    if (cidade.length < 1) {
         return response.status(400).send({response: "A cidade deve conter ao menos 1 caractere."});
     }
 
-    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", TO];
+    const estados = ["AC", "AM", "AL", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+    "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
 
-    if(!estados.includes(estado.toUpperCase())) {
+    if (!estados.includes(estado.toUpperCase())) {
         return response.status(400).send({response: "O estado deve corresponder a uma das unidades federativas."});
     }
 
-    if(cep.length != 8) {
+    if (cep.length != 8) {
         return response.status(400).send({response: "O cep deve conter 8 caracteres."});
     }
 
-    if(pais.length < 1) {
+    if (pais.length < 1) {
         return response.status(400).send({response: "O país deve conter pelo menos 1 caractere."});
     }
 
     try {
         const zona = await repositorioZona.findOneBy({
-            id: id_zona
+            id: zonaId
         });
         if(!zona) {
             return response.status(400).send({response: "Essa zona não foi encontrada."});
         }
         const material = await repositorioMaterial.findOneBy({
-            id: id_material
+            id: materialId
         });
         if(!material) {
             return response.status(400).send({response: "Esse material não foi encontrado."});
         }
         const imovel = await repositorioImovel.findOneBy({
-            id: id_imovel
+            id: imovelId
         });
         if(!imovel) {
             return response.status(400).send({response: "Esse imovel não foi encontrado."});
         }
         const animal = await repositorioAnimal.findOneBy({
-            id: id_animal
+            id: animalId
         });
         if(!animal) {
             return response.status(400).send({response: "Esse animal não foi encontrado."});
