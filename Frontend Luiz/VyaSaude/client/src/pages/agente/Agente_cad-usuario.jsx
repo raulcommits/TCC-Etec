@@ -327,8 +327,8 @@ function Agente_cadUsuario() {
                         <span className="h4 text-success subtitle">Endereço atual</span>
                         <div className="grid grid_2">
                            <PatternFormat name="cep" required label="CEP" value={formNovoPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={handleChangeCEP}/>
-                           <TextField name="logradouro" value={formNovoPaciente.logradouro} required variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
-                           <PatternFormat name="numero" label="Número" value={formNovoPaciente.numero} required format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="logradouro" required value={formNovoPaciente.logradouro} required variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
+                           <PatternFormat name="numero" required label="Número" value={formNovoPaciente.numero} required format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <div className="grid grid_3">
@@ -337,9 +337,9 @@ function Agente_cadUsuario() {
                         </div>
 
                         <div className="grid grid_2">
-                           <TextField name="bairro" readOnly value={formNovoPaciente.bairro} variant="outlined" onChange={handleChangeCEP} label="Bairro"/>
-                           <TextField name="cidade" readOnly value={formNovoPaciente.cidade} variant="outlined" onChange={handleChangeCEP} label="Município"/>
-                           <TextField name="estado" readOnly value={formNovoPaciente.estado} variant="outlined" onChange={handleChangeCEP} label="Estado"/>
+                           <TextField name="bairro" readOnly required value={formNovoPaciente.bairro} variant="outlined" onChange={handleChangeCEP} label="Bairro"/>
+                           <TextField name="cidade" readOnly required value={formNovoPaciente.cidade} variant="outlined" onChange={handleChangeCEP} label="Município"/>
+                           <TextField name="estado" readOnly required value={formNovoPaciente.estado} variant="outlined" onChange={handleChangeCEP} label="Estado"/>
                         </div>
 
                         <div className="grid grid_2">
@@ -380,30 +380,15 @@ function Agente_cadUsuario() {
 
                         <hr/>
 
-
                         <span className="h4 text-success subtitle">Contato</span>
                         <div className="grid grid_1">
-                           {/* <PatternFormat name="num_telefone" label="Telefone" value={formNovoPaciente.num_telefone} mask=" " customInput={TextField} variant="outlined" 
-                           format={(val) => { 
-                              const cleanVal = (formNovoPaciente.num_telefone || "").replace(/\D/g, '');
-                              const isCelular = cleanVal.length > 2 && cleanVal[2] === '9';
-                                 return isCelular ? "(##) # ####-####" : "(##) ####-####";
-                              }}
-                           onValueChange={(values) => { handleFormChange({ target: { name: 'num_telefone', value: values.value }})}}/> */}
                            <PatternFormat 
                               name="num_telefone" 
+                              required
                               label="Telefone" 
                               value={formNovoPaciente.num_telefone} 
-                              
-                              // CORREÇÃO: Passamos uma STRING, calculada dinamicamente.
-                              // Lógica: Se o 3º dígito (índice 2) for '9', aplicamos a máscara de 11 dígitos.
-                              // Caso contrário, mantemos a de 10 dígitos.
                               format={
-                                 (formNovoPaciente.num_telefone || "").replace(/\D/g, '')[2] === '9'
-                                    ? "(##) # ####-####" 
-                                    : "(##) ####-####"
-                              }
-                              
+                                 (formNovoPaciente.num_telefone || "").replace(/\D/g, '')[2] === '9' ? "(##) # ####-####"  : "(##) ####-####"}
                               mask=" " 
                               customInput={TextField} 
                               variant="outlined" 
@@ -412,11 +397,10 @@ function Agente_cadUsuario() {
                               }}
                            />
 
-                           <TextField name="email" label="Email" value={formNovoPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField required name="email" label="Email" value={formNovoPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <hr/>
-
 
                         <span className="h4 text-success subtitle">Profissão e Escolaridade</span>
                         <div className="grid grid_1">

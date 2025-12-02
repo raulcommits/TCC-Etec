@@ -216,36 +216,56 @@
    
 
    .content-agente_histVisitas { /* Tela de histórico de visitas domiciliares */
-      .subtitle {
+      .cabecalho {
          display: flex;
-         justify-content: space-between;
-         align-items: center;
-   
-         .botoes {
+         flex-direction: column;
+         gap: 2vh;
+
+         .sessao{
             display: flex;
-            gap: 10px;
-   
-            button {
-               gap: 12px;
-               height: 4.5vh;
-               /* max-height: 40px; */
-            }
-         }
-   
-         h4 {
-            margin-bottom: 0;
-         }
-   
-         .icons {
-            display: flex;
-            cursor: pointer;
+            justify-content: space-between;
             align-items: center;
-            height: 2.2rem;
       
-            svg {
-               height: 1.5rem;
-               width: 1.5rem;
+            .botoes {
+               display: flex;
+               gap: 10px;
+      
+               button {
+                  gap: 12px;
+                  height: 4.5vh;
+                  /* max-height: 40px; */
+               }
             }
+      
+            h4 {
+               margin-bottom: 0;
+            }
+      
+            .icons {
+               display: flex;
+               cursor: pointer;
+               align-items: center;
+               height: 2.2rem;
+         
+               svg {
+                  height: 1.5rem;
+                  width: 1.5rem;
+               }
+            }
+
+         }
+         
+         .filtragem {
+            display: flex;
+            flex-direction: column;
+                    
+            .filtros {
+               display: grid;
+               gap: 10px;
+               grid-template-columns: 3fr 1fr;
+               /* justify-content: space-between; */
+            }
+
          }
       }
    
