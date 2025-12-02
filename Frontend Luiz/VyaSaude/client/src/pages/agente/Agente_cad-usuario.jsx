@@ -327,8 +327,8 @@ function Agente_cadUsuario() {
                         <span className="h4 text-success subtitle">Endereço atual</span>
                         <div className="grid grid_2">
                            <PatternFormat name="cep" required label="CEP" value={formNovoPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={handleChangeCEP}/>
-                           <TextField name="logradouro" required value={formNovoPaciente.logradouro} required variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
-                           <PatternFormat name="numero" required label="Número" value={formNovoPaciente.numero} required format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="logradouro" required value={formNovoPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
+                           <PatternFormat name="numero" required label="Número" value={formNovoPaciente.numero} format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <div className="grid grid_3">
