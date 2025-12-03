@@ -17,17 +17,8 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import { GoReply } from "react-icons/go";
+import { toast } from 'react-toastify';
 
-async function verificarExistencia(endpoint, dados) {
-   
-   try {
-      const res = await api.post(`/${endpoint}/verificarDados`, dados);
-      return res.data?.response === "Paciente já cadastrado no sistema.";
-   } catch (err) {
-      if(err.response?.status === 404) return false; 
-      throw err; // Throw: Indica onde que teve o erro. No caso de várias verificações onde uma delas dê um erro, o Throw indica que tal verificação que gerou o erro.
-   }
-}
 
 // Função para remover acentos e deixar minúsculo
 const normalizarTexto = (texto) => {
@@ -139,51 +130,81 @@ function Agente_cadUsuario() {
       // Realização do cadastro
       const { cpf, nome, email, numero, complemento, ponto_referencia, tipo_material_imovel, tipo_imovel, tipo_animal} = formNovoPaciente;
       
-      console.log("\n foi. \n")
       try {
          try { // Verifica se o indivíduo a ser cadastrado existe
             const dados = {cpf, email};
-            const verificarPaciente = await verificarExistencia("paciente", dados)
-
-            if (verificarPaciente) {
-               alert("Paciente já existe")
-            } else {
-               console.log(`Verificação da existencia do Paciente realizada. A existencia é `, verificarPaciente);
-            }
-
-            // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
-            const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: "paciente"};
-            await api.post('/usuario', usuarioPayload);
-            console.log("\n Usuário cadastrado com sucesso. \n")
             
-            // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
-            const buscarZona = await api.get(`/zona/${formNovoPaciente.bairro}`);
-            const novaZonaId = buscarZona.data.id;
-            console.log("novaZonaId", novaZonaId);
+            const verificarPaciente = await api.get(`/paciente/${formNovoPaciente.cpf}`, dados);
+            
+            if (verificarPaciente.data) {
+               toast.error('Paciente já existe.', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: false,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light"
+               });
+               return;
+            }
+         } 
+         catch (err) {
+            if (err.response && err.response.status === 404) {
+               console.log("Paciente não encontrado. Prosseguindo com cadastro...");
+            } else {
+               throw err; 
+            }
+         }
+         
+         // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
+         const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: "paciente"};
+         await api.post('/usuario', usuarioPayload);
+         console.log("\n Usuário cadastrado com sucesso. \n")
+         
+         // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
+         const buscarZona = await api.get(`/zona/${formNovoPaciente.bairro}`);
+         const novaZonaId = buscarZona.data.id;
+         console.log("novaZonaId", novaZonaId);
 
-            setFormNovoPaciente((dados) => ({...dados, zonaId: novaZonaId}));
+         setFormNovoPaciente((dados) => ({...dados, zonaId: novaZonaId}));
 
+         const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
+            estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 112, id_material: tipo_material_imovel, id_imovel: tipo_imovel, id_animal: tipo_animal};
 
-            const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
-               estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 112, id_material: tipo_material_imovel, id_imovel: tipo_imovel, id_animal: tipo_animal};
+         const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
+         const enderecoCriadoId = enderecoResponse.id;
+         console.log("\n Endereço cadastrado com sucesso. \n")
 
-            const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
-            const enderecoCriadoId = enderecoResponse.id;
-            console.log("\n Endereço cadastrado com sucesso. \n")
-
-            // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
-            const cadastroPayload = {...formNovoPaciente, zonaId: novaZonaId, id_endereco: enderecoCriadoId, id_agente: 1};
+         // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
+         const cadastroPayload = {...formNovoPaciente, zonaId: 1, id_endereco: enderecoCriadoId, id_agente: 1};
+         try {
             await api.post(`/paciente`, cadastroPayload);
             console.log(`\n Paciente cadastrado com sucesso. \n`)
-            alert(`Paciente cadastrado com sucesso.`);
-
-         } catch(err) {
-            console.log(err)
-            throw(err)
+            toast.success('Paciente cadastrado com sucesso.', {
+               position: "top-right",
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: false,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+               theme: "light"
+            });
          }
-      } catch(err) {
-         alert(err)
-         console.log(err.response)
+         catch (err) {
+            console.log(err);
+         }
+      } 
+      catch(err) {
+         console.error("Erro no fluxo de cadastro:", err);
+         
+         const mensagemErro = err.response?.data?.response || 'Erro interno ao cadastrar.';
+         
+         toast.error(mensagemErro, {
+            position: "top-right", autoClose: 2000, theme: "light"
+         });
       }
    }
 
@@ -281,41 +302,41 @@ function Agente_cadUsuario() {
                               <Select className="select-agente_CadAltUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <ListSubheader>Norte</ListSubheader>
-                                    <MenuItem value="Acre">Acre</MenuItem>
-                                    <MenuItem value="Amapá">Amapá</MenuItem>
-                                    <MenuItem value="Amazonas">Amazonas</MenuItem>
-                                    <MenuItem value="Pará">Pará</MenuItem>
-                                    <MenuItem value="Rondônia">Rondônia</MenuItem>
-                                    <MenuItem value="Roraima">Roraima</MenuItem>
-                                    <MenuItem value="Tocantins">Tocantins</MenuItem>
+                                    <MenuItem value="AC">Acre</MenuItem>
+                                    <MenuItem value="AP">Amapá</MenuItem>
+                                    <MenuItem value="AM">Amazonas</MenuItem>
+                                    <MenuItem value="PA">Pará</MenuItem>
+                                    <MenuItem value="RO">Rondônia</MenuItem>
+                                    <MenuItem value="RR">Roraima</MenuItem>
+                                    <MenuItem value="TO">Tocantins</MenuItem>
                                     
                                  <ListSubheader>Nordeste</ListSubheader>
-                                    <MenuItem value="Alagoas">Alagoas</MenuItem>
-                                    <MenuItem value="Bahia">Bahia</MenuItem>
-                                    <MenuItem value="Ceará">Ceará</MenuItem>
-                                    <MenuItem value="Maranhão">Maranhão</MenuItem>
-                                    <MenuItem value="Paraíba">Paraíba</MenuItem>
-                                    <MenuItem value="Pernambuco">Pernambuco</MenuItem>
-                                    <MenuItem value="Piauí">Piauí</MenuItem>
-                                    <MenuItem value="Rio Grande do Norte">Rio Grande do Norte</MenuItem>
-                                    <MenuItem value="Sergipe">Sergipe</MenuItem>
+                                    <MenuItem value="AL">Alagoas</MenuItem>
+                                    <MenuItem value="BA">Bahia</MenuItem>
+                                    <MenuItem value="CE">Ceará</MenuItem>
+                                    <MenuItem value="MA">Maranhão</MenuItem>
+                                    <MenuItem value="PB">Paraíba</MenuItem>
+                                    <MenuItem value="PE">Pernambuco</MenuItem>
+                                    <MenuItem value="PI">Piauí</MenuItem>
+                                    <MenuItem value="RN">Rio Grande do Norte</MenuItem>
+                                    <MenuItem value="SE">Sergipe</MenuItem>
 
                                  <ListSubheader>Centro-Oeste</ListSubheader>
-                                    <MenuItem value="Sergipe">Distrito Federal</MenuItem>
-                                    <MenuItem value="Goiás">Goiás</MenuItem>
-                                    <MenuItem value="Mato Grosso">Mato Grosso</MenuItem>
-                                    <MenuItem value="Mato Grosso do Sul">Mato Grosso do Sul</MenuItem>
+                                    <MenuItem value="DF">Distrito Federal</MenuItem>
+                                    <MenuItem value="GO">Goiás</MenuItem>
+                                    <MenuItem value="MT">Mato Grosso</MenuItem>
+                                    <MenuItem value="MS">Mato Grosso do Sul</MenuItem>
 
                                  <ListSubheader>Sudeste</ListSubheader>
-                                    <MenuItem value="Espírito Santo">Espírito Santo</MenuItem>
-                                    <MenuItem value="Minas Gerais">Minas Gerais</MenuItem>
-                                    <MenuItem value="Rio de Janeiro">Rio de Janeiro</MenuItem>
-                                    <MenuItem value="São Paulo">São Paulo</MenuItem>
+                                    <MenuItem value="ES">Espírito Santo</MenuItem>
+                                    <MenuItem value="MG">Minas Gerais</MenuItem>
+                                    <MenuItem value="RJ">Rio de Janeiro</MenuItem>
+                                    <MenuItem value="SP">São Paulo</MenuItem>
 
                                  <ListSubheader>Sul</ListSubheader>
-                                    <MenuItem value="Paraná">Paraná</MenuItem>
-                                    <MenuItem value="Rio Grande do Sul">Rio Grande do Sul</MenuItem>
-                                    <MenuItem value="Santa Catarina">Santa Catarina</MenuItem>
+                                    <MenuItem value="PR">Paraná</MenuItem>
+                                    <MenuItem value="RS">Rio Grande do Sul</MenuItem>
+                                    <MenuItem value="SC">Santa Catarina</MenuItem>
                               </Select>
                            </FormControl>
 
@@ -405,7 +426,7 @@ function Agente_cadUsuario() {
                         <span className="h4 text-success subtitle">Profissão e Escolaridade</span>
                         <div className="grid grid_1">
                            <FormControl variant="outlined">
-                              <InputLabel id="selectCBO">Categoria da Ocupação</InputLabel>
+                              <InputLabel id="selectCBO">Categoria da Ocupação (Opcional)</InputLabel>
                               <Select defaultValue="0" className="select-agente_CadAltUsuario" name="escolaridade" value={categoriaSelecionadaCBO} variant="outlined" onChange={(e) => setCategoriaSelecionadaCBO(e.target.value)} labelId="selectCBO">
                                  <MenuItem disabled value="0">Selecione a categoria..</MenuItem>
                                  <MenuItem value="">Todas as categoria</MenuItem>

@@ -26,7 +26,7 @@ const paciente = new EntitySchema({
         estado_clinico: {type: "varchar", length: 50, nullable: false},
         leitura: {type: "boolean", default: true, nullable: false},
         escrita: {type: "boolean", default: true, nullable: false},
-        responsavel_legal: {type: "varchar", length: 70, nullable: false},
+        responsavel_legal: {type: "varchar", length: 70, nullable: true},
         inatividade: {type: "datetime", nullable: true}
       },
     relations: {
