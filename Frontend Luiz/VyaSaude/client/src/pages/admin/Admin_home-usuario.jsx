@@ -24,12 +24,12 @@ function Admin_homeUsuario() {
          ]} />
          <main className="content-home">
             <div className="title_Home">
-               <h1><b>Home Usuario</b><br/>(Admin)</h1>
+               <h1><b>Cadastro de Usuarios</b><br/>(Admin)</h1>
             </div>
 
             <div className="shortcutField paciente-home">
-               <Link to='/Admin_cad-usuario'><div className="shortcutClick"><p>Cadastrar novo usuário</p></div></Link>
-               <Link to='/Admin_alt-usuario'><div className="shortcutClick"><p>Alterar usuários</p></div></Link>
+               <Link to='/Admin_cad-usuario'><div className="shortcutClick"><p>Cadastrar novo Paciente</p></div></Link>
+               <Link to='/Admin_alt-usuario'><div className="shortcutClick"><p>Alterar Pacientes</p></div></Link>
             </div>
          </main>
       </div>

@@ -1,138 +1,195 @@
 import "./Admin.css"
-import Header from "../../components/Header"
-import Sidenav from "../../components/Sidenav/Sidenav_admin"
+import Header from "../../components/Header/"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/"
+import api from '../../services/api';
+import cboData from './../../data/cbo2002_KeyedJson.json';
+import { useNavigate  } from "react-router-dom";
+import { useEffect, useState, useMemo } from 'react';
+import { useVerificarCEP } from '../../hooks/useVerificarCEP';
+import { TextField, Select, MenuItem, FormControl, InputLabel, ListSubheader, Switch, Autocomplete } from "@mui/material";
+import { PatternFormat } from 'react-number-format';
+import { Button } from 'react-bootstrap';
+
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
 import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
-import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
-import query from '../../components/Sidenav/iconsSideBar/query.png';
 import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png';
-import api from '../../services/api';
-import { useState} from 'react';
-import { useNavigate } from "react-router-dom";
-import { useVerificarCEP } from '../../hooks/useVerificarCEP';
-import { Form } from 'react-bootstrap';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
+import { GoReply } from "react-icons/go";
 
-async function verificarExistencia(endpoint, cpf) {
+async function verificarExistencia(endpoint, dados) {
+   
    try {
-      const res = await api.get(`/${endpoint}/${cpf}`);
-      return Array.isArray(res.data?.response) && res.data.response.length > 0;
+      const res = await api.post(`/${endpoint}/verificarDados`, dados);
+      return res.data?.response === "Paciente já cadastrado no sistema.";
    } catch (err) {
       if(err.response?.status === 404) return false; 
       throw err; // Throw: Indica onde que teve o erro. No caso de várias verificações onde uma delas dê um erro, o Throw indica que tal verificação que gerou o erro.
    }
 }
 
-function Admin_novoCadastro() {
+// Função para remover acentos e deixar minúsculo
+const normalizarTexto = (texto) => {
+   return texto ? texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : ""; // Tudo minúsculo
+};
+
+function Admin_cadUsuario() {
+   const [buscaCBO, setBuscaCBO] = useState('');
+   const [categoriaSelecionadaCBO, setCategoriaSelecionadaCBO] = useState('');
+   const [value, setValue] = useState(null); // Estado para o item selecionado (objeto final)
+
+   // 1. Extrair categorias únicas para o Select (dinamicamente)
+   const categorias = useMemo(() => {
+      const uniqueGroups = [
+         ...new Set(cboData.map((item) => item.desc_grande_grupo)),
+      ];
+      return uniqueGroups.sort();
+   }, []);
+
+      // 2. Lógica de Filtragem
+   const resultados = useMemo(() => {
+      if (buscaCBO.length < 3 && !categoriaSelecionadaCBO) return []; // Regra dos 3 caracteres
+
+      const termoBuscaLimpo = normalizarTexto(buscaCBO); // Termo de buscaCBO limpo uma única vez aqui para performance
+
+      return cboData.filter((item) => {
+         // 1. Filtro de Categoria
+         const matchCategoria = categoriaSelecionadaCBO ? item.desc_grande_grupo === categoriaSelecionadaCBO : true;
+
+         // 2. Filtro de Texto (Inteligente)
+         let matchTexto = true;
+         
+         if (buscaCBO.length >= 3) {
+            // Normalizamos a descrição do item do JSON
+            const descricaoLimpa = normalizarTexto(item.cbo_descricao);
+            const codigoString = item.cbo2002ocupacao.toString();
+
+            // Verifica se o termo limpo está dentro da descrição limpa OU no código
+            matchTexto = descricaoLimpa.includes(termoBuscaLimpo) || codigoString.includes(termoBuscaLimpo);
+         }
+         return matchCategoria && matchTexto;
+      });
+   }, [buscaCBO, categoriaSelecionadaCBO, cboData]);
+
+
    const navigate = useNavigate();
+
+   const [modoEdicao, setModoEdicao] = useState(false);
    
-   const [formDados, setFormDados] = useState({
+   const [formNovoPaciente, setFormNovoPaciente] = useState({
       nome: null,
       nome_social: null,
       cpf: null,
       sus: null,
-      data_nascimento: null,
-      genero: null,
-      etnia: null,
-      estado_civil: null,
-      nacionalidade: null,
-      naturalidade_estado: null,
+      data_nascimento: '',
+      genero: '',
+      etnia: '',
+      estado_civil: '',
+      nacionalidade: '',
+      naturalidade_estado: '',
       naturalidade_municipio: null,
       filiacao_mae: null,
       filiacao_pai: null,
+
+      logradouro: '',
       numero: null,
       complemento: null,
+      bairro: '',
+      cidade: '',
+      estado: '',
+      cep: null,
       ponto_referencia: null,
-      num_telefone: null,
+      zonaId: '',
+
+      tipo_imovel: '',
+      tipo_material_imovel: '',
+      tipo_animal: null,
+      
+      num_telefone: '',
       email: null,
-      profissao: null,
+      escolaridade: '',
+      nome_instituicao: null,
+      tipo_instituicao: '',
+      estado_clinico: '',
+      leitura: true,
+      escrita: true,
+      responsavel_legal: null,
+
+      // profissao: null,
       cbo: null,
       cbo_descricao: null,
-      escolaridade: null,
-      nome_instituicao: null,
-      tipo_instituicao: null,
-      estado_clinico: null,
-      responsavel_legal: null,
-      leitura: 1,
-      escrita: 1,
    });
 
    const handleFormChange = (e) => {
-      const {name, value} = e.target;
-      setFormDados((dados) => ({
+      const {name, value, type, checked} = e.target; // Recebe o tipo do input (input normal ou checkbox-switch), seu identificador (name) e o valor.
+      const valor = type === 'checkbox' ? checked : value; // Se for um input do tipo checkbox, utiliza a prop checked, caso contrário, value.
+
+      setFormNovoPaciente((dados) => ({
          ...dados,
-         [name]: value
+         [name]: valor
       }));
    };
-   console.log(formDados)
 
-   const [tipoUsuario, setTipoUsuario] = useState("");
-   const handleTypeUser = (e) => {
-      const {name, value} = e.target;
-
-      setTipoUsuario(() => (
-         name, value
-      ));
-   };
-   console.log(`Tipo de usuario: ${tipoUsuario}`)
-
-   const {cep, cepDados, erro, handleChangeCEP} = useVerificarCEP();
+   const {cep, cepDados, erro, handleChangeCEP} = useVerificarCEP(setFormNovoPaciente);
 
    async function handleRegister(e) {
       e.preventDefault();
 
       // Realização do cadastro
-      const { cpf, nome, email, numero, complemento, ponto_referencia} = formDados;
+      const { cpf, nome, email, numero, complemento, ponto_referencia, tipo_material_imovel, tipo_imovel, tipo_animal} = formNovoPaciente;
+      
+      console.log("\n foi. \n")
       try {
-         try { // Verifica se o usuário possui autenticação no sistema
-            if (await verificarExistencia("usuario", cpf)) {
-               alert("Erro ao cadastrar: Usuário já cadastrado");
-               return;
-            } else {
-               console.log("Verificação do usuário realizada");
-            }
-         } catch(err) {
-            console.log(err)
-            alert(err)
-            return;
-         }
-
          try { // Verifica se o indivíduo a ser cadastrado existe
-            if (await verificarExistencia(`${tipoUsuario}`, cpf)) {
-               alert(`Erro ao cadastrar: ${tipoUsuario} já cadastrado`);
-               return;
+            const dados = {cpf, email};
+            const verificarPaciente = await verificarExistencia("paciente", dados)
+
+            if (verificarPaciente) {
+               alert("Paciente já existe")
             } else {
-               console.log(`Verificação do ${tipoUsuario} realizada`);
+               console.log(`Verificação da existencia do Paciente realizada. A existencia é `, verificarPaciente);
             }
+
+            // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
+            const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: "paciente"};
+            await api.post('/usuario', usuarioPayload);
+            console.log("\n Usuário cadastrado com sucesso. \n")
+            
+            // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
+            const buscarZona = await api.get(`/zona/${formNovoPaciente.bairro}`);
+            const novaZonaId = buscarZona.data.id;
+            console.log("novaZonaId", novaZonaId);
+
+            setFormNovoPaciente((dados) => ({...dados, zonaId: novaZonaId}));
+
+
+            const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
+               estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 112, id_material: tipo_material_imovel, id_imovel: tipo_imovel, id_animal: tipo_animal};
+
+            const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
+            const enderecoCriadoId = enderecoResponse.id;
+            console.log("\n Endereço cadastrado com sucesso. \n")
+
+            // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
+            const cadastroPayload = {...formNovoPaciente, zonaId: novaZonaId, id_endereco: enderecoCriadoId, id_agente: 1};
+            await api.post(`/paciente`, cadastroPayload);
+            console.log(`\n Paciente cadastrado com sucesso. \n`)
+            alert(`Paciente cadastrado com sucesso.`);
+
          } catch(err) {
             console.log(err)
-            alert(err)
-            return;
+            throw(err)
          }
-
-         // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
-         const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: tipoUsuario};
-         await api.post('/usuario', usuarioPayload);
-         console.log("\n Usuário cadastrado com sucesso. \n")
-         
-         // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
-         const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
-            estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 1, id_material: 1, id_imovel: 2, id_animal: 2};
-         const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
-         const enderecoCriadoId = enderecoResponse.id;
-         console.log("\n Endereço cadastrado com sucesso. \n")
-
-         // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
-         const cadastroPayload = {...formDados, id_endereco: enderecoCriadoId, id_agente: 1}
-         await api.post(`${tipoUsuario}`, cadastroPayload);
-         console.log(`\n ${tipoUsuario} cadastrado com sucesso. \n`)
-
-         alert(`${tipoUsuario} cadastrado com sucesso.`);
       } catch(err) {
          alert(err)
          console.log(err.response)
       }
    }
+
+   useEffect(() => {
+      console.log("formNovoPaciente", formNovoPaciente);
+   }, [formNovoPaciente])
 
    return(
       <div className="app">
@@ -140,287 +197,355 @@ function Admin_novoCadastro() {
          <Sidenav/>
          <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
          <NavBar items={[
-            { label: 'Home', href: '/admin_home', icon: HomeAddress },
-            { label: 'Pacientes', href: '/Admin_home-usuario', icon: AddUserMale },
-            { label: 'Agenda', href: '/Admin_hist-visitas', icon: query },
-            { label: 'Banco', href: '/Admin_b-dados', icon: dashIcon }
+            { label: 'Home', href: '/agente_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
+            { label: 'Agenda', href: '/Agente_hist-visitas', icon: query },
+            { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
          ]} />
-         <main className="content-pages content-pages-admin">
-            <div className="d-block">
-               <div className="title-pages">
-                  <svg onClick={() => navigate(-1)} style={{ cursor:"pointer" }} className="align-self-start"
-                  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z" fill="#000000"></path> </g></svg>
-                  <h1 className="align-self-center h2 px-5">Cadastrar usuário</h1>
-               </div>
+         <main className="content-pages">
+            <div className="content-pages-admin">
+               <div className="content-admin_CadAltUsuario">
+                  <div className="title-pages">
+                     <GoReply onClick={() => navigate(-1)}/>
+                     <h1 className="align-self-center h2 px-5">Cadastrar Paciente</h1>
+                  </div>
 
-               <div className="d-flex align-items-center justify-content-between mx-5 paddingTypeUser">
-                  <div>
-                     <span className="h4 text-success">Informações de registro</span>
+                  <div className="elements-admin_CadAltUsuario">
+                     <form id="form-novo_paciente-admin" onSubmit={handleRegister}>
+                        <span className="h4 text-success subtitle">Informações de registro</span>
+                        <div className="grid grid_1">
+                           <TextField name="nome" label="Nome do Paciente" value={formNovoPaciente.nome} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="nome_social" label="Nome Social" value={formNovoPaciente.nome_social} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+                        
+                        <div className="grid grid_1">
+                           <TextField name="filiacao_mae" label="Nome da mãe" value={formNovoPaciente.filiacao_mae} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="filiacao_pai" label="Nome do pai" value={formNovoPaciente.filiacao_pai} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <PatternFormat name="cpf" required label="Número do CPF" value={formNovoPaciente.cpf} format="###.###.###-##" mask="_" customInput={TextField} variant="outlined" onValueChange={(values) => { handleFormChange({ target: { name: 'cpf', value: values.value }})}}/>
+                           <PatternFormat name="sus" required label="Número do SUS" value={formNovoPaciente.sus} format="###.####.####.####" mask="_" customInput={TextField} variant="outlined" onValueChange={(values) => { handleFormChange({ target: { name: 'sus', value: values.value }})}}/>
+                           <TextField name="data_nascimento" required label="Data de Nascimento" value={formNovoPaciente.data_nascimento} InputLabelProps={{ shrink: true }} type="date" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectGenero">Gênero</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Masculino">Masculino</MenuItem>
+                                 <MenuItem value="Feminino">Feminino</MenuItem>
+                                 <MenuItem value="Não-Binário">Não-binário</MenuItem>
+                                 <MenuItem value="Outro">Outro</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectEtnia">Etnia</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Branco">Branco(a)</MenuItem>
+                                 <MenuItem value="Preto">Preto(a)</MenuItem>
+                                 <MenuItem value="Pardo">Pardo(a)</MenuItem>
+                                 <MenuItem value="Indígena">Indígena</MenuItem>
+                                 <MenuItem value="Asiático">Asiático(a)</MenuItem>
+                                 <MenuItem value="Outro">Outro</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectEstadoCivil">Estado Civil</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="estado_civil" value={formNovoPaciente.estado_civil} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoCivil" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Solteiro">Solteiro(a)</MenuItem>
+                                 <MenuItem value="Casado">Casado(a)</MenuItem>
+                                 <MenuItem value="Separado">Separado(a)</MenuItem>
+                              </Select>
+                           </FormControl>
+                        </div>
+                        
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectNacionalidade">Nacionalidade</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="nacionalidade" value={formNovoPaciente.nacionalidade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNacionalidade" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Brasileiro">Brasileiro(a)</MenuItem>
+                                 <MenuItem value="Estrangeiro">Estrangeiro(a)</MenuItem>
+                                 <MenuItem value="Naturalizado">Naturalizado(a)</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectNaturalidade">Naturalidade</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <ListSubheader>Norte</ListSubheader>
+                                    <MenuItem value="Acre">Acre</MenuItem>
+                                    <MenuItem value="Amapá">Amapá</MenuItem>
+                                    <MenuItem value="Amazonas">Amazonas</MenuItem>
+                                    <MenuItem value="Pará">Pará</MenuItem>
+                                    <MenuItem value="Rondônia">Rondônia</MenuItem>
+                                    <MenuItem value="Roraima">Roraima</MenuItem>
+                                    <MenuItem value="Tocantins">Tocantins</MenuItem>
+                                    
+                                 <ListSubheader>Nordeste</ListSubheader>
+                                    <MenuItem value="Alagoas">Alagoas</MenuItem>
+                                    <MenuItem value="Bahia">Bahia</MenuItem>
+                                    <MenuItem value="Ceará">Ceará</MenuItem>
+                                    <MenuItem value="Maranhão">Maranhão</MenuItem>
+                                    <MenuItem value="Paraíba">Paraíba</MenuItem>
+                                    <MenuItem value="Pernambuco">Pernambuco</MenuItem>
+                                    <MenuItem value="Piauí">Piauí</MenuItem>
+                                    <MenuItem value="Rio Grande do Norte">Rio Grande do Norte</MenuItem>
+                                    <MenuItem value="Sergipe">Sergipe</MenuItem>
+
+                                 <ListSubheader>Centro-Oeste</ListSubheader>
+                                    <MenuItem value="Sergipe">Distrito Federal</MenuItem>
+                                    <MenuItem value="Goiás">Goiás</MenuItem>
+                                    <MenuItem value="Mato Grosso">Mato Grosso</MenuItem>
+                                    <MenuItem value="Mato Grosso do Sul">Mato Grosso do Sul</MenuItem>
+
+                                 <ListSubheader>Sudeste</ListSubheader>
+                                    <MenuItem value="Espírito Santo">Espírito Santo</MenuItem>
+                                    <MenuItem value="Minas Gerais">Minas Gerais</MenuItem>
+                                    <MenuItem value="Rio de Janeiro">Rio de Janeiro</MenuItem>
+                                    <MenuItem value="São Paulo">São Paulo</MenuItem>
+
+                                 <ListSubheader>Sul</ListSubheader>
+                                    <MenuItem value="Paraná">Paraná</MenuItem>
+                                    <MenuItem value="Rio Grande do Sul">Rio Grande do Sul</MenuItem>
+                                    <MenuItem value="Santa Catarina">Santa Catarina</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <TextField name="naturalidade_municipio" label="Municipio" value={formNovoPaciente.naturalidade_municipio} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+                              
+                        <hr/>
+
+                        <span className="h4 text-success subtitle">Endereço atual</span>
+                        <div className="grid grid_2">
+                           <PatternFormat name="cep" required label="CEP" value={formNovoPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={handleChangeCEP}/>
+                           <TextField name="logradouro" required value={formNovoPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
+                           <PatternFormat name="numero" required label="Número" value={formNovoPaciente.numero} format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+
+                        <div className="grid grid_3">
+                           <TextField name="complemento" value={formNovoPaciente.complemento} variant="outlined" onChange={(e) => handleFormChange(e)} label="Complemento"/>
+                           <TextField name="ponto_referencia" readOnly value={formNovoPaciente.ponto_referencia} variant="outlined" onChange={(e) => handleFormChange(e)} label="Ponto de Referência"/>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <TextField name="bairro" readOnly required value={formNovoPaciente.bairro} variant="outlined" onChange={handleChangeCEP} label="Bairro"/>
+                           <TextField name="cidade" readOnly required value={formNovoPaciente.cidade} variant="outlined" onChange={handleChangeCEP} label="Município"/>
+                           <TextField name="estado" readOnly required value={formNovoPaciente.estado} variant="outlined" onChange={handleChangeCEP} label="Estado"/>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoImovel">Tipo de imóvel</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="tipo_imovel" value={formNovoPaciente.tipo_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoImovel" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="1">Casa</MenuItem>
+                                 <MenuItem value="2">Apartamento</MenuItem>
+                                 <MenuItem value="3">Comercial</MenuItem>
+                                 <MenuItem value="4">Terreno</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoMaterialImovel">Material do imóvel</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="tipo_material_imovel" value={formNovoPaciente.tipo_material_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoMaterialImovel" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="1">Alvenaria</MenuItem>
+                                 <MenuItem value="2">Madeira</MenuItem>
+                                 <MenuItem value="3">Misto</MenuItem>
+                                 <MenuItem value="4">Pré-fabricado</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoAnimal">Possui animais domésticos?</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="tipo_animal" value={formNovoPaciente.tipo_animal} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoAnimal" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="null">Não possui</MenuItem>
+                                 <MenuItem value="1">Cachorro</MenuItem>
+                                 <MenuItem value="2">Gato</MenuItem>
+                                 <MenuItem value="3">Pássaro</MenuItem>
+                                 <MenuItem value="4">Outros</MenuItem>
+                              </Select>
+                           </FormControl>
+                        </div>
+
+                        <hr/>
+
+                        <span className="h4 text-success subtitle">Contato</span>
+                        <div className="grid grid_1">
+                           <PatternFormat 
+                              name="num_telefone" 
+                              required
+                              label="Telefone" 
+                              value={formNovoPaciente.num_telefone} 
+                              format={
+                                 (formNovoPaciente.num_telefone || "").replace(/\D/g, '')[2] === '9' ? "(##) # ####-####"  : "(##) ####-####"}
+                              mask=" " 
+                              customInput={TextField} 
+                              variant="outlined" 
+                              onValueChange={(values) => { 
+                                 handleFormChange({ target: { name: 'num_telefone', value: values.value }})
+                              }}
+                           />
+
+                           <TextField required name="email" label="Email" value={formNovoPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                        </div>
+
+                        <hr/>
+
+                        <span className="h4 text-success subtitle">Profissão e Escolaridade</span>
+                        <div className="grid grid_1">
+                           <FormControl variant="outlined">
+                              <InputLabel id="selectCBO">Categoria da Ocupação</InputLabel>
+                              <Select defaultValue="0" className="select-admin_CadAltUsuario" name="escolaridade" value={categoriaSelecionadaCBO} variant="outlined" onChange={(e) => setCategoriaSelecionadaCBO(e.target.value)} labelId="selectCBO">
+                                 <MenuItem disabled value="0">Selecione a categoria..</MenuItem>
+                                 <MenuItem value="">Todas as categoria</MenuItem>
+                                 {categorias.map((cat) => (
+                                    <MenuItem key={cat} value={cat}>
+                                       {cat}
+                                    </MenuItem>
+                                 ))}
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <Autocomplete
+                                 id="cbo-autocomplete"
+                                 className="form-autocompleteCBO"
+                                 freeSolo
+                                 disableClearable
+                                 options={resultados}
+                                 inputValue={buscaCBO}
+                                 value={value}
+                                 filterOptions={(items) => items} 
+                                 onInputChange={(event, newInputValue) => {setBuscaCBO(newInputValue)}}
+                                 onChange={(event, newValue) => {setValue(newValue)}}
+                                 noOptionsText={buscaCBO.length < 3 ? "Digite pelo menos 3 caracteres..." : "Nenhum CBO encontrado."}
+                                 getOptionLabel={(option) => {
+                                    if (typeof option === 'string') return option;
+                                    return `${option.cbo2002ocupacao} - ${option.cbo_descricao}`;
+                                 }}
+                                 renderOption={(props, option) => {
+                                    const { key, ...otherProps } = props;
+                                    return (
+                                       <li key={key} {...otherProps} style={{ display: 'block'}}>
+                                          <div className="form-autocomplete-li" >
+                                             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.8rem', color: '#666' }}>
+                                                <span className="category-label">{option.desc_grande_grupo}</span>
+                                             </div>
+                                             <div style={{ display: "flex", fontWeight: '500'}} className="form-autocomplete-badge">
+                                                <span className="form-autocomplete-badge-cod" style={{ marginRight: '5px' }}>{option.cbo2002ocupacao}</span>
+                                                <span className="form-autocomplete-badge-desc">{option.cbo_descricao}</span>
+                                             </div>
+                                          </div>
+                                       </li>
+                                    );
+                                 }}
+                                 
+                                 renderInput={(params) => (
+                                    <TextField
+                                    {...params}
+                                    label="Ocupação ou Código"
+                                    variant="outlined"
+                                    slotProps={{
+                                       input: {
+                                          ...params.InputProps,
+                                          type: 'search',
+                                       },
+                                    }}
+                                    />
+                                 )}
+                              />
+                           </FormControl>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectEscolaridade">Escolaridade</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="escolaridade" value={formNovoPaciente.escolaridade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEscolaridade">
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Não frequentou/Não sabe">Não frequentou/Não sabe</MenuItem>
+                                 <MenuItem value="Ensino Infantil Incompleto">Ensino Infantil Incompleto</MenuItem>
+                                 <MenuItem value="Ensino Infantil Completo">Ensino Infantil Completo</MenuItem>
+                                 <MenuItem value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</MenuItem>
+                                 <MenuItem value="Ensino Fundamental Completo">Ensino Fundamental Completo</MenuItem>
+                                 <MenuItem value="Ensino Médio Incompleto">Ensino Médio Incompleto</MenuItem>
+                                 <MenuItem value="Ensino Médio Completo">Ensino Médio Completo</MenuItem>
+                                 <MenuItem value="Ensino Superior Incompleto">Ensino Superior Incompleto</MenuItem>
+                                 <MenuItem value="Ensino Superior Completo">Ensino Superior Completo</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <TextField required name="nome_instituicao" label="Instituição de Ensino" value={formNovoPaciente.nome_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoInstituicao">Tipo de Instituição</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Escola Pública">Escola Pública</MenuItem>
+                                 <MenuItem value="Escola Particular">Escola Particular</MenuItem>
+                                 <MenuItem value="Faculdade Pública">Faculdade Pública</MenuItem>
+                                 <MenuItem value="Faculdade Particular">Faculdade Particular</MenuItem>
+                                 <MenuItem value="Universidade Pública">Universidade Pública</MenuItem>
+                                 <MenuItem value="Universidade Particular">Universidade Particular</MenuItem>
+                              </Select>
+                           </FormControl>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectEstadoClinico">Estado Clínico</InputLabel>
+                              <Select className="select-admin_CadAltUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="Estável">Estável</MenuItem>
+                                 <MenuItem value="Instável">Instável</MenuItem>
+                                 <MenuItem value="Leve">Leve</MenuItem>
+                                 <MenuItem value="Crítico">Crítico</MenuItem>
+                                 <MenuItem value="Grave">Grave</MenuItem>
+                                 <MenuItem value="Moderado">Moderado</MenuItem>
+                                 <MenuItem value="Óbito">Óbito</MenuItem>
+                                 <MenuItem value="Paliativo">Paliativo</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <TextField name="responsavel_legal" label="Responsável Legal (se menor de 18 anos)" value={formNovoPaciente.responsavel_legal} type="text" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           
+                           <div className=" d-flex justify-content-around">
+                              <div className="d-flex gap-5">
+                                 <div>
+                                    <InputLabel id="switchLeitura">Saber ler?</InputLabel>
+                                    <Switch name="leitura" checked={formNovoPaciente.leitura} required id="switchLeitura" onChange={handleFormChange}/>
+                                 </div>
+                                 <div>
+                                    <InputLabel id="switchEscrever">Saber escrever?</InputLabel>
+                                    <Switch name="escrita" checked={formNovoPaciente.escrita} required id="switchEscrever" onChange={handleFormChange}/>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <hr/>
+                     </form>
                   </div>
                   
-                  <div>
-                     <label className="px-3">Informe o tipo de usuário:</label>
-                     <Form.Select name="tipo" value={tipoUsuario} onChange={handleTypeUser}>
-                        <option hidden selected value>Selecione..</option>
-                        <option value="gerente">Gerente do posto</option>
-                        <option value="recepcao">Recepção</option>
-                        <option value="agente">Agente</option>
-                        <option value="paciente">Paciente</option>
-                     </Form.Select> 
+                  {/* Botões pra voltar pra tela inicial/realizar cadastro */}
+                  <div className="form-buttons">
+                     <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</button>
+                     <button form="form-novo_paciente-admin" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
+                     {/* <div style={{display: "flex", gap: "20px"}}>
+                        {modoEdicao === false ? <Button variant="outline-success" onClick={() => {''}}>Cancelar</Button> : ""}
+                        <Button variant="outline-success" onClick={() => setModoEdicao(!modoEdicao)}>{modoEdicao === false ? "Salvar alterações" : "Alterar Cadastro"}</Button>
+                     </div> */}
                   </div>
-               </div>
-
-               <Form id="form-registro" onSubmit={handleRegister}>
-                  <div>
-                     <div className="form-fields">
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control name="nome" value={formDados.nome} onChange={(e) => handleFormChange(e)} type='text' placeholder='Insira o nome completo'/>
-                        
-                        <Form.Label>Nome Social</Form.Label>
-                        <Form.Control name="nome_social" value={formDados.nome_social} onChange={(e) => handleFormChange(e)} type='text' placeholder='Nome Social'/>  
-                     </div>
-
-                     <div className="form-fields">
-                        <Form.Label>CPF</Form.Label>
-                        <Form.Control name="cpf" value={formDados.cpf} onChange={(e) => handleFormChange(e)} type='number' placeholder='CPF'/>
-                        
-                        <Form.Label>Nº SUS</Form.Label>
-                        <Form.Control name="sus" value={formDados.sus} onChange={(e) => handleFormChange(e)} type='number' placeholder='Nº SUS'/>
-
-                        <Form.Label>Data de Nascimento</Form.Label>
-                        <Form.Control name="data_nascimento" value={formDados.data_nascimento} onChange={(e) => handleFormChange(e)} type='date' placeholder='Data de Nascimento'/>
-                     </div>
-
-                     <div className="form-fields" id='dropDown-A'>
-                        <Form.Label>Gênero</Form.Label>
-                        <Form.Select className="dropDownMenu-A" name="genero" value={formDados.genero} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <option value="masculino">Masculino</option>
-                           <option value="feminino">Feminino</option>
-                           <option value="naobinario">Não-binário</option>
-                           <option value="outro">Outro</option>
-                        </Form.Select> 
-
-                        <Form.Label>Etnia</Form.Label>
-                        <Form.Select className="dropDownMenu-A" name="etnia" value={formDados.etnia} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <option value="branco">Branco(a)</option>
-                           <option value="preto">Preto(a)</option>
-                           <option value="pardo">Pardo(a)</option>
-                           <option value="indigena">Indígena</option>
-                           <option value="asiatico">Asiático(a)</option>
-                           <option value="outro">Outro</option>
-                        </Form.Select> 
-
-                        <Form.Label>Estado Civil</Form.Label>
-                        <Form.Select className="dropDownMenu-A" name="estado_civil" value={formDados.estado_civil} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <option value="solteiro">Solteiro(a)</option>
-                           <option value="casado">Casado(a)</option>
-                           <option value="separado">Separado(a)</option>
-                        </Form.Select> 
-                     </div>
-                     
-                     <div className="form-fields">                           
-                        <Form.Label>Nacionalidade</Form.Label>
-                        <Form.Select name="nacionalidade" value={formDados.nacionalidade} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <option value="brasileiro">Brasileiro(a)</option>
-                           <option value="estrangeiro">Estrangeiro(a)</option>
-                           <option value="naturalizado">Naturalizado(a)</option>
-                        </Form.Select> 
-        
-                        <Form.Label>Naturalidade</Form.Label>
-                        <Form.Select name="naturalidade_estado" value={formDados.naturalidade_estado} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <optgroup label="Norte">
-                              <option value="acre">Acre</option>
-                              <option value="amapa">Amapá</option>
-                              <option value="amazonas">Amazonas</option>
-                              <option value="para">Pará</option>
-                              <option value="rondonia">Rondônia</option>
-                              <option value="roraima">Roraima</option>
-                              <option value="tocantins">Tocantins</option>
-                           </optgroup>
-                           <optgroup label="Nordeste">
-                              <option value="alagoas">Alagoas</option>
-                              <option value="bahia">Bahia</option>
-                              <option value="ceara">Ceará</option>
-                              <option value="maranhao">Maranhão</option>
-                              <option value="paraiba">Paraíba</option>
-                              <option value="pernambuco">Pernambuco</option>
-                              <option value="piaui">Piauí</option>
-                              <option value="rio grande do norte">Rio Grande do Norte</option>
-                              <option value="sergipe">Sergipe</option>
-                           </optgroup>
-                           <optgroup label="Centro-Oeste">
-                              <option value="distrito federal">Distrito Federal</option>
-                              <option value="goias">Goiás</option>
-                              <option value="mato grosso">Mato Grosso</option>
-                              <option value="mato grosso do sul">Mato Grosso do Sul</option>
-                           </optgroup>
-                           <optgroup label="Sudeste">
-                              <option value="espirito santo">Espírito Santo</option>
-                              <option value="minas gerais">Minas Gerais</option>
-                              <option value="rio de janeiro">Rio de Janeiro</option>
-                              <option value="sao paulo">São Paulo</option>
-                           </optgroup>
-                           <optgroup label="Sul">
-                              <option value="parana">Paraná</option>
-                              <option value="rio grande do sul">Rio Grande do Sul</option>
-                              <option value="santa Catarina">Santa Catarina</option>
-                           </optgroup>
-                        </Form.Select> 
-
-                        <Form.Control name="naturalidade_municipio" value={formDados.naturalidade_municipio} onChange={(e) => handleFormChange(e)} type='text' placeholder='Municipio'/>
-                     </div>
-
-                     <div className="form-fields">
-                        <Form.Label>Nome da mãe</Form.Label>
-                        <Form.Control name="filiacao_mae" value={formDados.filiacao_mae} onChange={(e) => handleFormChange(e)} type='text' placeholder='Nome da mãe'/>
-
-                        <Form.Label>Nome do pai</Form.Label>
-                        <Form.Control name="filiacao_pai" value={formDados.filiacao_pai} onChange={(e) => handleFormChange(e)} type='text' placeholder='Nome do pai'/>
-                     </div>
-                  </div>
-                        
-                           <br/><hr/><br/>
-
-                  <div>
-                     <span className="h4 text-success">Endereço atual</span>
-                  </div>
-
-                  <div className="form-fields"> {/* Cadastro do Endereço */}
-                     <Form.Label>CEP</Form.Label>
-                     <Form.Control value={cep} onChange={handleChangeCEP} type='text' placeholder='Digite o CEP'/>
-
-                     <Form.Label>Logradouro</Form.Label>
-                     <Form.Control value={cepDados.logradouro} readOnly type='text' placeholder='Logradouro'/>
-                     
-                     <Form.Label>Número</Form.Label>
-                     <Form.Control name="numero" value={formDados.numero} onChange={(e) => handleFormChange(e)} type='text' placeholder='Número' className="compact-input"/>
-                     
-                     <Form.Label>Complemento</Form.Label>
-                     <Form.Control name="complemento" value={cepDados.complemento} onChange={(e) => handleFormChange(e)} type='text' placeholder='Complemento'/>
-                  </div>
-
-                  <div className="form-fields">
-                     <Form.Label>Bairro</Form.Label>
-                     <Form.Control value={cepDados.bairro} readOnly type='text' placeholder='Bairro'/>
-
-                     <Form.Label>Município</Form.Label>
-                     <Form.Control value={cepDados.localidade} readOnly onChange={(e) => {setLocalidade(e.target.value)}} type='text' placeholder='Município'/>
-                   
-                     <div className="form-fields compact-input">
-                        <Form.Label>Estado</Form.Label><br></br>
-                        <Form.Control value={cepDados.uf} readOnly onChange={(e) => {setLocalidade(e.target.value)}} type='text' placeholder='Estado'/>
-                     </div>
-
-                     <Form.Label>Ponto de Referência</Form.Label>
-                     <Form.Control name="ponto_referencia" value={formDados.ponto_referencia} onChange={(e) => handleFormChange(e)} type='text' placeholder='Ponto de Referência'/>
-                  </div>
-
-                           <br/><hr/><br/>
-
-                  <div>
-                     <span className="h4 text-success">Contato</span>
-                  </div>
-
-                  <div className="form-fields">
-                     <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="num_telefone" value={formDados.num_telefone} onChange={(e) => handleFormChange(e)} type='number' placeholder='Telefone'/>
-                     
-                     {/* <Form.Label>Celular</Form.Label>
-                     <Form.Control value={"num_celular"} onChange={(e) => {setNome(e.target.value)}} type='number' placeholder='Celular'/> */}
-                    
-                     <Form.Label>E-mail</Form.Label>
-                     <Form.Control name="email" value={formDados.email} onChange={(e) => handleFormChange(e)} type='email' placeholder='E-mail'/>
-                  </div>
-
-                           <br/><hr/><br/>
-
-                  <div>
-                     <span className="h4 text-success">Profissão e Escolaridade</span>
-                  </div>
-
-                           {/* Revisar os VALUES daqui pra baixo */}
-                  <div className="form-fields">
-                     <Form.Label>Ocupação</Form.Label> {/* pegar da CBO */}
-                     <Form.Control name="profissao" value={formDados.profissao} onChange={(e) => handleFormChange(e)} type='text' placeholder='Ocupação'/>
-                     
-                     <Form.Label>CBO</Form.Label>
-                     <Form.Control name="cbo" value={formDados.cbo} onChange={(e) => handleFormChange(e)} type='number' placeholder='Código' className="compact-input"/>
-                     <Form.Control name="cbo_descricao" value={formDados.cbo_descricao} onChange={(e) => handleFormChange(e)} type='text' placeholder='Descrição da Atividade'/>
-                  </div><br />
-
-                  <div className="form-fields">
-                     <div>
-                        <Form.Label>Escolaridade</Form.Label>
-                        <Form.Select name="escolaridade" value={formDados.escolaridade} onChange={handleFormChange}>
-                           <option hidden selected value>Selecione..</option>
-                           <option value="desconhecido">Não frequentou/Não sabe</option>
-                           <option value="inf_inc">Ensino Infantil Incompleto</option>
-                           <option value="inf_comp">Ensino Infantil Completo</option>
-                           <option value="fund_inc">Ensino Fundamental Incompleto</option>
-                           <option value="fund_comp">Ensino Fundamental Completo</option>
-                           <option value="medio_inc">Ensino Médio Incompleto</option>
-                           <option value="medio_comp">Ensino Médio Completo</option>
-                           <option value="sup_inc">Ensino Superior Incompleto</option>
-                           <option value="sup_comp">Ensino Superior Completo</option>
-                        </Form.Select> 
-                     </div>
-                  </div><br />
-
-                  <div className="form-fields py-3">
-                     <Form.Label>Nome da Instituição</Form.Label>
-                     <Form.Control name="nome_instituicao" value={formDados.nome_instituicao} onChange={(e) => handleFormChange(e)} type='text' placeholder='Nome da Instituição de Ensino'/>
-                     
-                     <Form.Label>Tipo de Instituição</Form.Label>
-                     <Form.Select name="tipo_instituicao" value={formDados.tipo_instituicao} onChange={handleFormChange}>
-                        <option hidden selected value>Selecione..</option>
-                        <option value="Escola Pública">Escola Pública</option>
-                        <option value="Escola Particular">Escola Particular</option>
-                        <option value="Faculdade Pública">Faculdade Pública</option>
-                        <option value="Faculdade Particular">Faculdade Particular</option>
-                        <option value="Universidade Pública">Universidade Pública</option>
-                        <option value="Universidade Particular">Universidade Particular</option>
-                     </Form.Select> 
-                  </div>
-
-                  <div className="form-fields py-3">
-                     <Form.Label>Estado Clínico</Form.Label>
-                     <Form.Select name="estado_clinico" value={formDados.estado_clinico} onChange={handleFormChange}>
-                        <option hidden selected value>Selecione..</option>
-                        <option value="Estável">Estável</option>
-                        <option value="Instável">Instável</option>
-                        <option value="Leve">Leve</option>
-                        <option value="Crítico">Crítico</option>
-                        <option value="Grave">Grave</option>
-                        <option value="Moderado">Moderado</option>
-                        <option value="Óbito">Óbito</option>
-                        <option value="Paliativo">Paliativo</option>
-
-                     </Form.Select>
-
-                     <Form.Label>Responsável Legal</Form.Label>
-                     <Form.Control name="responsavel_legal" value={formDados.responsavel_legal} onChange={(e) => handleFormChange(e)} type='text' placeholder='Responsável Legal'/>
-                     
-                     <div className="form-fields">
-                        Sabe ler? <Form.Check id={formDados.leitura} type="switch" onChange={(e) => handleFormChange(e)}/>
-                     </div>
-
-                     <div className="form-fields">
-                        Sabe escrever? <Form.Check id={formDados.escrita} type="switch" onChange={(e) => handleFormChange(e)}/>
-                     </div>
-                  </div>
-
-                  <br/><hr/>
-               </Form>
-               
-               {/* Botões pra voltar pra tela inicial/realizar cadastro */}
-               <div className="form-button">
-                  <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</button>
-                  <button form="form-registro" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
                </div>
             </div>
          </main>
@@ -428,4 +553,4 @@ function Admin_novoCadastro() {
    )
 }
 
-export default Admin_novoCadastro;
+export default Admin_cadUsuario;
