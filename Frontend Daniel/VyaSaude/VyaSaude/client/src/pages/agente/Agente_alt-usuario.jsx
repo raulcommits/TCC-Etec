@@ -1,0 +1,46 @@
+import "./Agente.css"
+import Header from "../../components/Header/"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/"
+import ButtonBack from "../../components/ButtonBack/Index"
+import PageWIP from "../../components/PageWIP/Index"
+import { Link, useNavigate  } from "react-router-dom";
+import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
+import NavBar from "../../components/NavBar/Index.jsx";
+import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
+
+function Agente_altUsuario() {
+   return(
+      <div className="app">
+         <Header/>
+         <Sidenav/>
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
+                  items={[
+                     { label: 'Home', href: '/Agente_home' },
+                     { label: 'Cadastro de Pacientes', href: '/Agente_home-usuario' },
+                     { label: 'Alterar Paciente', href: '/Agente_alt-usuario' },
+                     ]} />
+         <NavBar items={[
+            { label: 'Home', href: '/agente_home', icon: HomeAddress },
+            { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
+            { label: 'Agenda', href: '/Agente_hist-visitas', icon: query },
+            { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
+         ]} />
+         <main className="content-home" style={{position: "relative"}}>
+            <Link to="/Agente_home-usuario" className="backButton">
+               <ButtonBack />
+            </Link>
+            <div className="title_Home">
+               <h1><b>Alterar Informações de Paciente</b></h1>
+            </div>
+
+            <PageWIP />
+
+         </main>
+      </div>
+   )
+}
+
+export default Agente_altUsuario;
