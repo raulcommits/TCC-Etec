@@ -45,6 +45,7 @@ function Paciente_home() {
             <div className="gridBoxOtherOptions">
                <div className="gridBoxOptions_lines">
                   <BoxSimpleInfos
+                     className="box-home"
                      icon={UserManagerIcon}
                      title="Meu Perfil"
                      description="Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)"
@@ -52,6 +53,7 @@ function Paciente_home() {
                      buttonText="Visualizar perfil"
                   />
                   <BoxSimpleInfos
+                     className="box-home"
                      icon={query}
                      title="Histórico de Consultas"
                      description="Área para visualizar o histórico de consultas, assim como consultas futuras"
@@ -62,6 +64,7 @@ function Paciente_home() {
 
                <div className="gridBoxOptions_lines">
                   <BoxSimpleInfos
+                     className="box-home"
                      icon={dashIcon}
                      title="Área de Dashboards"
                      description="Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região"

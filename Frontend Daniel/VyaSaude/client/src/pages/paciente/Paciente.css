@@ -1,0 +1,121 @@
+.paciente-home {
+   grid-template-columns: repeat(3, auto) !important; /* 3 colunas iguais */
+   grid-template-rows: repeat(2, auto) !important;  /* 2 linhas */
+}
+
+.app {
+   margin-bottom: 48vh;
+}
+
+.content-pages-paciente {
+   .form-fields {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: space-around;
+      white-space: nowrap;
+      padding: 5px;
+   
+      .dropDownMenu-A {
+         width: 270px;
+      }
+   
+      .compact-input {
+         width: 12vw
+      }
+      
+   }
+   .form-fields label{
+      margin: 0;
+      
+   }
+   
+   .form-button {
+      display: flex;
+      justify-content: space-around;
+      margin: 0 15vw 20vw 15vw;
+      padding: 3vh 0px;
+   }
+   
+   .formDados.leitura {
+      padding: 15px;
+   }
+   
+   .paddingTypeUser {
+      padding: 0 10vw !important;
+   }
+   
+   
+   
+   /* ============ */
+}
+
+/* Estilo do botão de exportar, inspirado em BoxSimpleInfos .buttonB */
+.exportBtn {
+   color: #000;
+   background-color: #bbd9e8;
+   border: solid 1px #a0b2cb;
+   border-radius: 10px;
+   padding: 10px 20px;
+   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+   cursor: pointer;
+}
+.exportBtn:hover {
+   background-color: #5e8891;
+   color: #fff;
+}
+
+/* Period selector buttons */
+.periodBtn {
+   border: 1px solid #cfcfcf;
+   background: #fff;
+   padding: 6px 10px;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 12px;
+}
+.periodBtn:hover { background: #f2f2f2 }
+.periodBtn.active {
+   background: linear-gradient(90deg,#b9dcb9 10%, #88b3b3 100%);
+   color: #083;
+   border-color: #7aa;
+}
+
+/* Section blocks to visually separate areas */
+.section-block {
+   background: #fff;
+   border: 1px solid #eee;
+   border-radius: 8px;
+   padding: 14px;
+   margin-bottom: 14px;
+   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.section-block h2, .section-block h3, .section-block h4 { margin: 0 0 8px 0; }
+
+/* Ensure BoxSimpleInfos components have equal height and inner layout */
+.boxSimpleInfos {
+   display: flex !important;
+   flex-direction: column;
+   justify-content: space-between;
+   min-height: 130px;
+   /* box-shadow: 0 1px 4px rgba(0,0,0,0.04); */
+   border-radius: 8px;
+   overflow: hidden;
+}
+.boxSimpleInfos .headerLine {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 8px 12px;
+}
+.boxSimpleInfos .mainLine {
+   flex: 1 1 auto;
+   padding: 12px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+/* Make the visits boxes align and stretch */
+.visits-section { padding-top: 8px; padding-bottom: 8px; }
+.visits-section .boxSimpleInfos { min-height: 140px; }

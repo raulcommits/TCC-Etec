@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Index.css';
 
-const BoxSimpleInfos = ({ title, icon, description, linkTo, buttonText }) => {
+const BoxSimpleInfos = ({ title, icon, description, linkTo, buttonText, className }) => {
   return (
-    <div className="boxSimpleInfos">
+    <div className={`boxSimpleInfos ${className || ''}`}>
       <div className="headerLine">
         <h5><b>{title}</b></h5>
         <img src={icon} className="headerImage" />
