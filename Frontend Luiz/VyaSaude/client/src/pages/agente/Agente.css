@@ -71,9 +71,9 @@
    }
 }
 
-.content-pages-agente { /* Tela de cadastro de novo usuário */
-   .content-agente_CadAltUsuario { /* Tela de cadastro de novo usuário */
-      .elements-agente_CadAltUsuario {
+.content-pages-agente { /* Telas de agente */
+   .content-agente_cadUsuario { /* Tela de cadastro de novo usuário */
+      .elements-agente_cadUsuario {
          hr {
             margin: 25px 0;
          }
@@ -113,7 +113,7 @@
             grid-template-columns: 1fr 1fr 2fr;
          }
 
-         .select-agente_CadAltUsuario { /* Estilização dos Selects */
+         .select-agente_cadUsuario { /* Estilização dos Selects */
             div {
                box-shadow: 2px 2px 10px 1px #c7c7c7a6;
                border: solid #cfcfcf 1px;
@@ -147,6 +147,61 @@
 
          padding-top: 2vh;
          padding-bottom: 5vh;
+      }
+   }
+
+   .content-agente_altUsuario {  /* Tela de listagem e alteração de usuário */
+      .cabecalho {
+         display: flex;
+         flex-direction: column;
+         gap: 2vh;
+
+         .sessao{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+      
+            .botoes {
+               display: flex;
+               gap: 10px;
+      
+               button {
+                  gap: 12px;
+                  height: 4.5vh;
+                  /* max-height: 40px; */
+               }
+            }
+      
+            h4 {
+               margin-bottom: 0;
+            }
+      
+            .icons {
+               display: flex;
+               cursor: pointer;
+               align-items: center;
+               height: 2.2rem;
+         
+               svg {
+                  height: 1.5rem;
+                  width: 1.5rem;
+               }
+            }
+
+         }
+         
+         .filtragem {
+            display: flex;
+            flex-direction: column;
+                    
+            .filtros {
+               display: grid;
+               gap: 10px;
+               grid-template-columns: 3fr 1fr;
+               /* justify-content: space-between; */
+            }
+
+         }
       }
    }
 

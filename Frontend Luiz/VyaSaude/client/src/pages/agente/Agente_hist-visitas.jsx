@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import { PatternFormat } from "react-number-format";
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
 
 import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_agente"
@@ -128,7 +128,7 @@ function Agente_histVisitas() {
          ]} />
          <main className="content-pages">
             <div className="content-pages-agente">
-               <div className="content-agente_histVisitas d-block" style={{position: "relative"}}>
+               <div className="content-agente_histVisitas" >
                   <div className="title-pages">
                      <GoReply onClick={() => navigate(-1)}/>
                      <h1 className="align-self-center h2 px-5">Consulta de Visitas Domiciliares</h1>

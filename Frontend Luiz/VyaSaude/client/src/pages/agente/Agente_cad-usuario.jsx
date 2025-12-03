@@ -8,7 +8,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useVerificarCEP } from '../../hooks/useVerificarCEP';
 import { TextField, Select, MenuItem, FormControl, InputLabel, ListSubheader, Switch, Autocomplete } from "@mui/material";
 import { PatternFormat } from 'react-number-format';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
@@ -65,8 +65,6 @@ function Agente_cadUsuario() {
 
 
    const navigate = useNavigate();
-
-   const [modoEdicao, setModoEdicao] = useState(false);
    
    const [formNovoPaciente, setFormNovoPaciente] = useState({
       nome: null,
@@ -95,7 +93,7 @@ function Agente_cadUsuario() {
 
       tipo_imovel: '',
       tipo_material_imovel: '',
-      tipo_animal: null,
+      tipo_animal: '',
       
       num_telefone: '',
       email: null,
@@ -216,7 +214,7 @@ function Agente_cadUsuario() {
       <div className="app">
          <Header/>
          <Sidenav/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '/Agente_home' }, {label: 'Cadastro', href: '/Agente_home-usuario'}, {label: 'Cadastro de novo paciente', href: 'Agente_cad-usuario'}]} />
          <NavBar items={[
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
@@ -225,13 +223,13 @@ function Agente_cadUsuario() {
          ]} />
          <main className="content-pages">
             <div className="content-pages-agente">
-               <div className="content-agente_CadAltUsuario">
+               <div className="content-agente_cadUsuario">
                   <div className="title-pages">
                      <GoReply onClick={() => navigate(-1)}/>
-                     <h1 className="align-self-center h2 px-5">Cadastrar usuário</h1>
+                     <h1 className="align-self-center h2 px-5">Cadastrar novo paciente</h1>
                   </div>
 
-                  <div className="elements-agente_CadAltUsuario">
+                  <div className="elements-agente_cadUsuario">
                      <form id="form-novo_paciente-agente" onSubmit={handleRegister}>
                         <span className="h4 text-success subtitle">Informações de registro</span>
                         <div className="grid grid_1">
@@ -253,7 +251,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectGenero">Gênero</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
+                              <Select className="select-agente_cadUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Masculino">Masculino</MenuItem>
                                  <MenuItem value="Feminino">Feminino</MenuItem>
@@ -264,7 +262,7 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEtnia">Etnia</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
+                              <Select className="select-agente_cadUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Branco">Branco(a)</MenuItem>
                                  <MenuItem value="Preto">Preto(a)</MenuItem>
@@ -277,11 +275,13 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEstadoCivil">Estado Civil</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="estado_civil" value={formNovoPaciente.estado_civil} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoCivil" >
+                              <Select className="select-agente_cadUsuario" name="estado_civil" value={formNovoPaciente.estado_civil} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoCivil" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Solteiro">Solteiro(a)</MenuItem>
                                  <MenuItem value="Casado">Casado(a)</MenuItem>
                                  <MenuItem value="Separado">Separado(a)</MenuItem>
+                                 <MenuItem value="Viúvo">Viúvo</MenuItem>
+                                 <MenuItem value="Outro">Outro</MenuItem>
                               </Select>
                            </FormControl>
                         </div>
@@ -289,7 +289,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectNacionalidade">Nacionalidade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="nacionalidade" value={formNovoPaciente.nacionalidade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNacionalidade" >
+                              <Select className="select-agente_cadUsuario" name="nacionalidade" value={formNovoPaciente.nacionalidade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNacionalidade" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Brasileiro">Brasileiro(a)</MenuItem>
                                  <MenuItem value="Estrangeiro">Estrangeiro(a)</MenuItem>
@@ -299,7 +299,7 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectNaturalidade">Naturalidade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
+                              <Select className="select-agente_cadUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <ListSubheader>Norte</ListSubheader>
                                     <MenuItem value="AC">Acre</MenuItem>
@@ -366,7 +366,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectTipoImovel">Tipo de imóvel</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="tipo_imovel" value={formNovoPaciente.tipo_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoImovel" >
+                              <Select className="select-agente_cadUsuario" name="tipo_imovel" value={formNovoPaciente.tipo_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoImovel" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="1">Casa</MenuItem>
                                  <MenuItem value="2">Apartamento</MenuItem>
@@ -377,7 +377,7 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectTipoMaterialImovel">Material do imóvel</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="tipo_material_imovel" value={formNovoPaciente.tipo_material_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoMaterialImovel" >
+                              <Select className="select-agente_cadUsuario" name="tipo_material_imovel" value={formNovoPaciente.tipo_material_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoMaterialImovel" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="1">Alvenaria</MenuItem>
                                  <MenuItem value="2">Madeira</MenuItem>
@@ -388,7 +388,7 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectTipoAnimal">Possui animais domésticos?</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="tipo_animal" value={formNovoPaciente.tipo_animal} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoAnimal" >
+                              <Select className="select-agente_cadUsuario" name="tipo_animal" value={formNovoPaciente.tipo_animal} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoAnimal" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="null">Não possui</MenuItem>
                                  <MenuItem value="1">Cachorro</MenuItem>
@@ -427,7 +427,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_1">
                            <FormControl variant="outlined">
                               <InputLabel id="selectCBO">Categoria da Ocupação (Opcional)</InputLabel>
-                              <Select defaultValue="0" className="select-agente_CadAltUsuario" name="escolaridade" value={categoriaSelecionadaCBO} variant="outlined" onChange={(e) => setCategoriaSelecionadaCBO(e.target.value)} labelId="selectCBO">
+                              <Select defaultValue="0" className="select-agente_cadUsuario" name="escolaridade" value={categoriaSelecionadaCBO} variant="outlined" onChange={(e) => setCategoriaSelecionadaCBO(e.target.value)} labelId="selectCBO">
                                  <MenuItem disabled value="0">Selecione a categoria..</MenuItem>
                                  <MenuItem value="">Todas as categoria</MenuItem>
                                  {categorias.map((cat) => (
@@ -492,7 +492,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEscolaridade">Escolaridade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="escolaridade" value={formNovoPaciente.escolaridade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEscolaridade">
+                              <Select className="select-agente_cadUsuario" name="escolaridade" value={formNovoPaciente.escolaridade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEscolaridade">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Não frequentou/Não sabe">Não frequentou/Não sabe</MenuItem>
                                  <MenuItem value="Ensino Infantil Incompleto">Ensino Infantil Incompleto</MenuItem>
@@ -510,7 +510,7 @@ function Agente_cadUsuario() {
                            
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectTipoInstituicao">Tipo de Instituição</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
+                              <Select className="select-agente_cadUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Escola Pública">Escola Pública</MenuItem>
                                  <MenuItem value="Escola Particular">Escola Particular</MenuItem>
@@ -525,7 +525,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEstadoClinico">Estado Clínico</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
+                              <Select className="select-agente_cadUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Estável">Estável</MenuItem>
                                  <MenuItem value="Instável">Instável</MenuItem>
