@@ -28,7 +28,7 @@ const paciente = new EntitySchema({
         escrita: {type: "boolean", default: true, nullable: false},
         responsavel_legal: {type: "varchar", length: 70, nullable: true},
         inatividade: {type: "datetime", nullable: true},
-        profissao: {type: "char", length: 100, nullable: false}
+        profissao: {type: "char", length: 100, nullable: true}
       },
     relations: {
         endereco: {type: "many-to-one", target: "Endereco", nullable: false},
