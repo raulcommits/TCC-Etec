@@ -33,7 +33,7 @@ function Admin_perfil() {
          numero: '',
          complemento: '',
          ponto_referencia: '',
-         num_telefone: '',
+         telefone: '',
          email: '',
          profissao: '',
          cbo: '',
@@ -262,7 +262,7 @@ function Admin_perfil() {
 
                   <div className="form-fields">
                      <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="num_telefone" value={formDados.num_telefone} onChange={(e) => handleFormChange(e)} type='number' placeholder='Telefone'/>
+                     <Form.Control name="telefone" value={formDados.telefone} onChange={(e) => handleFormChange(e)} type='number' placeholder='Telefone'/>
                      
                      {/* <Form.Label>Celular</Form.Label>
                      <Form.Control value={"num_celular"} onChange={(e) => {setNome(e.target.value)}} type='number' placeholder='Celular'/> */}

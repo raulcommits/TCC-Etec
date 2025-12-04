@@ -18,7 +18,7 @@ const paciente = new EntitySchema({
         naturalidade_municipio: {type: "char", length: 25, nullable: false},
         filiacao_mae: {type: "char", length: 100, nullable: false, default: "Desconhecido"},
         filiacao_pai: {type: "char", length: 100, nullable: false, default: "Desconhecido"},
-        num_telefone: {type: "varchar", length: 12, nullable: false},
+        telefone: {type: "varchar", length: 12, nullable: false},
         email: {type: "varchar", length: 100, nullable: false},
         escolaridade: {type: "varchar", length: 30, nullable: false},
         nome_instituicao: {type: "varchar", length: 50, nullable: false},
@@ -27,12 +27,12 @@ const paciente = new EntitySchema({
         leitura: {type: "boolean", default: true, nullable: false},
         escrita: {type: "boolean", default: true, nullable: false},
         responsavel_legal: {type: "varchar", length: 70, nullable: true},
-        inatividade: {type: "datetime", nullable: true}
+        inatividade: {type: "datetime", nullable: true},
+        profissao: {type: "char", length: 100, nullable: false}
       },
     relations: {
         endereco: {type: "many-to-one", target: "Endereco", nullable: false},
         agente: {type: "many-to-one", target: "Agente", nullable: true},
-        cbo: {type: "many-to-one", target: "Cbo", nullable: true}
     }
 });
 

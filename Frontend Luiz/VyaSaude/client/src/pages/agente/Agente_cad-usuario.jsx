@@ -95,7 +95,7 @@ function Agente_cadUsuario() {
       tipo_material_imovel: '',
       tipo_animal: '',
       
-      num_telefone: '',
+      telefone: '',
       email: null,
       escolaridade: '',
       nome_instituicao: null,
@@ -404,17 +404,17 @@ function Agente_cadUsuario() {
                         <span className="h4 text-success subtitle">Contato</span>
                         <div className="grid grid_1">
                            <PatternFormat 
-                              name="num_telefone" 
+                              name="telefone" 
                               required
                               label="Telefone" 
-                              value={formNovoPaciente.num_telefone} 
+                              value={formNovoPaciente.telefone} 
                               format={
-                                 (formNovoPaciente.num_telefone || "").replace(/\D/g, '')[2] === '9' ? "(##) # ####-####"  : "(##) ####-####"}
+                                 (formNovoPaciente.telefone || "").replace(/\D/g, '')[2] === '9' ? "(##) # ####-####"  : "(##) ####-####"}
                               mask=" " 
                               customInput={TextField} 
                               variant="outlined" 
                               onValueChange={(values) => { 
-                                 handleFormChange({ target: { name: 'num_telefone', value: values.value }})
+                                 handleFormChange({ target: { name: 'telefone', value: values.value }})
                               }}
                            />
 

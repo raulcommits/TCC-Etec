@@ -64,7 +64,7 @@ function Agente_altUsuario() {
       const cpfPaciente = row.cpf || "";
       const numSusPaciente = row.sus?.toLowerCase() || "";
       const dataRow = row.data_nascimento ? row.data_nascimento.split('T')[0] : "";
-      const num_telefone = row.num_telefone?.toLowerCase() || "";
+      const telefone = row.telefone?.toLowerCase() || "";
       const email = row.email?.toLowerCase() || "";
       const escolaridade = row.escolaridade?.toLowerCase() || "";
       const nome_instituicao = row.nome_instituicao?.toLowerCase() || "";
@@ -74,7 +74,7 @@ function Agente_altUsuario() {
       // Verifica Texto (Nome, CPF ou Agente)
       return (
          nomePaciente.includes(termo) || cpfPaciente.includes(termo) || numSusPaciente.includes(termo) ||  
-               num_telefone.includes(termo) || email.includes(termo) || escolaridade.includes(termo) || nome_instituicao.includes(termo) || 
+               telefone.includes(termo) || email.includes(termo) || escolaridade.includes(termo) || nome_instituicao.includes(termo) || 
                tipo_instituicao.includes(termo) || estado_clinico.includes(termo)
       );
    }) : [];
@@ -228,8 +228,8 @@ function Agente_altUsuario() {
                               Naturalidade (Municipio) {ordemCol === 'naturalidade_municipio' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
                            </th>
 
-                           <th onClick={() => handleOrdenar('num_telefone')} style={{ cursor: 'pointer' }}>
-                              Telefone {ordemCol === 'num_telefone' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                           <th onClick={() => handleOrdenar('telefone')} style={{ cursor: 'pointer' }}>
+                              Telefone {ordemCol === 'telefone' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
                            </th>
 
                            <th onClick={() => handleOrdenar('email')} style={{ cursor: 'pointer' }}>
@@ -270,7 +270,7 @@ function Agente_altUsuario() {
                            pacientesOrdenados.map(paciente => (
                               <tr key={paciente.id}>
                                  <td>{paciente.nome}</td>
-                                 <td>{paciente.motivo}</td>
+                                 <td>{paciente.cpf}</td>
                                  <td>{paciente.desfecho}</td>
                                  <td><PatternFormat displayType="text" value={paciente.registro_visita} format="######-###" mask=" "/></td>
                                  <td>{paciente.nome}</td>
@@ -283,7 +283,7 @@ function Agente_altUsuario() {
                                  <td>{paciente.nacionalidade}</td>
                                  <td>{paciente.naturalidade_estado}</td>
                                  <td>{paciente.naturalidade_municipio}</td>
-                                 <td>{paciente.num_telefone}</td>
+                                 <td>{paciente.telefone}</td>
                                  <td>{paciente.email}</td>
 
                                  <td>

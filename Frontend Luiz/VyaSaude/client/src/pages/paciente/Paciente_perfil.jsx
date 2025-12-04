@@ -30,7 +30,7 @@ function Paciente_perfil() {
       naturalidade_municipio: '',
       filiacao_mae: '',
       filiacao_pai: '',
-      num_telefone: '',
+      telefone: '',
       email: '',
       profissao: '',
       escolaridade: '',
@@ -145,7 +145,7 @@ function Paciente_perfil() {
 
                   <div className="form-fields">
                      <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="num_telefone" value={formDados.num_telefone} type='number' placeholder='Telefone'/>
+                     <Form.Control name="telefone" value={formDados.telefone} type='number' placeholder='Telefone'/>
                                           
                      <Form.Label>E-mail</Form.Label>
                      <Form.Control name="email" value={formDados.email} type='email' placeholder='E-mail'/>
