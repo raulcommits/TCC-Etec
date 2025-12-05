@@ -15,7 +15,6 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 
-import Modal_Agente_EditarPaciente from "../../components/Modal_Agente_EditarPaciente";
 import Modal_Agente_DetalhesPaciente from "../../components/Modal_Agente_DetalhesPaciente";
 
 import { GoPersonAdd, GoReply } from "react-icons/go";
@@ -27,7 +26,6 @@ import { BiSolidEdit } from "react-icons/bi";
 function Agente_altUsuario() {
    const navigate = useNavigate();
 
-   const [exibirModal_Agente_EditarPaciente, setModal_Agente_EditarPaciente] = useState(false); // Abertura e fechamento do Modal de Novo Registro
    const [exibirModal_Agente_DetalhesPaciente, setModal_Agente_DetalhesPaciente] = useState(false); // Abertura e fechamento do Modal de Novo Registro
 
    const [recarregar, setRecarregar] = useState(false);
@@ -240,7 +238,6 @@ function Agente_altUsuario() {
                            </th>
 
                            <th>Detalhes</th>
-                           <th>Editar</th>
                         </tr>
                      </thead>
 
@@ -261,12 +258,6 @@ function Agente_altUsuario() {
                                        <MdContentPasteSearch />
                                     </div>
                                  </td>
-
-                                 <td>
-                                    <div className="table-icons" onClick={() => setModal_Agente_EditarPaciente(true)}>
-                                       <BiSolidEdit />
-                                    </div>
-                                 </td>
                               </tr>
                            ))
                         ) : (
@@ -278,9 +269,6 @@ function Agente_altUsuario() {
                   </table>
 
                   <div>
-                     {/* Modal: Editar */}
-                     {exibirModal_Agente_EditarPaciente && <Modal_Agente_EditarPaciente onClose={() => setModal_Agente_EditarPaciente(false)} />}   {/* Modal a ser reconsiderado */}
-                        
                      {/* Modal: Detalhes (mais informações) */}
                      {exibirModal_Agente_DetalhesPaciente && <Modal_Agente_DetalhesPaciente onClose={() => setModal_Agente_DetalhesPaciente(false)} pacienteId={pacienteId}/>} 
                   </div>

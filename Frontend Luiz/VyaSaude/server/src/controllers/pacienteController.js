@@ -27,7 +27,6 @@ route.get("/:encontrarPaciente", async (request, response) => {
       ],
       relations: ["agente", "endereco", "endereco.zona", "endereco.material_predominante", "endereco.tipo_imovel", "endereco.tipo_animal"]
    });
-   console.log(encontrarPaciente)
 
    if (!verificarPaciente) {
       return response.status(404).send({ response: "Paciente não encontrado" });
