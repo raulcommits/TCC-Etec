@@ -42,12 +42,12 @@ function Sidenav() {
                </div>
                </Link>
 
-               <Link to="/Agente_home-endereco">
+               {/* <Link to="/Agente_home-endereco">
                <div className='sidenav-buttons'>
                   <img src={HomeAddress} className="sideBarIcon"/>
                   <p>Cadastro de Endereços</p>
                </div>
-               </Link>
+               </Link> */}
 
                <Link to="/Agente_hist-consultas">
                <div className='sidenav-buttons'>
