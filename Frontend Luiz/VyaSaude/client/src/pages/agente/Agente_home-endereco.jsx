@@ -36,8 +36,8 @@ function Agente_homeEndereco() {
                <h4>Selecione uma das opções abaixo</h4> <br />
             
                <div className="shortcutField paciente-home">
-                  <Link to='/Agente_noPage'><div className="shortcutClick"><p>Cadastrar novo endereço</p></div></Link>
-                  <Link to='/Agente_noPage'><div className="shortcutClick"><p>Alterar endereços</p></div></Link>
+                  <Link to=''><div className="shortcutClick"><p>Cadastrar novo endereço</p></div></Link>
+                  <Link to=''><div className="shortcutClick"><p>Alterar endereços</p></div></Link>
                </div>
             </div>
          </main>

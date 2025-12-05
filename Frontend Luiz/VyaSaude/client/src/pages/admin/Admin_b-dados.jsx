@@ -150,7 +150,16 @@ function Admin_histVisitas() {
                      </div>
 
                      <div className="filtragem">
-                        <h4 className="h4 text-success">Filtrar por</h4>
+                        <FormControl variant="outlined" required>
+                           <InputLabel id="selectGenero">Gênero</InputLabel>
+                           <Select className="select-agente_cadUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
+                              <MenuItem hidden selected value>Selecione..</MenuItem>
+                              <MenuItem value="Masculino">Masculino</MenuItem>
+                              <MenuItem value="Feminino">Feminino</MenuItem>
+                              <MenuItem value="Não-Binário">Não-binário</MenuItem>
+                              <MenuItem value="Outro">Outro</MenuItem>
+                           </Select>
+                        </FormControl>
                         <div className="filtros">
                            {/* Campo de Busca (Texto) */}
                            <TextField
