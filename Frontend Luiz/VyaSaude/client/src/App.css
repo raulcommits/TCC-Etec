@@ -169,6 +169,7 @@ button {
    height: calc(100vh - 10vh);
    width: calc(100vw - 300px);
 }
+
 .content-pages { /* Demais telas */ 
    align-items: center;
    margin-left: 300px;
@@ -300,6 +301,12 @@ button {
       flex-direction: column;
       align-items: center;
    }
+
+   .paginacao {
+      bottom: 92px !important;
+      width: 100vw;
+      left: 0px;
+   }
 }
 
 @media (min-width: 888px) and (max-width: 1519px) {
@@ -309,7 +316,7 @@ button {
       margin-top: 10vh;
    }
    .content-pages {
-      width: calc(100vw - 100px); /* 180 -> 100 */
+      width: calc(100vw - 90); /* 180 -> 100 */
       margin-left: 90px;
       padding: 24px;
    }
@@ -321,6 +328,11 @@ button {
       grid-template-columns: repeat(2, 1fr);
       justify-items: center;
       max-width: none;
+   }
+
+   .paginacao {
+      width: calc(100vw - 90px);
+      left: 90px;
    }
 }
 
@@ -334,5 +346,10 @@ button {
       width: calc(100vw - 300px); /* 340 -> 300 */ 
       margin-left: 300px;
       padding: 40px;
+   }
+
+   .paginacao {
+      width: calc(100vw - 300px);
+      left: 300px;
    }
 }

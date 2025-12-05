@@ -6,7 +6,7 @@ import { useNavigate  } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import { PatternFormat } from "react-number-format";
-import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { TextField, InputAdornment, IconButton, Pagination, Stack } from "@mui/material";
 
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
@@ -21,7 +21,6 @@ import { GoPersonAdd, GoReply } from "react-icons/go";
 import { MdContentPasteSearch, MdRefresh } from "react-icons/md";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { Search, Clear } from "@mui/icons-material";
-import { BiSolidEdit } from "react-icons/bi";
 
 function Agente_altUsuario() {
    const navigate = useNavigate();
@@ -35,6 +34,9 @@ function Agente_altUsuario() {
    const [busca, setBusca] = useState("");
    const [dataFiltro, setDataFiltro] = useState("");
 
+   const [pagina, setPagina] = useState(1);
+   const [linhasPorPagina] = useState(25);
+   
    useEffect(() => {
       async function buscarPacientes() {
          try {
@@ -45,10 +47,10 @@ function Agente_altUsuario() {
             console.log(err);
          }
       };
-
+      
       buscarPacientes();
    }, [recarregar]);
-
+   
    
    const pacientesFiltrados = Array.isArray(pacientes) ? pacientes.filter((row) => {
       // Normaliza os textos para minúsculo para facilitar a busca
@@ -63,44 +65,44 @@ function Agente_altUsuario() {
       const telefone = row.telefone?.toLowerCase() || "";
       const email = row.email?.toLowerCase() || "";
       const estado_clinico = row.estado_clinico?.toLowerCase() || "";
-
+      
       // Verifica Texto (Nome, CPF ou Agente)
       return (
          nomePaciente.includes(termo) || cpfPaciente.includes(termo) || numSusPaciente.includes(termo) ||  
-               telefone.includes(termo) || email.includes(termo) || 
-               estado_clinico.includes(termo)
+         telefone.includes(termo) || email.includes(termo) || 
+         estado_clinico.includes(termo)
       );
    }) : [];
-
+   
    // --- ESTADOS DA ORDENAÇÃO ---
    const [ordemCol, setOrdemCol] = useState(null); // Qual coluna? ex: 'nome'
    const [ordemDirecao, setOrdemDirecao] = useState('asc'); // 'asc' ou 'desc'
-
+   
    // --- FUNÇÃO PARA MANIPULAR O CLIQUE NO CABEÇALHO ---
    const handleOrdenar = (coluna) => {
       const isAsc = ordemCol === coluna && ordemDirecao === 'asc';
       setOrdemDirecao(isAsc ? 'desc' : 'asc');
       setOrdemCol(coluna);
    };
-
-
+   
+   
    // --- LÓGICA DE ORDENAÇÃO DOS DADOS JÁ FILTRADOS ---
    const pacientesOrdenados = [...pacientesFiltrados].sort((a, b) => {
       if (!ordemCol) return 0;
-
+      
       // Função auxiliar para pegar valores aninhados (ex: paciente.nome)
       const getValor = (obj, caminho) => {
          return caminho.split('.').reduce((o, i) => (o ? o[i] : null), obj);
       };
-
+      
       const valorA = getValor(a, ordemCol);
       const valorB = getValor(b, ordemCol);
-
+      
       // Tratamento para nulos/undefined
       if (valorA === valorB) return 0;
       if (valorA === null || valorA === undefined) return 1;
       if (valorB === null || valorB === undefined) return -1;
-
+      
       // Comparação
       let comparacao = 0;
       if (typeof valorA === 'string') {
@@ -108,10 +110,31 @@ function Agente_altUsuario() {
       } else {
          comparacao = valorA < valorB ? -1 : 1; // Números ou Datas
       }
-
+      
       return ordemDirecao === 'asc' ? comparacao : -comparacao;
    });
+
+
    
+   useEffect(() => {
+      setPagina(1);
+   }, [busca, dataFiltro]);
+
+   const indexUltimoItem = pagina * linhasPorPagina;
+   const indexPrimeiroItem = indexUltimoItem - linhasPorPagina;
+   
+   // Esta é a lista que será renderizada no HTML (ao invés de pacientesOrdenados)
+   const itensAtuais = pacientesOrdenados.slice(indexPrimeiroItem, indexUltimoItem);
+
+   // Calcula o número total de páginas
+   const totalPaginas = Math.ceil(pacientesOrdenados.length / linhasPorPagina);
+
+   // Função de mudança de página
+   const handleChangePagina = (event, value) => {
+      setPagina(value);
+   };
+
+
    return(
       <div className="app">
          <Header/>
@@ -242,8 +265,8 @@ function Agente_altUsuario() {
                      </thead>
 
                      <tbody> 
-                        {pacientesOrdenados.length > 0 ? (
-                           pacientesOrdenados.map(paciente => (
+                        {itensAtuais.length > 0 ? (
+                           itensAtuais.map(paciente => (
                               <tr key={paciente.id}>
                                  <td>{paciente.nome}</td>
                                  <td><PatternFormat displayType="text" value={paciente.cpf} format="###.###.###-##" mask=" "/></td>
@@ -267,6 +290,20 @@ function Agente_altUsuario() {
                         )}
                      </tbody>
                   </table>
+                  
+                  <div className="paginacao">
+                     <Stack spacing={2}>
+                        <Pagination 
+                           count={totalPaginas} 
+                           page={pagina} 
+                           onChange={handleChangePagina} 
+                           color="primary" 
+                           shape="rounded"
+                           showFirstButton 
+                           showLastButton
+                        />
+                     </Stack>
+                  </div>
 
                   <div>
                      {/* Modal: Detalhes (mais informações) */}

@@ -6,7 +6,7 @@ import './Index.css';
 // e 'items' (um array de objetos, com valor padrão de array vazio)
 const Breadcrumb = ({ homeIcon, items = [] }) => {
   return (
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" className='breadcrumb-container'>
       <ol className="breadcrumb">
         
         <li className="breadcrumb-item">

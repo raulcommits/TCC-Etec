@@ -120,7 +120,7 @@ function Agente_histVisitas() {
       <div className="app">
          <Header/>
          <Sidenav/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '/Agente_home' }, {label: 'Histórico de visitas domiciliares', href: 'Agente_hist-visitas'}]} />
          <NavBar items={[
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },

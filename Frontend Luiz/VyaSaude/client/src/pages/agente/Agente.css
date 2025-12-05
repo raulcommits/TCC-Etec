@@ -18,7 +18,7 @@
 .modal-overlay {
    display: flex;
    position: fixed;
-   top: 7vh;
+   top: 10vh;
    left: 300px;
    width: calc(100% - 300px);
    height: 93vh;
@@ -30,7 +30,7 @@
 
 .css-2xrgrn-MuiPopper-root-MuiAutocomplete-popper {
    width: auto !important;
-   inset: 0px auto auto 0px !important;
+   /* inset: 0px auto auto 0px !important; */
    max-height: 50px !important;
 
    ul {
@@ -132,7 +132,9 @@
       }
    }
 
-   .content-agente_altUsuario {  /* Tela de listagem e alteração de usuário */
+   .content-agente_altUsuario {  /* Tela de listagem e alteração de usuário */      
+      padding-bottom: 5vh;
+
       .title-pages {
          display: flex;
          justify-content: space-between;
@@ -258,9 +260,6 @@
          }
       }
    }
-
-
-   
    .content-agente_perfil { /* Tela de perfil do agente */
       input {
          font-size: 1rem !important;
@@ -453,4 +452,20 @@
 
 @media (max-width: 900px) {
    .dashboard-grid-container { grid-template-columns: 1fr; }
+}
+
+.paginacao {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+   position: fixed;
+   bottom: 0;
+   z-index: 30;
+
+   padding: 15px 0;
+   background-color: #fff;
+   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* Sombra para cima */
+   border-top: 1px solid #e0e0e0;
+
 }
