@@ -55,7 +55,7 @@ route.get("/perfil", authenticate, async (request, response) => {
         posto: recepcionista.posto.nome_posto,
         cbo_codigo: recepcionista.cbo.codigo,
         cbo_descricao: recepcionista.cbo.descricao,
-        createdAt: usuario.createdAt
+        data_admissao: usuario.data_admissao
     };
 
     return response.status(200).send(recepcaoPayload); 

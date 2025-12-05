@@ -53,7 +53,7 @@ route.get("/perfil", authenticate, async (request, response) => {
         posto: administrador.posto.nome_posto,
         cbo_codigo: administrador.cbo.codigo,
         cbo_descricao: administrador.cbo.descricao,
-        createdAt: usuario.createdAt
+        data_admissao: usuario.data_admissao
     };
 
     return response.status(200).send(adminPayload); 

@@ -156,25 +156,21 @@ function Agente_perfil() {
                      <hr/>
 
                      <span className="h4 text-success">Informações sobre o cadastro</span>
-                     <div className="grid grid_1">
-                        <TextField disabled variant="outlined" value={""} label="Cadastrado por"/>
-                        <TextField disabled variant="outlined" value={new Date(dados?.data_criacao).toLocaleString('pt-BR')} label="Data e Hora de criação" />
-                     </div>
 
                      <div className="grid grid_3">
+                        <TextField disabled variant="outlined" value={new Date(dados?.data_criacao).toLocaleString('pt-BR')} label="Data e Hora de criação" />
                         <TextField disabled variant="outlined" value={new Date(dados.data_admissao).toLocaleDateString('pt-BR')} label="Data de Admissão" />
-                        <TextField disabled variant="outlined" value={dados?.cbo?.codigo} label="Código CBO" />
-                        <TextField disabled variant="outlined" value={dados?.cbo?.descricao} label="Descrição da Atividade" />
+                        <TextField disabled variant="outlined" value={"515105 - Agente comunitário de saúde"} label="Classificação Brasileira de Ocupação" />
                      </div>
 
                      {/* Botões pra voltar e alterar cadastro*/}
                      <div className="form-buttons">
                         <Button variant="outline-success" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</Button>
-                     <div style={{display: "flex", gap: "20px"}}>
-                        {modoEdicao === true ? <Button variant="outline-danger" onClick={() => {setModoEdicao(false); setDadosParaAtualizar({email: dados.email, telefone: dados.telefone})}}>Cancelar</Button> : ""}
-                        <Button variant="outline-success" onClick={() => {modoEdicao === true ? (atualizarDados(), setModoEdicao(false)) : setModoEdicao(!modoEdicao)}}>{modoEdicao === false ? "Alterar Cadastro" : "Salvar alterações"}</Button>
+                        <div style={{display: "flex", gap: "20px"}}>
+                           {modoEdicao === true ? <Button variant="outline-danger" onClick={() => {setModoEdicao(false); setDadosParaAtualizar({email: dados.email, telefone: dados.telefone})}}>Cancelar</Button> : ""}
+                           <Button variant="outline-success" onClick={() => {modoEdicao === true ? (atualizarDados(), setModoEdicao(false)) : setModoEdicao(!modoEdicao)}}>{modoEdicao === false ? "Alterar Cadastro" : "Salvar alterações"}</Button>
+                        </div>
                      </div>
-                  </div>
                   </div>
                </div>
             </div>

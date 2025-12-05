@@ -13,9 +13,11 @@ function Login() {
 
    const [email, setEmail] = useState("");
    const [senha, setSenha] = useState("");
+   const [loading, setLoading] = useState(false);
    
    async function handleLogin(e) {
       e.preventDefault();
+      setLoading(true);
 
       // Tentativa de realização de login
       try {
@@ -31,34 +33,70 @@ function Login() {
          });
 
          toast.success('Login efetuado com sucesso.', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
          
-         console.log(`usuarioLogado: `, usuarioLogado.data);
-         // alert(response.data.response); // Status do login (erro ou sucesso). -- Remover --
-  
+         console.log(`usuarioLogado: `, usuarioLogado.data);  
          navigate(`/${usuarioLogado.data.tipoUsuario}_home`);
-         // -- toast (sucesso) --
       }
       catch(error) {
-         toast.error('Erro ao realizar login.', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
          console.log(error.response);
+         
+         toast.error('Erro ao realizar login.', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
+         
+         if (!error.response) {
+            // Erro de conexão (backend desligado)
+            toast.error("Erro de conexão. Verifique se o servidor está online.");
+            setLoading(false);
+            return;
+         };
+
+         const status = error.response.status;
+         const mensagemBackend = error.response.data.message;
+         
+         switch (status) {
+            case 400:
+               // Erro de validação (email sem @, campos vazios)
+               toast.warning(mensagemBackend || "Preencha os campos corretamente.");
+               break;
+
+            case 401:
+               // Credenciais Inválidas
+               toast.error("E-mail ou senha incorretos.");
+               break;
+
+            case 403:
+               // Usuário Inativo (Lógica que criamos no backend)
+               toast.warning("Acesso negado: Usuário inativo no sistema.\n Regularize o seu cadastro em uma UBS.");
+               break;
+
+            case 500:
+               // Erro no Servidor
+               toast.error("Erro interno no servidor. Tente novamente mais tarde.");
+               break;
+
+            default:
+               toast.error(`Erro inesperado: ${status}`);
+         }
+      } 
+      finally {
+         setLoading(false);
       };
    };
 

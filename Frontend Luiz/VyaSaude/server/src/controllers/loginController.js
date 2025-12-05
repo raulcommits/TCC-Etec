@@ -38,15 +38,36 @@ route.post("/", async (request, response) => {
    try {
       if (!email.includes("@")) {
          return response.status(400).send({response: "Verifique o formato do e-mail."});
-      }
+      };
 
-      const usuario = await repositorioUsuario.findOneBy({
-         email, senha, data_exclusao: IsNull()
-      });
-      
+      const usuario = await repositorioUsuario.findOne({
+         where: { email }
+        });
+
       if (!usuario) {
-         return response.status(401).send({response: "Usuário não encontrado. Verifique as credenciais e tente novamente."});
-      }
+         return response.status(401).send({ message: "E-mail ou senha incorretos." });
+      };
+
+      if (usuario.data_exclusao !== null) {
+         return response.status(403).send({ message: "Usuário inativo. Contate o administrador." });
+      };
+
+      // const senhaValida = await bcrypt.compare(senha, usuario.senha);
+      const senhaValida = senha === usuario.senha; // APENAS PARA TESTES
+
+      if (!senhaValida) {
+         return response.status(401).send({ message: "E-mail ou senha incorretos." });
+      };
+
+
+
+      // const usuario = await repositorioUsuario.findOneBy({
+      //    email, senha, data_exclusao: IsNull()
+      // });
+      
+      // if (!usuario) {
+      //    return response.status(401).send({response: "Usuário não encontrado. Verifique as credenciais e tente novamente."});
+      // };
 
       // const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
@@ -56,12 +77,13 @@ route.post("/", async (request, response) => {
          nome: usuario.nome,
          email: usuario.email,
          tipoUsuario: usuario.tipoUsuario,
-         createdAt: usuario.createdAt,
+         data_criacao: usuario.data_criacao,
       });
 
       return response.status(200).send({response: "Login efetuado com sucesso.", token});
    } catch(error) {
-      console.log(error)
+      console.log(error);
+      return response.status(500).send({ message: "Erro interno do servidor. Tente novamente mais tarde." });
    }
 });
 

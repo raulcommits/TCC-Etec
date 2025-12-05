@@ -95,15 +95,15 @@
       }
    }
 
-
+   
    .button-modal_novoRegistro {
       display: flex;
       justify-content: space-around;
       margin-top: 3vh;
       margin-bottom: 1vh;
-
+      
       button {
-         width: 7vw;
+         width: auto;
          height: 4vh;
          max-height: 50px;
       }

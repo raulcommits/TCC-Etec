@@ -55,7 +55,7 @@ route.get("/perfil", authenticate, async (request, response) => {
         posto: agente.posto.nome_posto,
         cbo_codigo: agente.cbo.codigo,
         cbo_descricao: agente.cbo.descricao,
-        createdAt: usuario.createdAt
+        data_admissao: usuario.data_admissao
     };
 
     return response.status(200).send(agentePayload); 

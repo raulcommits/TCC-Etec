@@ -54,7 +54,17 @@ function Cadastro() {
          navigate("/login");
       } catch(err) {
          console.log(`Erro:`, err.response)
-         alert(err?.response?.data?.response || "Erro desconhecido"); // ? = Verifica se o parametro antecedente ao ? possui algum dado ou se é nulo/indefinido. Caso seja a segunda opção, NÃO QUERBA o código, apenas prossegue com o código.
+         toast.error('Erro desconhecido.', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
+         // alert(err?.response?.data?.response || "Erro desconhecido"); // ? = Verifica se o parametro antecedente ao ? possui algum dado ou se é nulo/indefinido. Caso seja a segunda opção, NÃO QUERBA o código, apenas prossegue com o código.
       }
       console.log("Enviando:", { cpf, nome, senha, email });
    }

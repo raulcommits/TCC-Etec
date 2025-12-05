@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import { PatternFormat } from "react-number-format";
-import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { TextField, InputAdornment, IconButton, Pagination, Stack } from "@mui/material";
 
 import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_agente"
@@ -16,7 +16,6 @@ import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 
 import Modal_NovoRegistro from "../../components/Modal_NovoRegistro";
-import Modal_EditarRegistro from "../../components/Modal_EditarRegistro";
 import Modal_DetalhesRegistro from "../../components/Modal_DetalhesRegistro";
 
 import { GoReply } from "react-icons/go";
@@ -31,7 +30,6 @@ function Agente_histVisitas() {
    const navigate = useNavigate();
 
    const [exibirModal_novoRegistro, setNovoRegistro] = useState(false); // Abertura e fechamento do Modal de Novo Registro
-   const [exibirModal_editarRegistro, setEditarRegistro] = useState(false); // Abertura e fechamento do Modal de Novo Registro
    const [exibirModal_detalhesRegistro, setDetalhesRegistro] = useState(false); // Abertura e fechamento do Modal de Novo Registro
 
    const [recarregar, setRecarregar] = useState(false);
@@ -42,6 +40,10 @@ function Agente_histVisitas() {
 
    const [busca, setBusca] = useState("");
    const [dataFiltro, setDataFiltro] = useState("");
+
+   const [pagina, setPagina] = useState(1);
+   const [linhasPorPagina] = useState(20);
+
    
    useEffect(() => {
       async function buscarRegistros() {
@@ -115,6 +117,24 @@ function Agente_histVisitas() {
 
       return ordemDirecao === 'asc' ? comparacao : -comparacao;
    });
+
+   useEffect(() => {
+      setPagina(1);
+   }, [busca, dataFiltro]);
+
+   const indexUltimoItem = pagina * linhasPorPagina;
+   const indexPrimeiroItem = indexUltimoItem - linhasPorPagina;
+   
+   // Esta é a lista que será renderizada no HTML (ao invés de registrosOrdenados)
+   const itensAtuais = registrosOrdenados.slice(indexPrimeiroItem, indexUltimoItem);
+
+   // Calcula o número total de páginas
+   const totalPaginas = Math.ceil(registrosOrdenados.length / linhasPorPagina);
+
+   // Função de mudança de página
+   const handleChangePagina = (event, value) => {
+      setPagina(value);
+   };
       
    return (
       <div className="app">
@@ -145,7 +165,7 @@ function Agente_histVisitas() {
                            </Button>
                            <Button variant="outline-success" className="icons" onClick={() => setRecarregar(!recarregar)}>
                               <MdOutlineRefresh />
-                              <span> Recarregar Registros</span>
+                              <span> Recarregar lista</span>
                            </Button>
                         </div>
                      </div>
@@ -159,7 +179,7 @@ function Agente_histVisitas() {
                               variant="outlined"
                               size="small"
                               value={busca}
-                              placeholder="Buscar Paciente, CPF ou Agente"
+                              placeholder="  Buscar Paciente, CPF ou Agente"
                               onChange={(e) => setBusca(e.target.value)}
                               InputProps={{
                                  startAdornment: (
@@ -227,13 +247,12 @@ function Agente_histVisitas() {
                               Desfecho {ordemCol === 'desfecho' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
                            </th>
                            <th>Detalhes</th>
-                           <th>Editar</th>
                         </tr>
                      </thead>
 
                      <tbody> 
-                        {registrosOrdenados.length > 0 ? (
-                           registrosOrdenados.map(registro => (
+                        {itensAtuais.length > 0 ? (
+                           itensAtuais.map(registro => (
                               <tr key={registro.id}>
                                  <td><PatternFormat displayType="text" value={registro.registro_visita} format="######-###" mask=" "/></td>
                                  <td>{registro.paciente.nome}</td>
@@ -247,12 +266,6 @@ function Agente_histVisitas() {
                                        <MdContentPasteSearch />
                                     </div>
                                  </td>
-                                 
-                                 <td>  {/* Modal a ser reconsiderado */}
-                                    <div className="table-icons" onClick={() => setEditarRegistro(true)}>
-                                       <BiSolidEdit />
-                                    </div>
-                                 </td>
                               </tr>
                            ))
                         ) : (
@@ -263,12 +276,23 @@ function Agente_histVisitas() {
                      </tbody>
                   </table>
 
+                  <div className="paginacao">
+                     <Stack spacing={2}>
+                        <Pagination 
+                           count={totalPaginas} 
+                           page={pagina} 
+                           onChange={handleChangePagina} 
+                           color="primary" 
+                           shape="rounded"
+                           showFirstButton 
+                           showLastButton
+                        />
+                     </Stack>
+                  </div>
+
                   <div>
                      {/* Modal: Novo registro */}
                      {exibirModal_novoRegistro && <Modal_NovoRegistro onClose={() => setNovoRegistro(false)} onSuccess={() => {setRecarregar(!recarregar); setNovoRegistro(false)}} />}
-
-                     {/* Modal: Editar */}
-                     {exibirModal_editarRegistro && <Modal_EditarRegistro onClose={() => setEditarRegistro(false)} />}   {/* Modal a ser reconsiderado */}
                         
                      {/* Modal: Detalhes (mais informações) */}
                      {exibirModal_detalhesRegistro && <Modal_DetalhesRegistro onClose={() => setDetalhesRegistro(false)} registroId={registroId}/>} 

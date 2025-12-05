@@ -163,7 +163,7 @@ function Agente_altUsuario() {
 
                         <Button variant="outline-success" className="icons" onClick={() => setRecarregar(!recarregar)}>
                            <MdRefresh />
-                           <span> Recarregar Registros</span>
+                           <span> Recarregar lista</span>
                         </Button>
                      </div>
                   </div>

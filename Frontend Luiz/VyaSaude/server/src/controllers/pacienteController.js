@@ -187,7 +187,7 @@ route.put("/:id", async (request, response) => {
       return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
    }
 
-   if (data_nascimento.length != 8) {
+   if (data_nascimento.length != 10) {
       return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
    }
    
@@ -277,7 +277,7 @@ route.put("/:id", async (request, response) => {
       email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal: responsavelLegal, endereco, agente, profissao});
       return response.status(201).send({response: "Paciente atualizado com sucesso."});
    } catch (err) {
-      console.log(err)
+      console.error("ERRO CRÍTICO NO UPDATE PACIENTE:", err);
       return response.status(500).send({response: err});
    }
 });

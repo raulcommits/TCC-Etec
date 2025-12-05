@@ -14,7 +14,6 @@ function Recuperar() {
       
       try {
          const solicitarSenha = await api.put('/login/nova-senha', {email});
-         // alert(solicitarSenha.data.response)
          toast.success('Senha solicitada com sucesso.', {
             position: "top-right",
             autoClose: 2000,

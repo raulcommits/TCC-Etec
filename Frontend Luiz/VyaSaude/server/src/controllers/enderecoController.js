@@ -187,9 +187,10 @@ route.put("/:id", async (request, response) => {
         if(!animal) {
             return response.status(400).send({response: "Esse animal não foi encontrado."});
         }
-        await repositorioEndereco.update({id}, {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, zona, material, imovel, animal});
+        await repositorioEndereco.update({id}, {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zona, material_predominante: material, tipo_imovel: imovel, tipo_animal: animal});
         return response.status(200).send({response: "Endereço atualizado com sucesso."});
     } catch (err) {
+         console.error("ERRO CRÍTICO ENDEREÇO:", err);
         return response.status(500).send({response: err})
     }
 
