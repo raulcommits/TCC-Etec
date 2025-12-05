@@ -25,7 +25,7 @@ route.get("/:encontrarPaciente", async (request, response) => {
          {email: encontrarPaciente},
          {cpf: encontrarPaciente}
       ],
-      relations: ["endereco", "agente"]
+      relations: ["agente", "endereco", "endereco.zona", "endereco.material_predominante", "endereco.tipo_imovel", "endereco.tipo_animal"]
    });
    console.log(encontrarPaciente)
 

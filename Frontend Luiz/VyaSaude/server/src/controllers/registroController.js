@@ -20,11 +20,12 @@ route.get("/", async (request, response) => {
 
 route.get("/:encontrarVisita", async (request, response) => {
    const {encontrarVisita} = request.params;
-   const encontrarRegistro = await repositorioRegistro.findOne({where: [
-      {id: encontrarVisita}
-   ],
-   relations: ["endereco", "agente.posto", "paciente"]});
-   
+   const encontrarRegistro = await repositorioRegistro.findOne({
+      where: [
+         {id: encontrarVisita}
+      ],
+      relations: ["endereco", "agente.posto", "paciente"]
+   });
    return response.status(200).send(encontrarRegistro);
 });
 

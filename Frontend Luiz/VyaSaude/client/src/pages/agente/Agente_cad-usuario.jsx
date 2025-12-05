@@ -26,9 +26,11 @@ const normalizarTexto = (texto) => {
 };
 
 function Agente_cadUsuario() {
+   const navigate = useNavigate();
+
    const [buscaCBO, setBuscaCBO] = useState('');
    const [categoriaSelecionadaCBO, setCategoriaSelecionadaCBO] = useState('');
-   const [value, setValue] = useState(null); // Estado para o item selecionado (objeto final)
+   const [profissaoAchada, setProfissaoAchada] = useState(null); // Estado para o item selecionado (objeto final)
 
    // 1. Extrair categorias únicas para o Select (dinamicamente)
    const categorias = useMemo(() => {
@@ -37,6 +39,28 @@ function Agente_cadUsuario() {
       ];
       return uniqueGroups.sort();
    }, []);
+
+   const handleProfissao = (event, novoValor) => {
+      // novoValor é o objeto selecionado (ex: { cbo2002ocupacao: 123, cbo_descricao: 'Médico' })
+      setProfissaoAchada(novoValor);
+
+      if (novoValor && typeof novoValor === 'object') {
+         // Formata a string como você queria
+         const stringFormatada = `${novoValor.cbo2002ocupacao} - ${novoValor.cbo_descricao}`;
+
+         // Atualiza o formulário principal AQUI, apenas quando houver seleção
+         setFormNovoPaciente((dados) => ({
+            ...dados,
+            profissao: stringFormatada,      // Campo visual/formatado
+         }));
+      } else {
+         // Caso o usuário limpe o campo (se permitir limpar)
+         setFormNovoPaciente((dados) => ({
+            ...dados,
+            profissao: null,
+         }));
+      }
+   };
 
       // 2. Lógica de Filtragem
    const resultados = useMemo(() => {
@@ -63,12 +87,10 @@ function Agente_cadUsuario() {
       });
    }, [buscaCBO, categoriaSelecionadaCBO, cboData]);
 
-
-   const navigate = useNavigate();
    
    const [formNovoPaciente, setFormNovoPaciente] = useState({
-      nome: null,
-      nome_social: null,
+      nome: '',
+      nome_social: '',
       cpf: null,
       sus: null,
       data_nascimento: '',
@@ -77,7 +99,7 @@ function Agente_cadUsuario() {
       estado_civil: '',
       nacionalidade: '',
       naturalidade_estado: '',
-      naturalidade_municipio: null,
+      naturalidade_municipio: '',
       filiacao_mae: null,
       filiacao_pai: null,
 
@@ -96,18 +118,16 @@ function Agente_cadUsuario() {
       tipo_animal: '',
       
       telefone: '',
-      email: null,
+      email: '',
       escolaridade: '',
-      nome_instituicao: null,
+      nome_instituicao: '',
       tipo_instituicao: '',
       estado_clinico: '',
       leitura: true,
       escrita: true,
       responsavel_legal: null,
 
-      // profissao: null,
-      cbo: null,
-      cbo_descricao: null,
+      profissao: null
    });
 
    const handleFormChange = (e) => {
@@ -234,7 +254,7 @@ function Agente_cadUsuario() {
                         <span className="h4 text-success subtitle">Informações de registro</span>
                         <div className="grid grid_1">
                            <TextField name="nome" label="Nome do Paciente" value={formNovoPaciente.nome} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
-                           <TextField name="nome_social" label="Nome Social" value={formNovoPaciente.nome_social} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="nome_social" label="Nome Social (Opcional)" value={formNovoPaciente.nome_social} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
                         
                         <div className="grid grid_1">
@@ -265,9 +285,10 @@ function Agente_cadUsuario() {
                               <Select className="select-agente_cadUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Branco">Branco(a)</MenuItem>
-                                 <MenuItem value="Preto">Preto(a)</MenuItem>
                                  <MenuItem value="Pardo">Pardo(a)</MenuItem>
+                                 <MenuItem value="Preto">Preto(a)</MenuItem>
                                  <MenuItem value="Indígena">Indígena</MenuItem>
+                                 <MenuItem value="Amarelo">Amarelo</MenuItem>
                                  <MenuItem value="Asiático">Asiático(a)</MenuItem>
                                  <MenuItem value="Outro">Outro</MenuItem>
                               </Select>
@@ -353,8 +374,8 @@ function Agente_cadUsuario() {
                         </div>
 
                         <div className="grid grid_3">
-                           <TextField name="complemento" value={formNovoPaciente.complemento} variant="outlined" onChange={(e) => handleFormChange(e)} label="Complemento"/>
-                           <TextField name="ponto_referencia" readOnly value={formNovoPaciente.ponto_referencia} variant="outlined" onChange={(e) => handleFormChange(e)} label="Ponto de Referência"/>
+                           <TextField name="complemento" value={formNovoPaciente.complemento} variant="outlined" onChange={(e) => handleFormChange(e)} label="Complemento (Opcional)"/>
+                           <TextField name="ponto_referencia" readOnly value={formNovoPaciente.ponto_referencia} variant="outlined" onChange={(e) => handleFormChange(e)} label="Ponto de Referência (Opcional)"/>
                         </div>
 
                         <div className="grid grid_2">
@@ -438,23 +459,26 @@ function Agente_cadUsuario() {
                               </Select>
                            </FormControl>
 
-                           <FormControl variant="outlined" required>
+                           <FormControl variant="outlined">
                               <Autocomplete
                                  id="cbo-autocomplete"
                                  className="form-autocompleteCBO"
-                                 freeSolo
-                                 disableClearable
+                                 
+                                 disableClearable={false}
                                  options={resultados}
+                                 value={profissaoAchada}
                                  inputValue={buscaCBO}
-                                 value={value}
                                  filterOptions={(items) => items} 
-                                 onInputChange={(event, newInputValue) => {setBuscaCBO(newInputValue)}}
-                                 onChange={(event, newValue) => {setValue(newValue)}}
+
+                                 onInputChange={(event, valor_input) => {setBuscaCBO(valor_input)}}
+                                 onChange={handleProfissao}
                                  noOptionsText={buscaCBO.length < 3 ? "Digite pelo menos 3 caracteres..." : "Nenhum CBO encontrado."}
+                                 
                                  getOptionLabel={(option) => {
                                     if (typeof option === 'string') return option;
                                     return `${option.cbo2002ocupacao} - ${option.cbo_descricao}`;
                                  }}
+                                 
                                  renderOption={(props, option) => {
                                     const { key, ...otherProps } = props;
                                     return (
@@ -475,13 +499,11 @@ function Agente_cadUsuario() {
                                  renderInput={(params) => (
                                     <TextField
                                     {...params}
-                                    label="Ocupação ou Código"
+                                    label="Ocupação ou Código (Opcional)"
                                     variant="outlined"
-                                    slotProps={{
-                                       input: {
-                                          ...params.InputProps,
-                                          type: 'search',
-                                       },
+                                    type= 'search'
+                                    InputProps={{
+                                       ...params.InputProps,
                                     }}
                                     />
                                  )}
@@ -512,12 +534,8 @@ function Agente_cadUsuario() {
                               <InputLabel id="selectTipoInstituicao">Tipo de Instituição</InputLabel>
                               <Select className="select-agente_cadUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
-                                 <MenuItem value="Escola Pública">Escola Pública</MenuItem>
-                                 <MenuItem value="Escola Particular">Escola Particular</MenuItem>
-                                 <MenuItem value="Faculdade Pública">Faculdade Pública</MenuItem>
-                                 <MenuItem value="Faculdade Particular">Faculdade Particular</MenuItem>
-                                 <MenuItem value="Universidade Pública">Universidade Pública</MenuItem>
-                                 <MenuItem value="Universidade Particular">Universidade Particular</MenuItem>
+                                 <MenuItem value="Instituição Pública">Instituição Pública</MenuItem>
+                                 <MenuItem value="Instituição Privada">Instituição Privada</MenuItem>
                               </Select>
                            </FormControl>
                         </div>
@@ -527,20 +545,16 @@ function Agente_cadUsuario() {
                               <InputLabel id="selectEstadoClinico">Estado Clínico</InputLabel>
                               <Select className="select-agente_cadUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
-                                 <MenuItem value="Estável">Estável</MenuItem>
-                                 <MenuItem value="Instável">Instável</MenuItem>
-                                 <MenuItem value="Leve">Leve</MenuItem>
-                                 <MenuItem value="Crítico">Crítico</MenuItem>
-                                 <MenuItem value="Grave">Grave</MenuItem>
-                                 <MenuItem value="Moderado">Moderado</MenuItem>
-                                 <MenuItem value="Óbito">Óbito</MenuItem>
+                                 <MenuItem value="Saudável">Saudável</MenuItem>
+                                 <MenuItem value="Em tratamento">Em tratamento</MenuItem>
+                                 <MenuItem value="Observação">Observação</MenuItem>
                                  <MenuItem value="Paliativo">Paliativo</MenuItem>
                               </Select>
                            </FormControl>
 
                            <TextField name="responsavel_legal" label="Responsável Legal (se menor de 18 anos)" value={formNovoPaciente.responsavel_legal} type="text" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                            
-                           <div className=" d-flex justify-content-around">
+                           <div className="d-flex justify-content-around">
                               <div className="d-flex gap-5">
                                  <div>
                                     <InputLabel id="switchLeitura">Saber ler?</InputLabel>

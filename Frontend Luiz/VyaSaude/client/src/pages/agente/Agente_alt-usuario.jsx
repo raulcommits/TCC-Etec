@@ -2,13 +2,11 @@ import "./Agente.css"
 import Header from "../../components/Header/"
 import Sidenav from "../../components/Sidenav/Sidenav_agente/"
 import api from '../../services/api';
-import cboData from './../../data/cbo2002_KeyedJson.json';
 import { useNavigate  } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import { PatternFormat } from "react-number-format";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-
 
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
@@ -17,19 +15,20 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 
-import { GoReply } from "react-icons/go";
-import { MdContentPasteSearch } from "react-icons/md";
-import { MdAssignmentAdd } from "react-icons/md";
-import { MdOutlineRefresh } from "react-icons/md";
+import Modal_Agente_EditarPaciente from "../../components/Modal_Agente_EditarPaciente";
+import Modal_Agente_DetalhesPaciente from "../../components/Modal_Agente_DetalhesPaciente";
+
+import { GoPersonAdd, GoReply } from "react-icons/go";
+import { MdContentPasteSearch, MdRefresh } from "react-icons/md";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { Search, Clear } from "@mui/icons-material";
-
+import { BiSolidEdit } from "react-icons/bi";
 
 function Agente_altUsuario() {
    const navigate = useNavigate();
 
-   const [exibirModal_editarPaciente, setEditarRegistro] = useState(false); // Abertura e fechamento do Modal de Novo Registro
-   const [exibirModal_detalhesPaciente, setDetalhesRegistro] = useState(false); // Abertura e fechamento do Modal de Novo Registro
+   const [exibirModal_Agente_EditarPaciente, setModal_Agente_EditarPaciente] = useState(false); // Abertura e fechamento do Modal de Novo Registro
+   const [exibirModal_Agente_DetalhesPaciente, setModal_Agente_DetalhesPaciente] = useState(false); // Abertura e fechamento do Modal de Novo Registro
 
    const [recarregar, setRecarregar] = useState(false);
    const [pacientes, setPacientes] = useState([]);
@@ -63,19 +62,15 @@ function Agente_altUsuario() {
       const nomePaciente = row.nome?.toLowerCase() || "";
       const cpfPaciente = row.cpf || "";
       const numSusPaciente = row.sus?.toLowerCase() || "";
-      const dataRow = row.data_nascimento ? row.data_nascimento.split('T')[0] : "";
       const telefone = row.telefone?.toLowerCase() || "";
       const email = row.email?.toLowerCase() || "";
-      const escolaridade = row.escolaridade?.toLowerCase() || "";
-      const nome_instituicao = row.nome_instituicao?.toLowerCase() || "";
-      const tipo_instituicao = row.tipo_instituicao?.toLowerCase() || "";
       const estado_clinico = row.estado_clinico?.toLowerCase() || "";
 
       // Verifica Texto (Nome, CPF ou Agente)
       return (
          nomePaciente.includes(termo) || cpfPaciente.includes(termo) || numSusPaciente.includes(termo) ||  
-               telefone.includes(termo) || email.includes(termo) || escolaridade.includes(termo) || nome_instituicao.includes(termo) || 
-               tipo_instituicao.includes(termo) || estado_clinico.includes(termo)
+               telefone.includes(termo) || email.includes(termo) || 
+               estado_clinico.includes(termo)
       );
    }) : [];
 
@@ -134,8 +129,22 @@ function Agente_altUsuario() {
             <div className="content-pages-agente">
                <div className="content-agente_altUsuario">
                   <div className="title-pages">
-                     <GoReply onClick={() => navigate(-1)}/>
-                     <h1 className="align-self-center h2 px-5">Alterar informações de paciente</h1>
+                     <div>
+                        <GoReply onClick={() => navigate(-1)}/>
+                        <h1 className="align-self-center h2 px-5">Alterar informações de paciente</h1>
+                     </div>
+
+                     <div className="title-button">
+                        <Button variant="outline-success" className="icons" onClick={() => navigate('/Agente_cad-usuario')}>
+                           <GoPersonAdd />
+                           <span> Novo cadastro</span>
+                        </Button>
+
+                        <Button variant="outline-success" className="icons" onClick={() => setRecarregar(!recarregar)}>
+                           <MdRefresh />
+                           <span> Recarregar Registros</span>
+                        </Button>
+                     </div>
                   </div>
 
                   <div className="cabecalho">
@@ -148,7 +157,7 @@ function Agente_altUsuario() {
                               variant="outlined"
                               size="small"
                               value={busca}
-                              placeholder="Buscar paciente pelo nome, CPF, SUS, telefone ou email"
+                              placeholder="  Buscar paciente pelo nome, CPF, SUS, telefone ou email"
                               onChange={(e) => setBusca(e.target.value)}
                               InputProps={{
                                  startAdornment: (
@@ -184,80 +193,50 @@ function Agente_altUsuario() {
 
                   <br></br>
 
-                  <table className="table table-hover table-agente_histVisitas">
+                  <table className="table table-hover table-agente_altUsuario">
                      <thead>
                         <tr>
-                           <th onClick={() => handleOrdenar('nome')} style={{ cursor: 'pointer' }}>
-                              Nome {ordemCol === 'nome' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                           <th onClick={() => handleOrdenar('nome')}>
+                              <div className="nome" >
+                                 Nome {ordemCol === 'nome' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
                            {/* Exemplo: Coluna Aninhada (paciente.nome) */}
-                           <th onClick={() => handleOrdenar('cpf')} style={{ cursor: 'pointer' }}>
-                              CPF {ordemCol === 'cpf' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                           <th onClick={() => handleOrdenar('cpf')}>
+                              <div>
+                                 CPF {ordemCol === 'cpf' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
-                           <th onClick={() => handleOrdenar('sus')} style={{ cursor: 'pointer' }}>
-                              SUS {ordemCol === 'sus' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                           <th onClick={() => handleOrdenar('sus')}>
+                              <div>
+                                 SUS {ordemCol === 'sus' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
-                           <th onClick={() => handleOrdenar('data_nascimento')} style={{ cursor: 'pointer' }}>
+                           <th onClick={() => handleOrdenar('data_nascimento')}>
+                              <div>
                               Data de Nascimento {ordemCol === 'data_nascimento' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
-                           <th onClick={() => handleOrdenar('genero')} style={{ cursor: 'pointer' }}>
-                              Gênero {ordemCol === 'genero' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('etnia')} style={{ cursor: 'pointer' }}>
-                              Etnia {ordemCol === 'etnia' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('estado_civil')} style={{ cursor: 'pointer' }}>
-                              Estado Civil {ordemCol === 'estado_civil' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('nacionalidade')} style={{ cursor: 'pointer' }}>
-                              Nacionalidade {ordemCol === 'nacionalidade' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('naturalidade_estado')} style={{ cursor: 'pointer' }}>
-                              Naturalidade (Estado) {ordemCol === 'naturalidade_estado' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('naturalidade_municipio')} style={{ cursor: 'pointer' }}>
-                              Naturalidade (Municipio) {ordemCol === 'naturalidade_municipio' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('telefone')} style={{ cursor: 'pointer' }}>
+                           <th onClick={() => handleOrdenar('telefone')}>
+                              <div>
                               Telefone {ordemCol === 'telefone' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
-                           <th onClick={() => handleOrdenar('email')} style={{ cursor: 'pointer' }}>
+                           <th onClick={() => handleOrdenar('email')}>
+                              <div>
                               Email {ordemCol === 'email' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
-                           <th onClick={() => handleOrdenar('escolaridade')} style={{ cursor: 'pointer' }}>
-                              Escolaridade {ordemCol === 'escolaridade' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('nome_instituicao')} style={{ cursor: 'pointer' }}>
-                              Nome da instituição {ordemCol === 'nome_instituicao' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('tipo_instituicao')} style={{ cursor: 'pointer' }}>
-                              Tipo de Instituição {ordemCol === 'tipo_instituicao' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('estado_clinico')} style={{ cursor: 'pointer' }}>
+                           <th onClick={() => handleOrdenar('estado_clinico')}>
+                              <div>
                               Estado Clínico {ordemCol === 'estado_clinico' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('leitura')} style={{ cursor: 'pointer' }}>
-                              Sabe ler {ordemCol === 'leitura' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
-                           </th>
-
-                           <th onClick={() => handleOrdenar('escrita')} style={{ cursor: 'pointer' }}>
-                              Sabe escrever {ordemCol === 'escrita' ? (ordemDirecao === 'asc' ? <FaSortUp /> : <FaSortDown />) : <FaSort className="text-muted" style={{opacity: 0.3}}/>}
+                              </div>
                            </th>
 
                            <th>Detalhes</th>
@@ -270,37 +249,29 @@ function Agente_altUsuario() {
                            pacientesOrdenados.map(paciente => (
                               <tr key={paciente.id}>
                                  <td>{paciente.nome}</td>
-                                 <td>{paciente.cpf}</td>
-                                 <td>{paciente.desfecho}</td>
-                                 <td><PatternFormat displayType="text" value={paciente.registro_visita} format="######-###" mask=" "/></td>
-                                 <td>{paciente.nome}</td>
                                  <td><PatternFormat displayType="text" value={paciente.cpf} format="###.###.###-##" mask=" "/></td>
-                                 <td>{paciente.data_nascimento ? new Date(paciente.data_nascimento).toLocaleString('pt-BR') : ""}</td>
-                                 <td>{paciente.genero}</td>
-
-                                 <td>{paciente.etnia}</td>
-                                 <td>{paciente.estado_civil}</td>
-                                 <td>{paciente.nacionalidade}</td>
-                                 <td>{paciente.naturalidade_estado}</td>
-                                 <td>{paciente.naturalidade_municipio}</td>
-                                 <td>{paciente.telefone}</td>
+                                 <td><PatternFormat displayType="text" value={paciente.sus} format="### #### #### ####" mask=" "/></td>
+                                 <td>{new Date(paciente.data_nascimento).toLocaleDateString('pt-BR')}</td>
+                                 <td><PatternFormat displayType="text" value={paciente.telefone} format={(paciente.telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" "/></td>
                                  <td>{paciente.email}</td>
+                                 <td>{paciente.estado_clinico}</td>
 
                                  <td>
-                                    <div className="table-icons" onClick={() => (setPacienteId(paciente.id), setDetalhesRegistro(true))}>
+                                    <div className="table-icons" onClick={() => (setPacienteId(paciente.cpf), setModal_Agente_DetalhesPaciente(true))}>
                                        <MdContentPasteSearch />
                                     </div>
-                                    </td>
-                                 <td>  {/* Modal a ser reconsiderado */}
-                                    <div className="table-icons" onClick={() => setEditarRegistro(true)}>
-                                       <img src={'client/public/edit.svg'}/>
+                                 </td>
+
+                                 <td>
+                                    <div className="table-icons" onClick={() => setModal_Agente_EditarPaciente(true)}>
+                                       <BiSolidEdit />
                                     </div>
                                  </td>
                               </tr>
                            ))
                         ) : (
                            <tr>
-                              <td colSpan="9" className="text-center p-4">Nenhum registro encontrado para sua busca.</td>
+                              <td colSpan="9" className="text-center p-4">Nenhum paciente encontrado para sua busca.</td>
                            </tr>
                         )}
                      </tbody>
@@ -308,10 +279,10 @@ function Agente_altUsuario() {
 
                   <div>
                      {/* Modal: Editar */}
-                     {exibirModal_editarPaciente && <Modal_EditarRegistro onClose={() => setEditarRegistro(false)} />}   {/* Modal a ser reconsiderado */}
+                     {exibirModal_Agente_EditarPaciente && <Modal_Agente_EditarPaciente onClose={() => setModal_Agente_EditarPaciente(false)} />}   {/* Modal a ser reconsiderado */}
                         
                      {/* Modal: Detalhes (mais informações) */}
-                     {exibirModal_detalhesPaciente && <Modal_DetalhesRegistro onClose={() => setDetalhesRegistro(false)} pacienteId={pacienteId}/>} 
+                     {exibirModal_Agente_DetalhesPaciente && <Modal_Agente_DetalhesPaciente onClose={() => setModal_Agente_DetalhesPaciente(false)} pacienteId={pacienteId}/>} 
                   </div>
                </div>
             </div>

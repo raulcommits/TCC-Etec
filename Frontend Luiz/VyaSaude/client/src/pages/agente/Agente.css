@@ -122,25 +122,6 @@
          }
       }
 
-      /* .form-buttons {
-         display: flex;
-         justify-content: space-around;
-
-         padding-top: 2vh;
-         padding-bottom: 5vh;
-   
-         button {
-            color: black;
-            padding: 0 15px;
-            height: 4vh;
-            max-height: 50px;
-         }
-   
-         button:hover {
-            color: white;
-         }
-      } */
-
       .form-buttons {
          display: flex;
          justify-content: space-around;
@@ -151,6 +132,31 @@
    }
 
    .content-agente_altUsuario {  /* Tela de listagem e alteração de usuário */
+      .title-pages {
+         display: flex;
+         justify-content: space-between;
+
+         div {
+            display: flex;
+         }
+
+         .title-button {
+            gap: 20px;
+
+            button {
+               height: 4.5vh;
+               display: flex;
+               gap: 5px;
+               align-items: center;
+            }
+            
+            svg {
+               width: 1.8rem;
+               height: 1.8rem;
+            }
+         }
+      }
+
       .cabecalho {
          display: flex;
          flex-direction: column;
@@ -198,9 +204,56 @@
                display: grid;
                gap: 10px;
                grid-template-columns: 3fr 1fr;
-               /* justify-content: space-between; */
             }
 
+         }
+
+      }
+
+      .table-agente_altUsuario {
+         tr, th { /* tr = cabeçalho (categorias), th = linhas (categorias) */
+            text-align: center;
+         }
+
+         thead {
+            tr {
+               th {
+                  cursor: pointer;
+   
+                  div {
+                     display: flex;
+                     justify-content: center;
+                     align-items: center;
+                     gap: 3px;
+                  }
+
+                  .nome {
+                     min-width: 10vw;
+                  }
+               }
+            }
+         }
+         
+         tbody {
+            tr {
+               height: 50px;
+            }
+
+            td {
+               vertical-align: middle;
+            }
+         }
+   
+         .table-icons {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            
+            img, svg {
+               height: 1.7rem;
+               width: 1.7rem;
+            }
          }
       }
    }

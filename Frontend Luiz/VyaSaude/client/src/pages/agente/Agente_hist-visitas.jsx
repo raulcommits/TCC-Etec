@@ -25,6 +25,7 @@ import { MdAssignmentAdd } from "react-icons/md";
 import { MdOutlineRefresh } from "react-icons/md";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { Search, Clear } from "@mui/icons-material";
+import { BiSolidEdit } from "react-icons/bi";
 
 function Agente_histVisitas() {
    const navigate = useNavigate();
@@ -48,7 +49,7 @@ function Agente_histVisitas() {
             const resposta = await api.get('/registro');
             const respostaArray = resposta.data;
             setRegistros(respostaArray)
-            console.log("Registros: ", resposta.data);
+            // console.log("Registros: ", resposta.data);
          } catch(err) {
             console.log(err);
          }
@@ -245,10 +246,11 @@ function Agente_histVisitas() {
                                     <div className="table-icons" onClick={() => (setRegistroId(registro.id), setDetalhesRegistro(true))}>
                                        <MdContentPasteSearch />
                                     </div>
-                                    </td>
+                                 </td>
+                                 
                                  <td>  {/* Modal a ser reconsiderado */}
                                     <div className="table-icons" onClick={() => setEditarRegistro(true)}>
-                                       <img src={'client/public/edit.svg'}/>
+                                       <BiSolidEdit />
                                     </div>
                                  </td>
                               </tr>
