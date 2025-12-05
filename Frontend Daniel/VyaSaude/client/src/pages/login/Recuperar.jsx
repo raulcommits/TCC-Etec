@@ -14,12 +14,31 @@ function Recuperar() {
       
       try {
          const solicitarSenha = await api.put('/login/nova-senha', {email});
-         alert(solicitarSenha.data.response)
+         // alert(solicitarSenha.data.response)
+         toast.success('Senha solicitada com sucesso.', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
          console.log(solicitarSenha.data.response)
          navigate("/login")
       } catch(err) {
          console.log(err);
-         alert(err);
+         toast.success('Erro ao solicitar a senha.', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+         });
       }
    }
 

@@ -32,12 +32,9 @@ function Admin_home() {
    return(
       <div className="app">
          <Header/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-                  items={[
-                     { label: 'Home', href: '/Admin_home' }
-                     ]} />
+         {/* <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={meusLinks} /> */}
          <Sidenav/>
-         {/* <ButtonAjuda/> */}
+         <ButtonAjuda/>
          <NavBar items={navItems} />
          <main className="content-home">
             <div className="title_Home">

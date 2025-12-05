@@ -34,6 +34,7 @@ route.post("/cadastro", async (request, response) => {
     const motivos = ["Cadastramento/Atualização", "Visita Periódica"];
     const desfechos = ["Visita realizada", "Visita recusada", "Ausente"];
 
+
     if(!motivos.includes(motivo)) {
       return response.status(400).send({response: "O motivo deve corresponder a uma das opções."});
     }

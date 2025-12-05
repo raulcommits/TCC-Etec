@@ -1,6 +1,6 @@
 import "./Agente.css"
 import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_agente/"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/Index.jsx"
 import ButtonBack from "../../components/ButtonBack/Index"
 import PageWIP from "../../components/PageWIP/Index"
 import { Link, useNavigate  } from "react-router-dom";
@@ -17,10 +17,10 @@ function Agente_histConsultas() {
          <Header/>
          <Sidenav/>
          <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-                  items={[
-                     { label: 'Home', href: '/Agente_home' },
-                     { label: 'Histórico de Consultas', href: '/Agente_hist-consultas' }
-                     ]} />
+         items={[
+            { label: 'Home', href: '/Agente_home' },
+            { label: 'Histórico de Consultas', href: '' },
+            ]} />
          <NavBar items={[
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },

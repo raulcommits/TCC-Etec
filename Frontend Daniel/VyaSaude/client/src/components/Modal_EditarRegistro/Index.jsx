@@ -18,7 +18,7 @@ export default function Modal_EditarRegistro({onClose}) {
       naturalidade_municipio: '',
       filiacao_mae: '',
       filiacao_pai: '',
-      num_telefone: '',
+      telefone: '',
       email: '',
       profissao: '',
       escolaridade: '',
@@ -127,7 +127,7 @@ export default function Modal_EditarRegistro({onClose}) {
                </div>
 {/* 
                <div className="form-fields">
-                  <TextField name="num_telefone" value={dadosPaciente.num_telefone} type='number' label='Telefone'/>                    
+                  <TextField name="telefone" value={dadosPaciente.telefone} type='number' label='Telefone'/>                    
                   <TextField name="email" value={dadosPaciente.email} type='email' label='E-mail'/>
                </div>
 

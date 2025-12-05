@@ -1,15 +1,12 @@
 import "./Admin.css"
 import Header from "../../components/Header/"
 import Sidenav from "../../components/Sidenav/Sidenav_admin/"
-import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
-import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
 import { Form } from 'react-bootstrap';
 
 function Admin_altUsuario() {
    return(
       <>
          <Header/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '/Admin_home' }]} />
          <div>
             <Sidenav/>
             <div className="d-block teste Home_Content justify-content-center">

@@ -6,29 +6,30 @@ import paciente               from "../entities/paciente.js";
 import agente                 from "../entities/agente.js";
 import usuario                from "../entities/usuario.js";
 import endereco               from '../entities/endereco.js';
-import cbo                    from "../entities/cbo.js";
 
 const route = express.Router();
 const repositorioPaciente = AppDataSource.getRepository(paciente);
 const repositorioUsuario = AppDataSource.getRepository(usuario);
 const repositorioAgente = AppDataSource.getRepository(agente);
-const repositorioCbo = AppDataSource.getRepository(cbo);
 const repositorioEndereco = AppDataSource.getRepository(endereco);
 
 route.get("/", async (request, response) => {
-   const pacientes = await repositorioPaciente.find({relations: ["endereco", "agente", "cbo"]});
-   return response.status(200).send({response: pacientes});
+    const pacientes = await repositorioPaciente.findBy({inatividade: IsNull()});
+    return response.status(200).send({response: pacientes});
 });
 
 route.get("/:encontrarPaciente", async (request, response) => {
    const {encontrarPaciente} = request.params;
-   const verificarPaciente = await repositorioPaciente.findOne({where: [
-      {nome: Like(`%${encontrarPaciente}`)},
-      {cpf: encontrarPaciente}
-   ],
-   relations: ["endereco", "agente", "cbo"]});
+   const verificarPaciente = await repositorioPaciente.findOne({
+      where: [
+         {email: encontrarPaciente},
+         {cpf: encontrarPaciente}
+      ],
+      relations: ["endereco", "agente"]
+   });
+   console.log(encontrarPaciente)
 
-   if (!verificarPaciente || verificarPaciente.length === 0) {
+   if (!verificarPaciente) {
       return response.status(404).send({ response: "Paciente não encontrado" });
    }
 
@@ -38,7 +39,7 @@ route.get("/:encontrarPaciente", async (request, response) => {
 route.get("/perfil", authenticate, async (request, response) => {
    const dadosPaciente = await repositorioPaciente.findOne({
       where: {email: request.usuario.email},
-      relations: ["endereco", "agente", "cbo"]
+      relations: ["endereco", "agente"]
    });
 
    if (!dadosPaciente) {
@@ -50,15 +51,15 @@ route.get("/perfil", authenticate, async (request, response) => {
       return response.status(404).send({response: "Usuário não encontrado."});
    }
 
-   const paciente = {...dadosPaciente, createdAt: usuario.createdAt}
+   const paciente = {...dadosPaciente, data_criacao: usuario.data_criacao}
 
    return response.status(200).send({response: paciente});
 });
 
 route.post("/", async (request, response) => {
    const {cpf, sus, nome, nome_social, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae,
-   filiacao_pai, num_telefone, email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal,
-   enderecoId, agenteId, cboCodigo } = request.body;
+   filiacao_pai, telefone, email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal,
+   enderecoId, agenteId, profissao } = request.body;
    
    if (cpf.length != 11) {
       return response.status(400).send({response: "O número do CPF deve conter 11 dígitos."});
@@ -72,7 +73,7 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
    }
 
-   if (data_nascimento.length != 8) {
+   if (data_nascimento.length != 10) {
       return response.status(400).json({ error: 'Data de nascimento inválida. Use o formato YYYY-MM-DD.' });
    }
    
@@ -92,8 +93,8 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "A nacionalidade deve conter pelo menos 3 caraceteres."});
    }
    
-   if (naturalidade_estado.length < 3) {
-      return response.status(400).send({response: "A naturalidade do estado deve conter pelo menos 3 caraceteres."});
+   if (naturalidade_estado.length !== 2) {
+      return response.status(400).send({response: "A naturalidade do estado deve conter 2 caraceteres."});
    }
    
    if (naturalidade_municipio.length < 3) {
@@ -107,7 +108,7 @@ route.post("/", async (request, response) => {
    if (filiacao_pai.length < 3) {
       return response.status(400).send({response: "O nome do pai deve conter pelo menos 3 caraceteres."});
    }
-   if (num_telefone.length < 10 && num_telefone.length > 11) {
+   if (telefone.length < 10 || telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)."});
    }
    
@@ -138,10 +139,6 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "O nível de escrita deve conter pelo menos 3 caracteres."});
    }
    
-   if (responsavel_legal.length < 3) {
-      return response.status(400).send({response: "O nome do responsável deve conter pelo menos 3 caraceteres."});
-   }
-   
    try {
       const endereco = await repositorioEndereco.findOneBy({
          id: enderecoId
@@ -152,24 +149,19 @@ route.post("/", async (request, response) => {
 
       const agente = await repositorioAgente.findOneBy({
          id: agenteId,
-         deletedAt: IsNull()
+         data_demissao: IsNull()
       })
       if(!agente) {
          return response.status(400).send({response: "Esse agente não foi encontrado."});
       }
 
-      const cbo = await repositorioCbo.findOneBy({
-         codigo: cboCodigo
-      })
-      if(!cbo) {
-         return response.status(400).send({response: "Esse cbo não foi encontrado."});
-      }
-
       const nomeSocial = nome_social != null ? nome_social : null; // Cria uma variavel chamada nomeSocial, onde verifica a variavel vinda do Front (nome_social) se ela está vazia ou tem algum valor. Se tiver, insere o valor na nomeSocial. Se não tiver, mantém vazio.
-
-      const novo_paciente = repositorioPaciente.create({cpf, sus, nome, nome_social : nomeSocial, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae, filiacao_pai, num_telefone,
-      email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal, endereco, agente, cbo});
+      const responsavelLegal = responsavel_legal != null ? responsavel_legal : null;
+      
+      const novo_paciente = repositorioPaciente.create({cpf, sus, nome, nome_social : nomeSocial, data_nascimento: new Date(data_nascimento + 'T12:00:00'), genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae, filiacao_pai, telefone,
+      email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal: responsavelLegal, endereco, agente, profissao});
       await repositorioPaciente.save(novo_paciente);
+      console.log(novo_paciente)
       return response.status(201).send({response: "Paciente cadastrado com sucesso."});
    } catch (err) {
       console.log(err)
@@ -181,8 +173,8 @@ route.put("/:id", async (request, response) => {
    const {id} = request.params;
 
    const {cpf, sus, nome, nome_social, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae,
-   filiacao_pai, num_telefone, email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal,
-   enderecoId, agenteId, cboCodigo } = request.body;
+   filiacao_pai, telefone, email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal,
+   enderecoId, agenteId, profissao } = request.body;
    
    if (cpf.length != 11) {
       return response.status(400).send({response: "O número do CPF deve conter 11 dígitos."});
@@ -216,8 +208,8 @@ route.put("/:id", async (request, response) => {
       return response.status(400).send({response: "A nacionalidade deve conter pelo menos 3 caraceteres."});
    }
    
-   if (naturalidade_estado.length < 3) {
-      return response.status(400).send({response: "A naturalidade do estado deve conter pelo menos 3 caraceteres."});
+   if (naturalidade_estado.length !== 2) {
+      return response.status(400).send({response: "A naturalidade do estado deve conter 2 caraceteres."});
    }
    
    if (naturalidade_municipio.length < 3) {
@@ -231,7 +223,7 @@ route.put("/:id", async (request, response) => {
    if (filiacao_pai.length < 3) {
       return response.status(400).send({response: "O nome do pai deve conter pelo menos 3 caraceteres."});
    }
-   if (num_telefone.length < 10 && num_telefone.length > 11) {
+   if (telefone.length < 10 && telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)"});
    }
    
@@ -262,9 +254,6 @@ route.put("/:id", async (request, response) => {
       return response.status(400).send({response: "O nível de escrita deve conter pelo menos 3 caracteres."});
    }
    
-   if (responsavel_legal.length < 3) {
-      return response.status(400).send({response: "O nome do responsável deve conter pelo menos 3 caraceteres."});
-   }
    
    try {
       const endereco = await repositorioEndereco.findOneBy({
@@ -276,23 +265,17 @@ route.put("/:id", async (request, response) => {
 
       const agente = await repositorioAgente.findOneBy({
          id: agenteId,
-         deletedAt: IsNull()
+         data_demissao: IsNull()
       })
       if(!agente) {
          return response.status(400).send({response: "Esse agente não foi encontrado."});
       }
 
-      const cbo = await repositorioCbo.findOneBy({
-         codigo: cboCodigo
-      })
-      if(!cbo) {
-         return response.status(400).send({response: "Esse cbo não foi encontrado."});
-      }
-
       const nomeSocial = nome_social != null ? nome_social : null; // Cria uma variavel chamada nomeSocial, onde verifica a variavel vinda do Front (nome_social) se ela está vazia ou tem algum valor. Se tiver, insere o valor na nomeSocial. Se não tiver, mantém vazio.
+      const responsavelLegal = responsavel_legal != null ? responsavel_legal : null;
 
-      await repositorioPaciente.update({id}, {cpf, sus, nome, nome_social : nomeSocial, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae, filiacao_pai, num_telefone,
-      email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal, endereco, agente, cbo});
+      await repositorioPaciente.update({id}, {cpf, sus, nome, nome_social : nomeSocial, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae, filiacao_pai, telefone,
+      email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal: responsavelLegal, endereco, agente, profissao});
       return response.status(201).send({response: "Paciente atualizado com sucesso."});
    } catch (err) {
       console.log(err)
@@ -304,7 +287,7 @@ route.put("atualizarPaciente/:email", async (request, response) => {
    const {email} = request.params;
    const {telefone} = request.body;
 
-   if (num_telefone.length < 10 && num_telefone.length > 11) {
+   if (telefone.length < 10 && telefone.length > 11) {
       return response.status(400).send({response: "O numero deve conter entre 10 e 11 caracteres (incluindo DDD)"});
    }
 

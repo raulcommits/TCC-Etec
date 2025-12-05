@@ -1,6 +1,6 @@
    import "./Paciente.css"
    import Header from "../../components/Header/"
-   import Sidenav from "../../components/Sidenav/Sidenav_paciente/"
+   import Sidenav from "../../components/Sidenav/Sidenav_paciente/Index.jsx"
    import { Link } from "react-router-dom";
    import ButtonBack from "../../components/ButtonBack/Index"
    import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
@@ -141,14 +141,15 @@
          <div className="app">
             <Header/>
             <Sidenav/>
-            <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-            items={[
-               { label: 'Home', href: '/Paciente_home' },
-               { label: 'Dashboards', href: '/Paciente_dashboards' }]} />
-            <NavBar items={[
-               { label: 'Home', href: '/paciente_home', icon: HomeAddress },
-               { label: 'Perfil', href: '/Paciente_perfil', icon: UserManagerIcon },
-               { label: 'Consultas', href: '/Paciente_hist-consultas', icon: query },
+            <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} 
+            items={[ 
+               { label: 'Home', href: '/Paciente_home' }, 
+               { label: 'Relatórios', href: '/Paciente_dashboards' }]
+            } />
+            <NavBar items={[ 
+               { label: 'Home', href: '/paciente_home', icon: HomeAddress }, 
+               { label: 'Perfil', href: '/Paciente_perfil', icon: UserManagerIcon }, 
+               { label: 'Consultas', href: '/Paciente_hist-consultas', icon: query }, 
                { label: 'Dash', href: '/Paciente_dashboards', icon: dashIcon }
             ]} />
 
@@ -158,7 +159,7 @@
                </Link>
 
                <div className="title_Home" style={{marginBottom: 16}}>
-                  <h1><b>Relatórios (Dashboards)</b></h1>
+                  <h1><b>Relatórios</b></h1>
                   <p style={{margin: 0, color: '#666'}}>Visão geral da sua conta e últimas informações</p>
                </div>
 
@@ -198,7 +199,7 @@
 
                            <div>
                               {/* Endereço: tenta componentes comuns, senão mostra placeholders */}
-                              <p style={{margin: '6px 0'}}><strong>Endereço:</strong> {(
+                              <p style={{margin: '6px 0'}}><strong>Endereço:</strong> {( 
                                  pacienteData.logradouro || pacienteData.bairro || pacienteData.cidade || pacienteData.estado
                               ) ? `${pacienteData.logradouro || ''} ${pacienteData.numero || ''} - ${pacienteData.bairro || ''} ${pacienteData.cidade || ''} ${pacienteData.estado || ''}` : '—'}</p>
 
@@ -280,11 +281,11 @@
                            {!enderecoLoading && (
                               <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10}}>
                                  <div>
-                                    <p style={{margin: '6px 0'}}><strong>Quantidade de moradores:</strong> {(
+                                    <p style={{margin: '6px 0'}}><strong>Quantidade de moradores:</strong> {( 
                                        enderecoDetails?.quantidade_moradores || enderecoDetails?.moradores || enderecoDetails?.moradores_count || enderecoDetails?.num_moradores || '—'
                                     )}</p>
 
-                                    <p style={{margin: '6px 0'}}><strong>Descrição:</strong> {(
+                                    <p style={{margin: '6px 0'}}><strong>Descrição:</strong> {( 
                                        enderecoDetails?.descricao || enderecoDetails?.observacoes || enderecoDetails?.descricao_endereco || '—'
                                     )}</p>
                                  </div>
@@ -307,10 +308,7 @@
                                     <button onClick={() => setVisitsPeriod('year')} className={visitsPeriod==='year' ? 'periodBtn active' : 'periodBtn'}>Último ano</button>
                                  </div>
                               </div>
-                              {enderecoRecords.length === 0 ? (
-                                 <p style={{color:'#666'}}>Sem registros de visitas para exibir.</p>
-                              ) : (
-                                 (() => {
+                                 {(() => {
                                     const now = new Date();
                                     if (visitsPeriod === 'week') {
                                        const days = [];
@@ -329,7 +327,7 @@
                                        });
                                        const labels = days.map(d => d.label);
                                        const counts = days.map(d => d.count);
-                                       return <SmallBarChart labels={labels} data={counts} />;
+                                       return <SmallBarChart labels={labels} data={counts} />; 
                                     } else {
                                        const months = [];
                                        const monthsCount = visitsPeriod === 'month' ? 6 : 12;
@@ -347,10 +345,9 @@
                                        });
                                        const labels = months.map(m => m.label);
                                        const counts = months.map(m => m.count);
-                                       return <SmallBarChart labels={labels} data={counts} />;
+                                       return <SmallBarChart labels={labels} data={counts} />; 
                                     }
-                                 })()
-                              )}
+                                 })()}
                            </div>
                      </div>
                   </div>

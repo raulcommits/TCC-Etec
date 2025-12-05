@@ -33,6 +33,12 @@ function Header() {
       }
    };
 
+   const profileNavigate = () => {
+      if (usuario.tipoUsuario) {
+         navigate(`/${usuario.tipoUsuario}_perfil`);
+      }
+   }
+
    
    const handleLogout = () => {     //  Função pra remover o token quando deslogar, e redirecionar pra tela de Login
       navigate("/login");
@@ -42,13 +48,13 @@ function Header() {
 
    return (
       <header>
-         <div className='logo_div'>
+         <div className='logo_div cursorPointer' onClick={homeNavigate}>
             <img src="client\public\Logo.png" />
             <div className="titulosEstilo2 tituloLogo">VyaSaúde</div>
          </div>
          <div className='accountmenu_div'>
             {/* <p>Tempo restante da sessão: {tempoRestante}</p> */}
-            <div className='cursorPointer' onClick={homeNavigate}>
+            <div className='cursorPointer' onClick={profileNavigate}>
                <img className='accountmenu_img' src="client\public\placeholder.png" />
             </div>
             <span>{usuario?.nome}</span>

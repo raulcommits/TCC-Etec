@@ -1,6 +1,6 @@
 import "./Agente.css"
 import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_agente/"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/Index.jsx"
 import PageWIP from "../../components/PageWIP/Index";
 import ButtonBack from "../../components/ButtonBack/Index"
 import { Link, useNavigate  } from "react-router-dom";
@@ -36,8 +36,8 @@ function Agente_homeEndereco() {
                <h4>Selecione uma das opções abaixo</h4> <br />
             
                <div className="shortcutField paciente-home">
-                  <Link to='/Agente_home-endereco'><div className="shortcutClick"><p>Cadastrar novo endereço</p></div></Link>
-                  <Link to='/Agente_home-endereco'><div className="shortcutClick"><p>Alterar endereços</p></div></Link>
+                  <Link to=''><div className="shortcutClick"><p>Cadastrar novo endereço</p></div></Link>
+                  <Link to=''><div className="shortcutClick"><p>Alterar endereços</p></div></Link>
                </div>
             </div>
          </main>

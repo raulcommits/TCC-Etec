@@ -37,7 +37,7 @@ function Gerente_cadUsuario() {
       numero: null,
       complemento: null,
       ponto_referencia: null,
-      num_telefone: null,
+      telefone: null,
       email: null,
       profissao: null,
       cbo: null,
@@ -317,7 +317,7 @@ function Gerente_cadUsuario() {
 
                   <div className="form-fields">
                      <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="num_telefone" value={formDados.num_telefone} onChange={(e) => handleFormChange(e)} type='number' placeholder='Telefone'/>
+                     <Form.Control name="telefone" value={formDados.telefone} onChange={(e) => handleFormChange(e)} type='number' placeholder='Telefone'/>
                      
                      {/* <Form.Label>Celular</Form.Label>
                      <Form.Control value={"num_celular"} onChange={(e) => {setNome(e.target.value)}} type='number' placeholder='Celular'/> */}
