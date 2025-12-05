@@ -11,15 +11,25 @@ import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIc
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import api from '../../services/api';
+import { getUser } from "../../helpers/auth"
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { Form } from 'react-bootstrap';
+import { TextField } from '@mui/material'
+import { PatternFormat } from "react-number-format";
+import { Button } from 'react-bootstrap';
+
 
 function Paciente_perfil() {
-   const [formDados, setFormDados] = useState({
-      nome: '',
-      nome_social: '',
+   const navigate = useNavigate();
+
+   const [usuario, setUsuario] = useState(undefined);
+   const [modoEdicao, setModoEdicao] = useState(false);
+
+   const [dadosPaciente, setDadosPaciente] = useState({
+      id: '',
       cpf: '',
+      nome: '',
       sus: '',
       data_nascimento: '',
       genero: '',
@@ -39,38 +49,70 @@ function Paciente_perfil() {
       estado_clinico: '',
       responsavel_legal: '',
       leitura: '',
-      escrita: '',
-      endereco: '',
-      
-      cbo: '',
-      cbo_descricao: '',
-      
-      cep: '',
-      ponto_referencia: '',
+      escrita: '',    
+      enderecoId: '',
+   });
+
+   
+   const [dadosEndereco, setDadosEndereco] = useState({
+      enderecoId: '',
+      logradouro: '',
       numero: '',
       complemento: '',
-      logradouro: '',
+      cep: '',
       bairro: '',
-      localidade: '',
-      uf: '',
-      
-      data_criacao: ''
+      cidade: '',
+      estado: '',
+      pais: '',
+      ponto_referencia: '',
+      tipo_animal: { nome_animal: '' },
+      tipo_imovel: { nome_imovel: '' },
+      material_predominante: { nome_material: '' }
    });
+
+   useEffect(() => {
+      const response = getUser();
+      setUsuario(response);
+   }, []);
+
 
    useEffect(() => {
       async function buscarDados() {
          try {
-            const { data } = await api.get('/paciente/me');
-            setFormDados(data.response);
-            console.log(`Data.response:`, data.response)
+            // Chama a rota que acabamos de criar. O Token vai no Header automaticamente (pelo axios/interceptor)
+            const { data } = await api.get('/paciente/perfil');
+            
+            // O backend retorna { response: { ...dados } }
+            const pacienteData = data.response;
+
+            if (pacienteData) {
+               console.log("Paciente carregado:", pacienteData);
+               
+               // Atualiza estado do Paciente
+               setDadosPaciente(pacienteData);
+
+               // Atualiza estado do Endereço (se existir)
+               if (pacienteData.endereco) {
+                  setDadosEndereco(pacienteData.endereco);
+               }
+            }
+
          } catch (error) {
-            console.error('Erro ao buscar dados do usuário:', error);
+            console.error('Erro ao buscar dados:', error);
+            if (error.response?.status === 403 || error.response?.status === 401) {
+               alert("Sessão expirada ou inválida.");
+               navigate('/'); // Redireciona para login
+            }
          }
       };
       buscarDados();
    }, []);
+
+
+   useEffect(() => {
+      console.log("dadosPaciente", dadosPaciente);
+   }, [dadosPaciente]);
    
-   const navigate = useNavigate();
 
    return(
       <div className="app">
@@ -84,190 +126,109 @@ function Paciente_perfil() {
             { label: 'Dash', href: '/Paciente_dashboards', icon: dashIcon }
          ]} />
          <main className="content-pages">
-            <div className="content-pages-paciente d-block">
-               <div className="title-pages">
-                  <svg onClick={() => navigate(-1)} style={{ cursor:"pointer" }} className="align-self-start"
-                  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z" fill="#000000"></path> </g></svg>
-                  <h1 className="align-self-center h2 px-5">Meu Perfil</h1>
-               </div>
-               {/* <ButtonBack text="Meu Perfil"/> */}
-
-               <div>
-                  <div>
-                     <span className="h4 text-success">Registro</span>
+            <div className="content-pages-paciente ">
+               <div className="content-paciente_perfil">
+                  <div className="title-pages">
+                     <svg onClick={() => navigate(-1)} style={{ cursor:"pointer" }} className="align-self-start"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 10L3.29289 10.7071L2.58579 10L3.29289 9.29289L4 10ZM21 18C21 18.5523 20.5523 19 20 19C19.4477 19 19 18.5523 19 18L21 18ZM8.29289 15.7071L3.29289 10.7071L4.70711 9.29289L9.70711 14.2929L8.29289 15.7071ZM3.29289 9.29289L8.29289 4.29289L9.70711 5.70711L4.70711 10.7071L3.29289 9.29289ZM4 9L14 9L14 11L4 11L4 9ZM21 16L21 18L19 18L19 16L21 16ZM14 9C17.866 9 21 12.134 21 16L19 16C19 13.2386 16.7614 11 14 11L14 9Z" fill="#000000"></path> </g></svg>
+                     <h1 className="align-self-center h2 px-5">Meu Perfil</h1>
                   </div>
+                  {/* <ButtonBack text="Meu Perfil"/> */}
 
-                  <div className="form-fields">
-                     <Form.Label>Nome</Form.Label>
-                     <Form.Control disabled className="disable_input" name="nome" value={formDados.nome} type='text' placeholder='Insira o nome completo'/>
+                  <div className="elements-paciente_perfil">
+                     <span className="subtitulo h5 text-success">Dados de Registro do Paciente</span>
+                     <div className="grid grid_1">
+                        <TextField  name="nome" label="Nome do Paciente" variant="outlined" value={dadosPaciente.nome} />
+                        <TextField  name="nome_social" label="Nome Social" variant="outlined" value={dadosPaciente.nome_social ? dadosPaciente.nome_social : "Não possui"} />
+                     </div>
+
+                     <div className="grid grid_1">
+                        <PatternFormat  name="cpf" label="CPF do Paciente" variant="outlined" format="###.###.###-##" mask=" " customInput={TextField} value={dadosPaciente.cpf} />
+                        <PatternFormat  name="sus" label="Nº SUS" variant="outlined" format="### #### #### ###" mask=" " customInput={TextField} value={dadosPaciente.sus} />
+                     </div>
+
+                     <div className="grid grid_1">
+                        <TextField  name="filiacao_mae" label="Nome da mãe" variant="outlined" value={dadosPaciente.filiacao_mae} />
+                        <TextField  name="filiacao_pai" label="Nome do pai" variant="outlined" value={dadosPaciente.filiacao_pai} />
+                     </div>
+
+                     <div className="grid grid_2">
+                        <TextField  name="data_nascimento" label="Data de Nascimento" variant="outlined"  value={new Date(dadosPaciente.data_nascimento).toLocaleDateString('pt-BR')} />
+                        <TextField  name="genero" label="Gênero" variant="outlined" value={dadosPaciente.genero} />
+                        <TextField  name="etnia" label="Etnia" variant="outlined" value={dadosPaciente.etnia} />
+                     </div>
+
+                     <div className="grid grid_2">
+                        <TextField  name="nacionalidade" label="Nacionalidade" variant="outlined" value={dadosPaciente.nacionalidade} />
+                        <TextField  name="naturalidade_estado" label="Naturalidade (Estado)" variant="outlined" value={dadosPaciente.naturalidade_estado} />
+                        <TextField  name="naturalidade_municipio" label="Naturalidade (Municipio)" variant="outlined"  value={dadosPaciente.naturalidade_municipio} />
+                     </div>
+
+                     <hr/>
+
+                     <span className="subtitulo h5 text-success">Dados pessoais</span>
+                     <div className="grid grid_1">
+                        <TextField  name="responsavel_legal" label="Responsável Legal" variant="outlined" value={dadosPaciente.responsavel_legal ? dadosPaciente.responsavel_legal : "Não aplicável"} />
+                        <TextField  name="profissao" label="Profissão" variant="outlined" value={dadosPaciente.profissao ? dadosPaciente.profissao : "Desempregado"} />
+                        <TextField  name="estado_clinico" label="Estado Clínico" variant="outlined" value={dadosPaciente.estado_clinico} />
+                        <TextField  name="estado_civil" label="Estado Cívil" variant="outlined"  value={dadosPaciente.estado_civil} />
+                     </div>
+
+                     <hr/>
+
+                     <span className="subtitulo h5 text-success">Alfabetização</span>
+                     <div className="grid grid_1">
+                        <TextField  name="leitura" label="Saber ler" variant="outlined" value={dadosPaciente.leitura = true ? 'Sim' : 'Não'} />
+                        <TextField  name="escrita" label="Saber Escrever" variant="outlined" value={dadosPaciente.escrita = true ? 'Sim' : 'Não'} />
+                     </div>
+
+                     <hr/>
+
+                     <span className="subtitulo h5 text-success">Contatos</span>
+                     <div className="grid grid_1">
+                        <TextField  name="email" label="E-mail" variant="outlined" value={dadosPaciente.email} />
+                        <PatternFormat  name="telefone" label="Telefone" variant="outlined" value={dadosPaciente.telefone} format={(dadosPaciente.telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField}/>
+                     </div>
+
+                     <div className="grid grid_2">
+                        <TextField  name="escolaridade" label="Escolaridade" variant="outlined" value={dadosPaciente.escolaridade} />
+                        <TextField  name="nome_instituicao" label="Nome da Instituição" variant="outlined" value={dadosPaciente.nome_instituicao} />
+                        <TextField  name="tipo_instituicao" label="Tipo de Instituição" variant="outlined" value={dadosPaciente.tipo_instituicao} />
+                     </div>
                      
-                     <Form.Label>Nome Social</Form.Label>
-                     <Form.Control name="nome_social" value={formDados.nome_social || "Não possui/Não informado"} disabled={!formDados.nome_social} type='text' placeholder='Nome Social'/>  
-                  </div>
+                     <hr/>
 
-                  <div className="form-fields">
-                     <Form.Label>Nome da mãe</Form.Label>
-                     <Form.Control disabled className="disable_input" name="filiacao_mae" value={formDados.filiacao_mae} type='text' placeholder='Nome da mãe'/>
-
-                     <Form.Label>Nome do pai</Form.Label>
-                     <Form.Control disabled className="disable_input" name="filiacao_pai" value={formDados.filiacao_pai} type='text' placeholder='Nome do pai'/>
-                  </div>
-                  
-                  <div className="form-fields">
-                     <Form.Label>CPF</Form.Label>
-                     <Form.Control disabled className="disable_input" name="cpf" value={formDados.cpf} type='number' placeholder='CPF'/>
+                     <span className="subtitulo h5 text-success">Dados do Endereço</span>
+                     <div className="grid grid_2">
+                        <TextField  name="bairro" label="Bairro" variant="outlined" value={dadosEndereco.bairro} />
+                        <TextField  name="cidade" label="Cidade" variant="outlined" value={dadosEndereco.cidade} />
+                        <TextField  name="estado" label="Estado" variant="outlined" value={dadosEndereco.estado} />
+                     </div>
                      
-                     <Form.Label>Nº SUS</Form.Label>
-                     <Form.Control disabled className="disable_input" name="sus" value={formDados.sus} type='number' placeholder='Nº SUS'/>
+                     <div className="grid grid_2">
+                        <TextField  name="logradouro" label="Logradouro" variant="outlined"  value={dadosEndereco.logradouro} />
+                        <PatternFormat  name="numero" label="Número" value={dadosEndereco.numero} format={(dadosEndereco.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" />
+                        <TextField  name="complemento" label="Complemento" variant="outlined" value={dadosEndereco.complemento} />
+                        <PatternFormat  name="cep" label="CEP" variant="outlined" format="#####-###" mask=" " customInput={TextField} value={dadosEndereco.cep} />
+                        <TextField  name="ponto_referencia" label="Ponto de Referência" variant="outlined" value={dadosEndereco.ponto_referencia ? dadosEndereco.ponto_referencia : "Não possui/Não informado"} />
+                        <TextField  name="pais" label="Pais" variant="outlined"  value={dadosEndereco.pais} />
+                     </div>
 
-                     <Form.Label>Data de Nascimento</Form.Label>
-                     <Form.Control disabled className="disable_input" name="data_nascimento" value={formDados.data_nascimento} type='date' placeholder='Data de Nascimento'/>
+                     <hr/>
+
+                     <span className="subtitulo h5 text-success">Dados da Residencia</span>
+                     <div className="grid grid_2">
+                        <TextField  name="nome_animal" label="Possui animais" variant="outlined" value={dadosEndereco?.tipo_animal ? "Possui" : "Não possui"} />
+                        <TextField  name="nome_imovel" label="Tipo de Imóvel" variant="outlined" value={dadosEndereco?.tipo_imovel?.nome_imovel} />
+                        <TextField  name="nome_material" label="Material do Imóvel" variant="outlined" value={dadosEndereco?.material_predominante?.nome_material} />
+                     </div>
+
+                     <hr/>
+
+                     <div className="form-buttons">
+                        <Button variant="outline-success" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</Button>
+                     </div>
                   </div>
-
-                  <div className="form-fields" id='dropDown-A'>
-                     <Form.Label>Gênero</Form.Label>
-                     <Form.Control name="genero" value={formDados.genero} placeholder='Gênero'/>
-
-                     <Form.Label>Etnia</Form.Label>
-                     <Form.Control name="etnia" value={formDados.etnia} placeholder='Etnia'/>
-
-                     <Form.Label>Estado Civil</Form.Label>
-                     <Form.Control name="estado_civil" value={formDados.estado_civil} placeholder='Estado Civil'/>
-                  </div>
-               </div>
-
-                        <br/><hr/><br/>
-
-               <div>
-                  <div>
-                     <span className="h4 text-success">Contatos</span>
-                  </div>
-
-                  <div className="form-fields">
-                     <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="telefone" value={formDados.telefone} type='number' placeholder='Telefone'/>
-                                          
-                     <Form.Label>E-mail</Form.Label>
-                     <Form.Control name="email" value={formDados.email} type='email' placeholder='E-mail'/>
-                  </div>
-
-                  <div className="form-fields">                           
-                     <Form.Label>Nacionalidade</Form.Label> 
-                     <Form.Control disabled name="nacionalidade" value={formDados.nacionalidade} placeholder='Nacionalidade'/>
-      
-                     <Form.Label>Naturalidade</Form.Label>
-                     <Form.Control name="naturalidade_estado" value={formDados.naturalidade_estado} placeholder='Estado' className="compact-input"/>
-                     <Form.Control name="naturalidade_municipio" value={formDados.naturalidade_municipio} type='text' placeholder='Municipio'/>
-                  </div>
-               </div>
-                     
-                        <br/><hr/><br/>
-
-               <div>
-                  <div>
-                     <span className="h4 text-success">Endereço atual</span>
-                  </div>
-
-                  <div className="form-fields"> {/* Cadastro do Endereço */}
-                     <Form.Label>CEP</Form.Label>
-                     <Form.Control value={formDados.endereco.cep} type='text' placeholder='CEP'/>
-
-                     <Form.Label>Logradouro</Form.Label>
-                     <Form.Control value={formDados.endereco.logradouro} type='text' placeholder='Logradouro'/>
-                     
-                     <Form.Label>Número</Form.Label>
-                     <Form.Control name="numero" value={formDados.endereco.numero} type='text' placeholder='Número' className="compact-input"/>
-                  </div>
-
-                  <div className="form-fields">
-                     <Form.Label>Complemento</Form.Label>
-                     <Form.Control name="complemento" value={formDados.endereco.complemento} type='text' placeholder='Complemento'/>
-
-                     <Form.Label>Ponto de Referência</Form.Label>
-                     <Form.Control name="ponto_referencia" value={formDados.endereco.ponto_referencia || "Não possui/Não informado"} disabled={!formDados.endereco.ponto_referencia} type='text' placeholder='Ponto de Referência'/>
-                  </div>
-
-                  <div className="form-fields">
-                     <Form.Label>Bairro</Form.Label>
-                     <Form.Control value={formDados.endereco.bairro} type='text' placeholder='Bairro'/>
-
-                     <Form.Label>Município</Form.Label>
-                     <Form.Control value={formDados.endereco.cidade} type='text' placeholder='Município'/>
-                     
-                     <Form.Label>Estado</Form.Label><br></br>
-                     <Form.Control value={formDados.endereco.estado} type='text' placeholder='UF' className="compact-input"/>
-                  </div>
-               </div>
-
-                        <br/><hr/><br/>
-
-               <div>
-                  <span className="h4 text-success">Profissão e Escolaridade</span>
-               </div>
-
-                        {/* Revisar os VALUES daqui pra baixo */}
-               {/* <div className="form-fields">
-                  <Form.Label>Ocupação</Form.Label>
-                  <Form.Control name="profissao" value={formDados.profissao} type='text' placeholder='Ocupação'/>
-                  
-                  <Form.Label>CBO</Form.Label>
-                  <Form.Control name="cbo" value={formDados.cbo} type='number' placeholder='Código' className="compact-input"/>
-                  <Form.Control name="cbo_descricao" value={formDados.cbo_descricao} type='text' placeholder='Descrição da Atividade'/>
-               </div> */}
-
-                <div className="form-fields">
-                  <Form.Label>Ocupação</Form.Label>
-                  <Form.Control name="cbo_descricao" value={formDados.cbo_descricao} type='text' placeholder='Descrição da Atividade'/>
-                  
-                  <Form.Label>Código da Atividade</Form.Label>
-                  <Form.Control name="cbo" value={formDados.cbo} type='number' placeholder='Código CBO' className="compact-input"/>
-               </div>
-
-               <div className="form-fields">
-                  <Form.Label>Escolaridade</Form.Label>
-                  <Form.Control name="escolaridade" value={formDados.escolaridade} placeholder='Escolaridade'/>
-
-                  <Form.Label>Nome da Instituição</Form.Label>
-                  <Form.Control name="nome_instituicao" value={formDados.nome_instituicao} type='text' placeholder='Nome da Instituição de Ensino'/>
-                  
-                  <Form.Label>Tipo de Instituição</Form.Label>
-                  <Form.Control name="tipo_instituicao" value={formDados.tipo_instituicao} placeholder='Tipo de Instituição'/>
-               </div>
-
-               <div className="form-fields">
-                  <Form.Label>Estado Clínico</Form.Label>
-                  <Form.Control name="estado_clinico" value={formDados.estado_clinico} placeholder='Estado Clínico'/>
-
-                  <Form.Label>Responsável Legal</Form.Label>
-                  <Form.Control name="responsavel_legal" value={formDados.responsavel_legal} type='text' placeholder='Responsável Legal'/>
-                  
-                  <div className="form-fields">
-                     Sabe ler? <Form.Check value={formDados.leitura} type="switch" />
-                  </div>
-
-                  <div className="form-fields">
-                     Sabe escrever? <Form.Check value={formDados.escrita} type="switch" />
-                  </div>
-               </div>
-
-                        <br/><hr/><br/>
-
-               <div>
-                  <span className="h4 text-success">Informações sobre o cadastro</span>
-               </div>
-
-               <div className="form-fields">
-                  <Form.Label>Cadastrado por</Form.Label>
-                  <Form.Control disabled name="escolaridade" value={""} placeholder=''/>
-
-                  <Form.Label>Data e Hora</Form.Label>
-                  <Form.Control disabled name="data_criacao" value={new Date(formDados.data_criacao).toLocaleString('pt-BR')} type='text' placeholder='Data e Hora de criação'/>
-               </div>
-
-               {/* Botões pra voltar e alterar cadastro*/}
-               <div className="form-button">
-                  <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Admin_home')}}>Voltar pra tela inicial</button>
-                  <button form="form-registro" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Alterar Cadastro</button>
                </div>
             </div>
          </main>

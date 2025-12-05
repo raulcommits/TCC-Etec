@@ -167,99 +167,102 @@ function Agente_dashboards() {
 
    return(
       <div className="app">
-         <Header/>
-         <Sidenav/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-            items={[
-               { label: 'Home', href: '/Agente_home' },
-               { label: 'Relatórios', href: '/Agente_dashboards' }]
-            }
-         />
-         <NavBar items={[ 
-            { label: 'Home', href: '/agente_home', icon: HomeAddress },
-            { label: 'Perfil', href: '/agente_perfil', icon: UserManagerIcon },
-            { label: 'Visitas', href: '/agente_hist-visitas', icon: query },
-            { label: 'Dash', href: '/agente_dashboards', icon: dashIcon }
-         ]} />
+         <div className="agente-dashboards">
 
-         <main className="content-home" style={{position: "relative", padding: 20}}>
-            <Link to="/Agente_home" className="backButton">
-               <ButtonBack />
-            </Link>
+            <Header/>
+            <Sidenav/>
+            <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
+               items={[
+                  { label: 'Home', href: '/Agente_home' },
+                  { label: 'Relatórios', href: '/Agente_dashboards' }]
+               }
+            />
+            <NavBar items={[ 
+               { label: 'Home', href: '/agente_home', icon: HomeAddress },
+               { label: 'Perfil', href: '/agente_perfil', icon: UserManagerIcon },
+               { label: 'Visitas', href: '/agente_hist-visitas', icon: query },
+               { label: 'Dash', href: '/agente_dashboards', icon: dashIcon }
+            ]} />
 
-            <div className="title_Home" style={{marginBottom: 16}}>
-               <h1><b>Relatórios</b></h1>
-               <p style={{margin: 0, color: '#666'}}>Visão geral das suas atividades e pacientes.</p>
-            </div>
+            <main className="content-home" style={{position: "relative", padding: 20}}>
+               <Link to="/Agente_home" className="backButton">
+                  <ButtonBack />
+               </Link>
 
-            {loading && <div style={{ textAlign: 'center', padding: '50px' }}>Carregando informações...</div>}
+               <div className="title_Home" style={{marginBottom: 16}}>
+                  <h1><b>Relatórios</b></h1>
+                  <p style={{margin: 0, color: '#666'}}>Visão geral das suas atividades e pacientes.</p>
+               </div>
 
-            {!loading && (
-               <div id="dashboard-printable">
-                  <div style={{display: 'flex', justifyContent: 'center'}}>
-                     <div style={{width: '100%', maxWidth: 900, background: '#fff', padding: 20, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,.08)'}}>
-                        
-                        
-                        <h2 style={{marginTop: 0}}>Informações do Usuário</h2>
-                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, borderBottom: '1px solid #eee', paddingBottom: 16, marginBottom: 16}}>
-                           <div>
-                              <p style={{margin: '6px 0'}}><strong>Nome:</strong> {agente?.nome ?? usuario?.nome ?? 'Não informado'}</p>
-                              <p style={{margin: '6px 0'}}><strong>E-mail:</strong> {agente?.email ?? usuario?.email ?? 'Não informado'}</p>
-                              <p style={{margin: '6px 0'}}><strong>Perfil:</strong> <span style={{textTransform: 'capitalize'}}>{usuario?.perfil ?? 'Não informado'}</span></p>
-                           </div>
-                           <div>
-                              <p style={{margin: '6px 0'}}><strong>CPF:</strong> {agente?.cpf ?? usuario?.cpf ?? 'Não informado'}</p>
-                              <p style={{margin: '6px 0'}}><strong>Telefone:</strong> {agente?.num_telefone ?? 'Não informado'}</p>
-                           </div>
-                        </div>
+               {loading && <div style={{ textAlign: 'center', padding: '50px' }}>Carregando informações...</div>}
 
-                        <div style={{display:'flex', gap:16, marginTop:12, flexWrap:'wrap', alignItems:'stretch' }}>
-                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
-                              <div className="headerLine"><h5><b>Pacientes Cadastrados</b></h5><img src={UserManagerIcon} className="headerImage" /></div>
-                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{totalPacientes}</div><div style={{color:'#666', marginTop:6}}>Total de pacientes vinculados</div></div>
-                           </div>
-                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
-                              <div className="headerLine"><h5><b>Visitas no Mês</b></h5><img src={query} className="headerImage" /></div>
-                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{visitasMesCorrente}</div><div style={{color:'#666', marginTop:6}}>Visitas realizadas este mês</div></div>
-                           </div>
-                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
-                              <div className="headerLine"><h5><b>Imóveis Cobertos</b></h5><img src={HomeAddress} className="headerImage" /></div>
-                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisVisitados}</div><div style={{color:'#666', marginTop:6}}>Imóveis únicos visitados</div></div>
-                           </div>
-                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
-                              <div className="headerLine"><h5><b>Focos de Dengue</b></h5><img src={zoom} className="headerImage" /></div>
-                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{focosDengue}</div><div style={{color:'#666', marginTop:6}}>Focos encontrados no período</div></div>
-                           </div>
-                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
-                              <div className="headerLine"><h5><b>Imóveis Fechados</b></h5><img src={close} className="headerImage" /></div>
-                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisFechados}</div><div style={{color:'#666', marginTop:6}}>Visitas não realizadas</div></div>
-                           </div>
-                        </div>
-
-                        <hr style={{margin: '20px 0'}} />
-
-                        <div>
-                           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-                              <h4 style={{marginBottom:8}}>Novos Pacientes Cadastrados</h4>
-                              <div style={{display:'flex', gap:8, alignItems:'center'}}>
-                                 <span style={{fontSize:12, color:'#666', marginRight:6}}>Período:</span>
-                                 <button onClick={() => setPeriodo('week')} className={periodo ==='week' ? 'periodBtn active' : 'periodBtn'}>Nesta Semana</button>
-                                 <button onClick={() => setPeriodo('month')} className={periodo ==='month' ? 'periodBtn active' : 'periodBtn'}>Neste Mês</button>
-                                 <button onClick={() => setPeriodo('year')} className={periodo ==='year' ? 'periodBtn active' : 'periodBtn'}>Neste Ano</button>
+               {!loading && (
+                  <div id="dashboard-printable">
+                     <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <div style={{width: '100%', maxWidth: 900, background: '#fff', padding: 20, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,.08)'}}>
+                           
+                           
+                           <h2 style={{marginTop: 0}}>Informações do Usuário</h2>
+                           <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, borderBottom: '1px solid #eee', paddingBottom: 16, marginBottom: 16}}>
+                              <div>
+                                 <p style={{margin: '6px 0'}}><strong>Nome:</strong> {agente?.nome ?? usuario?.nome ?? 'Não informado'}</p>
+                                 <p style={{margin: '6px 0'}}><strong>E-mail:</strong> {agente?.email ?? usuario?.email ?? 'Não informado'}</p>
+                                 <p style={{margin: '6px 0'}}><strong>Perfil:</strong> <span style={{textTransform: 'capitalize'}}>{usuario?.perfil ?? 'Não informado'}</span></p>
+                              </div>
+                              <div>
+                                 <p style={{margin: '6px 0'}}><strong>CPF:</strong> {agente?.cpf ?? usuario?.cpf ?? 'Não informado'}</p>
+                                 <p style={{margin: '6px 0'}}><strong>Telefone:</strong> {agente?.telefone ?? 'Não informado'}</p>
                               </div>
                            </div>
-                           {renderChart()}
+
+                           <div style={{display:'flex', gap:16, marginTop:12, flexWrap:'wrap', alignItems:'stretch' }}>
+                              <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                                 <div className="headerLine"><h5><b>Pacientes Cadastrados</b></h5><img src={UserManagerIcon} className="headerImage" /></div>
+                                 <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{totalPacientes}</div><div style={{color:'#666', marginTop:6}}>Total de pacientes vinculados</div></div>
+                              </div>
+                              <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                                 <div className="headerLine"><h5><b>Visitas no Mês</b></h5><img src={query} className="headerImage" /></div>
+                                 <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{visitasMesCorrente}</div><div style={{color:'#666', marginTop:6}}>Visitas realizadas este mês</div></div>
+                              </div>
+                              <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                                 <div className="headerLine"><h5><b>Imóveis Cobertos</b></h5><img src={HomeAddress} className="headerImage" /></div>
+                                 <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisVisitados}</div><div style={{color:'#666', marginTop:6}}>Imóveis únicos visitados</div></div>
+                              </div>
+                              <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                                 <div className="headerLine"><h5><b>Focos de Dengue</b></h5><img src={zoom} className="headerImage" /></div>
+                                 <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{focosDengue}</div><div style={{color:'#666', marginTop:6}}>Focos encontrados no período</div></div>
+                              </div>
+                              <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                                 <div className="headerLine"><h5><b>Imóveis Fechados</b></h5><img src={close} className="headerImage" /></div>
+                                 <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisFechados}</div><div style={{color:'#666', marginTop:6}}>Visitas não realizadas</div></div>
+                              </div>
+                           </div>
+
+                           <hr style={{margin: '20px 0'}} />
+
+                           <div>
+                              <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                                 <h4 style={{marginBottom:8}}>Novos Pacientes Cadastrados</h4>
+                                 <div style={{display:'flex', gap:8, alignItems:'center'}}>
+                                    <span style={{fontSize:12, color:'#666', marginRight:6}}>Período:</span>
+                                    <button onClick={() => setPeriodo('week')} className={periodo ==='week' ? 'periodBtn active' : 'periodBtn'}>Nesta Semana</button>
+                                    <button onClick={() => setPeriodo('month')} className={periodo ==='month' ? 'periodBtn active' : 'periodBtn'}>Neste Mês</button>
+                                    <button onClick={() => setPeriodo('year')} className={periodo ==='year' ? 'periodBtn active' : 'periodBtn'}>Neste Ano</button>
+                                 </div>
+                              </div>
+                              {renderChart()}
+                           </div>
                         </div>
                      </div>
+                     <div style={{display: 'flex', justifyContent: 'center', marginTop: 16}}>
+                        <button className="exportBtn" onClick={exportDashboardToPDF}>
+                           Exportar para PDF
+                        </button>
+                     </div>
                   </div>
-                  <div style={{display: 'flex', justifyContent: 'center', marginTop: 16}}>
-                     <button className="exportBtn" onClick={exportDashboardToPDF}>
-                        Exportar para PDF
-                     </button>
-                  </div>
-               </div>
-            )}
-         </main>
+               )}
+            </main>
+         </div>
       </div>
    )
 }

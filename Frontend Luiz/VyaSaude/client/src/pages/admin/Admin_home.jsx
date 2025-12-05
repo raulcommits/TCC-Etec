@@ -23,16 +23,16 @@ function Admin_home() {
    ];
 
    const navItems = [
-      { label: 'Home', href: '/admin_home', icon: HomeAddress },
-      { label: 'Pacientes', href: '/admin_home-usuario', icon: AddUserMale },
-      { label: 'Agenda', href: '/admin_hist-visitas', icon: query },
-      { label: 'Banco', href: '/admin_b-dados', icon: dashIcon }
+      { label: 'Home', href: '/Admin_home', icon: HomeAddress },
+      { label: 'Pacientes', href: '/Admin_home-usuario', icon: AddUserMale },
+      { label: 'Agenda', href: '/Admin_hist-visitas', icon: query },
+      { label: 'Banco', href: '/Admin_b-dados', icon: dashIcon }
    ];
    
    return(
       <div className="app">
          <Header/>
-         {/* <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={meusLinks} /> */}
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
          <Sidenav/>
          <ButtonAjuda/>
          <NavBar items={navItems} />

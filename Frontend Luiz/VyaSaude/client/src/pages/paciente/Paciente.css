@@ -47,7 +47,88 @@
    
    
    
-   /* ============ */
+      .content-paciente_perfil { /* Tela de perfil do paciente */
+      padding-bottom: 3vh;
+
+      input {
+         font-size: 1rem !important;
+         height: 1.3rem !important;
+      }
+   
+      .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {  /* Efeito de desativado nos inputs da tela de perfil */
+         color: rgba(0, 0, 0, 0.6) !important;
+         background-color: rgba(0, 0, 0, 0.075);
+         -webkit-text-fill-color: rgba(0, 0, 0, 0.7);
+      }
+   
+   
+      .elements-paciente_perfil {
+         hr {
+            margin: 25px 0;
+         }
+
+         .subtitle {
+            display: flex;
+            margin: 20px 0;
+         }
+         
+         .grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 10px;
+         }
+         
+         .grid_1 {
+            grid-template-columns: 1fr 1fr;
+         }
+         
+         .grid_2 {
+            grid-template-columns: 1fr 1fr 1fr;         
+         }
+         
+         .grid_3 {
+            grid-template-columns: 1fr 2fr;
+         }
+         
+         .grid_4 {
+            grid-template-columns: 2fr 1fr;
+         }
+         
+         .grid_5 {
+            grid-template-columns: 1fr 1fr 1fr;         
+         }
+         
+         .grid_6 {
+            grid-template-columns: 1fr 1fr 2fr;
+         }
+
+         .select-agente_cadUsuario { /* Estilização dos Selects */
+            div {
+               box-shadow: 2px 2px 10px 1px #c7c7c7a6;
+               border: solid #cfcfcf 1px;
+               text-align: start;
+            }
+         }
+      }
+   
+      .form-buttons {
+         display: flex;
+         justify-content: space-around;
+         margin-top: 3vh;
+         margin-bottom: 1vh;
+   
+         button {
+            color: black;
+            padding: 0 15px;
+            height: 4vh;
+            max-height: 50px;
+         }
+   
+         button:hover {
+            color: white;
+         }
+      }
+   }
 }
 
 /* Estilo do botão de exportar, inspirado em BoxSimpleInfos .buttonB */

@@ -18,6 +18,54 @@ route.get("/", async (request, response) => {
     return response.status(200).send({response: pacientes});
 });
 
+route.get("/perfil", authenticate, async (request, response) => {
+   const { usuario } = request;
+
+   console.log("=== DEBUG PERFIL PACIENTE ===");
+   console.log("1. Token decodificado:", usuario);
+
+   if (!usuario || !usuario.cpf) {
+      console.log("ERRO: O token não tem CPF ou está vazio.");
+      return response.status(403).send({response: "Token inválido (sem CPF)."});
+   }
+
+   console.log(`2. Buscando na tabela 'paciente' pelo CPF: [${usuario.cpf}]`);
+
+   try {
+      const dadosPaciente = await repositorioPaciente.findOne({
+         where: { cpf: usuario.cpf },
+         relations: [
+            "endereco", 
+            "endereco.tipo_imovel", 
+            "endereco.material_predominante", 
+            "endereco.tipo_animal",
+            "agente" 
+         ]
+      });
+
+      console.log("3. Resultado do Banco:", dadosPaciente ? "ENCONTRADO" : "NULL (Não existe)");
+
+      if (!dadosPaciente) {
+         return response.status(404).send({
+            response: "Paciente não encontrado",
+            debug: `O CPF ${usuario.cpf} existe no Login, mas NÃO existe na tabela Paciente.`
+         });
+      }
+
+      // ... resto do código (montagem do payload)
+      const pacientePayload = {
+         ...dadosPaciente,
+         data_criacao_conta: usuario.data_criacao 
+      };
+
+      return response.status(200).send({ response: pacientePayload }); 
+
+   } catch(err) {
+      console.log("ERRO NO CATCH:", err);
+      return response.status(500).send({response: "Erro interno"});
+   }
+});
+
 route.get("/:encontrarPaciente", async (request, response) => {
    const {encontrarPaciente} = request.params;
    const verificarPaciente = await repositorioPaciente.findOne({
@@ -35,25 +83,6 @@ route.get("/:encontrarPaciente", async (request, response) => {
    return response.status(200).send(verificarPaciente);
 });
 
-route.get("/perfil", authenticate, async (request, response) => {
-   const dadosPaciente = await repositorioPaciente.findOne({
-      where: {email: request.usuario.email},
-      relations: ["endereco", "agente"]
-   });
-
-   if (!dadosPaciente) {
-      return response.status(404).send({response: "Usuário não encontrado."});
-   }
-
-   const usuario = await repositorioUsuario.findOneBy({email: request.usuario.email});
-   if (!usuario) {
-      return response.status(404).send({response: "Usuário não encontrado."});
-   }
-
-   const paciente = {...dadosPaciente, data_criacao: usuario.data_criacao}
-
-   return response.status(200).send({response: paciente});
-});
 
 route.post("/", async (request, response) => {
    const {cpf, sus, nome, nome_social, data_nascimento, genero, etnia, estado_civil, nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae,

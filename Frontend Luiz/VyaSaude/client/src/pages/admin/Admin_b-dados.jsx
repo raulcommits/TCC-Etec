@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import { PatternFormat } from "react-number-format";
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment  } from "@mui/material";
 
 import Header from "../../components/Header"
 import Sidenav from "../../components/Sidenav/Sidenav_admin"
@@ -41,6 +41,49 @@ function Admin_histVisitas() {
 
    const [busca, setBusca] = useState("");
    const [dataFiltro, setDataFiltro] = useState("");
+
+   const [formNovoPaciente, setFormNovoPaciente] = useState({
+      nome: '',
+      nome_social: '',
+      cpf: null,
+      sus: null,
+      data_nascimento: '',
+      genero: '',
+      etnia: '',
+      estado_civil: '',
+      nacionalidade: '',
+      naturalidade_estado: '',
+      naturalidade_municipio: '',
+      filiacao_mae: null,
+      filiacao_pai: null,
+
+      logradouro: '',
+      numero: null,
+      complemento: null,
+      bairro: '',
+      cidade: '',
+      estado: '',
+      cep: null,
+      ponto_referencia: null,
+      zonaId: '',
+
+      tipo_imovel: '',
+      tipo_material_imovel: '',
+      tipo_animal: '',
+      
+      telefone: '',
+      email: '',
+      escolaridade: '',
+      nome_instituicao: '',
+      tipo_instituicao: '',
+      estado_clinico: '',
+      leitura: true,
+      escrita: true,
+      responsavel_legal: null,
+
+      profissao: null
+   });
+   
    
    useEffect(() => {
       async function buscarRegistros() {
