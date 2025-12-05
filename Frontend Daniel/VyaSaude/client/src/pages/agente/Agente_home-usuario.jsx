@@ -1,7 +1,7 @@
 import "../../App.css"
 import "./Agente.css"
 import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_agente/"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/Index.jsx"
 import PageWIP from "../../components/PageWIP/Index";
 import ButtonBack from "../../components/ButtonBack/Index"
 import { Link, useNavigate  } from "react-router-dom";
@@ -17,11 +17,7 @@ function Agente_homeUsuario() {
       <div className="app">
          <Header/>
          <Sidenav/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-         items={[
-            { label: 'Home', href: '/Agente_home' },
-            { label: 'Cadastro de Pacientes', href: '/Agente_home-usuario' }
-            ]} />
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '/Agente_home' }, {label: 'Cadastro de Paciente', href: '/Agente_home-usuario'}]} />
          <NavBar items={[
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
@@ -34,15 +30,15 @@ function Agente_homeUsuario() {
             </Link>
 
             <div className="title_Home">
-               <h1><b>Cadastro de Pacientes</b></h1>
+               <h1><b>Cadastro de Usuarios</b></h1>
             </div>
 
             <div className="simpleBoxShadow">
                <h4>Selecione uma das opções abaixo</h4><br />
 
                <div className="shortcutField paciente-home">
-                  <Link to='/Agente_cad-usuario'><div className="shortcutClick"><p>Cadastrar Novo Paciente</p></div></Link>
-                  <Link to='/Agente_alt-usuario'><div className="shortcutClick"><p>Alterar Pacientes</p></div></Link>
+                  <Link to='/Agente_cad-usuario'><div className="shortcutClick"><p>Cadastrar novo usuário</p></div></Link>
+                  <Link to='/Agente_alt-usuario'><div className="shortcutClick"><p>Alterar usuários</p></div></Link>
                </div>
             </div>
          </main>

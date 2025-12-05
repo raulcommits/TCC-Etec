@@ -77,7 +77,7 @@ function Sidenav() {
                <Link to="/Agente_dashboards">
                <div className='sidenav-buttons'>
                   <img src={dashIcon} className="sideBarIcon"/>
-                  <p>Dashboards</p>
+                  <p>Relatórios</p>
                </div>
                </Link>
 

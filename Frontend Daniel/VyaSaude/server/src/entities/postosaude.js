@@ -14,7 +14,6 @@ const posto = new EntitySchema({
         servicos_disponiveis: {type: "text", nullable: true}
     },
     relations: {
-        endereco: {type: "many-to-one", target: "Endereco", nullable: false},
         gerente: {type: "many-to-one", target: "GerentePosto", nullable: false}
     }
 });

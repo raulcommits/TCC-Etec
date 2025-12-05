@@ -7,20 +7,20 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1764550650234 {
-    name = 'Db1764550650234'
+module.exports = class Db1764722495532 {
+    name = 'Db1764722495532'
 
     /**
      * @param {QueryRunner} queryRunner
      */
     async up(queryRunner) {
-        await queryRunner.query(`ALTER TABLE \`endereco\` CHANGE \`complemento\` \`complemento\` varchar(50) NULL`);
+        await queryRunner.query(`ALTER TABLE \`paciente\` CHANGE \`responsavel_legal\` \`responsavel_legal\` varchar(70) NULL`);
     }
 
     /**
      * @param {QueryRunner} queryRunner
      */
     async down(queryRunner) {
-        await queryRunner.query(`ALTER TABLE \`endereco\` CHANGE \`complemento\` \`complemento\` varchar(50) NOT NULL`);
+        await queryRunner.query(`ALTER TABLE \`paciente\` CHANGE \`responsavel_legal\` \`responsavel_legal\` varchar(70) NOT NULL`);
     }
 }

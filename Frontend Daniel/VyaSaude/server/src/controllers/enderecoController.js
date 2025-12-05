@@ -42,9 +42,9 @@ route.get("/me", authenticate, async (request, response) => {
 route.post("/", async (request, response) => {
     const {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialId, imovelId, animalId} = request.body;
     
-    if (isNaN(id)) {
-      return response.status(400).send({response: "O id deve ser numérico."});
-    }
+   //  if (isNaN(id)) {
+   //    return response.status(400).send({response: "O id deve ser numérico."});
+   //  }
 
     if (logradouro.length < 3) {
         return response.status(400).send({response: "O logradouro deve conter ao menos 3 caracteres."});
@@ -52,6 +52,10 @@ route.post("/", async (request, response) => {
 
     if (numero.length < 1 && numero.length > 5) {
         return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
+    }
+
+    if (complemento.length < 1) {
+        return response.status(400).send({response: "O complemento deve conter pelo menos 1 caractere."});
     }
 
     if (bairro.length < 1) {
@@ -105,10 +109,7 @@ route.post("/", async (request, response) => {
         return response.status(400).send({response: "Esse animal não foi encontrado."});
         }
 
-        const complementoEndereco = complemento != null ? complemento : null;
-        const pontoReferencia = ponto_referencia != null ? ponto_referencia : null;
-
-        const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento: complementoEndereco, bairro, cidade, estado, cep, pais, ponto_referencia: pontoReferencia, zona, material_predominante, tipo_imovel, tipo_animal});
+        const novo_endereco = repositorioEndereco.create({logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zona, material_predominante, tipo_imovel, tipo_animal});
 
         await repositorioEndereco.save(novo_endereco);
         return response.status(201).send({response: "Endereco cadastrado com sucesso.", id: novo_endereco.id});
@@ -132,6 +133,10 @@ route.put("/:id", async (request, response) => {
 
     if (numero.length < 1 && numero.length > 5) {
         return response.status(400).send({response: "O número deve conter entre 1 e 5 números."});
+    }
+
+    if (complemento.length < 1) {
+        return response.status(400).send({response: "O complemento deve conter pelo menos 1 caractere."});
     }
 
     if (bairro.length < 1) {
@@ -182,11 +187,7 @@ route.put("/:id", async (request, response) => {
         if(!animal) {
             return response.status(400).send({response: "Esse animal não foi encontrado."});
         }
-
-        const complementoEndereco = complemento != null ? complemento : null;
-        const pontoReferencia = ponto_referencia != null ? ponto_referencia : null;
-
-        await repositorioEndereco.update({id}, {logradouro, numero, complemento: complementoEndereco, bairro, cidade, estado, cep, pais, ponto_referencia: pontoReferencia, zona, material, imovel, animal});
+        await repositorioEndereco.update({id}, {logradouro, numero, complemento, bairro, cidade, estado, cep, pais, zona, material, imovel, animal});
         return response.status(200).send({response: "Endereço atualizado com sucesso."});
     } catch (err) {
         return response.status(500).send({response: err})

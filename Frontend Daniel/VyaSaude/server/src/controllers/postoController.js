@@ -2,12 +2,10 @@ import { AppDataSource }      from "../database/data-source.js";
 import { Like }               from "typeorm";
 import express                from "express";
 import posto                  from "../entities/postosaude.js";
-import endereco               from "../entities/endereco.js";
 import gerente                from "../entities/gerenteposto.js";
 
 const route = express.Router();
 const repositorioPosto = AppDataSource.getRepository(posto);
-const repositorioEndereco = AppDataSource.getRepository(endereco);
 const repositorioGerente = AppDataSource.getRepository(gerente);
 
 route.get("/", async (request, response) => {
@@ -22,7 +20,7 @@ route.get("/:encontrarNome", async (request, response) => {
 });
 
 route.post("/", async (request, response) => {
-    const {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, enderecoId, gerenteId} = request.body;
+    const {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, gerenteId} = request.body;
 
     if (nome_posto.length < 3) {
         return response.status(400).send({response: "O nome do posto deve conter no mínimo 3 caracteres."});
@@ -49,13 +47,6 @@ route.post("/", async (request, response) => {
     }
     
     try {
-        const endereco = await repositorioEndereco.findOneBy({
-            id: enderecoId
-        });
-        if (!endereco) {
-            return response.status(400).send({response: "Esse endereço não foi encontrado."});
-        }
-
         const gerente = await repositorioGerente.findOneBy({
             id: gerenteId
         });
@@ -63,7 +54,7 @@ route.post("/", async (request, response) => {
             return response.status(400).send({response: "Esse responsável não foi encontrado."});
         }
 
-        const novo_posto = repositorioPosto.create({nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, endereco, gerente});
+        const novo_posto = repositorioPosto.create({nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, gerente});
         await repositorioPosto.save(novo_posto);
         return response.status(201).send({response: "Posto cadastrado com sucesso."});
     } catch(err) {
@@ -73,7 +64,7 @@ route.post("/", async (request, response) => {
 
 route.put("/:id", async (request, response) => {
     const {id} = request.params;
-    const {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, enderecoId, gerenteId} = request.body;
+    const {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, gerenteId} = request.body;
 
     if (isNaN(id)) {
         return response.status(400).send({response: "O id deve ser numérico."});
@@ -104,20 +95,13 @@ route.put("/:id", async (request, response) => {
     }
 
     try {
-        const endereco = await repositorioEndereco.findOneBy({
-            id: enderecoId
-        });
-        if(!endereco) {
-            return response.status(400).send({response: "Esse endereço não foi encontrado."});
-        }
-
         const gerente = await repositorioGerente.findOneBy({
             id: gerenteId
         });
         if(!gerente) {
             return response.status(400).send({response: "Esse responsável não foi encontrado."});
         }
-        await repositorioPosto.update({id}, {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, endereco, gerente});
+        await repositorioPosto.update({id}, {nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, servicos_disponiveis, gerente});
         return response.status(200).send({response: "Posto atualizado com sucesso."});
     } catch (err) {
         return response.status(500).send({response: err});

@@ -3,7 +3,7 @@ import Header from "../../components/Header/"
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
 import BoxSimpleInfos from "../../components/BoxSimpleInfos/Index.jsx";
-import Sidenav from "../../components/Sidenav/Sidenav_paciente/"
+import Sidenav from "../../components/Sidenav/Sidenav_paciente/Index.jsx"
 import ButtonAjuda from "../../components/ButtonAjuda"
 import { getUser } from "../../helpers/auth";
 
@@ -20,9 +20,7 @@ function Paciente_home() {
    return(
       <div className="app">
          <Header/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-         items={[
-            { label: 'Home', href: '/Paciente_home' }]} />
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '' }]} />
          <Sidenav/>
          {/* <ButtonAjuda/> */}
          <NavBar items={[
@@ -45,7 +43,7 @@ function Paciente_home() {
             <div className="gridBoxOtherOptions">
                <div className="gridBoxOptions_lines">
                   <BoxSimpleInfos
-                     className="box-home"
+                     style={{width: '370px'}}
                      icon={UserManagerIcon}
                      title="Meu Perfil"
                      description="Verifique, edite e atualize suas informações pessoais (nome, endereço, telefone e email)"
@@ -53,7 +51,7 @@ function Paciente_home() {
                      buttonText="Visualizar perfil"
                   />
                   <BoxSimpleInfos
-                     className="box-home"
+                     style={{width: '370px'}}
                      icon={query}
                      title="Histórico de Consultas"
                      description="Área para visualizar o histórico de consultas, assim como consultas futuras"
@@ -64,12 +62,12 @@ function Paciente_home() {
 
                <div className="gridBoxOptions_lines">
                   <BoxSimpleInfos
-                     className="box-home"
+                     style={{width: '740px'}}
                      icon={dashIcon}
-                     title="Área de Dashboards"
+                     title="Área de Relatórios"
                      description="Visualize, altere e faça análises com nossos dashboards personalizados para melhor monitorar a saúde da sua região"
                      linkTo="/Paciente_dashboards"
-                     buttonText="Ir para Dashboards"
+                     buttonText="Ir para Relatórios"
                   />
                </div>  
             </div>

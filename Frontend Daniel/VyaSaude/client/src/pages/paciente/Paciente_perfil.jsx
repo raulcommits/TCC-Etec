@@ -1,7 +1,7 @@
 
 import "./Paciente.css"
 import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_paciente/"
+import Sidenav from "../../components/Sidenav/Sidenav_paciente/Index.jsx"
 import ButtonBack from "../../components/ButtonBack/Index"
 import PageWIP from "../../components/PageWIP/Index"
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
@@ -30,7 +30,7 @@ function Paciente_perfil() {
       naturalidade_municipio: '',
       filiacao_mae: '',
       filiacao_pai: '',
-      num_telefone: '',
+      telefone: '',
       email: '',
       profissao: '',
       escolaridade: '',
@@ -77,9 +77,8 @@ function Paciente_perfil() {
          <Header/>
          <Sidenav/>
          <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-         items={[
-            { label: 'Home', href: '/Paciente_home' },
-            { label: 'Meu Perfil', href: '/Paciente_perfil' }]} />
+            items={[
+               { label: 'Home', href: '/Paciente_home' }, { label: 'Meu Perfil', href: '' }]} />
          <NavBar items={[
             { label: 'Home', href: '/paciente_home', icon: HomeAddress },
             { label: 'Perfil', href: '/Paciente_perfil', icon: UserManagerIcon },
@@ -148,7 +147,7 @@ function Paciente_perfil() {
 
                   <div className="form-fields">
                      <Form.Label>Telefone</Form.Label>
-                     <Form.Control name="num_telefone" value={formDados.num_telefone} type='number' placeholder='Telefone'/>
+                     <Form.Control name="telefone" value={formDados.telefone} type='number' placeholder='Telefone'/>
                                           
                      <Form.Label>E-mail</Form.Label>
                      <Form.Control name="email" value={formDados.email} type='email' placeholder='E-mail'/>

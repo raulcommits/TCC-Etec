@@ -62,7 +62,7 @@ function Sidenav() {
                <Link to="/Paciente_dashboards">
                <div className='sidenav-buttons'>
                   <img src={dashIcon} className="sideBarIcon"/>
-                  <p>Dashboards</p>
+                  <p>Relatórios</p>
                </div>
                </Link>
 

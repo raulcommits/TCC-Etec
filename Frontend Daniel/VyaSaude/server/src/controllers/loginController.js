@@ -51,11 +51,12 @@ route.post("/", async (request, response) => {
       // const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
       const token = generateToken({
+         id: usuario.id,
          cpf: usuario.cpf,
          nome: usuario.nome,
          email: usuario.email,
          tipoUsuario: usuario.tipoUsuario,
-         data_criacao: usuario.data_criacao,
+         createdAt: usuario.createdAt,
       });
 
       return response.status(200).send({response: "Login efetuado com sucesso.", token});
@@ -68,7 +69,7 @@ route.put("/nova-senha", async (request, response) => {
    const {email} = request.body;
 
    const usuario = await repositorioUsuario.findOneBy({
-      email, data_exclusao: IsNull()
+      email, deletedAt: IsNull()
    });
 
    if (!usuario) {

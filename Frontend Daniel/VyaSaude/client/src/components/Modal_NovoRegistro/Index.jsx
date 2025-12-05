@@ -31,7 +31,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
       nome: '',
       sus: '',
       data_nascimento: '',
-      num_telefone: '',
+      telefone: '',
       email: '',
       
       enderecoId: '',
@@ -73,7 +73,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                nome: buscarPaciente.data.nome,
                sus: buscarPaciente.data.sus,
                data_nascimento: buscarPaciente.data.data_nascimento,
-               num_telefone: buscarPaciente.data.num_telefone,
+               telefone: buscarPaciente.data.telefone,
                email: buscarPaciente.data.email,
                
                enderecoId: buscarPaciente.data.endereco.id,
@@ -171,7 +171,7 @@ export default function Modal_NovoRegistro({onClose, onSuccess}) {
                      <PatternFormat name="sus" label="Nº SUS" value={dadosPaciente.sus} format="### #### #### ####" mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                   </div>
                   <div className="grid grid_2">
-                     <PatternFormat name="num_telefone" label="Telefone" value={dadosPaciente.num_telefone} format={(dadosPaciente.num_telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                     <PatternFormat name="telefone" label="Telefone" value={dadosPaciente.telefone} format={(dadosPaciente.telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                      <TextField name="email" label="Email" value={dadosPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                   </div>
                   

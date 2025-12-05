@@ -172,9 +172,10 @@ function Agente_dashboards() {
          <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
             items={[
                { label: 'Home', href: '/Agente_home' },
-               { label: 'Dashboards', href: '/Agente_dashboards' }]} 
+               { label: 'Relatórios', href: '/Agente_dashboards' }]
+            }
          />
-         <NavBar items={[
+         <NavBar items={[ 
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Perfil', href: '/agente_perfil', icon: UserManagerIcon },
             { label: 'Visitas', href: '/agente_hist-visitas', icon: query },
@@ -187,7 +188,7 @@ function Agente_dashboards() {
             </Link>
 
             <div className="title_Home" style={{marginBottom: 16}}>
-               <h1><b>Relatórios (Dashboards)</b></h1>
+               <h1><b>Relatórios</b></h1>
                <p style={{margin: 0, color: '#666'}}>Visão geral das suas atividades e pacientes.</p>
             </div>
 
@@ -198,8 +199,7 @@ function Agente_dashboards() {
                   <div style={{display: 'flex', justifyContent: 'center'}}>
                      <div style={{width: '100%', maxWidth: 900, background: '#fff', padding: 20, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,.08)'}}>
                         
-                        {error && <div style={{color: 'red', textAlign: 'center', padding: '10px', border: '1px solid red', borderRadius: 4, marginBottom: 16}}>{error}</div>}
-
+                        
                         <h2 style={{marginTop: 0}}>Informações do Usuário</h2>
                         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, borderBottom: '1px solid #eee', paddingBottom: 16, marginBottom: 16}}>
                            <div>
@@ -248,11 +248,7 @@ function Agente_dashboards() {
                                  <button onClick={() => setPeriodo('year')} className={periodo ==='year' ? 'periodBtn active' : 'periodBtn'}>Neste Ano</button>
                               </div>
                            </div>
-                           {pacientes.length > 0 ? (
-                              renderChart()
-                           ) : (
-                              <p style={{color:'#666', textAlign: 'center', padding: '40px'}}>Sem dados de pacientes para exibir o gráfico.</p>
-                           )}
+                           {renderChart()}
                         </div>
                      </div>
                   </div>

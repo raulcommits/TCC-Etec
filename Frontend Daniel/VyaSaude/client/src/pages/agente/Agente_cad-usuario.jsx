@@ -1,15 +1,15 @@
 import "./Agente.css"
 import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_agente/"
-import ButtonBack from "../../components/ButtonBack/Index"
-import PageWIP from "../../components/PageWIP/Index"
+import Sidenav from "../../components/Sidenav/Sidenav_agente/Index.jsx"
 import api from '../../services/api';
-import { Link, useNavigate  } from "react-router-dom";
-import { useEffect, useState} from 'react';
+import cboData from './../../data/cbo2002_KeyedJson.json';
+import { useNavigate  } from "react-router-dom";
+import { useEffect, useState, useMemo } from 'react';
 import { useVerificarCEP } from '../../hooks/useVerificarCEP';
-import { TextField, Select, MenuItem, FormControl, InputLabel, ListSubheader, Switch } from "@mui/material";
+import { TextField, Select, MenuItem, FormControl, InputLabel, ListSubheader, Switch, Autocomplete } from "@mui/material";
 import { PatternFormat } from 'react-number-format';
-import { Button, Form } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
+
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
 import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
@@ -17,35 +17,61 @@ import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png
 import query from '../../components/Sidenav/iconsSideBar/query.png';
 import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import { GoReply } from "react-icons/go";
+import { toast } from 'react-toastify';
 
-async function verificarExistencia(endpoint, dados) {
-   
-   try {
-      const res = await api.post(`/${endpoint}/verificarDados`, dados);
-      return res.data?.response === "Paciente já cadastrado no sistema.";
-   } catch (err) {
-      if(err.response?.status === 404) return false; 
-      throw err; // Throw: Indica onde que teve o erro. No caso de várias verificações onde uma delas dê um erro, o Throw indica que tal verificação que gerou o erro.
-   }
-}
+
+// Função para remover acentos e deixar minúsculo
+const normalizarTexto = (texto) => {
+   return texto ? texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : ""; // Tudo minúsculo
+};
 
 function Agente_cadUsuario() {
-   const [modoEdicao, setModoEdicao] = useState(false);
+   const [buscaCBO, setBuscaCBO] = useState('');
+   const [categoriaSelecionadaCBO, setCategoriaSelecionadaCBO] = useState('');
+   const [value, setValue] = useState(null); // Estado para o item selecionado (objeto final)
+
+   // 1. Extrair categorias únicas para o Select (dinamicamente)
+   const categorias = useMemo(() => {
+      const uniqueGroups = [
+         ...new Set(cboData.map((item) => item.desc_grande_grupo)),
+      ];
+      return uniqueGroups.sort();
+   }, []);
+
+      // 2. Lógica de Filtragem
+   const resultados = useMemo(() => {
+      if (buscaCBO.length < 3 && !categoriaSelecionadaCBO) return []; // Regra dos 3 caracteres
+
+      const termoBuscaLimpo = normalizarTexto(buscaCBO); // Termo de buscaCBO limpo uma única vez aqui para performance
+
+      return cboData.filter((item) => {
+         // 1. Filtro de Categoria
+         const matchCategoria = categoriaSelecionadaCBO ? item.desc_grande_grupo === categoriaSelecionadaCBO : true;
+
+         // 2. Filtro de Texto (Inteligente)
+         let matchTexto = true;
+         
+         if (buscaCBO.length >= 3) {
+            // Normalizamos a descrição do item do JSON
+            const descricaoLimpa = normalizarTexto(item.cbo_descricao);
+            const codigoString = item.cbo2002ocupacao.toString();
+
+            // Verifica se o termo limpo está dentro da descrição limpa OU no código
+            matchTexto = descricaoLimpa.includes(termoBuscaLimpo) || codigoString.includes(termoBuscaLimpo);
+         }
+         return matchCategoria && matchTexto;
+      });
+   }, [buscaCBO, categoriaSelecionadaCBO, cboData]);
+
 
    const navigate = useNavigate();
-
-   const [leitura, setLeitura] = useState(true);
-
-   useEffect(() => {
-      console.log("leitura", leitura);
-   }, [leitura])
    
    const [formNovoPaciente, setFormNovoPaciente] = useState({
       nome: null,
       nome_social: null,
       cpf: null,
       sus: null,
-      data_nascimento: null,
+      data_nascimento: '',
       genero: '',
       etnia: '',
       estado_civil: '',
@@ -55,16 +81,21 @@ function Agente_cadUsuario() {
       filiacao_mae: null,
       filiacao_pai: null,
 
-      logradouro: null,
+      logradouro: '',
       numero: null,
       complemento: null,
-      bairro: null,
-      cidade: null,
-      estado: null,
+      bairro: '',
+      cidade: '',
+      estado: '',
       cep: null,
       ponto_referencia: null,
+      zonaId: '',
+
+      tipo_imovel: '',
+      tipo_material_imovel: '',
+      tipo_animal: '',
       
-      num_telefone: null,
+      telefone: '',
       email: null,
       escolaridade: '',
       nome_instituicao: null,
@@ -84,7 +115,6 @@ function Agente_cadUsuario() {
       const valor = type === 'checkbox' ? checked : value; // Se for um input do tipo checkbox, utiliza a prop checked, caso contrário, value.
 
       setFormNovoPaciente((dados) => ({
-
          ...dados,
          [name]: valor
       }));
@@ -96,56 +126,95 @@ function Agente_cadUsuario() {
       e.preventDefault();
 
       // Realização do cadastro
-      const { cpf, nome, email, numero, complemento, ponto_referencia} = formNovoPaciente;
+      const { cpf, nome, email, numero, complemento, ponto_referencia, tipo_material_imovel, tipo_imovel, tipo_animal} = formNovoPaciente;
+      
       try {
          try { // Verifica se o indivíduo a ser cadastrado existe
             const dados = {cpf, email};
-            const verificarPaciente = await verificarExistencia("paciente", dados)
-
-            if (verificarPaciente) {
-               alert("Paciente já existe")
-            } else {
-               console.log(`Verificação da existencia do Paciente realizada. A existencia é `, verificarPaciente);
-            }
-
-            // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
-            const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: "paciente"};
-            await api.post('/usuario', usuarioPayload);
-            console.log("\n Usuário cadastrado com sucesso. \n")
             
-            // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
-            const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
-               estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 1, id_material: 1, id_imovel: 2, id_animal: 2};
-            const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
-            const enderecoCriadoId = enderecoResponse.id;
-            console.log("\n Endereço cadastrado com sucesso. \n")
+            const verificarPaciente = await api.get(`/paciente/${formNovoPaciente.cpf}`, dados);
+            
+            if (verificarPaciente.data) {
+               toast.error('Paciente já existe.', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: false,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light"
+               });
+               return;
+            }
+         } 
+         catch (err) {
+            if (err.response && err.response.status === 404) {
+               console.log("Paciente não encontrado. Prosseguindo com cadastro...");
+            } else {
+               throw err; 
+            }
+         }
+         
+         // Primeiro: Será cadastrado um usuário pra permitir o acesso ao sistema, sendo o cpf a PK.
+         const usuarioPayload = {cpf, nome, email, senha: "123456789", tipoUsuario: "paciente"};
+         await api.post('/usuario', usuarioPayload);
+         console.log("\n Usuário cadastrado com sucesso. \n")
+         
+         // Segundo: Após a criação do usuário, será cadastrado em seguida o endereço e o tipo de usuário com seus dados.
+         const buscarZona = await api.get(`/zona/${formNovoPaciente.bairro}`);
+         const novaZonaId = buscarZona.data.id;
+         console.log("novaZonaId", novaZonaId);
 
-            // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
-            const cadastroPayload = {...formNovoPaciente, id_endereco: enderecoCriadoId, id_agente: 1}
+         setFormNovoPaciente((dados) => ({...dados, zonaId: novaZonaId}));
+
+         const enderecoPayload = {cep, numero: numero, complemento: complemento, logradouro: cepDados.logradouro, bairro: cepDados.bairro, cidade: cepDados.localidade, 
+            estado: cepDados.uf, pais: "Brasil", ponto_referencia: ponto_referencia, id_zona: 112, id_material: tipo_material_imovel, id_imovel: tipo_imovel, id_animal: tipo_animal};
+
+         const {data: enderecoResponse} = await api.post('/endereco', enderecoPayload);
+         const enderecoCriadoId = enderecoResponse.id;
+         console.log("\n Endereço cadastrado com sucesso. \n")
+
+         // Terceiro: Com essa PK, esse usuário será salvo de acordo com seu tipo. Se for paciente, terá que completar o cadastro caso incompleto.
+         const cadastroPayload = {...formNovoPaciente, zonaId: 1, id_endereco: enderecoCriadoId, id_agente: 1};
+         try {
             await api.post(`/paciente`, cadastroPayload);
             console.log(`\n Paciente cadastrado com sucesso. \n`)
-            alert(`Paciente cadastrado com sucesso.`);
-
-         } catch(err) {
-            console.log(err)
-            throw(err)
+            toast.success('Paciente cadastrado com sucesso.', {
+               position: "top-right",
+               autoClose: 2000,
+               hideProgressBar: false,
+               closeOnClick: false,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+               theme: "light"
+            });
          }
-      } catch(err) {
-         alert(err)
-         console.log(err.response)
+         catch (err) {
+            console.log(err);
+         }
+      } 
+      catch(err) {
+         console.error("Erro no fluxo de cadastro:", err);
+         
+         const mensagemErro = err.response?.data?.response || 'Erro interno ao cadastrar.';
+         
+         toast.error(mensagemErro, {
+            position: "top-right", autoClose: 2000, theme: "light"
+         });
       }
    }
+
+   useEffect(() => {
+      console.log("formNovoPaciente", formNovoPaciente);
+   }, [formNovoPaciente])
 
    return(
       <div className="app">
          <Header/>
          <Sidenav/>
-         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-                  items={[
-                     { label: 'Home', href: '/Agente_home' },
-                     { label: 'Cadastro de Pacientes', href: '/Agente_home-usuario' },
-                     { label: 'Cadatrar Novo Paciente', href: '/Agente_cad-usuario' },
-                     ]} />
+         <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />} items={[{ label: 'Home', href: '/Agente_home' }, {label: 'Cadastro de Paciente', href: '/Agente_home-usuario'}, {label: 'Cadastro de novo paciente', href: 'Agente_cad-usuario'}]} />
          <NavBar items={[
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
             { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
@@ -154,35 +223,35 @@ function Agente_cadUsuario() {
          ]} />
          <main className="content-pages">
             <div className="content-pages-agente">
-               <div className="content-agente_CadAltUsuario">
+               <div className="content-agente_cadUsuario">
                   <div className="title-pages">
                      <GoReply onClick={() => navigate(-1)}/>
-                     <h1 className="align-self-center h2 px-5">Cadastrar Novo Paciente</h1>
+                     <h1 className="align-self-center h2 px-5">Cadastrar novo paciente</h1>
                   </div>
 
-                  <div className="elements-agente_CadAltUsuario">
+                  <div className="elements-agente_cadUsuario">
                      <form id="form-novo_paciente-agente" onSubmit={handleRegister}>
                         <span className="h4 text-success subtitle">Informações de registro</span>
                         <div className="grid grid_1">
-                           <TextField name="nome" label="Nome do Paciente" value={formNovoPaciente.nome} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="nome" label="Nome do Paciente" value={formNovoPaciente.nome} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
                            <TextField name="nome_social" label="Nome Social" value={formNovoPaciente.nome_social} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
                         
                         <div className="grid grid_1">
-                           <TextField name="filiacao_mae" label="Nome da mãe" value={formNovoPaciente.filiacao_mae} variant="outlined" onChange={(e) => handleFormChange(e)}/>
-                           <TextField name="filiacao_pai" label="Nome do pai" value={formNovoPaciente.filiacao_pai} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="filiacao_mae" label="Nome da mãe" value={formNovoPaciente.filiacao_mae} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="filiacao_pai" label="Nome do pai" value={formNovoPaciente.filiacao_pai} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <div className="grid grid_2">
-                           <PatternFormat name="cpf" label="Número do CPF" value={formNovoPaciente.cpf} format="###.###.###-##" mask="" customInput={TextField} variant="outlined"/>
-                           <PatternFormat name="sus" label="Número do SUS" value={formNovoPaciente.sus} format="###.####.####.####" mask="_" customInput={TextField} variant="outlined"/>
-                           <TextField name="data_nascimento" label="Data de Nascimento" value={formNovoPaciente.data_nascimento} InputLabelProps={{ shrink: true }} type="date" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <PatternFormat name="cpf" required label="Número do CPF" value={formNovoPaciente.cpf} format="###.###.###-##" mask="_" customInput={TextField} variant="outlined" onValueChange={(values) => { handleFormChange({ target: { name: 'cpf', value: values.value }})}}/>
+                           <PatternFormat name="sus" required label="Número do SUS" value={formNovoPaciente.sus} format="###.####.####.####" mask="_" customInput={TextField} variant="outlined" onValueChange={(values) => { handleFormChange({ target: { name: 'sus', value: values.value }})}}/>
+                           <TextField name="data_nascimento" required label="Data de Nascimento" value={formNovoPaciente.data_nascimento} InputLabelProps={{ shrink: true }} type="date" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectGenero">Gênero</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
+                              <Select className="select-agente_cadUsuario" name="genero" value={formNovoPaciente.genero} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectGenero" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Masculino">Masculino</MenuItem>
                                  <MenuItem value="Feminino">Feminino</MenuItem>
@@ -193,7 +262,7 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEtnia">Etnia</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
+                              <Select className="select-agente_cadUsuario" name="etnia" value={formNovoPaciente.etnia} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEtnia" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Branco">Branco(a)</MenuItem>
                                  <MenuItem value="Preto">Preto(a)</MenuItem>
@@ -206,11 +275,13 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEstadoCivil">Estado Civil</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="estado_civil" value={formNovoPaciente.estado_civil} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoCivil" >
+                              <Select className="select-agente_cadUsuario" name="estado_civil" value={formNovoPaciente.estado_civil} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoCivil" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Solteiro">Solteiro(a)</MenuItem>
                                  <MenuItem value="Casado">Casado(a)</MenuItem>
                                  <MenuItem value="Separado">Separado(a)</MenuItem>
+                                 <MenuItem value="Viúvo">Viúvo</MenuItem>
+                                 <MenuItem value="Outro">Outro</MenuItem>
                               </Select>
                            </FormControl>
                         </div>
@@ -218,7 +289,7 @@ function Agente_cadUsuario() {
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectNacionalidade">Nacionalidade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="nacionalidade" value={formNovoPaciente.nacionalidade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNacionalidade" >
+                              <Select className="select-agente_cadUsuario" name="nacionalidade" value={formNovoPaciente.nacionalidade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNacionalidade" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Brasileiro">Brasileiro(a)</MenuItem>
                                  <MenuItem value="Estrangeiro">Estrangeiro(a)</MenuItem>
@@ -228,57 +299,57 @@ function Agente_cadUsuario() {
 
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectNaturalidade">Naturalidade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
+                              <Select className="select-agente_cadUsuario" name="naturalidade_estado" value={formNovoPaciente.naturalidade_estado} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectNaturalidade" >
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <ListSubheader>Norte</ListSubheader>
-                                    <MenuItem value="Acre">Acre</MenuItem>
-                                    <MenuItem value="Amapá">Amapá</MenuItem>
-                                    <MenuItem value="Amazonas">Amazonas</MenuItem>
-                                    <MenuItem value="Pará">Pará</MenuItem>
-                                    <MenuItem value="Rondônia">Rondônia</MenuItem>
-                                    <MenuItem value="Roraima">Roraima</MenuItem>
-                                    <MenuItem value="Tocantins">Tocantins</MenuItem>
+                                    <MenuItem value="AC">Acre</MenuItem>
+                                    <MenuItem value="AP">Amapá</MenuItem>
+                                    <MenuItem value="AM">Amazonas</MenuItem>
+                                    <MenuItem value="PA">Pará</MenuItem>
+                                    <MenuItem value="RO">Rondônia</MenuItem>
+                                    <MenuItem value="RR">Roraima</MenuItem>
+                                    <MenuItem value="TO">Tocantins</MenuItem>
                                     
                                  <ListSubheader>Nordeste</ListSubheader>
-                                    <MenuItem value="Alagoas">Alagoas</MenuItem>
-                                    <MenuItem value="Bahia">Bahia</MenuItem>
-                                    <MenuItem value="Ceará">Ceará</MenuItem>
-                                    <MenuItem value="Maranhão">Maranhão</MenuItem>
-                                    <MenuItem value="Paraíba">Paraíba</MenuItem>
-                                    <MenuItem value="Pernambuco">Pernambuco</MenuItem>
-                                    <MenuItem value="Piauí">Piauí</MenuItem>
-                                    <MenuItem value="Rio Grande do Norte">Rio Grande do Norte</MenuItem>
-                                    <MenuItem value="Sergipe">Sergipe</MenuItem>
+                                    <MenuItem value="AL">Alagoas</MenuItem>
+                                    <MenuItem value="BA">Bahia</MenuItem>
+                                    <MenuItem value="CE">Ceará</MenuItem>
+                                    <MenuItem value="MA">Maranhão</MenuItem>
+                                    <MenuItem value="PB">Paraíba</MenuItem>
+                                    <MenuItem value="PE">Pernambuco</MenuItem>
+                                    <MenuItem value="PI">Piauí</MenuItem>
+                                    <MenuItem value="RN">Rio Grande do Norte</MenuItem>
+                                    <MenuItem value="SE">Sergipe</MenuItem>
 
                                  <ListSubheader>Centro-Oeste</ListSubheader>
-                                    <MenuItem value="Sergipe">Distrito Federal</MenuItem>
-                                    <MenuItem value="Goiás">Goiás</MenuItem>
-                                    <MenuItem value="Mato Grosso">Mato Grosso</MenuItem>
-                                    <MenuItem value="Mato Grosso do Sul">Mato Grosso do Sul</MenuItem>
+                                    <MenuItem value="DF">Distrito Federal</MenuItem>
+                                    <MenuItem value="GO">Goiás</MenuItem>
+                                    <MenuItem value="MT">Mato Grosso</MenuItem>
+                                    <MenuItem value="MS">Mato Grosso do Sul</MenuItem>
 
                                  <ListSubheader>Sudeste</ListSubheader>
-                                    <MenuItem value="Espírito Santo">Espírito Santo</MenuItem>
-                                    <MenuItem value="Minas Gerais">Minas Gerais</MenuItem>
-                                    <MenuItem value="Rio de Janeiro">Rio de Janeiro</MenuItem>
-                                    <MenuItem value="São Paulo">São Paulo</MenuItem>
+                                    <MenuItem value="ES">Espírito Santo</MenuItem>
+                                    <MenuItem value="MG">Minas Gerais</MenuItem>
+                                    <MenuItem value="RJ">Rio de Janeiro</MenuItem>
+                                    <MenuItem value="SP">São Paulo</MenuItem>
 
                                  <ListSubheader>Sul</ListSubheader>
-                                    <MenuItem value="Paraná">Paraná</MenuItem>
-                                    <MenuItem value="Rio Grande do Sul">Rio Grande do Sul</MenuItem>
-                                    <MenuItem value="Santa Catarina">Santa Catarina</MenuItem>
+                                    <MenuItem value="PR">Paraná</MenuItem>
+                                    <MenuItem value="RS">Rio Grande do Sul</MenuItem>
+                                    <MenuItem value="SC">Santa Catarina</MenuItem>
                               </Select>
                            </FormControl>
 
-                           <TextField name="naturalidade_municipio" label="Municipio" value={formNovoPaciente.naturalidade_municipio} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="naturalidade_municipio" label="Municipio" value={formNovoPaciente.naturalidade_municipio} required variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
                               
                         <hr/>
 
                         <span className="h4 text-success subtitle">Endereço atual</span>
                         <div className="grid grid_2">
-                           <PatternFormat name="cep" label="CEP" value={formNovoPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={handleChangeCEP}/>
-                           <TextField name="logradouro" value={formNovoPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
-                           <PatternFormat name="numero" label="Número" value={formNovoPaciente.numero} format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <PatternFormat name="cep" required label="CEP" value={formNovoPaciente.cep} variant="outlined" format="#####-###" mask=" " customInput={TextField}  onChange={handleChangeCEP}/>
+                           <TextField name="logradouro" required value={formNovoPaciente.logradouro} variant="outlined" onChange={(e) => handleFormChange(e)} label="Logradouro"/>
+                           <PatternFormat name="numero" required label="Número" value={formNovoPaciente.numero} format={(formNovoPaciente.numero || "").replace(/\D/g, '').length > 3 ? "#.###" : "###"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <div className="grid grid_3">
@@ -287,38 +358,141 @@ function Agente_cadUsuario() {
                         </div>
 
                         <div className="grid grid_2">
-                           <TextField name="bairro" readOnly value={formNovoPaciente.bairro} variant="outlined" onChange={handleChangeCEP} label="Bairro"/>
-                           <TextField name="cidade" readOnly value={formNovoPaciente.cidade} variant="outlined" onChange={handleChangeCEP} label="Município"/>
-                           <TextField name="estado" readOnly value={formNovoPaciente.estado} variant="outlined" onChange={handleChangeCEP} label="Estado"/>
+                           <TextField name="bairro" readOnly required value={formNovoPaciente.bairro} variant="outlined" onChange={handleChangeCEP} label="Bairro"/>
+                           <TextField name="cidade" readOnly required value={formNovoPaciente.cidade} variant="outlined" onChange={handleChangeCEP} label="Município"/>
+                           <TextField name="estado" readOnly required value={formNovoPaciente.estado} variant="outlined" onChange={handleChangeCEP} label="Estado"/>
+                        </div>
+
+                        <div className="grid grid_2">
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoImovel">Tipo de imóvel</InputLabel>
+                              <Select className="select-agente_cadUsuario" name="tipo_imovel" value={formNovoPaciente.tipo_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoImovel" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="1">Casa</MenuItem>
+                                 <MenuItem value="2">Apartamento</MenuItem>
+                                 <MenuItem value="3">Comercial</MenuItem>
+                                 <MenuItem value="4">Terreno</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoMaterialImovel">Material do imóvel</InputLabel>
+                              <Select className="select-agente_cadUsuario" name="tipo_material_imovel" value={formNovoPaciente.tipo_material_imovel} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoMaterialImovel" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="1">Alvenaria</MenuItem>
+                                 <MenuItem value="2">Madeira</MenuItem>
+                                 <MenuItem value="3">Misto</MenuItem>
+                                 <MenuItem value="4">Pré-fabricado</MenuItem>
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <InputLabel id="selectTipoAnimal">Possui animais domésticos?</InputLabel>
+                              <Select className="select-agente_cadUsuario" name="tipo_animal" value={formNovoPaciente.tipo_animal} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoAnimal" >
+                                 <MenuItem hidden selected value>Selecione..</MenuItem>
+                                 <MenuItem value="null">Não possui</MenuItem>
+                                 <MenuItem value="1">Cachorro</MenuItem>
+                                 <MenuItem value="2">Gato</MenuItem>
+                                 <MenuItem value="3">Pássaro</MenuItem>
+                                 <MenuItem value="4">Outros</MenuItem>
+                              </Select>
+                           </FormControl>
                         </div>
 
                         <hr/>
-
 
                         <span className="h4 text-success subtitle">Contato</span>
                         <div className="grid grid_1">
-                           <PatternFormat name="num_telefone" label="Telefone" value={formNovoPaciente.num_telefone} format={(formNovoPaciente.num_telefone || "").replace(/\D/g, '').length > 10 ? "(##) # ####-####" : "(##) ####-####"} mask=" " customInput={TextField} variant="outlined" onChange={(e) => handleFormChange(e)}/>
-                           <TextField name="email" label="Email" value={formNovoPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <PatternFormat 
+                              name="telefone" 
+                              required
+                              label="Telefone" 
+                              value={formNovoPaciente.telefone} 
+                              format={
+                                 (formNovoPaciente.telefone || "").replace(/\D/g, '')[2] === '9' ? "(##) # ####-####"  : "(##) ####-####"}
+                              mask=" " 
+                              customInput={TextField} 
+                              variant="outlined" 
+                              onValueChange={(values) => { 
+                                 handleFormChange({ target: { name: 'telefone', value: values.value }})
+                              }}
+                           />
+
+                           <TextField required name="email" label="Email" value={formNovoPaciente.email} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                         </div>
 
                         <hr/>
 
-
                         <span className="h4 text-success subtitle">Profissão e Escolaridade</span>
-                                 {/* Revisar os VALUES daqui pra baixo */}
-                        <div className="grid grid_2">
-                           {/* <Form.Label>Ocupação</Form.Label> {/* pegar da CBO */}
-                           {/* <Form.Control disabled name="profissao" value={formNovoPaciente.profissao} onChange={(e) => handleFormChange(e)} type='text' placeholder='Ocupação'/> */}
-                           
-                           <Form.Label>CBO</Form.Label>
-                           <Form.Control name="cbo" maxLength={4} value={formNovoPaciente.cbo} onChange={(e) => handleFormChange(e)} type='text' placeholder='Código' className="compact-input"/>
-                           <Form.Control name="cbo_descricao" value={formNovoPaciente.cbo_descricao} onChange={(e) => handleFormChange(e)} type='text' placeholder='Descrição da Atividade'/>
-                        </div><br />
+                        <div className="grid grid_1">
+                           <FormControl variant="outlined">
+                              <InputLabel id="selectCBO">Categoria da Ocupação (Opcional)</InputLabel>
+                              <Select defaultValue="0" className="select-agente_cadUsuario" name="escolaridade" value={categoriaSelecionadaCBO} variant="outlined" onChange={(e) => setCategoriaSelecionadaCBO(e.target.value)} labelId="selectCBO">
+                                 <MenuItem disabled value="0">Selecione a categoria..</MenuItem>
+                                 <MenuItem value="">Todas as categoria</MenuItem>
+                                 {categorias.map((cat) => (
+                                    <MenuItem key={cat} value={cat}>
+                                       {cat}
+                                    </MenuItem>
+                                 ))}
+                              </Select>
+                           </FormControl>
+
+                           <FormControl variant="outlined" required>
+                              <Autocomplete
+                                 id="cbo-autocomplete"
+                                 className="form-autocompleteCBO"
+                                 freeSolo
+                                 disableClearable
+                                 options={resultados}
+                                 inputValue={buscaCBO}
+                                 value={value}
+                                 filterOptions={(items) => items} 
+                                 onInputChange={(event, newInputValue) => {setBuscaCBO(newInputValue)}}
+                                 onChange={(event, newValue) => {setValue(newValue)}}
+                                 noOptionsText={buscaCBO.length < 3 ? "Digite pelo menos 3 caracteres..." : "Nenhum CBO encontrado."}
+                                 getOptionLabel={(option) => {
+                                    if (typeof option === 'string') return option;
+                                    return `${option.cbo2002ocupacao} - ${option.cbo_descricao}`;
+                                 }}
+                                 renderOption={(props, option) => {
+                                    const { key, ...otherProps } = props;
+                                    return (
+                                       <li key={key} {...otherProps} style={{ display: 'block'}}>
+                                          <div className="form-autocomplete-li" >
+                                             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '0.8rem', color: '#666' }}>
+                                                <span className="category-label">{option.desc_grande_grupo}</span>
+                                             </div>
+                                             <div style={{ display: "flex", fontWeight: '500'}} className="form-autocomplete-badge">
+                                                <span className="form-autocomplete-badge-cod" style={{ marginRight: '5px' }}>{option.cbo2002ocupacao}</span>
+                                                <span className="form-autocomplete-badge-desc">{option.cbo_descricao}</span>
+                                             </div>
+                                          </div>
+                                       </li>
+                                    );
+                                 }}
+                                 
+                                 renderInput={(params) => (
+                                    <TextField
+                                    {...params}
+                                    label="Ocupação ou Código"
+                                    variant="outlined"
+                                    slotProps={{
+                                       input: {
+                                          ...params.InputProps,
+                                          type: 'search',
+                                       },
+                                    }}
+                                    />
+                                 )}
+                              />
+                           </FormControl>
+                        </div>
 
                         <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEscolaridade">Escolaridade</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="escolaridade" value={formNovoPaciente.escolaridade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEscolaridade">
+                              <Select className="select-agente_cadUsuario" name="escolaridade" value={formNovoPaciente.escolaridade} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEscolaridade">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Não frequentou/Não sabe">Não frequentou/Não sabe</MenuItem>
                                  <MenuItem value="Ensino Infantil Incompleto">Ensino Infantil Incompleto</MenuItem>
@@ -332,11 +506,11 @@ function Agente_cadUsuario() {
                               </Select>
                            </FormControl>
 
-                           <TextField name="nome_instituicao" label="Instituição de Ensino" value={formNovoPaciente.nome_instituicao} type="email" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField required name="nome_instituicao" label="Instituição de Ensino" value={formNovoPaciente.nome_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)}/>
                            
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectTipoInstituicao">Tipo de Instituição</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
+                              <Select className="select-agente_cadUsuario" name="tipo_instituicao" value={formNovoPaciente.tipo_instituicao} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectTipoInstituicao">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Escola Pública">Escola Pública</MenuItem>
                                  <MenuItem value="Escola Particular">Escola Particular</MenuItem>
@@ -348,10 +522,10 @@ function Agente_cadUsuario() {
                            </FormControl>
                         </div>
 
-                        <div className="grid grid_2 py-3">
+                        <div className="grid grid_2">
                            <FormControl variant="outlined" required>
                               <InputLabel id="selectEstadoClinico">Estado Clínico</InputLabel>
-                              <Select className="select-agente_CadAltUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
+                              <Select className="select-agente_cadUsuario" name="estado_clinico" value={formNovoPaciente.estado_clinico} variant="outlined" onChange={(e) => handleFormChange(e)} labelId="selectEstadoClinico">
                                  <MenuItem hidden selected value>Selecione..</MenuItem>
                                  <MenuItem value="Estável">Estável</MenuItem>
                                  <MenuItem value="Instável">Instável</MenuItem>
@@ -364,33 +538,34 @@ function Agente_cadUsuario() {
                               </Select>
                            </FormControl>
 
-                           <TextField name="responsavel_legal" label="Responsável Legal" value={formNovoPaciente.responsavel_legal} type="text" variant="outlined" onChange={(e) => handleFormChange(e)}/>
+                           <TextField name="responsavel_legal" label="Responsável Legal (se menor de 18 anos)" value={formNovoPaciente.responsavel_legal} type="text" variant="outlined" onChange={(e) => handleFormChange(e)}/>
                            
-                           <div className="grid grid_2">
-                              <InputLabel id="switchLeitura">Saber ler?</InputLabel>
-                              <Switch name="leitura" checked={formNovoPaciente.leitura} required id="switchLeitura" onChange={(event) => setFormNovoPaciente(event.target.checked)}/>
-
-                              <InputLabel id="switchEscrever">Saber escrever?</InputLabel>
-                              <Switch name="escrita" checked={formNovoPaciente.escrita} required id="switchEscrever" onChange={(e) => handleFormChange(e)}/>
+                           <div className=" d-flex justify-content-around">
+                              <div className="d-flex gap-5">
+                                 <div>
+                                    <InputLabel id="switchLeitura">Saber ler?</InputLabel>
+                                    <Switch name="leitura" checked={formNovoPaciente.leitura} required id="switchLeitura" onChange={handleFormChange}/>
+                                 </div>
+                                 <div>
+                                    <InputLabel id="switchEscrever">Saber escrever?</InputLabel>
+                                    <Switch name="escrita" checked={formNovoPaciente.escrita} required id="switchEscrever" onChange={handleFormChange}/>
+                                 </div>
+                              </div>
                            </div>
                         </div>
 
-                        <br/><hr/>
+                        <hr/>
                      </form>
                   </div>
                   
                   {/* Botões pra voltar pra tela inicial/realizar cadastro */}
-                  <div className="form-button">
+                  <div className="form-buttons">
                      <button className="btn btn-light border-dark border-opacity-75 px-4 py-2" onClick={() => {navigate('/Agente_home')}}>Voltar pra tela inicial</button>
                      <button form="form-novo_paciente-agente" className="btn btn-light border-dark border-opacity-75 px-4 py-2">Realizar cadastro</button>
-                  </div>
-
-                  <div className="form-buttons">
-                     <Button variant="outline-success" onClick={() => {navigate('/Agente_home')}}>Voltar pra tela inicial</Button>
-                     <div style={{display: "flex", gap: "20px"}}>
+                     {/* <div style={{display: "flex", gap: "20px"}}>
                         {modoEdicao === false ? <Button variant="outline-success" onClick={() => {''}}>Cancelar</Button> : ""}
                         <Button variant="outline-success" onClick={() => setModoEdicao(!modoEdicao)}>{modoEdicao === false ? "Salvar alterações" : "Alterar Cadastro"}</Button>
-                     </div>
+                     </div> */}
                   </div>
                </div>
             </div>
