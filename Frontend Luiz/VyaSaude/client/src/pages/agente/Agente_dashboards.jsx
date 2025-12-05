@@ -1,161 +1,264 @@
-import "./Agente.css"
-import Header from "../../components/Header/"
-import Sidenav from "../../components/Sidenav/Sidenav_agente/"
-import ButtonBack from "../../components/ButtonBack/Index"
-import { useNavigate } from "react-router-dom";
+import "./Agente_dashboards.css";
+import Header from "../../components/Header/";
+import Sidenav from "../../components/Sidenav/Sidenav_agente/";
+import { Link } from "react-router-dom";
+import ButtonBack from "../../components/ButtonBack/Index";
 import Breadcrumb from "../../components/Breadcrumb/Index.jsx";
 import NavBar from "../../components/NavBar/Index.jsx";
-import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
-import AddUserMale from '../../components/Sidenav/iconsSideBar/Add User Male.png';
-import query from '../../components/Sidenav/iconsSideBar/query.png';
-import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { GoReply } from "react-icons/go";
-
+import HomeAddress from '../../components/Sidenav/iconsSideBar/Home Address.png';
+import UserManagerIcon from '../../components/Sidenav/iconsSideBar/UserManagerIcon.png';
+import query from '../../components/Sidenav/iconsSideBar/query.png';
+import dashIcon from '../../components/Sidenav/iconsSideBar/dashIcon.png';
+import SmallBarChart from '../../components/SmallBarChart/SmallBarChart.jsx';
+import zoom from '../../../public/zoom.svg';
+import close from '../../../public/close.svg';
 
 function Agente_dashboards() {
-   const navigate = useNavigate();
-
-   const [patients, setPatients] = useState([]);
+   const [usuario, setUsuario] = useState(null);
    const [loading, setLoading] = useState(true);
+   const [error, setError] = useState(null);
+   const [agente, setAgente] = useState(null);
+   const [pacientes, setPacientes] = useState([]);
+   const [visitas, setVisitas] = useState([]);
+   const [periodo, setPeriodo] = useState('month'); // 'week' | 'month' | 'year'
 
    useEffect(() => {
       let mounted = true;
-      async function load() {
-         try {
-            const res = await api.get('/paciente');
-            if (!mounted) return;
-            setPatients(Array.isArray(res.data) ? res.data : []);
-         } catch (err) {
-            console.error('Erro ao buscar pacientes:', err);
-            setPatients([]);
-         } finally {
-            if (mounted) setLoading(false);
+      const fetchAllData = async () => {
+         setLoading(true);
+         let dataError = null;
+         
+         const results = await Promise.allSettled([
+            api.get('/login/me'),
+            api.get('/agente/perfil'),
+            api.get('/paciente'),
+            api.get('/registro')
+         ]);
+
+         if (!mounted) return;
+
+         const [userResult, agenteResult, pacientesResult, visitasResult] = results;
+
+         if (userResult.status === 'fulfilled') {
+            setUsuario(userResult.value.data);
+         } else {
+            console.error('Erro ao buscar usuário:', userResult.reason);
+            dataError = 'Não foi possível carregar os dados do seu usuário.';
          }
-      }
-      load();
+
+         if (agenteResult.status === 'fulfilled') {
+            setAgente(agenteResult.value.data.response || agenteResult.value.data);
+         } else {
+            console.error('Erro ao buscar perfil do agente:', agenteResult.reason);
+            dataError = dataError || 'Não foi possível carregar seu perfil de agente.';
+         }
+
+         if (pacientesResult.status === 'fulfilled') {
+            const pacientesData = pacientesResult.value.data.response || pacientesResult.value.data || [];
+            setPacientes(Array.isArray(pacientesData) ? pacientesData : []);
+         } else {
+            console.error('Erro ao buscar pacientes:', pacientesResult.reason);
+            setPacientes([]); 
+         }
+
+         if (visitasResult.status === 'fulfilled') {
+            const visitasData = visitasResult.value.data.response || visitasResult.value.data || [];
+            setVisitas(Array.isArray(visitasData) ? visitasData : []);
+         } else {
+            console.error('Erro ao buscar visitas:', visitasResult.reason);
+            setVisitas([]);
+         }
+
+         setError(dataError);
+         setLoading(false);
+      };
+
+      fetchAllData();
       return () => { mounted = false };
    }, []);
+   
+   const exportDashboardToPDF = () => {
+      const el = document.getElementById('dashboard-printable');
+      if (!el) return alert('Não foi possível encontrar o conteúdo para exportar.');
 
-   const totalPatients = patients.length;
-
-   const illnessCounts = patients.reduce((acc, p) => {
-      const key = (p.estado_clinico || 'Não informado').trim() || 'Não informado';
-      acc[key] = (acc[key] || 0) + 1;
-      return acc;
-   }, {});
-
-   const topIllnesses = Object.entries(illnessCounts)
-      .sort((a,b) => b[1] - a[1])
-      .slice(0,4);
-
-   // Observação: campo de vacinação removido — não mais exibido neste dashboard
-
-   const escolaridadeCounts = patients.reduce((acc, p) => {
-      const key = (p.escolaridade || 'Não informado').trim() || 'Não informado';
-      acc[key] = (acc[key] || 0) + 1;
-      return acc;
-   }, {});
-
-   const escolaridadeList = Object.entries(escolaridadeCounts).sort((a,b) => b[1] - a[1]);
-
-   function exportDashboardToPDF() {
-      const el = document.getElementById('agente-dashboard');
-      if (!el) return window.print();
-      const win = window.open('', '_blank');
-      win.document.write(`<!doctype html><html><head><title>Dashboard Agente</title>`);
-      // copiar estilos mínimos
+      const newWin = window.open('', '_blank', 'width=1000,height=800');
       const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style')).map(n => n.outerHTML).join('\n');
-      win.document.write(styles);
-      win.document.write('</head><body>');
-      win.document.write(el.innerHTML);
-      win.document.write('</body></html>');
-      win.document.close();
-      win.focus();
-      setTimeout(() => { win.print(); win.close(); }, 500);
+      const printCSS = `
+         <style>
+            @page { size: auto; margin: 20mm; }
+            body { font-family: Arial, Helvetica, sans-serif; background: #fff; color: #111; }
+            .print-container { max-width: 900px; margin: 0 auto; }
+            .logo-print { display:block; margin: 10px auto 18px auto; width: 160px; }
+            .boxSimpleInfos { box-shadow: none; border-radius: 8px; border: 1px solid #ddd; }
+         </style>
+      `;
+      const logoHtml = `<img src="/Logo.png" class="logo-print" alt="Logo"/>`;
+      
+      newWin.document.write(`<!doctype html><html><head><title>Dashboard do Agente - Relatórios</title>${styles}${printCSS}</head><body><div class="print-container">${logoHtml}${el.innerHTML}</div></body></html>`);
+      newWin.document.close();
+      newWin.focus();
+      setTimeout(() => { newWin.print(); }, 600);
    }
+
+   const getFilteredPacientes = () => {
+      const now = new Date();
+      let startDate;
+
+      if (periodo === 'week') {
+         startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6);
+      } else if (periodo === 'month') {
+         startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+      } else { // year
+         startDate = new Date(now.getFullYear(), 0, 1);
+      }
+
+      return pacientes.filter(p => {
+         const createdAt = new Date(p.createdAt || p.data_criacao);
+         return createdAt >= startDate;
+      });
+   };
+
+   const renderChart = () => {
+      const now = new Date();
+      const filteredPacientes = getFilteredPacientes();
+
+      if (periodo === 'week') {
+         const days = Array.from({ length: 7 }).map((_, i) => {
+            const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+            return {
+               label: d.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit' }),
+               date: d.setHours(0,0,0,0)
+            };
+         }).reverse();
+
+         const counts = days.map(day => filteredPacientes.filter(p => new Date(p.createdAt || p.data_criacao).setHours(0,0,0,0) === day.date).length);
+         const labels = days.map(d => d.label);
+         return <SmallBarChart labels={labels} data={counts} />;
+      }
+
+      if (periodo === 'month') {
+         const weeks = Array.from({length: 4}).map((_, i) => `Semana ${i+1}`);
+         const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+         const counts = weeks.map((_, i) => {
+            const start = new Date(monthStart.getTime() + (i * 7 * 24 * 60 * 60 * 1000));
+            const end = new Date(start.getTime() + (6 * 24 * 60 * 60 * 1000));
+            return filteredPacientes.filter(p => {
+               const d = new Date(p.createdAt || p.data_criacao);
+               return d >= start && d <= end;
+            }).length;
+         });
+         return <SmallBarChart labels={weeks} data={counts} />;
+      }
+      
+      // year
+      const months = Array.from({ length: 12 }).map((_, i) => new Date(now.getFullYear(), i, 1).toLocaleString('pt-BR', { month: 'short' }));
+      const counts = months.map((_, i) => filteredPacientes.filter(p => new Date(p.createdAt || p.data_criacao).getMonth() === i).length);
+      return <SmallBarChart labels={months} data={counts} />;
+   };
+
+   // Métricas para os boxes
+   const totalPacientes = pacientes.length;
+   const visitasMesCorrente = visitas.filter(v => new Date(v.data_visita || v.createdAt).getMonth() === new Date().getMonth()).length;
+   const imoveisVisitados = new Set(visitas.map(v => v.enderecoId || v.endereco_id)).size;
+   const focosDengue = visitas.filter(v => v.foco_dengue === true).length;
+   const imoveisFechados = visitas.filter(v => v.situacao_imovel === 'fechado').length;
 
    return(
       <div className="app">
          <Header/>
          <Sidenav/>
          <Breadcrumb homeIcon={<img src={HomeAddress} alt="Home" className="breadcrumb-home-icon" />}
-                  items={[
-                     { label: 'Home', href: '/Agente_home' },
-                     { label: 'Dashboards', href: '/Agente_dashboards' }
-                     ]} />
-         <NavBar items={[
+            items={[
+               { label: 'Home', href: '/Agente_home' },
+               { label: 'Relatórios', href: '/Agente_dashboards' }]
+            }
+         />
+         <NavBar items={[ 
             { label: 'Home', href: '/agente_home', icon: HomeAddress },
-            { label: 'Pacientes', href: '/Agente_home-usuario', icon: AddUserMale },
-            { label: 'Agenda', href: '/Agente_hist-visitas', icon: query },
-            { label: 'Dash', href: '/Agente_dashboards', icon: dashIcon }
+            { label: 'Perfil', href: '/agente_perfil', icon: UserManagerIcon },
+            { label: 'Visitas', href: '/agente_hist-visitas', icon: query },
+            { label: 'Dash', href: '/agente_dashboards', icon: dashIcon }
          ]} />
 
-         <main className="content-home" style={{position: "relative"}}>
+         <main className="content-home" style={{position: "relative", padding: 20}}>
+            <Link to="/Agente_home" className="backButton">
+               <ButtonBack />
+            </Link>
 
-            <div className="title-pages">
-               <GoReply onClick={() => navigate(-1)}/>
-               <h1 className="align-self-center h2 px-5">Dashboards</h1>
+            <div className="title_Home" style={{marginBottom: 16}}>
+               <h1><b>Relatórios</b></h1>
+               <p style={{margin: 0, color: '#666'}}>Visão geral das suas atividades e pacientes.</p>
             </div>
 
-            <div id="agente-dashboard" className="dashboard-grid-container">
-               <div className="card small">
-                  <h3>Total de pacientes</h3>
-                  <p className="big-number">{loading ? '...' : totalPatients}</p>
-               </div>
+            {loading && <div style={{ textAlign: 'center', padding: '50px' }}>Carregando informações...</div>}
 
-               <div className="card">
-                  <h3>Principais enfermidades (top 4)</h3>
-                  {loading ? <p>Carregando...</p> : (
-                     topIllnesses.length ? (
-                        <div className="chart-vertical">
-                           {topIllnesses.map(([name, count], idx) => {
-                              const percent = totalPatients ? Math.round((count/totalPatients)*100) : 0;
-                              return (
-                                 <div className="chart-row" key={idx}>
-                                    <div className="chart-label">{name}</div>
-                                    <div className="chart-bar-outer">
-                                       <div className="chart-bar-inner" style={{width: `${percent}%`}} />
-                                    </div>
-                                    <div className="chart-value">{count} ({percent}%)</div>
-                                 </div>
-                              )
-                           })}
+            {!loading && (
+               <div id="dashboard-printable">
+                  <div style={{display: 'flex', justifyContent: 'center'}}>
+                     <div style={{width: '100%', maxWidth: 900, background: '#fff', padding: 20, borderRadius: 8, boxShadow: '0 1px 6px rgba(0,0,0,.08)'}}>
+                        
+                        
+                        <h2 style={{marginTop: 0}}>Informações do Usuário</h2>
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, borderBottom: '1px solid #eee', paddingBottom: 16, marginBottom: 16}}>
+                           <div>
+                              <p style={{margin: '6px 0'}}><strong>Nome:</strong> {agente?.nome ?? usuario?.nome ?? 'Não informado'}</p>
+                              <p style={{margin: '6px 0'}}><strong>E-mail:</strong> {agente?.email ?? usuario?.email ?? 'Não informado'}</p>
+                              <p style={{margin: '6px 0'}}><strong>Perfil:</strong> <span style={{textTransform: 'capitalize'}}>{usuario?.perfil ?? 'Não informado'}</span></p>
+                           </div>
+                           <div>
+                              <p style={{margin: '6px 0'}}><strong>CPF:</strong> {agente?.cpf ?? usuario?.cpf ?? 'Não informado'}</p>
+                              <p style={{margin: '6px 0'}}><strong>Telefone:</strong> {agente?.num_telefone ?? 'Não informado'}</p>
+                           </div>
                         </div>
-                     ) : <p>Nenhuma informação</p>
-                  )}
-               </div>
 
-               {/* Bloco de Vacinação removido conforme solicitado */}
-
-               <div className="card">
-                  <h3>Escolaridade</h3>
-                  {loading ? <p>Carregando...</p> : (
-                     escolaridadeList.length ? (
-                        <div className="chart-horizontal">
-                           {escolaridadeList.map(([name, count], idx) => {
-                              const percent = totalPatients ? Math.round((count/totalPatients)*100) : 0;
-                              return (
-                                 <div className="chart-row-h" key={idx}>
-                                    <div className="chart-label-h">{name}</div>
-                                    <div className="chart-bar-outer-h">
-                                       <div className="chart-bar-inner-h" style={{width: `${percent}%`}} />
-                                    </div>
-                                    <div className="chart-value-h">{percent}%</div>
-                                 </div>
-                              )
-                           })}
+                        <div style={{display:'flex', gap:16, marginTop:12, flexWrap:'wrap', alignItems:'stretch' }}>
+                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                              <div className="headerLine"><h5><b>Pacientes Cadastrados</b></h5><img src={UserManagerIcon} className="headerImage" /></div>
+                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{totalPacientes}</div><div style={{color:'#666', marginTop:6}}>Total de pacientes vinculados</div></div>
+                           </div>
+                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                              <div className="headerLine"><h5><b>Visitas no Mês</b></h5><img src={query} className="headerImage" /></div>
+                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{visitasMesCorrente}</div><div style={{color:'#666', marginTop:6}}>Visitas realizadas este mês</div></div>
+                           </div>
+                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                              <div className="headerLine"><h5><b>Imóveis Cobertos</b></h5><img src={HomeAddress} className="headerImage" /></div>
+                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisVisitados}</div><div style={{color:'#666', marginTop:6}}>Imóveis únicos visitados</div></div>
+                           </div>
+                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                              <div className="headerLine"><h5><b>Focos de Dengue</b></h5><img src={zoom} className="headerImage" /></div>
+                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{focosDengue}</div><div style={{color:'#666', marginTop:6}}>Focos encontrados no período</div></div>
+                           </div>
+                           <div className="boxSimpleInfos" style={{flex: 1, minWidth: 200}}>
+                              <div className="headerLine"><h5><b>Imóveis Fechados</b></h5><img src={close} className="headerImage" /></div>
+                              <div className="mainLine" style={{padding:12}}><div style={{fontSize:22, fontWeight:800}}>{imoveisFechados}</div><div style={{color:'#666', marginTop:6}}>Visitas não realizadas</div></div>
+                           </div>
                         </div>
-                     ) : <p>Nenhuma informação</p>
-                  )}
+
+                        <hr style={{margin: '20px 0'}} />
+
+                        <div>
+                           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                              <h4 style={{marginBottom:8}}>Novos Pacientes Cadastrados</h4>
+                              <div style={{display:'flex', gap:8, alignItems:'center'}}>
+                                 <span style={{fontSize:12, color:'#666', marginRight:6}}>Período:</span>
+                                 <button onClick={() => setPeriodo('week')} className={periodo ==='week' ? 'periodBtn active' : 'periodBtn'}>Nesta Semana</button>
+                                 <button onClick={() => setPeriodo('month')} className={periodo ==='month' ? 'periodBtn active' : 'periodBtn'}>Neste Mês</button>
+                                 <button onClick={() => setPeriodo('year')} className={periodo ==='year' ? 'periodBtn active' : 'periodBtn'}>Neste Ano</button>
+                              </div>
+                           </div>
+                           {renderChart()}
+                        </div>
+                     </div>
+                  </div>
+                  <div style={{display: 'flex', justifyContent: 'center', marginTop: 16}}>
+                     <button className="exportBtn" onClick={exportDashboardToPDF}>
+                        Exportar para PDF
+                     </button>
+                  </div>
                </div>
-            </div>
-
-            <div style={{marginTop: 12}}>
-               <button className="exportBtn" onClick={exportDashboardToPDF}>Exportar PDF</button>
-            </div>
-
+            )}
          </main>
       </div>
    )
