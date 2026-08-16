@@ -1,0 +1,36 @@
+.wipSection {
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 10px;
+  
+  border-radius: 25px;
+  box-shadow: 0px 8px 37px -14px #0000003d;
+   -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
+   -moz-box-shadow: 0px 8px 37px -14px #0000003d;
+
+  padding: 80px 70px;
+  text-align: center;
+}
+
+.wipIcon {
+    width: 70px; /* Ajuste o tamanho do ícone conforme necessário */
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.wipTitle {
+  font-weight: bold;
+}
+
+.wipSubtitle {
+    font-size: 1rem;
+    color: #666;
+}
+
+.wipText {
+    margin-top: 15px;
+}

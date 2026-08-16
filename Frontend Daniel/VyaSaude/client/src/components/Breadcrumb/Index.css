@@ -1,0 +1,64 @@
+nav {
+   background-color: #3B653C;
+   width: 100%;
+   height: 3vh; /* solicitado: manter 3vh */
+   position: fixed; /* ficar abaixo do header fixo */
+   top: 7vh; /* header tem 7vh */
+   left: 0;
+   z-index: 900; /* abaixo do header (header z-index:1000) */
+   display: flex;
+   align-items: center;
+   padding: 0 1rem; /* padding horizontal apenas para não aumentar a altura */
+   box-sizing: border-box;
+}
+
+/* ícone de home dentro do breadcrumb (imagem) */
+.breadcrumb-home-icon {
+   height: 1.8vh;
+   width: auto;
+   vertical-align: middle;
+}
+
+/* Reset básico para a lista de breadcrumb e alinhamento */
+.breadcrumb {
+   display: flex;
+   flex-wrap: nowrap;
+   gap: 0.5rem;
+   align-items: center;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.breadcrumb-item {
+   color: #ffffff;
+   font-size: 0.95rem;
+}
+
+.breadcrumb-item a {
+   color: #ffffff;
+   text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+   text-decoration: underline;
+}
+
+/* Separador simples entre itens (não adiciona antes do primeiro) */
+.breadcrumb-item + .breadcrumb-item::before {
+   content: '/';
+   color: rgba(255,255,255,0.7);
+   margin-right: 0.5rem;
+}
+
+.breadcrumb-item.active {
+   color: white;
+}
+
+/* Torna o breadcrumb responsivo em telas pequenas */
+@media (max-width: 480px) {
+   .breadcrumb {
+      font-size: 0.85rem;
+      gap: 0.25rem;
+   }
+}

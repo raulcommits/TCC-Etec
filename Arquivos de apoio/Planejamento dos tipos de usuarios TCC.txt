@@ -1,0 +1,54 @@
+Admin:
+
+* CADASTRO, CONSULTA, ALTERAR e REMOVER(soft): Responsável do posto, Recepção, Agente e Paciente.
+* CONSULTA: Visão geral dos dados cadastrais inseridos usando Dashboards
+* CONSULTA: Banco de dados (representação simplificada em formato de formulário) *View Tables*
+* CONSULTA: Exames realizados/a ser realizados
+* CONSULTA: Pacientes cadastrados/alterados pela Recepção e Agentes [LOG]
+* CONSULTA: Visitas domiciliares realizadas pelos Agentes [LOG]
+__opcional: CONSULTA: Estoque de Medicamentos__
+
+----------------------------------------------------------------------------------------------------------
+Gerente do posto:
+
+* CADASTRO, CONSULTA, ALTERAR e REMOVER(soft): Agentes, Recepcionista e Pacientes
+* CONSULTA: Visão geral dos dados inseridos usando Dashboards
+* CONSULTA: Histórico de Consultas a ser realizadas/já realizadas
+* CONSULTA: Pacientes cadastrados/alterados pela Recepção e Agentes  [LOG]
+* CONSULTA: Visitas domiciliares realizadas pelos Agentes [LOG]
+__opcional: CONSULTA: Estoque de Medicamentos__
+
+
+----------------------------------------------------------------------------------------------------------
+Recepção:
+* CADASTRO, CONSULTA e ALTERAR: Dados cadastrais de Pacientes
+* CONSULTA: Histórico de Consultas a ser realizadas/já realizadas
+__opcional: CONSULTA: Estoque de Medicamentos__
+
+
+----------------------------------------------------------------------------------------------------------
+Agente:
+* CADASTRO, CONSULTA e ALTERAR: Dados cadastrais de Pacientes
+* CONSULTA: Histórico de Consultas a ser realizadas/já realizadas
+* CADASTRO: Histórico de visitas domiciliares realizadas
+* CADASTRO/ALTERAR: Dados de pacientes
+__opcional: CONSULTA: Estoque de Medicamentos__
+
+
+----------------------------------------------------------------------------------------------------------
+Paciente: (Usuário cadastrado no sistema)
+
+* CADASTRO, CONSULTA e ALTERAR: Dados cadastrais
+* CONSULTA: Histórico de Consultas a ser realizadas/já realizadas
+__opcional: CONSULTA: Estoque de Medicamentos__
+
+
+
+
+_______________________________________________  2º plano  _______________________________________________
+
+
+----------------------------------------------------------------------------------------------------------
+"Estoquista":
+* CADASTRO, CONSULTA, ALTERAR e REMOVER(soft): Estoque de Medicamentos
+

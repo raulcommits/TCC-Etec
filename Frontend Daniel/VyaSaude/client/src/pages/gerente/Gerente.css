@@ -1,0 +1,43 @@
+.admin_home_grid {
+   padding: 15px;
+}
+
+.app {
+   margin-bottom: 48vh;
+}
+
+.content-pages-gerente {
+   .form-fields {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: space-around;
+      white-space: nowrap;
+   
+      .dropDownMenu-A {
+         width: 270px;
+      }
+   }
+   .form-fields label{
+      margin: 0;
+      
+   }
+   
+   .form-fields .compact-input{
+      width: 35vw;
+   }
+   
+   .form-button {
+      display: flex;
+      justify-content: space-around;
+      margin: 0 15vw 20vw 15vw;
+   }
+   
+   .formDados.leitura {
+      padding: 15px;
+   }
+   
+   .paddingTypeUser {
+      padding: 0 10vw !important;
+   }
+}

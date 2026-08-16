@@ -1,0 +1,79 @@
+.sidenav {
+   display: flex;
+   flex-direction: column;
+   align-content: center;
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   top: 7vh;
+   width: 300px;
+   background-color: #3B653C;
+}
+
+.sidenav-content {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   width: 90%;
+   height: 100%;
+   margin: 1vh auto;
+}
+
+.sidenav-homeButton {
+   display: flex;
+   flex-direction: row;
+   width: 90%;
+   margin: 1vh auto;
+}
+
+.sidenav-group1, .sidenav-group2 {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+
+.sidenav-buttons {
+   /* display: flex;
+   align-items: center;
+   cursor: pointer;
+   white-space: nowrap; */
+
+   display: flex;
+   align-items: center;
+   height: 7vh;
+   font-size: 1rem;
+   border-radius: 8px;
+   background-color: #4C774D;
+   transition: background-color 0.2s ease;
+
+   p {
+      padding: 0;
+      margin: 0;
+   }
+}
+
+.sidenav-buttons:hover {
+  background-color: #5a8a5e;
+
+  .sideBarIcon {
+   transform: rotate(-5deg);
+  }
+}
+
+.sidenav p, .sidenav a {
+   /* display: flex; */
+   align-items: center;
+   /* justify-content: center; */
+   color:white;
+   /* height: 100%;
+   width: 100%;
+   margin: 0; */
+}
+
+.sideBarIcon {
+   height: 30px;
+   width: 30px;
+   margin: 0 15px;
+
+   transition: transform 0.1s ease-in-out;
+}

@@ -1,0 +1,16 @@
+import { EntitySchema } from "typeorm";
+
+const log_insert = new EntitySchema({
+    name: "LogInsert",
+    tableName: "log_insert",
+    columns: {
+        id_acesso: {primary: true, generated: true},
+        tipo_insert: {type: "text", nullable: false},
+        data: {type: "date", default: () => "CURRENT_TIMESTAMP"}
+    },
+    relations: {
+        usuario: {}
+    }
+});
+
+export default log_insert;

@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,800&display=swap');
+.titulosEstilo2 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+.titulosEstilo3 {
+   font-family: "Montserrat", sans-serif;
+   font-optical-sizing: auto;
+   font-weight: bolder;
+   font-style: normal;
+}
+
+body {
+   height: 100vh;
+}
+
+html {
+   height: 100vh;
+   user-select: none;
+}
+
+/* Estilização global */ 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { /* Remover setas dos inputs(Chrome, Chromium-browsers)*/ 
+   -webkit-appearance: none;
+}
+
+input[type=number] { /* Remover setas dos inputs(Firefox) */ 
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input, select{
+   height: 40px;
+   margin: 0.8vh;
+   box-shadow: 2px 2px 10px 1px #c7c7c7a6 !important;
+   border: solid #cfcfcf 1px !important;
+}
+
+button {
+   box-shadow: 1px 1px 15px 1px rgba(199, 199, 199, 0.85);
+}
+
+.title_Home {
+   justify-content: center;
+   text-align: center;
+   padding: 5vh 2vh;
+   width: 100%;
+   flex-shrink: 0;
+}
+
+#logoMore {
+   height: 50px;
+}
+
+.title-pages { /* Cabeçalho contendo botão de voltar e título da página */
+   display: flex;
+   text-align: center;
+   align-items: center;
+   padding: 3vh 0;
+   width: 100%;
+   
+   svg {
+      cursor: pointer;
+      width: 4rem;
+      height: 2rem;
+   }
+
+   h1 {
+      margin: 0;
+   }
+}
+
+.shortcutField {
+   display: flex;
+   gap: 12px;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   flex-shrink: 0;
+   
+   .shortcutClick {
+      background-color: #000000;
+      color: #fff;
+      padding: 17px 30px 0 30px;
+      
+      border: solid 3px #000000;
+      border-bottom: solid 5px #000000;
+      border-radius: 30px;
+   }
+   .shortcutClick:hover {
+      background-color: #39a742;
+   }
+}
+
+.paciente-home {
+   grid-template-columns: repeat(3, auto) !important; /* 3 colunas iguais */
+   grid-template-rows: repeat(2, auto) !important;  /* 2 linhas */
+}
+
+.gridBoxOtherOptions {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+   flex: 1;
+   overflow-y: auto;
+   
+   .gridBoxOptions_lines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+   };
+}
+
+.simpleBoxShadow {
+   background-color: #ffffff;
+   
+   padding: 50px;
+   
+   border-radius: 20px;
+   border: none;
+   
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   
+   box-shadow: 0px 8px 37px -14px #0000003d;
+   -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
+   -moz-box-shadow: 0px 8px 37px -14px #0000003d;
+}
+
+.content-login_app-css {
+   user-select: none;
+   
+   height: 100vh;
+   width: 100%;
+   
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+   background-color: #39a742;
+   background: #a7dba7;
+   background: linear-gradient(90deg, #d6f2d6 0%, #cae8ff 100%);
+}
+
+.content-body-login_app-css {
+   background-color: #ffffff;
+   border-radius: 20px;
+   padding: 50px 80px 50px 80px;
+   border: none;
+   
+   box-shadow: 0px 8px 37px -14px #0000003d;
+   -webkit-box-shadow: 0px 8px 37px -14px #0000003d;
+   -moz-box-shadow: 0px 8px 37px -14px #0000003d;
+   transition: box-shadow 0.3s ease-in-out, -webkit-box-shadow 0.3s ease-in-out, -moz-box-shadow 0.3s ease-in-out;
+}
+
+.content-home { /* Telas de Home */ 
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   margin-left: 300px;
+   margin-top: 10vh;
+   height: calc(100vh - 10vh);
+   width: calc(100vw - 300px);
+}
+
+.content-pages { /* Demais telas */ 
+   align-items: center;
+   margin-left: 300px;
+   margin-top: 10vh;
+   height: calc(100vh - 10vh);
+   left: 300px;
+   padding: 40px; /* espaço interno maior para separar do header/sidenav */
+   box-sizing: border-box;
+}
+
+.directAccessDiv {
+   margin-top: 20px;
+   display: flex;
+   gap: 10px;
+   
+   .directAccessButton {
+      background-color: #fff;
+      border-radius: 20px;
+
+      color: #b9640a;
+
+      border: solid 2px #b8b2b2;
+      border-bottom: solid 3px #b8b2b2;
+      padding: 5px 20px;
+   }
+   .directAccessButton:hover {
+      background-color: #ffe96c;
+   }
+}
+
+.etecWaterMark {
+   opacity: 0.6;
+   font-size: 15px;
+}
+
+/* Telas de home */
+
+
+.app {
+   position: relative;
+   height: calc(100vh - 10vh);
+   display: flex;
+   flex-direction: column;
+}
+
+.layout {
+   display: flex;
+   width: calc(100vw - 300px);
+   height: calc(100vh - 7vh);
+}
+
+
+.grid-container_Home {
+   display: grid;
+   justify-content: center;
+   border: solid gray 2px;
+   border-radius: 25px;
+   background-color: #d4d4d4;
+   grid-template-columns: repeat(4, auto); /* 3 colunas iguais */
+   grid-template-rows: repeat(2, auto);  /* 2 linhas */
+   gap: 50px;
+
+   width: 80%;
+   margin: 2vw;
+   /* margin: 2vw; */
+   /* padding: 5vw; */
+   max-width: 1000px;
+}
+
+.grid-container_Home p, .grid-container_Home a{
+   text-align: center;
+   padding: 0px;
+   margin: 0px;
+}
+
+
+.grid-items_Home {
+   font-size: large;
+   align-content: center;
+   cursor: pointer;
+   text-decoration: none;
+   color: rgb(0, 0, 0);
+   border: solid black 1px;
+   border-radius: 15px;
+   height: 8rem;
+   width: 8rem;
+   background-color: rgb(255, 255, 255);
+   transition: background-color 0.1s ease;
+}
+
+.grid-items_Home:hover {
+   background-color: #e4ece4;
+   color: rgb(0, 0, 0);
+}
+
+.grid-items_Home a {
+   color: rgb(0, 0, 0);
+}
+
+#logoMore {
+   height: 50px;
+}
+
+.dashboard-grid-container {
+   height: 70%;
+   width: 90%;
+   max-width: 1200px;
+
+   margin-top: 10px;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+@media (max-width: 887px) {
+   .content-home {
+      width: 99.99%;
+      margin-left: 0;
+      margin-top: 10vh;
+   }
+   .content-pages {
+      width: 99.99%;
+      margin-left: 0;
+      padding: 16px;
+   }
+   .gridBoxOtherOptions .gridBoxOptions_lines {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .paginacao {
+      bottom: 92px !important;
+      width: 100vw;
+      left: 0px;
+   }
+}
+
+@media (min-width: 888px) and (max-width: 1519px) {
+   .content-home {
+      width: 92.7%;
+      margin-left: 90px;
+      margin-top: 10vh;
+   }
+   .content-pages {
+      width: calc(100vw - 90); /* 180 -> 100 */
+      margin-left: 90px;
+      padding: 24px;
+   }
+   .gridBoxOtherOptions {
+      align-items: center;
+   }
+   .gridBoxOtherOptions .gridBoxOptions_lines {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      max-width: none;
+   }
+
+   .paginacao {
+      width: calc(100vw - 90px);
+      left: 90px;
+   }
+}
+
+@media (min-width: 1520px) {
+   .content-home {
+      width: calc(100vw - 317px);
+      margin-left: 300px;
+      margin-top: 10vh;
+   }
+   .content-pages {
+      width: calc(100vw - 300px); /* 340 -> 300 */ 
+      margin-left: 300px;
+      padding: 40px;
+   }
+
+   .paginacao {
+      width: calc(100vw - 300px);
+      left: 300px;
+   }
+}

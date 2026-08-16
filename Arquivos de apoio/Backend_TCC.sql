@@ -5,22 +5,24 @@ use vya_saude;
 #TABELAS DE CHAVE PRIMÁRIA
 select * from cbo;
 select * from zona;
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from gerente_posto;
 select * from tipo_animal;
 select * from tipo_imovel;
 select * from material_predominante;
+select * from registro_atividade;
 
 # TABELAS DE CHAVE ESTRANGEIRA INDEPENDENTES
 select * from endereco;
 select * from posto;
 
 # TABELAS DE CADASTRO
-select * from usuario order by createdAt ASC;
+select * from usuario order by data_criacao ASC;
 select * from administrador;
 select * from gerente;
 select * from agente;
 select * from recepcao;
+select * from gerente_posto;
 select * from paciente;
 select * from log_acesso;
 select * from log_login;
@@ -157,6 +159,7 @@ INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (108, 'Jard
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (109, 'Pindorama', 'Ressaca', 'Oeste');
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (110, 'Ressaca', 'Ressaca', 'Oeste');
 INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (111, 'Votorantim', 'Ressaca', 'Oeste');
+INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (112, 'Não-identificado', 'Não-identificado', 'N/D');
 
 insert into cbo(codigo, descricao) values(0101, 'Oficiais generais das forças armadas');
 insert into cbo(codigo, descricao) values(0102, 'Oficiais das forças armadas');
@@ -789,12 +792,14 @@ insert into cbo(codigo, descricao) values(9922, 'Trabalhadores operacionais de c
 insert into gerente_posto(id, nome, telefone, cargo) values
 (1, "Cristiano de Souza", "11932456723", "Administrador da UBS");
 
-insert into endereco(id, logradouro, numero, complemento, bairro, cidade, estado, cep, pais, zonaId, materialPredominanteId, tipoImovelId, tipoAnimalId) values
-(1, "Rua São Bernardo", 390, "Casa", "Jardim São Marcos", "Embu das Artes", "SP", "06814090", "Brasil", 3, 3, 1, 2);
+insert into endereco(id, logradouro, numero, complemento, bairro, cidade, estado, cep, pais, ponto_referencia, zonaId, materialPredominanteId, tipoImovelId, tipoAnimalId) values
+(1, "Rua São Bernardo", 390, "Casa", "Jardim São Marcos", "Embu das Artes", "SP", "06814090", "Brasil", null, 3, 3, 1, 2),
+(2, "Rua Marcelino Pinto Teixeira", 529, "Etec de Embu", "Gramado", "Embu das Artes", "SP", "06816000", "Brasil",  "Câmara Municipal",  15, 1, 3, null),
+(3, "Rua Marechal Izidoro Lopes", 1681, null, "Centro", "Embu das Artes", "SP", "06803480", "Brasil", "Pronto Socorro Central",  10, 1, 3, null);
 
-insert into posto(id, nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, enderecoId, gerenteId) values
-(1, "UBS São Marcos", "11934276826", "ubssaomarcos@gmail.com", "04:00 às 18:00", "UBS", 150, 1, 1),
-(2, "UBS Fátima", "1142444927", "ubsfatima@gmail.com", "04:00 às 18:00", "UBS", 150, 1, 1);
+insert into posto(id, nome_posto, telefone, email, horario_funcionamento, tipo_atendimento, capacidade, gerenteId) values
+(1, "UBS São Marcos", "11934276826", "ubssaomarcos@gmail.com", "04:00 às 18:00", "UBS", 150, 1),
+(2, "UBS Fátima", "1142444927", "ubsfatima@gmail.com", "04:00 às 18:00", "UBS", 150, 1);
 
 
 insert into usuario (cpf, nome, senha, email, tipoUsuario) values  							/* INSERT USUARIOS (um pra cada tipo)*/
@@ -810,21 +815,21 @@ insert into usuario (cpf, nome, senha, email, tipoUsuario) values  							/* INS
 /* INSERT GERENTE */
 
 
-insert into administrador(nome, cpf, data_admissao, email, telefone, postoId, cboCodigo) values 				/* INSERT ADMIN */
+insert into administrador(nome_admin, cpf, data_admissao, email, telefone, postoId, cboCodigo) values 				/* INSERT ADMIN */
 ("Admin", "12345678901", "2018-10-03", "admin@teste.com", "11983265784", 1, 1312);
 
 
-insert into agente(nome, cpf, data_admissao, email, telefone, postoId, cboCodigo) values 				/* INSERT AGENTE */
+insert into agente(nome_agente, cpf, data_admissao, email, telefone, postoId, cboCodigo) values 				/* INSERT AGENTE */
 ("Agente", "12345678903", "2018-10-03", "agente@teste.com", "11983265784", 1, 5151),
 ("José Augusto Bonifácio", "09432174312", "2018-10-03", "joseaugusto@gmail.com", "11983265783", 1, 5151);
 
 /* INSERT RECEPCAO */
 
 
-insert into paciente (id, nome, nome_social, cpf, sus, data_nascimento, genero, etnia, estado_civil, 	/* INSERT PACIENTE */
+insert into paciente (nome, nome_social, cpf, sus, data_nascimento, genero, etnia, estado_civil, 	/* INSERT PACIENTE */
 	nacionalidade, naturalidade_estado, naturalidade_municipio, filiacao_mae, filiacao_pai, num_telefone, email, escolaridade, nome_instituicao, tipo_instituicao, estado_clinico, leitura, escrita, responsavel_legal, enderecoId, agenteId, cboCodigo) values 	
-(1, "Paciente", null, "12345678905", "123456789056701", "2004/11/02", "Masculino", "Pardo", "Solteiro", "Brasileiro", "SP", "São Paulo", "Mãe", "Pai", 
+("Paciente", null, "12345678905", "123456789056701", "2004/11/02", "Masculino", "Pardo", "Solteiro", "Brasileiro", "SP", "São Paulo", "Mãe", "Pai", 
 	1140028922, "paciente@teste.com", "Ensino Médio Completo", "E.E. Embu N", "Escola Pública", "Saudável", 1, 1, "Independente", 1, 1, 2331),
 
-(2, "Raul", null, "54545454545", "123456789012345", "2004/11/02", "Masculino", "Pardo", "Solteiro", "Brasileiro", "SP", "São Paulo", "Mãe", "Pai", 
+("Raul", null, "54545454545", "123456789012345", "2004/11/02", "Masculino", "Pardo", "Solteiro", "Brasileiro", "SP", "São Paulo", "Mãe", "Pai", 
 	1140028922, "raul@teste.com", "Ensino Médio Completo", "E.E. Embu N", "Escola Pública", "Saudável", 1, 1, "Independente", 1, 1, 101);
