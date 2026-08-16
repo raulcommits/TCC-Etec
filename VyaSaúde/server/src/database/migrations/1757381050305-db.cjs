@@ -6,8 +6,8 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1756246607118 {
-    name = 'Db1756246607118'
+module.exports = class Db1757381050305 {
+    name = 'Db1757381050305'
 
     async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE \`tipo_imovel\` (\`id\` int NOT NULL, \`nome_imovel\` enum ('Casa', 'Apartamento', 'Comercial', 'Terreno') NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);

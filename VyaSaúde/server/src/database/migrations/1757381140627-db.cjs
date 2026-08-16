@@ -6,8 +6,8 @@
  * @class
  * @implements {MigrationInterface}
  */
-module.exports = class Db1756413644837 {
-    name = 'Db1756413644837'
+module.exports = class Db1757381140627 {
+    name = 'Db1757381140627'
 
     async up(queryRunner) {
         await queryRunner.query(`CREATE TABLE \`endereco\` (\`id\` int NOT NULL AUTO_INCREMENT, \`logradouro\` varchar(100) NOT NULL, \`numero\` varchar(100) NOT NULL, \`complemento\` varchar(50) NOT NULL, \`bairro\` varchar(50) NOT NULL, \`cidade\` varchar(50) NOT NULL, \`estado\` enum ('AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'PN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO') NOT NULL, \`cep\` varchar(10) NOT NULL, \`pais\` varchar(50) NOT NULL DEFAULT 'Brasil', \`ponto_referencia\` varchar(100) NULL, \`zonaId\` int NOT NULL, \`materialPredominanteId\` int NOT NULL, \`tipoImovelId\` int NOT NULL, \`tipoAnimalId\` int NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);

@@ -8,9 +8,9 @@ const usuario = new EntitySchema({
         nome: {type: "varchar", length: 50, nullable: false},
         senha: {type: "varchar", length: 14, nullable: false},
         email: {type: "varchar", length: 80, nullable: false},
-        tipoUsuario: {type: "enum", enum: ["admin", "profissional", "paciente"], nullable: false},
-        createdAt: {type: "datetime", nullable: false, default: () => "CURRENT_TIMESTAMP"},
-        deletedAt: {type: "datetime", nullable: true}
+        tipoUsuario: {type: "enum", enum: ["admin", "agente", "recepcao", "gerente", "paciente"], nullable: false},
+        data_criacao: {type: "datetime", nullable: false, default: () => "CURRENT_TIMESTAMP"},
+        data_exclusao: {type: "datetime", nullable: true}
     }
 });
 

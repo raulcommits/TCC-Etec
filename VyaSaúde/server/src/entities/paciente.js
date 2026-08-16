@@ -10,23 +10,29 @@ const paciente = new EntitySchema({
         nome: {type: "varchar", length: 70, nullable: false},
         nome_social: {type: "varchar", length: 70, nullable: true},
         data_nascimento: {type: "date", nullable: false},
-        num_telefone: {type: "varchar", length: 15, nullable: false},
-        email: {type: "varchar", length: 100, nullable: false},
-        etnia: {type: "char", length: 15, nullable: false},
         genero: {type: "char", length: 15, nullable: false},
-        escolaridade: {type: "varchar", length: 20, nullable: false},
+        etnia: {type: "char", length: 15, nullable: false},
+        estado_civil: {type: "char", length: 50, nullable: false},
         nacionalidade: {type: "char", length: 15, nullable: false},
-        naturalidade_estado: {type: "char", length: 20, nullable: false},
+        naturalidade_estado: {type: "char", length: 2, nullable: false},
         naturalidade_municipio: {type: "char", length: 25, nullable: false},
-        estado_clinico: {type: "varchar", length: 10, nullable: false},
-        responsavel_legal: {type: "varchar", length: 5, nullable: false},
-        filiacao_mae: {type: "char", length: 100, nullable: false},
-        filiacao_pai: {type: "char", length: 100, nullable: false}
-    },
+        filiacao_mae: {type: "char", length: 100, nullable: false, default: "Desconhecido"},
+        filiacao_pai: {type: "char", length: 100, nullable: false, default: "Desconhecido"},
+        telefone: {type: "varchar", length: 12, nullable: false},
+        email: {type: "varchar", length: 100, nullable: false},
+        escolaridade: {type: "varchar", length: 30, nullable: false},
+        nome_instituicao: {type: "varchar", length: 50, nullable: false},
+        tipo_instituicao: {type: "varchar", length: 50, nullable: false},
+        estado_clinico: {type: "varchar", length: 50, nullable: false},
+        leitura: {type: "boolean", default: true, nullable: false},
+        escrita: {type: "boolean", default: true, nullable: false},
+        responsavel_legal: {type: "varchar", length: 70, nullable: true},
+        inatividade: {type: "datetime", nullable: true},
+        profissao: {type: "char", length: 100, nullable: true}
+      },
     relations: {
         endereco: {type: "many-to-one", target: "Endereco", nullable: false},
-        profissional: {type: "many-to-one", target: "Profissional", nullable: false},
-        cbo: {type: "many-to-one", target: "Cbo", nullable: true}
+        agente: {type: "many-to-one", target: "Agente", nullable: true},
     }
 });
 

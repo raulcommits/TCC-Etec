@@ -2,20 +2,36 @@ import { AppDataSource }      from "../database/data-source.js";
 import { Like, IsNull }       from "typeorm";
 import express                from "express";
 import usuario                from "../entities/usuario.js";
-import { authenticate }       from "../utils/jwt.js";
 
 const route = express.Router();
 const repositorioUsuario = AppDataSource.getRepository(usuario);
 
-route.get("/", authenticate, async (request, response) => {
+route.get("/", async (request, response) => {
    const usuarios = await repositorioUsuario.find({data_exclusao: IsNull()});
    return response.status(200).send({response: usuarios});
 });
 
-route.get("/:encontrarNome", async (request, response) => {
-   const {encontrarNome} = request.params;
-   const encontrarUsuario = await repositorioUsuario.findOneBy({cpf: encontrarNome});
-   return response.status(200).send({response: encontrarUsuario});
+route.post("/verificarDados", async (request, response) => {
+   const {email, cpf} = request.body;
+
+   try {
+      const usuario = await repositorioUsuario.findOne({
+         where: [
+            {email: Like(`${email}`)},
+            {cpf: Like(`${cpf}`)}
+         ]
+      });
+
+      if (usuario) {
+         return response.status(200).send({ response: "Usuário já cadastrado no sistema." });
+      }
+      
+      return response.status(200).send({ response: "Usuário não cadastrado." });
+
+   } catch (err) {
+      console.log(err)
+      return response.status(500).send({response: "Erro ao tentar verificar os dados pra realizar o cadastro", err})
+   }
 });
 
 route.post("/", async (request, response) => {
@@ -27,8 +43,8 @@ route.post("/", async (request, response) => {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
    
-   if (nome.length < 3) {
-      return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
+   if (nome.length < 1) {
+      return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
 
    if (!email.includes("@")) {
@@ -40,7 +56,7 @@ route.post("/", async (request, response) => {
    }
 
    if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
-      return response.status(400).send({response: "O usuário deve corresponder a um dos níveis exibidos."});
+      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
    }
 
    try {
@@ -48,6 +64,7 @@ route.post("/", async (request, response) => {
       await repositorioUsuario.save(novoUsuario);
       return response.status(201).send({response: "Usuário cadastrado com sucesso."});
    } catch (err) {
+      console.log(err)
       return response.status(500).send({response: err});
    }
 });
@@ -63,8 +80,8 @@ route.put("/:cpf", async (request, response) => {
       return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
    }
 
-   if (nome.length < 3) {
-      return response.status(400).send({response: "O nome deve conter pelo menos 3 caraceteres."});
+   if (nome.length < 1) {
+      return response.status(400).send({response: "O nome deve conter pelo menos 1 caracetere."});
    }
 
    if (!email.includes("@")) {
@@ -76,27 +93,12 @@ route.put("/:cpf", async (request, response) => {
    }
 
    if (!tipos_usuario.includes(tipoUsuario.toLowerCase())) {
-      return response.status(400).send({response: "O usuário deve corresponder a um dos níveis exibidos."});
+      return response.status(400).send({response: "O usuário deve ser um dos cinco tipos: 'Admin', 'Gerente', 'Agente', 'Recepcao' ou 'Paciente'."});
    }
 
    try {
       await repositorioUsuario.update({cpf}, {nome, email, senha, tipoUsuario});
       return response.status(200).send({response: "Usuário atualizado com sucesso."});
-   } catch (err) {
-      return response.status(500).send({response: err});
-   }
-});
-
-route.delete("/:cpf", async (request, response) => {
-   const {cpf} = request.params;
-
-   if(cpf.length != 11) {
-      return response.status(400).send({response: "O CPF deve conter 11 dígitos."});
-   }
-
-   try {
-      await repositorioUsuario.update({cpf}, {data_exclusao: () => "CURRENT_TIMESTAMP"});
-      return response.status(200).send({response: "Usuário deletado com sucesso."});
    } catch (err) {
       return response.status(500).send({response: err});
    }

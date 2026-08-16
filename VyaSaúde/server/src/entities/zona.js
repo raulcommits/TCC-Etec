@@ -5,8 +5,9 @@ const zona = new EntitySchema({
     tableName: "zona",
     columns: {
         id: {primary: true, type: "int", generated: true},
-        nome_zona: {type: "enum", enum: ["Zona Norte", "Zona Sul", "Zona Leste", "Zona Oeste", "Zona Central"], nullable: false},
-        descricao: {type: "enum", enum: ["Região Norte de Embu das Artes", "Região Sul de Embu das Artes", "Região Leste de Embu das Artes", "Região Oeste de Embu das Artes", "Região Central de Embu das Artes"], nullable: false}
+        bairro: {type: "varchar", length: 35, nullable: false},
+        unidade_administrativa: {type: "varchar", length: 35, nullable: false},
+        regiao: {type: "varchar", length: 10, nullable: false}
     }
 });
 
