@@ -1,0 +1,242 @@
+/* HEADER */
+header {
+    height: 6vh;
+
+    background-color: #ffffff;
+
+    z-index: 1;
+
+    background: #5D8A5D;
+    background: linear-gradient(90deg, rgba(93, 138, 93, 1) 0%, rgba(113, 152, 184, 1) 100%);
+    /* background: #a1f0b6;
+    background: linear-gradient(90deg, rgba(161, 240, 182, 1) 0%, rgba(176, 213, 232, 1) 100%); */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logoField{
+    height: 100%;
+    width: 6vh;
+}
+#logo {
+    height: 70%;
+}
+.rightSide_header {
+    background-color: #88b2c271;
+    height: 80%;
+
+    padding: 0 10px;
+
+    border-radius: 10px;
+
+    margin-right: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.rightSide_header:hover {
+    background-color: #ffffff2d;
+}
+#perfilIcon {
+    background-color: #000000;
+
+    height: 60%;
+
+    border-radius: 20px;
+}
+
+/* UNDER HEADER */
+.underHeader {
+    background-color: #5D8A5D;
+
+    height: 4vh;
+
+    /* padding: 2vh 0; */
+    border-bottom: solid .4vh #3B653C;
+
+    font-size: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0px 10px 19px 11px rgba(0,0,0,0.1);
+}
+.field-1_underHeader {
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .homeIcon_field {
+    height: 100%;
+    width: 4vh;
+    }
+    #homeIcon {
+        height: 80%;
+    }
+    #homeIcon:hover {
+        height: 90%;
+    }
+    #arrowSide_spacer {
+        height: 40%;
+        margin: 0 7px 0 5px;
+    }
+    #a_actualGuide_underHeader {
+        text-decoration: none;
+    }
+    #actualGuide_underHeader {
+        color: #000000;
+        background-color: #98caac;
+
+        border-radius: 8px;
+        margin-right: 5px;
+
+        padding: 4px 12px;
+    }
+    #actualGuide_underHeader:hover {
+        background-color: #b2ddc3;
+    }
+    #previousGuide_underHeader {
+        color: #000000;
+        background-color: #669c7b;
+
+        border-radius: 8px;
+        margin-right: 5px;
+
+        padding: 4px 12px;
+    }
+    #previousGuide_underHeader:hover {
+        background-color: #7cb592;
+    }
+}
+
+.field-2_underHeader {
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #search {
+        /* border: none; */
+        font-size: 12px;
+        border-radius: 10px;
+        padding: 6px 12px;
+        margin: 5px 0;
+    }
+    #searchButton {
+        height: 100%;
+        width: 4vh;
+        border: none;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #searchIcon {
+        height: 60%;
+    }
+    #searchIcon:hover {
+        height: 70%;
+    }
+}
+
+/* SIDE BAR CLOSED */
+#closed {
+    background-color: #3B653C;
+
+    height: 89.7vh;
+    width: 6vh;
+
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .iconSideBarField {
+        /* background-color: #98caac; */
+
+        height: 6vh;
+        width: 6vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .iconSideBarImg {
+        height: 70%;
+    }
+    .iconSideBarImg:hover {
+        background-color: #2f5731;
+        border-radius: 10px;
+        height: 75%;
+    }
+}
+
+/* SIDE BAR OPENED */
+#opened {
+    background-color: #1f5120;
+
+    height: 89.7vh;
+    width: 40vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;;
+
+    .iconSideBarField {
+        /* background-color: #98caac; */
+
+        height: 6vh;
+        width: 6vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .iconSideBarImg {
+        height: 70%;
+    }
+    .iconSideBarImg:hover {
+        background-color: #2f5731;
+        border-radius: 10px;
+        height: 75%;
+    }
+
+    .displayOptionField {
+        color: #ffffff;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .displayOptionField:hover {
+        background-color: #276228;
+    }
+}
+
+/* USEFULL SCREEN */
+main {
+    display: flex;
+
+}
+#usefullScreen {
+    height: 89.7vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    overflow: auto;
+}
+#usefullScreen > div {
+    /* margin: 100px;
+    width: 50%; */
+} 

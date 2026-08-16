@@ -1,0 +1,24 @@
+{
+  "name": "tcc_back",
+  "version": "1.0.0",
+  "description": "Back-End do Projeto de TCC",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "simbora": "nodemon src/index.js",
+    "generate_migration": "npx typeorm -d ./src/database/data-source.js migration:generate ./src/database/migrations/db --outputJs",
+    "run_migrations": "npx typeorm -d ./src/database/data-source.js migration:run"
+  },
+  "author": "Raul Tomaz",
+  "license": "MIT",
+  "dependencies": {
+    "-": "^0.0.1",
+    "cpf-cnpj-validator": "^1.0.3",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "reflect": "^0.1.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.24",
+    "zod": "^4.1.5"
+  }
+}
