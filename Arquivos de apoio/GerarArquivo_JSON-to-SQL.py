@@ -1,7 +1,7 @@
 import json
 
 # Carrega o JSON do arquivo
-with open('zonas.json', 'r', encoding='utf-8') as file:
+with open('zonas-bairros_embu-das-artes.json', 'r', encoding='utf-8') as file:
     zonas = json.load(file)
 
 # Gera os comandos SQL
@@ -21,7 +21,7 @@ for zona in zonas:
     sql_lines.append(sql)
 
 # Salva em um arquivo .sql
-with open('Insert_zonas_TCC.sql', 'w', encoding='utf-8') as output:
+with open('zonas-bairros_embu-das-artes.sql', 'w', encoding='utf-8') as output:
     output.write('\n'.join(sql_lines))
 
-print("Arquivo Insert_zonas_TCC.sql gerado com sucesso!")
+print("Arquivo zonas-bairros_embu-das-artes.sql gerado com sucesso!")

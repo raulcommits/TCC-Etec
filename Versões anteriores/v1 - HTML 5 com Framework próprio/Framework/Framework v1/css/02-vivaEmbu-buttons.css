@@ -1,0 +1,148 @@
+.button_simple:hover, .button_pageLeft:hover, .button_pageMiddle:hover, .button_pageRight:hover {
+    background: #ffffff;
+    background: linear-gradient(180deg,#ffffff 0%, #f3f3f3 100%);
+
+    border: solid 2px #adacac;
+    border-bottom: solid 3px #6f6969;
+}
+.button_simple {
+    background: #ffffff;
+    background: linear-gradient(180deg,#ffffff 0%, #ebebeb 100%);
+    color: #000000;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 5px;
+}
+.button_dark {
+    background: #252529;
+    background: linear-gradient(180deg, #252529 0%, #000000 100%);
+    color: #dadada;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #585757;
+    border-bottom: solid 3px #49484b;
+    border-radius: 5px;
+}
+.button_dark:hover {
+    background: #252529;
+    background: linear-gradient(180deg, #39393d 0%, #131212 100%);
+    color: #ffffff;
+
+    border: solid 2px #868585;
+    border-bottom: solid 3px #6e6c71;
+}
+.button_colorGreen {
+    background: #c5ede1;
+    background: linear-gradient(180deg,#c5ede1 40%, #8dc8a6 100%);
+    color: #000000;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #9fc0a5;
+    border-bottom: solid 3px #7f9383;
+    border-radius: 5px;
+}
+.button_colorGreen:hover {
+    background: #c5ede1;
+    background: linear-gradient(180deg,#d1f5ea 40%, #a3dbba 100%);
+
+    border: solid 2px #b5d6bb;
+    border-bottom: solid 3px #9db3a1;
+}
+.button_colorRed {
+    background: #ffffff;
+    background: linear-gradient(180deg,#ffc6c6 0%, #fb8a8a 100%);
+    color: #000000;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #b59595;
+    border-bottom: solid 3px #be7a7a;
+    border-radius: 5px;
+}
+.button_colorRed:hover {
+    background: #ffffff;
+    background: linear-gradient(180deg,#ffd7d7 0%, #ff9c9c 100%);
+
+    border: solid 2px #cbadad;
+    border-bottom: solid 3px #d19191;
+}
+.button_colorBlue {
+    background: #ffffff;
+    background: linear-gradient(180deg,#a6cadb 0%, #6f9fc9 100%);
+    color: #000000;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #7b96b9;
+    border-bottom: solid 3px #767f92;
+    border-radius: 5px;
+}
+.button_colorBlue:hover {
+    background: #ffffff;
+    background: linear-gradient(180deg,#b8d9e9 0%, #83b1da 100%);
+
+    border: solid 2px #93accd;
+    border-bottom: solid 3px #8c94a6;
+}
+.button_colorYellow {
+    background: #ffffff;
+    background: linear-gradient(180deg,#ece39a 0%, #c1ce72 100%);
+    color: #000000;
+
+    padding: 8px 20px 8px 22px;
+
+    border: solid 2px #ccbf7d;
+    border-bottom: solid 3px #b3ae6c;
+    border-radius: 5px;
+}
+.button_colorYellow:hover {
+    background: #ffffff;
+    background: linear-gradient(180deg,#fbf2ad 0%, #d2df7f 100%);
+
+    border: solid 2px #dcd093;
+    border-bottom: solid 3px #c1bd7f;
+}
+.button_pageLeft {
+    background: #ffffff;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(235, 235, 235, 1) 100%);
+    color: #3a3a3a;
+
+    margin: -3px;
+    padding: 8px 10px;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 10px 2px 2px 10px;
+}
+.button_pageMiddle {
+    background: #ffffff;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(235, 235, 235, 1) 100%);
+    color: #3a3a3a;
+
+    margin: -3px;
+    padding: 8px 12px;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 2px;
+}
+.button_pageRight {
+    background: #ffffff;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(235, 235, 235, 1) 100%);
+    color: #3a3a3a;
+
+    margin: -2px;
+    padding: 8px 12px;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 2px 10px 10px 2px;
+}
+.button_large {
+    width: 100%;
+}

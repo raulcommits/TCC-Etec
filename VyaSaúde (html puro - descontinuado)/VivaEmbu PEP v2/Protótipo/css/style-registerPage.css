@@ -1,0 +1,38 @@
+/* #login_field {
+    
+} */
+
+#creditTextTCC {
+    font-size: 10px;
+}
+
+
+#unhidePass_field {
+    height: 40px;
+    width: 50px;
+
+    padding: 0;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#unhidePass_field:hover {
+    background-color: #e3e2e2;
+}
+
+#unhide_password {
+    height: 60%;
+}
+
+.large {
+    width: 100%;
+}
+
+.boxForSpace {
+    width: 10px;
+}

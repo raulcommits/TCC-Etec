@@ -1,0 +1,56 @@
+.field_simple, .field_widthTotal, .field_formCenter, .field_borderless, .field_headerFormat, .field_code, .field_emptyBlock {
+    background-color: #ffffff;
+    color: #3a3a3a;
+
+    margin: 10px;
+    padding: 8px 20px 8px 22px;
+}
+.field_simple {
+    width: fit-content;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 5px;
+}
+.field_widthTotal {
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 5px;
+}
+.field_borderless {
+    background-color: #e7e5e5;
+
+    height: 5px;
+
+    border-radius: 5px;
+
+    margin: 20px 10px;
+    padding: 0px;
+}
+.field_headerFormat {
+    background-color: #67678c;
+    color: #ffffff;
+
+    border-bottom: solid 3px #353446;
+    border-radius: 5px 5px 0 0;
+
+    margin: -8px -21px 7px -23px;
+    padding: 20px 20px 8px 22px;
+}
+.field_code {
+    background-color: #2a2a33;
+    color: #ffffff;
+
+    width: fit-content;
+
+    border: solid 2px #e3e2e2;
+    border-bottom: solid 3px #bdb8b8;
+    border-radius: 5px;
+
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+.field_emptyBlock {
+    background-color: #00000000;
+}

@@ -1,0 +1,85 @@
+CAD. PACIENTE
+1. cpf
+2. sus
+3. nome
+4. nome social
+
+5. data de nascimento
+6. genero
+7. etnia
+
+8. nacionalidade
+9. naturalidade_estado
+10. naturalidade_municipio
+
+11. numero
+12. email
+
+13. mãe
+14. pai
+
+15. escolaridade
+16. profissao
+
+17. Estado clinico
+
+18. endereços 
+
+--------------------------------------------------------
+
+CAD. ENDEREÇO
+
+1. cep
+2. endereco
+
+3. numero
+4. complemento
+
+5. bairro
+6. estado
+7. cidade
+8. pais
+
+9. ponto de ref
+10. zona
+
+11. tipo de domicilio
+12. material predominante
+13. animais no domicilio
+14. tipo de animal
+
+--------------------------------------------------------
+
+CAD. VISITAS
+
+1. agente
+2. cbo
+
+3. data de visita
+
+4. adicionar membros
+
+
+--------------------------------------------------------
+
+CAD. AGENTES
+
+1. cpf
+2. crm
+
+3. nome
+
+4. cbo
+
+5. dt de nascimento
+
+6. dt admissao
+7. dt demissao
+
+8. id posto
+
+9. contato telefone
+10. contato email
+
+
+

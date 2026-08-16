@@ -1,94 +1,62 @@
-# **IMPORTANTE**
+# Projeto de TCC - Prontuário Eletrônico de Pacientes "VyaSaúde" 
+Este repositório apresenta um projeto de TCC denominado de **VyaSaúde**, elaborado durante o curso de [Desenvolvimento de Sistemas](https://www.cps.sp.gov.br/cursos-etec/desenvolvimento-de-sistemas/) na [Etec de Embu](https://www.cps.sp.gov.br/etecs/etec-de-embu/).
 
-- Significados:
-  - **Clonar**: Baixar arquivos do GitHub pela PRIMEIRA vez.
-  - **Commit**: Comentário adicionado na hora do envio dos arquivos, detalhando as alterações.
-  - **Pull**: Baixar arquivos do GitHub OUTRAS vezes (pra manter a pasta atualizada com o repositório do GitHub).
-  - **Push**: Enviar arquivos ao GitHub.
+## :thought_balloon: Objetivo do Projeto
+O objetivo desse sistema é automatizar os processos de registros e gestão das **Unidades Básicas de Saúde (UBS)**, eliminando a necessidade de registros manuais, migrando para o modelo digital.
 
-</br>
-
-- Crie **DUAS pastas**: 
-  - A **primeira** será pra clonar o repositório do GitHub e sempre receber a última versão vindo do GitHub com o **PULL**.
-  - A **segunda** será uma cópia da primeira, onde você **fará suas alterações** pra enviar ao GitHub com o **PUSH**.
-
-</br>
-
-- Por que disso? 
-  - O objetivo é de evitar conflitos de versões caso outra pessoa mandar uma atualização enquanto você está mexendo em algo, e evita adicionar complexidade aqui no GitHub, tornando algo simplificado.
-  - Antes de enviar as suas alterações, você terá que baixar novamente a pasta do GitHub (pra caso alguém tenha feito atualizações, não dar conflito de versões).
-
-</br>
-
-Caso você alterou diretamente na primeira pasta (pasta clonada), você irá **perder suas alterações na hora do PULL da etapa de receber os arquivos** vindo do GitHub.
-
-**>>Faça suas alterações na segunda pasta!<<**
-
-</br>
-
-- Caso tenha que voltar pra uma versão anterior, o GitHub **permite baixar a partir de um commit feito anteriormente**. Por isso, **mantenha o commit com uma descrição das alterações feitas com um bom detalhamento.**
+O sistema permite:
+- Cadastro e controle de Pacientes
+- Acesso dos pacientes aos seus próprios dados
+- Registro e Gestão das Visitas Domiciliares
+- Visualização em Dashboards
+- Controle de usuários através de níveis de acesso
 
 
-</br>
+## :handshake: Integrantes
+| Integrantes     | GitHub | Linkedin |
+| --------------- | ------ | -------- |
+| Anselmo Santana |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/anselmosc)        |   [<img src="https://cdn-icons-png.flaticon.com/128/145/145807.png" width="25" height="25"/>](https://www.linkedin.com/in/anselmo-santana-9014b151/)   |
+| Daniel Henrique |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/daniellamorim)    |   <img src="https://cdn-icons-png.flaticon.com/128/10092/10092249.png" width="25" height="25"/>   |
+| João Pedro      |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/Jotaramalho)      |   <img src="https://cdn-icons-png.flaticon.com/128/10092/10092249.png" width="25" height="25"/>   |
+| José Augusto    |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/Augusto-jabonif)  |   [<img src="https://cdn-icons-png.flaticon.com/128/145/145807.png" width="25" height="25"/>](https://www.linkedin.com/in/jose-augusto-bonifacio-tributos-tax/)   |
+| Luiz Felipe     |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/luizfelipe-gif)   |   [<img src="https://cdn-icons-png.flaticon.com/128/145/145807.png" width="25" height="25"/>](https://www.linkedin.com/in/luizfr89/)   |
+| Raul Tomaz      |  [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=20" />](https://github.com/raulcommits)      |   [<img src="https://cdn-icons-png.flaticon.com/128/145/145807.png" width="25" height="25"/>](https://www.linkedin.com/in/raultm249/)   |
 
 
-# Passo a passo:
+## <img src="https://cdn-icons-png.flaticon.com/128/386/386986.png" width="25" height="25" /> Tipos de usuários:
 
-## Baixando o repositório pela primeira vez:
-- Copia o caminho da **primeira pasta**, depois vai no Cmder e dê os comandos:
-  ```
-  cd CAMINHO-PRIMEIRA-PASTA
-  ```
-  ```
-  git clone https://github.com/luizfelipe-gif/TCC-versoes .
-  ```
-  - Depois, copie os arquivos de dentro e jogue na **segunda pasta**.
-  - A partir disso, faça as alterações **NA SEGUNDA PASTA**.
+### Administradores
+- Responsáveis pela administração do sistema, como a implementação, integração de novos recursos, acesso a LOGs detalhados, Dashboards, e controle de usuários.
 
+### Gerente da UBS
+- Responsáveis pela gestão da unidade, através do acesso de LOGs, Dashboards, e controle de usuários.
 
-<br>
+### Agente
+- Responsáveis pelo agendamento de consultas em campo, visualizar históricos de consultas, e cadastro/alteração de pacientes e endereços.
 
+### Recepção
+- Responsáveis pelo agendamento de consultas na UBS, visualizar histórico de consultas, e cadastro/alteração de pacientes e endereços.
 
-## Baixando o repositório demais vezes:
-- Copia o caminho da **primeira pasta**, depois vai no Cmder e dê os comandos:
-  ```
-  git pull origin main
-  ```
-    - origin é uma *Alias* (referência) ao link do repositório do GitHub "[https://github.com/luizfelipe-gif/TCC-versoes](https://github.com/luizfelipe-gif/TCC-versoes)"
-    - main é a Branch única do repositório. Pra manter a simplicidade por aqui, preferi manter só uma Branch.
-  <br>
-- Isso garante que na hora que você fazer isso, receberá a versão atualizada vindo do GitHub.
-
-
-<br>
-
-
-## Envio dos arquivos atualizados ao GitHub:
-- Antes de fazer o envio, **FAÇA O PASSO ACIMA** pra receber a última versão, e **EVITAR CONFLITOS DE VERSÕES**
-- Feito isso, copie os arquivos da **segunda pasta** (que você alterou) e jogue-os na primeira pasta.
-  - Você também pode excluir a pasta da stack em que mexeu na primeira pasta, e copiar a pasta (que tem as alterações) **da segunda pasta pra primeira pasta**
-  - Exemplo: Mexi nos arquivos do "Frontend Luiz" na **segunda pasta**. Na hora de enviar ao GitHub, exclui a pasta "Frontend Luiz" da **primeira pasta** (mantendo o restante), copio a pasta "Frontend Luiz" da **segunda pasta** que contém as alterações, e colo na **primeira pasta**
+### Paciente
+- Usuários padrão do sistema, onde podem consultar seus dados, solicitar algumas alterações, e verificar histórico de consultas.
   
-- Com os arquivos alterados na **primeira pasta**, hora de enviar os arquivos:
-  - Abra o Cmder e dê os comandos:
-  ```
-  cd CAMINHO-PRIMEIRA-PASTA
-  ```
-  ```
-  git add .
-  ```
-  ```
-  git commit -m "COMENTÁRIO DETALHADO"
-  ```
-  ```
-  git push origin main
-  ```
 
-**LEMBRETE: Ao adicionar o comentário, DETALHE AS MUDANÇAS!**
+## :mag: Ferramentas Utilizadas
 
+| [<img src="https://cdn.simpleicons.org/github/ffffff?viewbox=auto&size=25" />](https://github.com/LitoMore/simple-icons-cdn) | Tecnologias |
+| ------------  | -- |
+| <img src="https://cdn.simpleicons.org/react?viewbox=auto&size=30"/>             | React |
+| <img src="https://www.svgrepo.com/show/374167/vite.svg" width="30" height="30" />             | Vite |
+| <img src="https://cdn.simpleicons.org/javascript?viewbox=auto&size=30"/>             | JavaScript |
+| <img src="https://cdn.simpleicons.org/mui?viewbox=auto&size=25"/>    | MaterialsUI |
+| <img src="https://cdn.simpleicons.org/bootstrap?viewbox=auto&size=25"/>            | Bootstrap |
+| <img src="https://img.icons8.com/color/452/java-web-token.png" width="35" height="35"/>            | JSON Web Token |
+| <img src="https://user-images.githubusercontent.com/5574267/54994574-df4c1380-4fc4-11e9-8509-1d3aedbc7b96.png" width="70" height="70"/>            | Toastify |
+| <img src="https://cdn.simpleicons.org/reactrouter?viewbox=auto&size=25"/>            | React-router-dom |
+| <img src="https://cdn.simpleicons.org/node.js?viewbox=auto&size=30"/>           | NodeJS |
+| <img src="https://cdn.simpleicons.org/express/ffffff?viewbox=auto&size=20"/>          | ExpressJS |
+| <img src="https://cdn.simpleicons.org/axios?viewbox=auto&size=25"/>  | Axios |
+| <img src="https://cdn.simpleicons.org/mysql?viewbox=auto&size=30"/>            | MySQL |
+</br>
 
-<br>
-
-
-## Acesso ao histórico de versões:
-Na [página inicial do projeto](https://github.com/luizfelipe-gif/TCC-versoes), procure pelo campo "XX Commits" (terá um número na frente). Lá tem o histórico dos commits feitos, podendo acessar algum feito anteriormente e baixar as pastas daquele momento. 
+## :gear: Instalação e Utilização

@@ -1,0 +1,53 @@
+.loginField_inputs_and_login {
+
+}
+
+body {
+    color: black;
+}
+
+.screen {
+    height: 100vh;
+    width: 100%;
+
+    background-image: url();
+}
+
+/* .login_backgroundGradient {
+    /* background-color: #272735; */
+
+.spacing {
+    margin-bottom: 15px;
+}
+
+.loginText {
+    color: #ffffff;
+}
+
+#login_field {
+    -webkit-box-shadow: 0px 3px 16px 0px #54505070;
+    -moz-box-shadow: 0px 3px 16px 0px #0000001e;
+    box-shadow: 0px 3px 16px 0px #00000028;
+}
+
+#headerLogin {
+    background: #7198B8;
+    background: linear-gradient(270deg, rgba(113, 152, 184, 1) 0%, rgba(93, 138, 94, 1) 100%);
+
+    background-image: url(../img/header.png);
+    background-size: cover;
+}
+
+.iconSize {
+    height: 20px;
+}
+
+.input_large {
+    width: 80%;
+}
+.spaceBetween {
+    padding: 0 0 0 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
