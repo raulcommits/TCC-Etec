@@ -1,0 +1,355 @@
+/* DESKTOP VIEW */
+@media screen and (min-width: 1023px) { 
+    /* HEADER */
+    header {
+        background-color: #ffffff;
+
+        height: 6vh;
+
+        z-index: 1;
+
+        background: #5D8A5D;
+        background: linear-gradient(90deg, #5d8a5d 0%, #7198b8 100%);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #logoField {
+            height: 6vh;
+            width: 6vh;
+
+            #logo {
+                height: 80%;
+            }
+        }
+
+        #perfilField {
+            background-color: rgba(0, 0, 0, 0.137);
+            
+            height: 4vh;
+
+            border-radius: 10px;
+
+            margin-right: 1vh;
+
+            #perfilIcon {
+                height: 3vh;
+                width: 3vh;
+
+                margin-left: 1vh;
+
+                border-radius: 20px;
+
+                background-color: aqua;
+            }
+            #userName {
+                margin: 0 1vh;
+            }
+        }
+        #perfilField:hover {
+            background-color: #ffffff10;
+        }
+    }
+    /* UNDERHEADER */
+    #underHeader {
+        background-color: #5d8a5d;
+
+        height: 3vh;
+
+        border-bottom: solid .5vh #234b23;
+
+        display: flex;
+        align-items: center;
+
+        #toggleButtonForMobile {
+            display: none;
+
+            #toggleButtonIcon {
+                display: none;
+            }
+        }
+        
+        #homeIconField {
+            height: 3vh;
+            width: 3vh;
+
+            #homeIcon {
+                height: 83%;
+            }
+            #homeIcon:hover {
+                height: 90%;
+            }
+        }
+
+        .actualGuide {
+            background-color: #ffffff39;
+
+            height: 80%;
+
+            padding: 0 1vh;
+            margin-bottom: 0 1vh;
+            border-radius: 10px;
+
+            font-size: 15px;
+        }
+        .actualGuide:hover {
+            background-color: #ffffff5e;
+        }
+        .actualGuide::pseudo-element {
+            property: value;
+        }
+    }
+    /* ASIDE CLOSED */
+    #closedPanel_largeScreen {
+        background-color: #234b23;
+
+        height: 90.6vh;
+        width: 7vh;
+
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        
+        .closedOptions {
+            height: 7vh;
+            width: 7vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .closedOptions:hover {
+            background-color: #4b6e4b;
+            cursor: pointer;
+        }
+        #insideAsideField-1 {
+
+        }
+        #insideAsideField-2 {
+
+        }
+    }
+    /* ASIDE OPENED */
+    /* USEFULL SCREEN */
+}
+
+/* TABLET VIEW */
+@media screen and (max-width: 1024px) {
+    /* HEADER */
+    header {
+        background-color: #ffffff;
+
+        height: 6vh;
+
+        z-index: 1;
+
+        background: #5D8A5D;
+        background: linear-gradient(90deg, rgba(93, 138, 93, 1) 0%, rgba(113, 152, 184, 1) 100%);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #logoField {
+            height: 6vh;
+            width: 6vh;
+
+            #logo {
+                height: 80%;
+            }
+        }
+
+        #perfilField {
+            background-color: rgba(0, 0, 0, 0.137);
+            
+            height: 4vh;
+
+            border-radius: 10px;
+
+            margin-right: 1vh;
+
+            #perfilIcon {
+                height: 3vh;
+                width: 3vh;
+
+                margin-left: 1vh;
+
+                border-radius: 20px;
+
+                background-color: aqua;
+            }
+            #userName {
+                margin: 0 1vh;
+            }
+        }
+        #perfilField:hover {
+            background-color: #ffffff10;
+        }
+    }
+    /* UNDERHEADER */
+    #underHeader {
+        background-color: #5d8a5d;
+
+        height: 3vh;
+
+        border-bottom: solid .5vh #234b23;
+
+        display: flex;
+        align-items: center;
+
+        #toggleButtonForMobile {
+            display: none;
+
+            #toggleButtonIcon {
+                display: none;
+            }
+        }
+        
+        #homeIconField {
+            height: 3vh;
+            width: 3vh;
+
+            #homeIcon {
+                height: 83%;
+            }
+            #homeIcon:hover {
+                height: 90%;
+            }
+        }
+
+        .actualGuide {
+            background-color: #ffffff39;
+
+            height: 80%;
+
+            padding: 0 1vh;
+            margin-bottom: 0 1vh;
+            border-radius: 10px;
+
+            font-size: 15px;
+        }
+        .actualGuide:hover {
+            background-color: #ffffff5e;
+        }
+        .actualGuide::pseudo-element {
+            property: value;
+        }
+    }
+    /* ASIDE CLOSED */
+    /* ASIDE OPENED */
+    /* USEFULL SCREEN */
+}
+
+/* MOBILE VIEW */
+@media screen and (max-width: 768px) {
+    /* HEADER */
+    header {
+        background-color: #ffffff;
+
+        height: 6vh;
+
+        z-index: 1;
+
+        background: #5D8A5D;
+        background: linear-gradient(90deg, rgba(93, 138, 93, 1) 0%, rgba(113, 152, 184, 1) 100%);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #logoField {
+            height: 6vh;
+            width: 6vh;
+
+            #logo {
+                display: none;
+            }
+        }
+
+        #perfilField {
+            background-color: #00000023;
+            
+            height: 5vh;
+
+            border-radius: 10px;
+
+            margin-right: 1vh;
+
+            #perfilIcon {
+                height: 4vh;
+                width: 4vh;
+
+                margin: 0 .5vh;
+
+                border-radius: 20px;
+
+                background-color: aqua;
+            }
+            #userName {
+                display: none;
+            }
+        }
+        #perfilField:hover {
+            background-color: #ffffff10;
+        }
+    }
+    /* UNDERHEADER */
+    #underHeader {
+        background-color: #5d8a5d;
+
+        height: 4vh;
+
+        border-bottom: solid .5vh #234b23;
+
+        display: flex;
+        align-items: center;
+
+        #toggleButtonForMobile {
+            height: 100%;
+            width: 3vh;
+
+            display: flex;
+
+            #toggleButtonIcon {
+                height: 50%;
+
+                display: block;
+            }
+        }
+        
+        #homeIconField {
+            height: 3vh;
+            width: 3vh;
+
+            #homeIcon {
+                height: 83%;
+            }
+            #homeIcon:hover {
+                height: 90%;
+            }
+        }
+
+        .actualGuide {
+            background-color: #ffffff39;
+
+            height: 80%;
+
+            padding: 0 1vh;
+            margin-bottom: 0 1vh;
+            border-radius: 10px;
+
+            font-size: 15px;
+        }
+        .actualGuide:hover {
+            background-color: #ffffff5e;
+        }
+        .actualGuide::pseudo-element {
+            property: value;
+        }
+    }
+    /* ASIDE CLOSED */
+    /* ASIDE OPENED */
+    /* USEFULL SCREEN */
+}
