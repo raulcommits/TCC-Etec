@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import routes from "./routes/routes.js";
 import {AppDataSource} from "./database/data-source.js";
@@ -12,7 +13,7 @@ server.use("/", routes);
 AppDataSource.initialize().then(async () => {
     console.log("Banco de dados conectado!!");
 
-    server.listen(3331, () => {
-        console.log("Servidor está funcionando!");
+    server.listen(process.env.PORT, () => {
+        console.log(`Servidor está funcionando, rodando na porta ${process.env.PORT}. http://localhost:${process.env.PORT}`);
     });
 });

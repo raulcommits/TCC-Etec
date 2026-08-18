@@ -1,7 +1,5 @@
 node_modules/
 .npm
 .env
-.env.*
-!.env.example
 .yarn/*
 data-source.js
