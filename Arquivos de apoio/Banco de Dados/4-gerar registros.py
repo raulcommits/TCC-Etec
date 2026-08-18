@@ -2,7 +2,7 @@ import random
 from datetime import datetime, timedelta
 import os
 
-def gerar_inserts(qtd_registros=50):
+def gerar_inserts(qtd_registros=80):
     # Configurações iniciais
     table_name = "registro_atividade"
     
@@ -68,7 +68,7 @@ def gerar_inserts(qtd_registros=50):
         registro_visita = f"{prefixo_registro}-{sequencia:03d}"
 
         # 3. Gerar IDs Relacionais
-        agente_id = random.randint(1, 30)
+        agente_id = random.randint(1, 250)
         
         # Regra: Paciente e Endereço devem ter o mesmo ID (entre 1 e 100)
         paciente_endereco_id = random.randint(1, 100)

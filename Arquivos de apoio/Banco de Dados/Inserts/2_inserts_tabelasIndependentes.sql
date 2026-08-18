@@ -20,744 +20,746 @@ INSERT INTO tipo_animal (id, nome_animal) VALUES
 (4, 'Outros');
 
 # ZONA
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (1, 'Água Morna', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (2, 'Cercado Grande', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (3, 'Embuema', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (4, 'Jardim De Lourdes', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (5, 'Jardim Ferreira', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (6, 'Jardim Novo Embu', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (7, 'Jardim Santa Maria', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (8, 'Maria Auxiliadora', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (9, 'Parque Francisco Rizzo', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (10, 'Tingidor', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (11, 'Vila Bonfim', 'Centro', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (12, 'Esplanada Oliveiras', 'Centro', 'Oliveiras');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (13, 'Jardim Dos Oliveiras', 'Oliveiras', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (14, 'Cooperativa', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (15, 'Gramado', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (16, 'Granja Nossa Senhora Aparecida', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (17, 'Jardim Elisa', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (18, 'Jardim Lavorato', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (19, 'Jardim Magaly', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (20, 'Jardim Sadie', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (21, 'Jardim Santa Barbara', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (22, 'Pataxós', 'Parque Industrial', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (23, 'Embu-Mirim', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (24, 'Jardim Pinheirinho', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (25, 'Jardim Pinheiros', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (26, 'Jardim Santo Antônio', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (27, 'Parque Industrial', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (28, 'Quinta Do Morro', 'Pinheirinho', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (29, 'Água Espraiada', 'Quinhau', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (30, 'Chácaras Lídia', 'Quinhau', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (31, 'Engenho Velho', 'Quinhau', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (32, 'Quinhau', 'Quinhau', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (33, 'Jardim Santa Clara', 'Santa Clara', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (34, 'Maria Imaculada', 'Santa Clara', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (35, 'Jardim Mimás', 'Vista Alegre', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (36, 'Jardim Vista Alegre', 'Vista Alegre', 'Centro');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (37, 'Jardim Angela', 'Ângela-Batista', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (38, 'Jardim Batista', 'Ângela-Batista', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (39, 'Jardim Da Luz', 'Ângela-Batista', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (40, 'Jardim Santa Rita', 'Ângela-Batista', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (41, 'Jardim Castilho', 'Castilho', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (42, 'Jardim Florida', 'Castilho', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (43, 'Jardim São Luiz', 'Castilho', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (44, 'Vila Perequê', 'Castilho', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (45, 'Jardim Do Colégio', 'Colégio-São Marcos', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (46, 'Jardim Dos Moraes', 'Colégio-São Marcos', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (47, 'Jardim São Francisco', 'Colégio-São Marcos', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (48, 'Jardim São Marcos', 'Colégio-São Marcos', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (49, 'Parque Das Chácaras', 'Colégio-São Marcos', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (50, 'Jardim Dom José', 'Dom José-Santo Eduardo', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (51, 'Jardim Santo Eduardo', 'Dom José-Santo Eduardo', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (52, 'Jardim Taima', 'Dom José-Santo Eduardo', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (53, 'Jardim Casa Branca', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (54, 'Jardim Fabiana', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (55, 'Jardim Independência', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (56, 'Jardim Júlia', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (57, 'Jardim Marina', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (58, 'Jardim Vitória', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (59, 'Santa Rosa', 'Independência', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (60, 'Jardim Nayara', 'Nossa Senhora De Fátima', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (61, 'Jardim Nossa Senhora De Fátima', 'Nossa Senhora De Fátima', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (62, 'Parque Luiza', 'Nossa Senhora De Fátima', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (63, 'Vila Isis Cristina', 'Pirajussara', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (64, 'Parque Pirajussara', 'Pirajussara', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (65, 'Jardim Irene', 'Santa Emilia', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (66, 'Jardim Novo Campo Limpo', 'Santa Emilia', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (67, 'Jardim Presidente Kennedy', 'Santa Emilia', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (68, 'Jardim Santa Emília', 'Santa Emilia', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (69, 'Paranapanema', 'Santa Emilia', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (70, 'Jardim Laila', 'Santa Tereza', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (71, 'Jardim Santa Tereza', 'Santa Tereza', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (72, 'Vila Olinda', 'Santa Tereza', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (73, 'Vila Regina', 'Santa Tereza', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (74, 'Jardim Jurema', 'Vazame', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (75, 'Jardim Valo Verde', 'Vazame', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (76, 'Jardim Vazame', 'Vazame', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (77, 'Vila Carmem', 'Vazame', 'Leste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (78, 'Bosque Capuava', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (79, 'Bosque Do Embu', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (80, 'Caminho Do Índio', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (81, 'Capuava', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (82, 'Chácaras Ana Lúcia', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (83, 'Chácaras Bartira', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (84, 'Chácaras São Cristóvão', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (85, 'Invernada', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (86, 'Itatuba', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (87, 'Jardim Dos Ipês', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (88, 'Jardim Indaiá', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (89, 'Maranhão', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (90, 'Parque Dos Caetés', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (91, 'Parque Sao Leonardo', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (92, 'Pedreira', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (93, 'Perovê', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (94, 'Ponta Porã', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (95, 'Vale Do Sol', 'Capuava-Itatuba', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (96, 'Estância De Embuarama', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (97, 'Jardim Colibri', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (98, 'Jardim Recanto Da Fonte', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (99, 'Jardim Santa Luzia', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (100, 'Jardim Silvia', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (101, 'Jardim Tomé', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (102, 'Moinho Real', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (103, 'Moinho Velho', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (104, 'Prado Rangel', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (105, 'Vila Real', 'Moinho Velho', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (106, 'Chácaras Aurora', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (107, 'Embu Colonial', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (108, 'Jardim Itatiaia', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (109, 'Pindorama', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (110, 'Ressaca', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (111, 'Votorantim', 'Ressaca', 'Oeste');
-INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES (112, 'Não-identificado', 'Não-identificado', 'N/D');
+INSERT INTO zona (id, bairro, unidade_administrativa, regiao) VALUES 
+(1, 'Água Morna', 'Centro', 'Centro'),
+(2, 'Cercado Grande', 'Centro', 'Centro'),
+(3, 'Embuema', 'Centro', 'Centro'),
+(4, 'Jardim De Lourdes', 'Centro', 'Centro'),
+(5, 'Jardim Ferreira', 'Centro', 'Centro'),
+(6, 'Jardim Novo Embu', 'Centro', 'Centro'),
+(7, 'Jardim Santa Maria', 'Centro', 'Centro'),
+(8, 'Maria Auxiliadora', 'Centro', 'Centro'),
+(9, 'Parque Francisco Rizzo', 'Centro', 'Centro'),
+(10, 'Tingidor', 'Centro', 'Centro'),
+(11, 'Vila Bonfim', 'Centro', 'Centro'),
+(12, 'Esplanada Oliveiras', 'Centro', 'Oliveiras'),
+(13, 'Jardim Dos Oliveiras', 'Oliveiras', 'Centro'),
+(14, 'Cooperativa', 'Parque Industrial', 'Centro'),
+(15, 'Gramado', 'Parque Industrial', 'Centro'),
+(16, 'Granja Nossa Senhora Aparecida', 'Parque Industrial', 'Centro'),
+(17, 'Jardim Elisa', 'Parque Industrial', 'Centro'),
+(18, 'Jardim Lavorato', 'Parque Industrial', 'Centro'),
+(19, 'Jardim Magaly', 'Parque Industrial', 'Centro'),
+(20, 'Jardim Sadie', 'Parque Industrial', 'Centro'),
+(21, 'Jardim Santa Barbara', 'Parque Industrial', 'Centro'),
+(22, 'Pataxós', 'Parque Industrial', 'Centro'),
+(23, 'Embu-Mirim', 'Pinheirinho', 'Centro'),
+(24, 'Jardim Pinheirinho', 'Pinheirinho', 'Centro'),
+(25, 'Jardim Pinheiros', 'Pinheirinho', 'Centro'),
+(26, 'Jardim Santo Antônio', 'Pinheirinho', 'Centro'),
+(27, 'Parque Industrial', 'Pinheirinho', 'Centro'),
+(28, 'Quinta Do Morro', 'Pinheirinho', 'Centro'),
+(29, 'Água Espraiada', 'Quinhau', 'Centro'),
+(30, 'Chácaras Lídia', 'Quinhau', 'Centro'),
+(31, 'Engenho Velho', 'Quinhau', 'Centro'),
+(32, 'Quinhau', 'Quinhau', 'Centro'),
+(33, 'Jardim Santa Clara', 'Santa Clara', 'Centro'),
+(34, 'Maria Imaculada', 'Santa Clara', 'Centro'),
+(35, 'Jardim Mimás', 'Vista Alegre', 'Centro'),
+(36, 'Jardim Vista Alegre', 'Vista Alegre', 'Centro'),
+(37, 'Jardim Angela', 'Ângela-Batista', 'Leste'),
+(38, 'Jardim Batista', 'Ângela-Batista', 'Leste'),
+(39, 'Jardim Da Luz', 'Ângela-Batista', 'Leste'),
+(40, 'Jardim Santa Rita', 'Ângela-Batista', 'Leste'),
+(41, 'Jardim Castilho', 'Castilho', 'Leste'),
+(42, 'Jardim Florida', 'Castilho', 'Leste'),
+(43, 'Jardim São Luiz', 'Castilho', 'Leste'),
+(44, 'Vila Perequê', 'Castilho', 'Leste'),
+(45, 'Jardim Do Colégio', 'Colégio-São Marcos', 'Leste'),
+(46, 'Jardim Dos Moraes', 'Colégio-São Marcos', 'Leste'),
+(47, 'Jardim São Francisco', 'Colégio-São Marcos', 'Leste'),
+(48, 'Jardim São Marcos', 'Colégio-São Marcos', 'Leste'),
+(49, 'Parque Das Chácaras', 'Colégio-São Marcos', 'Leste'),
+(50, 'Jardim Dom José', 'Dom José-Santo Eduardo', 'Leste'),
+(51, 'Jardim Santo Eduardo', 'Dom José-Santo Eduardo', 'Leste'),
+(52, 'Jardim Taima', 'Dom José-Santo Eduardo', 'Leste'),
+(53, 'Jardim Casa Branca', 'Independência', 'Leste'),
+(54, 'Jardim Fabiana', 'Independência', 'Leste'),
+(55, 'Jardim Independência', 'Independência', 'Leste'),
+(56, 'Jardim Júlia', 'Independência', 'Leste'),
+(57, 'Jardim Marina', 'Independência', 'Leste'),
+(58, 'Jardim Vitória', 'Independência', 'Leste'),
+(59, 'Santa Rosa', 'Independência', 'Leste'),
+(60, 'Jardim Nayara', 'Nossa Senhora De Fátima', 'Leste'),
+(61, 'Jardim Nossa Senhora De Fátima', 'Nossa Senhora De Fátima', 'Leste'),
+(62, 'Parque Luiza', 'Nossa Senhora De Fátima', 'Leste'),
+(63, 'Vila Isis Cristina', 'Pirajussara', 'Leste'),
+(64, 'Parque Pirajussara', 'Pirajussara', 'Leste'),
+(65, 'Jardim Irene', 'Santa Emilia', 'Leste'),
+(66, 'Jardim Novo Campo Limpo', 'Santa Emilia', 'Leste'),
+(67, 'Jardim Presidente Kennedy', 'Santa Emilia', 'Leste'),
+(68, 'Jardim Santa Emília', 'Santa Emilia', 'Leste'),
+(69, 'Paranapanema', 'Santa Emilia', 'Leste'),
+(70, 'Jardim Laila', 'Santa Tereza', 'Leste'),
+(71, 'Jardim Santa Tereza', 'Santa Tereza', 'Leste'),
+(72, 'Vila Olinda', 'Santa Tereza', 'Leste'),
+(73, 'Vila Regina', 'Santa Tereza', 'Leste'),
+(74, 'Jardim Jurema', 'Vazame', 'Leste'),
+(75, 'Jardim Valo Verde', 'Vazame', 'Leste'),
+(76, 'Jardim Vazame', 'Vazame', 'Leste'),
+(77, 'Vila Carmem', 'Vazame', 'Leste'),
+(78, 'Bosque Capuava', 'Capuava-Itatuba', 'Oeste'),
+(79, 'Bosque Do Embu', 'Capuava-Itatuba', 'Oeste'),
+(80, 'Caminho Do Índio', 'Capuava-Itatuba', 'Oeste'),
+(81, 'Capuava', 'Capuava-Itatuba', 'Oeste'),
+(82, 'Chácaras Ana Lúcia', 'Capuava-Itatuba', 'Oeste'),
+(83, 'Chácaras Bartira', 'Capuava-Itatuba', 'Oeste'),
+(84, 'Chácaras São Cristóvão', 'Capuava-Itatuba', 'Oeste'),
+(85, 'Invernada', 'Capuava-Itatuba', 'Oeste'),
+(86, 'Itatuba', 'Capuava-Itatuba', 'Oeste'),
+(87, 'Jardim Dos Ipês', 'Capuava-Itatuba', 'Oeste'),
+(88, 'Jardim Indaiá', 'Capuava-Itatuba', 'Oeste'),
+(89, 'Maranhão', 'Capuava-Itatuba', 'Oeste'),
+(90, 'Parque Dos Caetés', 'Capuava-Itatuba', 'Oeste'),
+(91, 'Parque Sao Leonardo', 'Capuava-Itatuba', 'Oeste'),
+(92, 'Pedreira', 'Capuava-Itatuba', 'Oeste'),
+(93, 'Perovê', 'Capuava-Itatuba', 'Oeste'),
+(94, 'Ponta Porã', 'Capuava-Itatuba', 'Oeste'),
+(95, 'Vale Do Sol', 'Capuava-Itatuba', 'Oeste'),
+(96, 'Estância De Embuarama', 'Moinho Velho', 'Oeste'),
+(97, 'Jardim Colibri', 'Moinho Velho', 'Oeste'),
+(98, 'Jardim Recanto Da Fonte', 'Moinho Velho', 'Oeste'),
+(99, 'Jardim Santa Luzia', 'Moinho Velho', 'Oeste'),
+(100, 'Jardim Silvia', 'Moinho Velho', 'Oeste'),
+(101, 'Jardim Tomé', 'Moinho Velho', 'Oeste'),
+(102, 'Moinho Real', 'Moinho Velho', 'Oeste'),
+(103, 'Moinho Velho', 'Moinho Velho', 'Oeste'),
+(104, 'Prado Rangel', 'Moinho Velho', 'Oeste'),
+(105, 'Vila Real', 'Moinho Velho', 'Oeste'),
+(106, 'Chácaras Aurora', 'Ressaca', 'Oeste'),
+(107, 'Embu Colonial', 'Ressaca', 'Oeste'),
+(108, 'Jardim Itatiaia', 'Ressaca', 'Oeste'),
+(109, 'Pindorama', 'Ressaca', 'Oeste'),
+(110, 'Ressaca', 'Ressaca', 'Oeste'),
+(111, 'Votorantim', 'Ressaca', 'Oeste'),
+(112, 'Não-identificado', 'Não-identificado', 'N/D');
 
 # CBO
-insert into cbo(codigo, descricao) values(0101, 'Oficiais generais das forças armadas');
-insert into cbo(codigo, descricao) values(0102, 'Oficiais das forças armadas');
-insert into cbo(codigo, descricao) values(0103, 'Praças das forças armadas');
-insert into cbo(codigo, descricao) values(0201, 'Oficiais superiores da polícia militar');
-insert into cbo(codigo, descricao) values(0202, 'Capitães da  polícia militar');
-insert into cbo(codigo, descricao) values(0203, 'Tenentes da polícia militar');
-insert into cbo(codigo, descricao) values(0211, 'Subtenentes e sargentos da policia militar');
-insert into cbo(codigo, descricao) values(0212, 'Cabos e soldados da polícia militar');
-insert into cbo(codigo, descricao) values(0301, 'Oficiais superiores do corpo de bombeiros militar');
-insert into cbo(codigo, descricao) values(0302, 'Oficiais intermediários do corpo de bombeiros militar');
-insert into cbo(codigo, descricao) values(0303, 'Tenentes do corpo de bombeiros militar');
-insert into cbo(codigo, descricao) values(0311, 'Subtenentes e sargentos do corpo de bombeiros militar');
-insert into cbo(codigo, descricao) values(0312, 'Cabos e soldados do corpo de bombeiros militar');
-insert into cbo(codigo, descricao) values(1111, 'Legisladores');
-insert into cbo(codigo, descricao) values(1112, 'Dirigentes gerais da administração pública');
-insert into cbo(codigo, descricao) values(1113, 'Magistrados');
-insert into cbo(codigo, descricao) values(1114, 'Dirigentes do serviço público');
-insert into cbo(codigo, descricao) values(1115, 'Gestores públicos');
-insert into cbo(codigo, descricao) values(1130, 'Dirigentes de povos indígenas, de quilombolas e caiçaras');
-insert into cbo(codigo, descricao) values(1141, 'Dirigentes de partidos políticos');
-insert into cbo(codigo, descricao) values(1142, 'Dirigentes e administradores de entidades patronais e dos trabalhadores e de outros interesses sócioeconômicos');
-insert into cbo(codigo, descricao) values(1143, 'Dirigentes e administradores de entidades religiosas');
-insert into cbo(codigo, descricao) values(1144, 'Dirigentes e administradores de organizações da sociedade civil sem fins lucrativos');
-insert into cbo(codigo, descricao) values(1210, 'Diretores gerais');
-insert into cbo(codigo, descricao) values(1221, 'Diretores de produção e operações em empresa agropecuária, pesqueira , aqüícola e florestal');
-insert into cbo(codigo, descricao) values(1222, 'Diretores de produção e operações em empresa da indústria extrativa, transformação e de serviços de utilidade pública');
-insert into cbo(codigo, descricao) values(1223, 'Diretores de operações de obras em empresa de construção');
-insert into cbo(codigo, descricao) values(1224, 'Diretores de operações em empresa do comércio');
-insert into cbo(codigo, descricao) values(1225, 'Diretores de serviços de turismo, de alojamento e de alimentação');
-insert into cbo(codigo, descricao) values(1226, 'Diretores de operações de serviços em empresa de armazenamento, de transporte e de telecomunicação');
-insert into cbo(codigo, descricao) values(1227, 'Diretores de operações de serviços em instituição de intermediação financeira');
-insert into cbo(codigo, descricao) values(1231, 'Diretores administrativos e financeiros');
-insert into cbo(codigo, descricao) values(1232, 'Diretores de recursos humanos e relações de trabalho');
-insert into cbo(codigo, descricao) values(1233, 'Diretores de comercialização e marketing');
-insert into cbo(codigo, descricao) values(1234, 'Diretores de suprimentos e afins');
-insert into cbo(codigo, descricao) values(1236, 'Diretores de tecnologia da informação');
-insert into cbo(codigo, descricao) values(1237, 'Diretores de pesquisa e desenvolvimento');
-insert into cbo(codigo, descricao) values(1238, 'Diretores de manutenção');
-insert into cbo(codigo, descricao) values(1311, 'Diretores e gerentes de operações em empresa de serviços pessoais, sociais e culturais');
-insert into cbo(codigo, descricao) values(1312, 'Gestores e especialistas de operações em empresas, secretarias e unidades de serviços de saúde');
-insert into cbo(codigo, descricao) values(1313, 'Diretores e gerentes de instituição de serviços educacionais');
-insert into cbo(codigo, descricao) values(1411, 'Gerentes de produção e operações em empresa agropecuária, pesqueira, aqüícola e florestal');
-insert into cbo(codigo, descricao) values(1412, 'Gerentes de produção e operações em empresa da indústria extrativa, de transformação e de serviços de utilidade pública');
-insert into cbo(codigo, descricao) values(1413, 'Gerentes de obras em empresa de construção');
-insert into cbo(codigo, descricao) values(1414, 'Gerentes de operações comerciais e de assistência técnica');
-insert into cbo(codigo, descricao) values(1415, 'Gerentes de operações de serviços em empresa de turismo, de alojamento e alimentação');
-insert into cbo(codigo, descricao) values(1416, 'Gerentes de operações de serviços em empresa de transporte, de comunicação e de logística (armazenagem e distribuição)');
-insert into cbo(codigo, descricao) values(1417, 'Gerentes de operações de serviços em instituição de intermediação financeira');
-insert into cbo(codigo, descricao) values(1418, 'Gerentes operacionais da aviação civil');
-insert into cbo(codigo, descricao) values(1421, 'Gerentes administrativos, financeiros, de riscos e afins');
-insert into cbo(codigo, descricao) values(1422, 'Gerentes de recursos humanos e de relações do trabalho');
-insert into cbo(codigo, descricao) values(1423, 'Gerentes de comercialização, marketing e comunicação');
-insert into cbo(codigo, descricao) values(1424, 'Gerentes de suprimentos e afins');
-insert into cbo(codigo, descricao) values(1425, 'Gerentes de tecnologia da informação');
-insert into cbo(codigo, descricao) values(1426, 'Gerentes de pesquisa e desenvolvimento e afins');
-insert into cbo(codigo, descricao) values(1427, 'Gerentes de manutenção e afins');
-insert into cbo(codigo, descricao) values(2011, 'Profissionais da biotecnologia');
-insert into cbo(codigo, descricao) values(2012, 'Profissionais da metrologia');
-insert into cbo(codigo, descricao) values(2021, 'Engenheiros de controle e automação, engenheiros mecatrônicos e afins');
-insert into cbo(codigo, descricao) values(2030, 'Pesquisadores das ciências biológicas');
-insert into cbo(codigo, descricao) values(2031, 'Pesquisadores das ciências naturais e exatas');
-insert into cbo(codigo, descricao) values(2032, 'Pesquisadores de engenharia e tecnologia');
-insert into cbo(codigo, descricao) values(2033, 'Pesquisadores das ciências da saúde');
-insert into cbo(codigo, descricao) values(2034, 'Pesquisadores das ciências da agricultura');
-insert into cbo(codigo, descricao) values(2035, 'Pesquisadores das ciências sociais e humanas');
-insert into cbo(codigo, descricao) values(2041, 'Peritos criminais e judiciais');
-insert into cbo(codigo, descricao) values(2111, 'Profissionais da matemática');
-insert into cbo(codigo, descricao) values(2112, 'Profissionais de estatística e afins');
-insert into cbo(codigo, descricao) values(2122, 'Engenheiros em computação');
-insert into cbo(codigo, descricao) values(2123, 'Administradores de tecnologia da informação');
-insert into cbo(codigo, descricao) values(2124, 'Analistas de tecnologia da informação');
-insert into cbo(codigo, descricao) values(2131, 'Físicos');
-insert into cbo(codigo, descricao) values(2132, 'Químicos');
-insert into cbo(codigo, descricao) values(2133, 'Profissionais das ciências atmosféricas e espaciais e de astronomia');
-insert into cbo(codigo, descricao) values(2134, 'Geólogos, oceanógrafos, geofísicos e afins');
-insert into cbo(codigo, descricao) values(2140, 'Engenheiros ambientais e afins');
-insert into cbo(codigo, descricao) values(2141, 'Arquitetos e urbanistas');
-insert into cbo(codigo, descricao) values(2142, 'Engenheiros civis e afins');
-insert into cbo(codigo, descricao) values(2143, 'Engenheiros eletricistas, eletrônicos e afins');
-insert into cbo(codigo, descricao) values(2144, 'Engenheiros mecânicos e afins');
-insert into cbo(codigo, descricao) values(2145, 'Engenheiros químicos e afins');
-insert into cbo(codigo, descricao) values(2146, 'Engenheiros metalurgistas, de materiais e afins');
-insert into cbo(codigo, descricao) values(2147, 'Engenheiros de minas e afins');
-insert into cbo(codigo, descricao) values(2148, 'Engenheiros agrimensores e engenheiros cartógrafos');
-insert into cbo(codigo, descricao) values(2149, 'Profissionais de produção, qualidade, saúde, segurança e afins');
-insert into cbo(codigo, descricao) values(2151, 'Oficiais de convés e afins');
-insert into cbo(codigo, descricao) values(2152, 'Oficiais de máquinas da marinha mercante');
-insert into cbo(codigo, descricao) values(2153, 'Profissionais da pilotagem aeronáutica');
-insert into cbo(codigo, descricao) values(2211, 'Biólogos e afins');
-insert into cbo(codigo, descricao) values(2212, 'Biomédicos');
-insert into cbo(codigo, descricao) values(2221, 'Engenheiros agrossilvipecuários');
-insert into cbo(codigo, descricao) values(2222, 'Engenheiros de alimentos e afins');
-insert into cbo(codigo, descricao) values(2232, 'Cirurgiões-dentistas');
-insert into cbo(codigo, descricao) values(2233, 'Veterinários e zootecnistas');
-insert into cbo(codigo, descricao) values(2234, 'Farmacêuticos');
-insert into cbo(codigo, descricao) values(2235, 'Enfermeiros e afins');
-insert into cbo(codigo, descricao) values(2236, 'Fisioterapeutas');
-insert into cbo(codigo, descricao) values(2237, 'Nutricionistas');
-insert into cbo(codigo, descricao) values(2238, 'Fonoaudiólogos');
-insert into cbo(codigo, descricao) values(2239, 'Terapeutas ocupacionais, ortoptistas e psicomotricistas');
-insert into cbo(codigo, descricao) values(2241, 'Profissionais da educação física');
-insert into cbo(codigo, descricao) values(2251, 'Médicos clínicos');
-insert into cbo(codigo, descricao) values(2252, 'Médicos em especialidades cirúrgicas');
-insert into cbo(codigo, descricao) values(2253, 'Médicos em medicina diagnóstica e terapêutica');
-insert into cbo(codigo, descricao) values(2261, 'Osteopatas e quiropraxistas');
-insert into cbo(codigo, descricao) values(2263, 'Profissionais das terapias criativas,equoterápicas e naturológicas');
-insert into cbo(codigo, descricao) values(2311, 'Professores de nível superior na educação infantil');
-insert into cbo(codigo, descricao) values(2312, 'Professores de nível superior do ensino fundamental (primeira a quarta séries)');
-insert into cbo(codigo, descricao) values(2313, 'Professores de nível superior no ensino fundamental de quinta a oitava série');
-insert into cbo(codigo, descricao) values(2321, 'Professores do ensino médio');
-insert into cbo(codigo, descricao) values(2331, 'Professores do ensino profissional');
-insert into cbo(codigo, descricao) values(2332, 'Instrutores de ensino profissional');
-insert into cbo(codigo, descricao) values(2341, 'Professores de matemática, estatística e informática do ensino superior');
-insert into cbo(codigo, descricao) values(2342, 'Professores de ciências físicas, químicas e afins do ensino superior');
-insert into cbo(codigo, descricao) values(2343, 'Professores de arquitetura e urbanismo, engenharia, geofísica e geologia do ensino superior');
-insert into cbo(codigo, descricao) values(2344, 'Professores de ciências biológicas e da saúde do ensino superior');
-insert into cbo(codigo, descricao) values(2345, 'Professores na área de formação pedagógica do ensino superior');
-insert into cbo(codigo, descricao) values(2346, 'Professores nas áreas de língua e literatura do ensino superior');
-insert into cbo(codigo, descricao) values(2347, 'Professores de ciências humanas do ensino superior');
-insert into cbo(codigo, descricao) values(2348, 'Professores de ciências econômicas, administrativas e contábeis do ensino superior');
-insert into cbo(codigo, descricao) values(2349, 'Professores de artes do ensino superior');
-insert into cbo(codigo, descricao) values(2392, 'Professores de educação especial');
-insert into cbo(codigo, descricao) values(2394, 'Programadores, avaliadores e orientadores de ensino');
-insert into cbo(codigo, descricao) values(2410, 'Advogados');
-insert into cbo(codigo, descricao) values(2412, 'Procuradores e advogados públicos');
-insert into cbo(codigo, descricao) values(2413, 'Tabeliães e registradores');
-insert into cbo(codigo, descricao) values(2414, 'Conselheiros julgadores');
-insert into cbo(codigo, descricao) values(2422, 'Membros do ministério público');
-insert into cbo(codigo, descricao) values(2423, 'Delegados de polícia');
-insert into cbo(codigo, descricao) values(2424, 'Defensores públicos e procuradores da assistência judiciária');
-insert into cbo(codigo, descricao) values(2429, 'Profissionais da inteligência');
-insert into cbo(codigo, descricao) values(2511, 'Profissionais em pesquisa e análise antropológica sociológica');
-insert into cbo(codigo, descricao) values(2512, 'Economistas');
-insert into cbo(codigo, descricao) values(2513, 'Profissionais em pesquisa e análise geográfica');
-insert into cbo(codigo, descricao) values(2514, 'Filósofos');
-insert into cbo(codigo, descricao) values(2515, 'Psicólogos e psicanalistas');
-insert into cbo(codigo, descricao) values(2516, 'Assistentes sociais e economistas domésticos');
-insert into cbo(codigo, descricao) values(2521, 'Administradores');
-insert into cbo(codigo, descricao) values(2522, 'Contadores e afins');
-insert into cbo(codigo, descricao) values(2523, 'Secretárias(os) executivas(os) e afins');
-insert into cbo(codigo, descricao) values(2524, 'Profissionais de recursos humanos');
-insert into cbo(codigo, descricao) values(2525, 'Profissionais de administração ecônomico-financeira');
-insert into cbo(codigo, descricao) values(2526, 'Profissionais da administração dos serviços de segurança');
-insert into cbo(codigo, descricao) values(2527, 'Profissionais de planejamento, programação e controles logisticos');
-insert into cbo(codigo, descricao) values(2531, 'Profissionais de publicidade');
-insert into cbo(codigo, descricao) values(2532, 'Profissionais de comercializacão e consultoria de serviços bancários');
-insert into cbo(codigo, descricao) values(2533, 'Corretores de valores, ativos financeiros, mercadorias e derivativos');
-insert into cbo(codigo, descricao) values(2534, 'Profissionais de mídias digitais e afins');
-insert into cbo(codigo, descricao) values(2541, 'Auditores fiscais e técnicos da receita federal');
-insert into cbo(codigo, descricao) values(2542, 'Auditores fiscais da previdência social');
-insert into cbo(codigo, descricao) values(2543, 'Auditores fiscais do trabalho');
-insert into cbo(codigo, descricao) values(2544, 'Fiscais de tributos estaduais e municipais');
-insert into cbo(codigo, descricao) values(2545, 'Profissionais da fiscalização de atividades urbanas');
-insert into cbo(codigo, descricao) values(2611, 'Profissionais do jornalismo');
-insert into cbo(codigo, descricao) values(2612, 'Profissionais da informação');
-insert into cbo(codigo, descricao) values(2613, 'Arquivistas e museólogos');
-insert into cbo(codigo, descricao) values(2614, 'Filólogos,tradutores ,intérpretes e afins');
-insert into cbo(codigo, descricao) values(2615, 'Profissionais da escrita');
-insert into cbo(codigo, descricao) values(2616, 'Editores');
-insert into cbo(codigo, descricao) values(2617, 'Locutores, comentaristas e repórteres de mídias audiovisuais');
-insert into cbo(codigo, descricao) values(2618, 'Fotógrafos profissionais');
-insert into cbo(codigo, descricao) values(2619, 'Assistentes de direção (tv) e continuístas');
-insert into cbo(codigo, descricao) values(2621, 'Produtores artísticos e culturais');
-insert into cbo(codigo, descricao) values(2622, 'Diretores artísticos, de espetáculos e afins');
-insert into cbo(codigo, descricao) values(2623, 'Cenógrafos');
-insert into cbo(codigo, descricao) values(2624, 'Artistas visuais,desenhistas industriais e conservadores-restauradores de bens culturais');
-insert into cbo(codigo, descricao) values(2625, 'Atores');
-insert into cbo(codigo, descricao) values(2626, 'Músicos compositores, arranjadores, regentes e musicólogos');
-insert into cbo(codigo, descricao) values(2627, 'Músicos intérpretes');
-insert into cbo(codigo, descricao) values(2628, 'Artistas da dança (exceto dança tradicional e popular)');
-insert into cbo(codigo, descricao) values(2629, 'Designer de interiores de nível superior');
-insert into cbo(codigo, descricao) values(2631, 'Ministros de culto, missionários, teólogos e profissionais assemelhados');
-insert into cbo(codigo, descricao) values(2711, 'Chefes de cozinha e afins');
-insert into cbo(codigo, descricao) values(3001, 'Técnicos em mecatrônica');
-insert into cbo(codigo, descricao) values(3003, 'Técnicos em eletromecânica');
-insert into cbo(codigo, descricao) values(3011, 'Técnicos de laboratório industrial');
-insert into cbo(codigo, descricao) values(3012, 'Técnicos de apoio à bioengenharia');
-insert into cbo(codigo, descricao) values(3111, 'Técnicos químicos');
-insert into cbo(codigo, descricao) values(3112, 'Técnicos de produção de indústrias químicas, petroquímicas, refino de petróleo, gás e afins');
-insert into cbo(codigo, descricao) values(3113, 'Técnicos em materiais, produtos cerâmicos e vidros');
-insert into cbo(codigo, descricao) values(3114, 'Técnicos em fabricação de produtos plásticos e de borracha');
-insert into cbo(codigo, descricao) values(3115, 'Técnicos em controle ambiental, utilidades e tratamento de efluentes');
-insert into cbo(codigo, descricao) values(3116, 'Técnicos têxteis');
-insert into cbo(codigo, descricao) values(3117, 'Coloristas');
-insert into cbo(codigo, descricao) values(3121, 'Técnicos em construção civil (edificações)');
-insert into cbo(codigo, descricao) values(3122, 'Técnicos em construção civil (obras de infraestrutura)');
-insert into cbo(codigo, descricao) values(3123, 'Técnicos em geomática');
-insert into cbo(codigo, descricao) values(3131, 'Técnicos em eletricidade e eletrotécnica');
-insert into cbo(codigo, descricao) values(3132, 'Técnicos em eletrônica');
-insert into cbo(codigo, descricao) values(3133, 'Técnicos em telecomunicações');
-insert into cbo(codigo, descricao) values(3134, 'Técnicos em calibração e instrumentação');
-insert into cbo(codigo, descricao) values(3135, 'Técnicos em fotônica');
-insert into cbo(codigo, descricao) values(3141, 'Técnicos mecânicos na fabricação e montagem de máquinas, sistemas e instrumentos');
-insert into cbo(codigo, descricao) values(3142, 'Técnicos mecânicos (ferramentas)');
-insert into cbo(codigo, descricao) values(3143, 'Técnicos em mecânica veicular');
-insert into cbo(codigo, descricao) values(3144, 'Técnicos mecânicos na manutenção de máquinas, sistemas e instrumentos');
-insert into cbo(codigo, descricao) values(3146, 'Técnicos em metalurgia (estruturas metálicas)');
-insert into cbo(codigo, descricao) values(3147, 'Técnicos em siderurgia');
-insert into cbo(codigo, descricao) values(3148, 'Especialistas em inspeções industriais');
-insert into cbo(codigo, descricao) values(3161, 'Técnicos em geologia');
-insert into cbo(codigo, descricao) values(3163, 'Técnicos em mineração');
-insert into cbo(codigo, descricao) values(3171, 'Técnicos de desenvolvimento de sistemas e aplicações');
-insert into cbo(codigo, descricao) values(3172, 'Técnicos de suporte e monitoração ao usuário de tecnologia da informação.');
-insert into cbo(codigo, descricao) values(3180, 'Desenhistas técnicos, em geral');
-insert into cbo(codigo, descricao) values(3181, 'Desenhistas técnicos da construção civil e arquitetura');
-insert into cbo(codigo, descricao) values(3182, 'Desenhistas técnicos da mecânica');
-insert into cbo(codigo, descricao) values(3183, 'Desenhistas técnicos em eletricidade, eletrônica, eletromecânica, calefação, ventilação e refrigeração');
-insert into cbo(codigo, descricao) values(3184, 'Desenhistas técnicos de produtos e serviços diversos');
-insert into cbo(codigo, descricao) values(3185, 'Desenhistas projetistas de construção civil e arquitetura');
-insert into cbo(codigo, descricao) values(3186, 'Desenhistas projetistas da mecânica');
-insert into cbo(codigo, descricao) values(3187, 'Desenhistas projetistas de eletricidade e eletrônica');
-insert into cbo(codigo, descricao) values(3188, 'Desenhistas projetistas e modelistas de produtos e serviços diversos');
-insert into cbo(codigo, descricao) values(3191, 'Técnicos do vestuário');
-insert into cbo(codigo, descricao) values(3192, 'Técnicos do mobiliário e afins');
-insert into cbo(codigo, descricao) values(3201, 'Técnicos em biologia');
-insert into cbo(codigo, descricao) values(3211, 'Técnicos agrícolas');
-insert into cbo(codigo, descricao) values(3212, 'Técnicos florestais');
-insert into cbo(codigo, descricao) values(3213, 'Técnicos em aqüicultura');
-insert into cbo(codigo, descricao) values(3221, 'Tecnólogos e técnicos em terapias complementares e estéticas');
-insert into cbo(codigo, descricao) values(3222, 'Técnicos e auxiliares de enfermagem');
-insert into cbo(codigo, descricao) values(3223, 'Técnicos em óptica e optometria');
-insert into cbo(codigo, descricao) values(3224, 'Técnicos de odontologia');
-insert into cbo(codigo, descricao) values(3225, 'Técnicos em próteses ortopédicas');
-insert into cbo(codigo, descricao) values(3226, 'Técnicos de imobilizações ortopédicas');
-insert into cbo(codigo, descricao) values(3227, 'Técnicos e profissionais em práticas integrativas e complementares (pics)');
-insert into cbo(codigo, descricao) values(3231, 'Técnicos em pecuária');
-insert into cbo(codigo, descricao) values(3241, 'Tecnólogos e técnicos em métodos de diagnósticos e terapêutica');
-insert into cbo(codigo, descricao) values(3242, 'Técnicos de laboratórios de saúde e bancos de sangue');
-insert into cbo(codigo, descricao) values(3250, 'Enólogos, perfumistas e aromistas');
-insert into cbo(codigo, descricao) values(3251, 'Técnico em farmácia e em manipulação farmacêutica');
-insert into cbo(codigo, descricao) values(3252, 'Técnicos em produção, conservação  e de qualidade de alimentos');
-insert into cbo(codigo, descricao) values(3253, 'Técnicos de apoio à biotecnologia');
-insert into cbo(codigo, descricao) values(3281, 'Técnicos em necrópsia e taxidermistas');
-insert into cbo(codigo, descricao) values(3311, 'Professores de nível médio na educação infantil');
-insert into cbo(codigo, descricao) values(3312, 'Professores de nível médio no ensino fundamental');
-insert into cbo(codigo, descricao) values(3313, 'Professores de nível médio no ensino profissionalizante');
-insert into cbo(codigo, descricao) values(3321, 'Professores leigos no ensino fundamental');
-insert into cbo(codigo, descricao) values(3322, 'Professores práticos no ensino profissionalizante');
-insert into cbo(codigo, descricao) values(3331, 'Instrutores e professores de cursos livres');
-insert into cbo(codigo, descricao) values(3341, 'Inspetores de alunos e afins');
-insert into cbo(codigo, descricao) values(3411, 'Pilotos de aviação comercial, mecânicos de vôo e afins');
-insert into cbo(codigo, descricao) values(3412, 'Técnicos marítimos, fluviários e pescadores de convés');
-insert into cbo(codigo, descricao) values(3413, 'Técnicos marítimos e fluviários de máquinas');
-insert into cbo(codigo, descricao) values(3421, 'Especialistas em logística de transportes');
-insert into cbo(codigo, descricao) values(3422, 'Despachantes aduaneiros');
-insert into cbo(codigo, descricao) values(3423, 'Técnicos em transportes rodoviários');
-insert into cbo(codigo, descricao) values(3424, 'Técnicos em transportes metroferroviários');
-insert into cbo(codigo, descricao) values(3425, 'Técnicos em transportes aéreos');
-insert into cbo(codigo, descricao) values(3426, 'Técnicos em transportes por vias navegáveis e operações portuárias');
-insert into cbo(codigo, descricao) values(3511, 'Técnicos em contabilidade');
-insert into cbo(codigo, descricao) values(3513, 'Técnicos em administração');
-insert into cbo(codigo, descricao) values(3514, 'Serventuários da justiça e afins');
-insert into cbo(codigo, descricao) values(3515, 'Técnicos em secretariado, taquígrafos e estenotipistas');
-insert into cbo(codigo, descricao) values(3516, 'Técnicos em segurança do trabalho');
-insert into cbo(codigo, descricao) values(3517, 'Técnicos de seguros e afins');
-insert into cbo(codigo, descricao) values(3518, 'Agentes de investigação e identificação');
-insert into cbo(codigo, descricao) values(3519, 'Técnicos da inteligência');
-insert into cbo(codigo, descricao) values(3522, 'Agentes da saúde e do meio ambiente');
-insert into cbo(codigo, descricao) values(3523, 'Agentes  fiscais metrológicos e de qualidade');
-insert into cbo(codigo, descricao) values(3524, 'Profissionais de direitos autorais e de avaliacão de produtos dos meios de comunicação');
-insert into cbo(codigo, descricao) values(3532, 'Técnicos em operações e serviços bancários');
-insert into cbo(codigo, descricao) values(3541, 'Especialistas em promoção de produtos e vendas');
-insert into cbo(codigo, descricao) values(3542, 'Compradores');
-insert into cbo(codigo, descricao) values(3543, 'Analistas de comércio exterior');
-insert into cbo(codigo, descricao) values(3544, 'Leiloeiros e avaliadores');
-insert into cbo(codigo, descricao) values(3545, 'Corretores de seguros');
-insert into cbo(codigo, descricao) values(3546, 'Corretores de imóveis e de grãos');
-insert into cbo(codigo, descricao) values(3547, 'Representantes comerciais autônomos');
-insert into cbo(codigo, descricao) values(3548, 'Técnicos em serviços de turismo e organização de eventos');
-insert into cbo(codigo, descricao) values(3711, 'Técnicos em biblioteconomia');
-insert into cbo(codigo, descricao) values(3712, 'Técnicos em museologia e afins');
-insert into cbo(codigo, descricao) values(3713, 'Técnicos em artes gráficas');
-insert into cbo(codigo, descricao) values(3714, 'Recreadores, brinquedistas e afins');
-insert into cbo(codigo, descricao) values(3721, 'Captadores de imagens em movimento');
-insert into cbo(codigo, descricao) values(3722, 'Operadores de rede de teleprocessamento e afins');
-insert into cbo(codigo, descricao) values(3731, 'Técnicos de operação de registros sonoro/audiovisuais');
-insert into cbo(codigo, descricao) values(3732, 'Supervisores operacionais e técnicos em mídias audiovisuais');
-insert into cbo(codigo, descricao) values(3741, 'Técnicos em áudio');
-insert into cbo(codigo, descricao) values(3742, 'Técnicos em cenografia');
-insert into cbo(codigo, descricao) values(3743, 'Técnicos em operação de aparelhos de projeção');
-insert into cbo(codigo, descricao) values(3744, 'Técnicos em montagem, edição e finalização de mídia audiovisual');
-insert into cbo(codigo, descricao) values(3751, 'Designers de interiores, de vitrines e visual merchandiser e afins (nível médio)');
-insert into cbo(codigo, descricao) values(3761, 'Dançarinos tradicionais e populares');
-insert into cbo(codigo, descricao) values(3762, 'Artistas de circo (circenses)');
-insert into cbo(codigo, descricao) values(3763, 'Apresentadores de eventos, programas e espetáculos');
-insert into cbo(codigo, descricao) values(3764, 'Modelos');
-insert into cbo(codigo, descricao) values(3771, 'Atletas profissionais');
-insert into cbo(codigo, descricao) values(3772, 'Árbitros desportivos');
-insert into cbo(codigo, descricao) values(3911, 'Planejadores, programadores e controladores de produção e manutenção');
-insert into cbo(codigo, descricao) values(3912, 'Técnicos de controle da produção');
-insert into cbo(codigo, descricao) values(3951, 'Técnicos de apoio em pesquisa e desenvolvimento');
-insert into cbo(codigo, descricao) values(4101, 'Supervisores administrativos');
-insert into cbo(codigo, descricao) values(4102, 'Supervisores de serviços financeiros, de câmbio e de controle');
-insert into cbo(codigo, descricao) values(4110, 'Agentes, assistentes e auxiliares administrativos');
-insert into cbo(codigo, descricao) values(4121, 'Operadores de equipamentos de entrada e transmissão de dados');
-insert into cbo(codigo, descricao) values(4122, 'Contínuos');
-insert into cbo(codigo, descricao) values(4131, 'Auxiliares de contabilidade');
-insert into cbo(codigo, descricao) values(4132, 'Escriturários de serviços bancários');
-insert into cbo(codigo, descricao) values(4141, 'Almoxarifes e armazenistas');
-insert into cbo(codigo, descricao) values(4142, 'Apontadores e conferentes');
-insert into cbo(codigo, descricao) values(4151, 'Auxiliares de serviços de documentação, informação e pesquisa');
-insert into cbo(codigo, descricao) values(4152, 'Trabalhadores nos serviços de classificação e entregas de correspondências, encomendas e publicações');
-insert into cbo(codigo, descricao) values(4153, 'Trabalhadores em registros e informações em saúde');
-insert into cbo(codigo, descricao) values(4201, 'Supervisores de atendimento ao público e de pesquisa');
-insert into cbo(codigo, descricao) values(4211, 'Caixas e bilheteiros (exceto caixa de banco)');
-insert into cbo(codigo, descricao) values(4212, 'Coletadores de apostas e de jogos');
-insert into cbo(codigo, descricao) values(4213, 'Cobradores e afins');
-insert into cbo(codigo, descricao) values(4221, 'Recepcionistas');
-insert into cbo(codigo, descricao) values(4222, 'Operadores de telefonia');
-insert into cbo(codigo, descricao) values(4223, 'Operadores de telemarketing e afins');
-insert into cbo(codigo, descricao) values(4231, 'Despachantes documentalistas e afins');
-insert into cbo(codigo, descricao) values(4241, 'Entrevistadores e recenseadores');
-insert into cbo(codigo, descricao) values(4242, 'Aplicadores de provas e afins');
-insert into cbo(codigo, descricao) values(5101, 'Supervisores dos serviços de transporte, turismo, hotelaria e administração de edifícios');
-insert into cbo(codigo, descricao) values(5102, 'Supervisores de lavanderia');
-insert into cbo(codigo, descricao) values(5103, 'Supervisores dos serviços de proteção, segurança e outros');
-insert into cbo(codigo, descricao) values(5111, 'Trabalhadores de segurança e atendimento aos usuários nos transportes');
-insert into cbo(codigo, descricao) values(5112, 'Fiscais e cobradores dos transportes coletivos');
-insert into cbo(codigo, descricao) values(5114, 'Guias de turismo');
-insert into cbo(codigo, descricao) values(5115, 'Condutores de turismo');
-insert into cbo(codigo, descricao) values(5121, 'Trabalhadores dos serviços domésticos em geral');
-insert into cbo(codigo, descricao) values(5131, 'Mordomos e governantas');
-insert into cbo(codigo, descricao) values(5132, 'Cozinheiros');
-insert into cbo(codigo, descricao) values(5133, 'Camareiros, roupeiros e afins');
-insert into cbo(codigo, descricao) values(5134, 'Trabalhadores no atendimento em estabelecimentos de serviços de alimentação, bebidas e hotelaria');
-insert into cbo(codigo, descricao) values(5135, 'Trabalhadores auxiliares nos serviços de alimentação');
-insert into cbo(codigo, descricao) values(5136, 'Churrasqueiros, pizzaiolos e sushimen');
-insert into cbo(codigo, descricao) values(5141, 'Trabalhadores nos serviços de administração de edifícios');
-insert into cbo(codigo, descricao) values(5142, 'Trabalhadores nos serviços de coleta de resíduos, de limpeza e conservação de áreas públicas');
-insert into cbo(codigo, descricao) values(5143, 'Trabalhadores nos serviços de manutenção de edificações, estruturas e equipamentos industriais');
-insert into cbo(codigo, descricao) values(5151, 'Trabalhadores em serviços de promoção e apoio à saúde');
-insert into cbo(codigo, descricao) values(5152, 'Auxiliares de laboratório da saúde');
-insert into cbo(codigo, descricao) values(5153, 'Trabalhadores de atenção, defesa e proteção a pessoas em situação de risco e adolescentes em conflito com a lei');
-insert into cbo(codigo, descricao) values(5161, 'Trabalhadores nos serviços de embelezamento');
-insert into cbo(codigo, descricao) values(5162, 'Cuidadores de crianças, jovens, adultos e idosos');
-insert into cbo(codigo, descricao) values(5163, 'Tintureiros, lavadeiros e afins, a máquina');
-insert into cbo(codigo, descricao) values(5164, 'Lavadores e passadores de roupa, a mão');
-insert into cbo(codigo, descricao) values(5165, 'Trabalhadores dos serviços funerários');
-insert into cbo(codigo, descricao) values(5166, 'Trabalhadores auxiliares dos serviços funerários');
-insert into cbo(codigo, descricao) values(5167, 'Astrólogos e numerólogos');
-insert into cbo(codigo, descricao) values(5168, 'Esotéricos e afins');
-insert into cbo(codigo, descricao) values(5169, 'Trabalhadores nos serviços de arte corporal');
-insert into cbo(codigo, descricao) values(5171, 'Bombeiros, salva-vidas e afins');
-insert into cbo(codigo, descricao) values(5172, 'Policiais, guardas-civis municipais e agentes de trânsito');
-insert into cbo(codigo, descricao) values(5173, 'Vigilantes e guardas de segurança');
-insert into cbo(codigo, descricao) values(5174, 'Porteiros, vigias e afins');
-insert into cbo(codigo, descricao) values(5191, 'Motociclistas e ciclistas de entregas rápidas');
-insert into cbo(codigo, descricao) values(5192, 'Trabalhadores da coleta e seleção de material reciclável');
-insert into cbo(codigo, descricao) values(5193, 'Trabalhadores cuidadores de animais domésticos');
-insert into cbo(codigo, descricao) values(5198, 'Profissionais do sexo');
-insert into cbo(codigo, descricao) values(5199, 'Outros trabalhadores dos serviços');
-insert into cbo(codigo, descricao) values(5201, 'Supervisores de vendas e de prestação de serviços');
-insert into cbo(codigo, descricao) values(5211, 'Operadores do comércio em lojas e mercados');
-insert into cbo(codigo, descricao) values(5231, 'Instaladores de produtos e acessórios');
-insert into cbo(codigo, descricao) values(5241, 'Vendedores em domicílio');
-insert into cbo(codigo, descricao) values(5242, 'Vendedores em bancas, quiosques e barracas');
-insert into cbo(codigo, descricao) values(5243, 'Vendedores ambulantes');
-insert into cbo(codigo, descricao) values(6110, 'Produtores agropecuários em geral');
-insert into cbo(codigo, descricao) values(6120, 'Produtores agrícolas polivalentes');
-insert into cbo(codigo, descricao) values(6121, 'Produtores agrícolas na cultura de gramíneas');
-insert into cbo(codigo, descricao) values(6122, 'Produtores agrícolas na cultura de plantas fibrosas');
-insert into cbo(codigo, descricao) values(6123, 'Produtores agrícolas na olericultura');
-insert into cbo(codigo, descricao) values(6124, 'Produtores agrícolas no cultivo de flores e plantas ornamentais');
-insert into cbo(codigo, descricao) values(6125, 'Produtores agrícolas na fruticultura');
-insert into cbo(codigo, descricao) values(6126, 'Produtores agrícolas na cultura de plantas estimulantes');
-insert into cbo(codigo, descricao) values(6127, 'Produtores agrícolas na cultura de plantas oleaginosas');
-insert into cbo(codigo, descricao) values(6128, 'Produtores de especiarias e de plantas aromáticas e medicinais');
-insert into cbo(codigo, descricao) values(6130, 'Produtores em pecuária polivalente');
-insert into cbo(codigo, descricao) values(6131, 'Produtores em pecuária de animais de grande porte');
-insert into cbo(codigo, descricao) values(6132, 'Produtores em pecuária de animais de médio porte');
-insert into cbo(codigo, descricao) values(6133, 'Produtores da avicultura e cunicultura');
-insert into cbo(codigo, descricao) values(6134, 'Produtores de animais e insetos úteis');
-insert into cbo(codigo, descricao) values(6201, 'Supervisores na exploração agropecuária');
-insert into cbo(codigo, descricao) values(6210, 'Trabalhadores agropecuários em geral');
-insert into cbo(codigo, descricao) values(6220, 'Trabalhadores de apoio à agricultura');
-insert into cbo(codigo, descricao) values(6221, 'Trabalhadores agrícolas na cultura de gramíneas');
-insert into cbo(codigo, descricao) values(6222, 'Trabalhadores agrícolas na cultura de plantas fibrosas');
-insert into cbo(codigo, descricao) values(6223, 'Trabalhadores agrícolas na olericultura');
-insert into cbo(codigo, descricao) values(6224, 'Trabalhadores agrícolas no cultivo de flores e plantas ornamentais');
-insert into cbo(codigo, descricao) values(6225, 'Trabalhadores agrícolas na fruticultura');
-insert into cbo(codigo, descricao) values(6226, 'Trabalhadores agrícolas nas culturas de plantas estimulantes');
-insert into cbo(codigo, descricao) values(6227, 'Trabalhadores agrícolas na cultura de plantas oleaginosas');
-insert into cbo(codigo, descricao) values(6228, 'Trabalhadores agrícolas da cultura de especiarias e de plantas aromáticas e medicinais');
-insert into cbo(codigo, descricao) values(6230, 'Tratadores polivalentes de animais');
-insert into cbo(codigo, descricao) values(6231, 'Trabalhadores na pecuária de animais de grande porte');
-insert into cbo(codigo, descricao) values(6232, 'Trabalhadores na pecuária de animais de médio porte');
-insert into cbo(codigo, descricao) values(6233, 'Trabalhadores na avicultura e cunicultura');
-insert into cbo(codigo, descricao) values(6234, 'Trabalhadores na criação de insetos e animais úteis');
-insert into cbo(codigo, descricao) values(6301, 'Supervisores na área florestal e aquicultura');
-insert into cbo(codigo, descricao) values(6310, 'Pescadores polivalentes');
-insert into cbo(codigo, descricao) values(6311, 'Pescadores profissionais artesanais de água doce');
-insert into cbo(codigo, descricao) values(6312, 'Pescadores de água costeira e alto mar');
-insert into cbo(codigo, descricao) values(6313, 'Criadores de animais aquáticos');
-insert into cbo(codigo, descricao) values(6314, 'Trabalhadores de apoio à pesca');
-insert into cbo(codigo, descricao) values(6320, 'Trabalhadores florestais polivalentes');
-insert into cbo(codigo, descricao) values(6321, 'Extrativistas e reflorestadores de espécies produtoras de madeira');
-insert into cbo(codigo, descricao) values(6322, 'Extrativistas florestais de espécies produtoras de gomas e resinas');
-insert into cbo(codigo, descricao) values(6323, 'Extrativistas florestais de espécies produtoras de fibras, ceras e óleos');
-insert into cbo(codigo, descricao) values(6324, 'Extrativistas florestais de espécies produtoras de alimentos silvestres');
-insert into cbo(codigo, descricao) values(6325, 'Extrativistas florestais de espécies produtoras de substâncias aromáticas, medicinais e tóxicas');
-insert into cbo(codigo, descricao) values(6326, 'Carvoejadores');
-insert into cbo(codigo, descricao) values(6410, 'Trabalhadores da mecanização agrícola');
-insert into cbo(codigo, descricao) values(6420, 'Trabalhadores da mecanização florestal');
-insert into cbo(codigo, descricao) values(6430, 'Trabalhadores da irrigação e drenagem');
-insert into cbo(codigo, descricao) values(7101, 'Supervisores da extração mineral');
-insert into cbo(codigo, descricao) values(7102, 'Supervisores da construção civil');
-insert into cbo(codigo, descricao) values(7111, 'Trabalhadores da extração de minerais sólidos');
-insert into cbo(codigo, descricao) values(7112, 'Trabalhadores de extração de minerais sólidos (operadores de máquinas)');
-insert into cbo(codigo, descricao) values(7113, 'Trabalhadores da extração de minerais líquidos e gasosos');
-insert into cbo(codigo, descricao) values(7114, 'Garimpeiros e operadores de salinas');
-insert into cbo(codigo, descricao) values(7121, 'Trabalhadores de beneficiamento de minérios');
-insert into cbo(codigo, descricao) values(7122, 'Trabalhadores de beneficiamento de pedras ornamentais');
-insert into cbo(codigo, descricao) values(7151, 'Trabalhadores na operação de máquinas de terraplenagem e fundações');
-insert into cbo(codigo, descricao) values(7152, 'Trabalhadores de estruturas de alvenaria');
-insert into cbo(codigo, descricao) values(7153, 'Montadores de estruturas de concreto armado');
-insert into cbo(codigo, descricao) values(7154, 'Trabalhadores na operação de máquinas de concreto usinado e afins');
-insert into cbo(codigo, descricao) values(7155, 'Trabalhadores de montagem de estruturas de madeira, metal e compósitos em obras civis');
-insert into cbo(codigo, descricao) values(7156, 'Trabalhadores de instalações elétricas');
-insert into cbo(codigo, descricao) values(7157, 'Aplicadores de materiais isolantes');
-insert into cbo(codigo, descricao) values(7161, 'Revestidores de concreto');
-insert into cbo(codigo, descricao) values(7162, 'Telhadores (revestimentos rígidos)');
-insert into cbo(codigo, descricao) values(7163, 'Vidraceiros (revestimentos rígidos)');
-insert into cbo(codigo, descricao) values(7164, 'Gesseiros');
-insert into cbo(codigo, descricao) values(7165, 'Aplicadores de revestimentos cerâmicos, pastilhas, pedras e madeiras');
-insert into cbo(codigo, descricao) values(7166, 'Pintores de obras e revestidores de interiores (revestimentos flexíveis)');
-insert into cbo(codigo, descricao) values(7170, 'Operadores de equipamentos da construção civil');
-insert into cbo(codigo, descricao) values(7201, 'Supervisores de usinagem, conformação e tratamento de metais');
-insert into cbo(codigo, descricao) values(7202, 'Supervisores da fabricação e montagem metalmecânica');
-insert into cbo(codigo, descricao) values(7211, 'Ferramenteiros e afins');
-insert into cbo(codigo, descricao) values(7212, 'Preparadores e operadores de máquinas-ferramenta convencionais');
-insert into cbo(codigo, descricao) values(7213, 'Afiadores e polidores de metais');
-insert into cbo(codigo, descricao) values(7214, 'Operadores de máquinas de usinagem cnc');
-insert into cbo(codigo, descricao) values(7221, 'Trabalhadores de forjamento de metais');
-insert into cbo(codigo, descricao) values(7222, 'Trabalhadores de fundição de metais puros e de ligas metálicas');
-insert into cbo(codigo, descricao) values(7223, 'Trabalhadores de moldagem de metais e de ligas metálicas');
-insert into cbo(codigo, descricao) values(7224, 'Trabalhadores de trefilação e estiramento de metais puros e ligas metálicas');
-insert into cbo(codigo, descricao) values(7231, 'Trabalhadores de tratamento térmico de metais');
-insert into cbo(codigo, descricao) values(7232, 'Trabalhadores de tratamento de superfícies de metais e de compósitos (termoquímicos)');
-insert into cbo(codigo, descricao) values(7233, 'Trabalhadores da pintura de equipamentos, veículos, estruturas metálicas e de compósitos');
-insert into cbo(codigo, descricao) values(7241, 'Encanadores e instaladores de tubulações');
-insert into cbo(codigo, descricao) values(7242, 'Trabalhadores de traçagem e montagem de estruturas metálicas e de compósitos');
-insert into cbo(codigo, descricao) values(7243, 'Trabalhadores de soldagem e corte de ligas metálicas');
-insert into cbo(codigo, descricao) values(7244, 'Trabalhadores de caldeiraria e serralheria');
-insert into cbo(codigo, descricao) values(7245, 'Operadores de máquinas de conformação de metais');
-insert into cbo(codigo, descricao) values(7246, 'Trançadores e laceiros de cabos de aço');
-insert into cbo(codigo, descricao) values(7250, 'Ajustadores mecânicos polivalentes e afins');
-insert into cbo(codigo, descricao) values(7251, 'Montadores de máquinas, aparelhos e acessórios em linhas de montagem');
-insert into cbo(codigo, descricao) values(7252, 'Montadores de máquinas industriais');
-insert into cbo(codigo, descricao) values(7253, 'Montadores de máquinas pesadas e equipamentos agrícolas');
-insert into cbo(codigo, descricao) values(7254, 'Mecânicos montadores de motores e turboalimentadores');
-insert into cbo(codigo, descricao) values(7255, 'Montadores de veículos automotores (linha de montagem)');
-insert into cbo(codigo, descricao) values(7256, 'Montadores de sistemas e estruturas de aeronaves');
-insert into cbo(codigo, descricao) values(7257, 'Instaladores de equipamentos de refrigeração e ventilação');
-insert into cbo(codigo, descricao) values(7301, 'Supervisores de montagens e instalações eletroeletrônicas');
-insert into cbo(codigo, descricao) values(7311, 'Montadores de equipamentos eletroeletrônicos');
-insert into cbo(codigo, descricao) values(7312, 'Montadores de aparelhos de telecomunicações');
-insert into cbo(codigo, descricao) values(7313, 'Instaladores-reparadores de  linhas e equipamentos de telecomunicações');
-insert into cbo(codigo, descricao) values(7321, 'Instaladores e reparadores de linhas e cabos elétricos, telefônicos e de comunicação de dados');
-insert into cbo(codigo, descricao) values(7401, 'Supervisores da mecânica de precisão e instrumentos musicais');
-insert into cbo(codigo, descricao) values(7411, 'Mecânicos de instrumentos de precisão');
-insert into cbo(codigo, descricao) values(7421, 'Confeccionadores de instrumentos musicais');
-insert into cbo(codigo, descricao) values(7501, 'Supervisores de joalheria e afins');
-insert into cbo(codigo, descricao) values(7502, 'Supervisores de vidraria, cerâmica e afins');
-insert into cbo(codigo, descricao) values(7510, 'Joalheiros e lapidadores de gemas');
-insert into cbo(codigo, descricao) values(7511, 'Artesãos de metais preciosos e semipreciosos');
-insert into cbo(codigo, descricao) values(7521, 'Sopradores, moldadores e modeladores de vidros e afins');
-insert into cbo(codigo, descricao) values(7522, 'Trabalhadores da transformação de vidros planos');
-insert into cbo(codigo, descricao) values(7523, 'Ceramistas (preparação e fabricação)');
-insert into cbo(codigo, descricao) values(7524, 'Vidreiros e ceramistas (arte e decoração)');
-insert into cbo(codigo, descricao) values(7601, 'Supervisores da indústria têxtil');
-insert into cbo(codigo, descricao) values(7602, 'Supervisores na indústria do curtimento');
-insert into cbo(codigo, descricao) values(7603, 'Supervisores na confecção do vestuário');
-insert into cbo(codigo, descricao) values(7604, 'Supervisores na confecção de calçados');
-insert into cbo(codigo, descricao) values(7605, 'Supervisores da confecção de artefatos de tecidos, couros e afins');
-insert into cbo(codigo, descricao) values(7606, 'Supervisores das artes gráficas');
-insert into cbo(codigo, descricao) values(7610, 'Trabalhadores polivalentes das indústrias têxteis');
-insert into cbo(codigo, descricao) values(7611, 'Trabalhadores da classificação de fibras têxteis e lavagem de lã');
-insert into cbo(codigo, descricao) values(7612, 'Operadores da fiação');
-insert into cbo(codigo, descricao) values(7613, 'Operadores de tear e máquinas similares');
-insert into cbo(codigo, descricao) values(7614, 'Trabalhadores de acabamento, tingimento e estamparia das indústrias têxteis');
-insert into cbo(codigo, descricao) values(7618, 'Inspetores e revisores de produção têxtil');
-insert into cbo(codigo, descricao) values(7620, 'Trabalhadores polivalentes do curtimento de couros e peles');
-insert into cbo(codigo, descricao) values(7621, 'Trabalhadores da preparação do curtimento de couros e peles');
-insert into cbo(codigo, descricao) values(7622, 'Trabalhadores do curtimento de couros e peles');
-insert into cbo(codigo, descricao) values(7623, 'Trabalhadores do acabamento de couros e peles');
-insert into cbo(codigo, descricao) values(7630, 'Profissionais polivalentes da confecção de roupas');
-insert into cbo(codigo, descricao) values(7631, 'Trabalhadores da preparação da confecção de roupas');
-insert into cbo(codigo, descricao) values(7632, 'Operadores de máquinas para costura de peças do vestuário');
-insert into cbo(codigo, descricao) values(7633, 'Operadores de máquinas para bordado e acabamento de roupas');
-insert into cbo(codigo, descricao) values(7640, 'Trabalhadores polivalentes da confecção de calçados');
-insert into cbo(codigo, descricao) values(7641, 'Trabalhadores da preparação da confecção de calçados');
-insert into cbo(codigo, descricao) values(7642, 'Operadores de máquinas de costurar e montar calçados');
-insert into cbo(codigo, descricao) values(7643, 'Trabalhadores de acabamento de calçados');
-insert into cbo(codigo, descricao) values(7650, 'Trabalhadores polivalentes da confecção de artefatos de tecidos e couros');
-insert into cbo(codigo, descricao) values(7651, 'Trabalhadores da preparação de artefatos de tecidos, couros e tapeçaria');
-insert into cbo(codigo, descricao) values(7652, 'Trabalhadores da confecção de artefatos de tecidos, couros e sintéticos');
-insert into cbo(codigo, descricao) values(7653, 'Operadores de máquinas na confecção de artefatos de  couro');
-insert into cbo(codigo, descricao) values(7654, 'Trabalhadores do acabamento de artefatos de tecidos e couros');
-insert into cbo(codigo, descricao) values(7661, 'Trabalhadores da pré-impressão gráfica');
-insert into cbo(codigo, descricao) values(7662, 'Trabalhadores da impressão gráfica');
-insert into cbo(codigo, descricao) values(7663, 'Trabalhadores do acabamento gráfico');
-insert into cbo(codigo, descricao) values(7664, 'Trabalhadores de laboratório fotográfico e radiológico');
-insert into cbo(codigo, descricao) values(7681, 'Trabalhadores de tecelagem manual, tricô, crochê, rendas e afins');
-insert into cbo(codigo, descricao) values(7682, 'Trabalhadores artesanais da confecção de peças e tecidos');
-insert into cbo(codigo, descricao) values(7683, 'Trabalhadores artesanais da confecção de calçados e artefatos de couros e peles');
-insert into cbo(codigo, descricao) values(7686, 'Trabalhadores tipográficos linotipistas e afins');
-insert into cbo(codigo, descricao) values(7687, 'Encadernadores e recuperadores de livros (pequenos lotes ou a unidade)');
-insert into cbo(codigo, descricao) values(7701, 'Supervisores em indústria de madeira, mobiliário e da carpintaria veicular');
-insert into cbo(codigo, descricao) values(7711, 'Marceneiros e afins');
-insert into cbo(codigo, descricao) values(7721, 'Trabalhadores de tratamento e preparação da madeira');
-insert into cbo(codigo, descricao) values(7731, 'Operadores de máquinas de desdobramento da madeira');
-insert into cbo(codigo, descricao) values(7732, 'Operadores de máquinas de aglomeração e prensagem de chapas');
-insert into cbo(codigo, descricao) values(7733, 'Operadores de usinagem convencional de madeira');
-insert into cbo(codigo, descricao) values(7734, 'Operadores de máquina de usinar madeira (produção em série)');
-insert into cbo(codigo, descricao) values(7735, 'Operadores de máquinas de usinagem de madeira cnc');
-insert into cbo(codigo, descricao) values(7741, 'Montadores de móveis e artefatos de madeira');
-insert into cbo(codigo, descricao) values(7751, 'Trabalhadores de arte e  do acabamento em madeira do mobiliário');
-insert into cbo(codigo, descricao) values(7764, 'Confeccionadores de artefatos de madeira, móveis de vime e afins');
-insert into cbo(codigo, descricao) values(7771, 'Carpinteiros navais');
-insert into cbo(codigo, descricao) values(7772, 'Carpinteiros de carrocerias e carretas');
-insert into cbo(codigo, descricao) values(7801, 'Supervisores de trabalhadores de embalagem e etiquetagem');
-insert into cbo(codigo, descricao) values(7811, 'Condutores de processos robotizados');
-insert into cbo(codigo, descricao) values(7813, 'Operadores de equipamentos pilotados remotamente');
-insert into cbo(codigo, descricao) values(7817, 'Trabalhadores subaquáticos');
-insert into cbo(codigo, descricao) values(7821, 'Operadores de máquinas e equipamentos de elevação');
-insert into cbo(codigo, descricao) values(7822, 'Operadores de equipamentos de movimentação de cargas');
-insert into cbo(codigo, descricao) values(7823, 'Motoristas de veículos de pequeno e médio porte');
-insert into cbo(codigo, descricao) values(7824, 'Condutores de ônibus urbanos, metropolitanos e rodoviários');
-insert into cbo(codigo, descricao) values(7825, 'Motoristas de veículos de cargas em geral');
-insert into cbo(codigo, descricao) values(7826, 'Operadores de veículos sobre trilhos e cabos aéreos');
-insert into cbo(codigo, descricao) values(7827, 'Trabalhadores aquaviários');
-insert into cbo(codigo, descricao) values(7828, 'Condutores de animais e de veículos de tração animal e pedais');
-insert into cbo(codigo, descricao) values(7831, 'Trabalhadores de manobras de transportes sobre trilhos');
-insert into cbo(codigo, descricao) values(7832, 'Trabalhadores de cargas e descargas de mercadorias');
-insert into cbo(codigo, descricao) values(7841, 'Trabalhadores de embalagem e de etiquetagem');
-insert into cbo(codigo, descricao) values(7842, 'Alimentadores de linhas de produção');
-insert into cbo(codigo, descricao) values(7911, 'Artesãos');
-insert into cbo(codigo, descricao) values(8101, 'Supervisores de produção em indústrias químicas, petroquímicas e afins');
-insert into cbo(codigo, descricao) values(8102, 'Supervisores de produção em indústrias de transformação de plásticos e borrachas');
-insert into cbo(codigo, descricao) values(8103, 'Supervisores de produção em indústrias de produtos farmacêuticos, cosméticos e afins');
-insert into cbo(codigo, descricao) values(8110, 'Operadores polivalentes de equipamentos em indústrias químicas, petroquímicas e afins');
-insert into cbo(codigo, descricao) values(8111, 'Operadores de equipamentos de moagem e mistura de materiais (tratamentos químicos e afins)');
-insert into cbo(codigo, descricao) values(8112, 'Operadores de calcinação e de tratamentos químicos de materiais radioativos');
-insert into cbo(codigo, descricao) values(8113, 'Operadores de equipamentos de filtragem e separação');
-insert into cbo(codigo, descricao) values(8114, 'Operadores de equipamentos de destilação, evaporação e reação');
-insert into cbo(codigo, descricao) values(8115, 'Operadores de equipamentos de produção e refino de petróleo e gás');
-insert into cbo(codigo, descricao) values(8116, 'Operadores de equipamentos de coqueificação');
-insert into cbo(codigo, descricao) values(8117, 'Operadores de instalações e máquinas de produtos plásticos, de borracha e moldadores de parafinas');
-insert into cbo(codigo, descricao) values(8118, 'Operadores de máquinas e instalações de produtos farmacêuticos, cosméticos e afins');
-insert into cbo(codigo, descricao) values(8121, 'Trabalhadores da fabricação de munição e explosivos químicos');
-insert into cbo(codigo, descricao) values(8131, 'Operadores de processos das indústrias de transformação de produtos químicos, petroquímicos e afins');
-insert into cbo(codigo, descricao) values(8181, 'Laboratoristas industriais auxiliares');
-insert into cbo(codigo, descricao) values(8201, 'Supervisores de produção em indústrias siderúrgicas');
-insert into cbo(codigo, descricao) values(8202, 'Supervisores na fabricação de materiais para construção (vidros e cerâmicas)');
-insert into cbo(codigo, descricao) values(8211, 'Operadores de instalações de sinterização');
-insert into cbo(codigo, descricao) values(8212, 'Operadores de fornos de primeira  fusão e aciaria');
-insert into cbo(codigo, descricao) values(8213, 'Operadores de equipamentos de laminação');
-insert into cbo(codigo, descricao) values(8214, 'Operadores de equipamentos de acabamento de chapas e metais');
-insert into cbo(codigo, descricao) values(8221, 'Forneiros metalúrgicos (segunda fusão e reaquecimento)');
-insert into cbo(codigo, descricao) values(8231, 'Operadores na preparação de massas para abrasivo, vidro, cerâmica, porcelana e materiais de construção');
-insert into cbo(codigo, descricao) values(8232, 'Operadores de equipamentos de fabricação  e beneficiamento de cristais, vidros, cerâmicas, porcelanas, fibras de vidro, abrasivos e afins');
-insert into cbo(codigo, descricao) values(8233, 'Operadores de instalações e equipamentos de fabricação de materiais de construção');
-insert into cbo(codigo, descricao) values(8281, 'Trabalhadores da fabricação de cerâmica estrutural para construção');
-insert into cbo(codigo, descricao) values(8301, 'Supervisores da fabricação de celulose e papel');
-insert into cbo(codigo, descricao) values(8311, 'Preparadores de pasta para fabricação de papel');
-insert into cbo(codigo, descricao) values(8321, 'Operadores de máquinas de fabricar papel e papelão');
-insert into cbo(codigo, descricao) values(8331, 'Operadores de máquinas na fabricação de produtos de papel e papelão');
-insert into cbo(codigo, descricao) values(8332, 'Trabalhadores artesanais de produtos de papel e papelão');
-insert into cbo(codigo, descricao) values(8401, 'Supervisores da fabricação de alimentos, bebidas e fumo');
-insert into cbo(codigo, descricao) values(8411, 'Trabalhadores da indústria de beneficiamento de grãos, cereais e afins');
-insert into cbo(codigo, descricao) values(8412, 'Trabalhadores no beneficiamento do sal');
-insert into cbo(codigo, descricao) values(8413, 'Trabalhadores na fabricação e refino de açúcar');
-insert into cbo(codigo, descricao) values(8414, 'Trabalhadores na fabricação e conservação de alimentos');
-insert into cbo(codigo, descricao) values(8415, 'Trabalhadores na pasteurização do leite e na fabricação de laticínios  e afins');
-insert into cbo(codigo, descricao) values(8416, 'Trabalhadores na industrialização de café, cacau, mate e de produtos afins');
-insert into cbo(codigo, descricao) values(8417, 'Trabalhadores na fabricação de cachaça, cerveja, vinhos e outras bebidas');
-insert into cbo(codigo, descricao) values(8418, 'Operadores de equipamentos na fabricação de pães, massas alimentícias, doces, chocolates e achocolatados');
-insert into cbo(codigo, descricao) values(8421, 'Cigarreiros e beneficiadores de fumo');
-insert into cbo(codigo, descricao) values(8422, 'Charuteiros');
-insert into cbo(codigo, descricao) values(8423, 'Cigarreiros');
-insert into cbo(codigo, descricao) values(8481, 'Trabalhadores artesanais na conservação de alimentos');
-insert into cbo(codigo, descricao) values(8482, 'Trabalhadores artesanais na pasteurização do leite e na fabricação de laticínios e afins');
-insert into cbo(codigo, descricao) values(8483, 'Padeiros, confeiteiros e afins');
-insert into cbo(codigo, descricao) values(8484, 'Trabalhadores na degustação e classificação de grãos e afins');
-insert into cbo(codigo, descricao) values(8485, 'Magarefes e afins');
-insert into cbo(codigo, descricao) values(8486, 'Trabalhadores artesanais na indústria do fumo');
-insert into cbo(codigo, descricao) values(8601, 'Supervisores da produção de utilidades');
-insert into cbo(codigo, descricao) values(8611, 'Operadores de instalações de geração e distribuição de energia elétrica, hidráulica, térmica ou nuclear');
-insert into cbo(codigo, descricao) values(8612, 'Operadores de instalações de distribuição de energia elétrica');
-insert into cbo(codigo, descricao) values(8621, 'Operadores de máquinas a vapor e utilidades');
-insert into cbo(codigo, descricao) values(8622, 'Operadores de instalações de captação, tratamento e distribuição de água');
-insert into cbo(codigo, descricao) values(8623, 'Operadores de instalações de captação e esgotos');
-insert into cbo(codigo, descricao) values(8624, 'Operadores de instalações de extração, processamento, envasamento e distribuição de gases');
-insert into cbo(codigo, descricao) values(8625, 'Operadores de instalações de refrigeração e ar-condicionado');
-insert into cbo(codigo, descricao) values(9101, 'Supervisores em serviços de reparação e manutenção de máquinas e equipamentos industriais, comerciais e residenciais');
-insert into cbo(codigo, descricao) values(9102, 'Supervisores em serviços de reparação e manutenção veicular');
-insert into cbo(codigo, descricao) values(9109, 'Supervisores de outros trabalhadores de serviços de reparação, conservação e manutenção');
-insert into cbo(codigo, descricao) values(9111, 'Mecânicos de manutenção de bombas, motores, compressores e equipamentos de transmissão');
-insert into cbo(codigo, descricao) values(9112, 'Mecânicos de manutenção e instalação de aparelhos de  climatização e refrigeração');
-insert into cbo(codigo, descricao) values(9113, 'Mecânicos de manutenção de máquinas industriais');
-insert into cbo(codigo, descricao) values(9131, 'Mecânicos de manutenção de máquinas pesadas e equipamentos agrícolas');
-insert into cbo(codigo, descricao) values(9141, 'Mecânicos de manutenção aeronáutica');
-insert into cbo(codigo, descricao) values(9142, 'Mecânicos de manutenção de motores e equipamentos navais');
-insert into cbo(codigo, descricao) values(9143, 'Mecânicos de manutenção metroferroviária');
-insert into cbo(codigo, descricao) values(9144, 'Mecânicos de manutenção de veículos automotores');
-insert into cbo(codigo, descricao) values(9151, 'Técnicos em manutenção e reparação de instrumentos de medição e precisão');
-insert into cbo(codigo, descricao) values(9152, 'Restauradores de instrumentos musicais');
-insert into cbo(codigo, descricao) values(9153, 'Técnicos em manutenção e reparação de equipamentos biomédicos');
-insert into cbo(codigo, descricao) values(9154, 'Reparadores de equipamentos fotográficos');
-insert into cbo(codigo, descricao) values(9191, 'Lubrificadores');
-insert into cbo(codigo, descricao) values(9192, 'Trabalhadores de manutenção de roçadeiras, motoserras e similares');
-insert into cbo(codigo, descricao) values(9193, 'Mecânicos de manutenção de bicicletas e equipamentos esportivos e de ginástica');
-insert into cbo(codigo, descricao) values(9501, 'Supervisores de manutenção eletroeletrônica industrial, comercial e predial');
-insert into cbo(codigo, descricao) values(9502, 'Supervisores de manutenção eletroeletrônica veicular');
-insert into cbo(codigo, descricao) values(9503, 'Supervisores de manutenção eletromecânica');
-insert into cbo(codigo, descricao) values(9511, 'Eletricistas de manutenção eletroeletrônica');
-insert into cbo(codigo, descricao) values(9513, 'Instaladores e mantenedores de sistemas eletroeletrônicos de segurança');
-insert into cbo(codigo, descricao) values(9531, 'Eletricistas eletrônicos de manutenção veicular (aérea, terrestre e naval)');
-insert into cbo(codigo, descricao) values(9541, 'Instaladores e mantenedores eletromecânicos de elevadores, escadas e portas automáticas');
-insert into cbo(codigo, descricao) values(9542, 'Reparadores de aparelhos eletrodomésticos');
-insert into cbo(codigo, descricao) values(9543, 'Reparadores de equipamentos de escritório');
-insert into cbo(codigo, descricao) values(9911, 'Conservadores de vias permanentes (trilhos)');
-insert into cbo(codigo, descricao) values(9912, 'Mantenedores de equipamentos de parques de diversões e similares');
-insert into cbo(codigo, descricao) values(9913, 'Reparadores de carrocerias de veículos');
-insert into cbo(codigo, descricao) values(9914, 'Mantenedores de edificações');
-insert into cbo(codigo, descricao) values(9921, 'Trabalhadores elementares de serviços de manutenção veicular');
-insert into cbo(codigo, descricao) values(9922, 'Trabalhadores operacionais de conservação de vias permanentes (exceto trilhos)');
+INSERT INTO cbo (codigo, descricao) VALUES 
+(0101, 'Oficiais generais das forças armadas'),
+(0102, 'Oficiais das forças armadas'),
+(0103, 'Praças das forças armadas'),
+(0201, 'Oficiais superiores da polícia militar'),
+(0202, 'Capitães da  polícia militar'),
+(0203, 'Tenentes da polícia militar'),
+(0211, 'Subtenentes e sargentos da policia militar'),
+(0212, 'Cabos e soldados da polícia militar'),
+(0301, 'Oficiais superiores do corpo de bombeiros militar'),
+(0302, 'Oficiais intermediários do corpo de bombeiros militar'),
+(0303, 'Tenentes do corpo de bombeiros militar'),
+(0311, 'Subtenentes e sargentos do corpo de bombeiros militar'),
+(0312, 'Cabos e soldados do corpo de bombeiros militar'),
+(1111, 'Legisladores'),
+(1112, 'Dirigentes gerais da administração pública'),
+(1113, 'Magistrados'),
+(1114, 'Dirigentes do serviço público'),
+(1115, 'Gestores públicos'),
+(1130, 'Dirigentes de povos indígenas, de quilombolas e caiçaras'),
+(1141, 'Dirigentes de partidos políticos'),
+(1142, 'Dirigentes e administradores de entidades patronais e dos trabalhadores e de outros interesses sócioeconômicos'),
+(1143, 'Dirigentes e administradores de entidades religiosas'),
+(1144, 'Dirigentes e administradores de organizações da sociedade civil sem fins lucrativos'),
+(1210, 'Diretores gerais'),
+(1221, 'Diretores de produção e operações em empresa agropecuária, pesqueira , aqüícola e florestal'),
+(1222, 'Diretores de produção e operações em empresa da indústria extrativa, transformação e de serviços de utilidade pública'),
+(1223, 'Diretores de operações de obras em empresa de construção'),
+(1224, 'Diretores de operações em empresa do comércio'),
+(1225, 'Diretores de serviços de turismo, de alojamento e de alimentação'),
+(1226, 'Diretores de operações de serviços em empresa de armazenamento, de transporte e de telecomunicação'),
+(1227, 'Diretores de operações de serviços em instituição de intermediação financeira'),
+(1231, 'Diretores administrativos e financeiros'),
+(1232, 'Diretores de recursos humanos e relações de trabalho'),
+(1233, 'Diretores de comercialização e marketing'),
+(1234, 'Diretores de suprimentos e afins'),
+(1236, 'Diretores de tecnologia da informação'),
+(1237, 'Diretores de pesquisa e desenvolvimento'),
+(1238, 'Diretores de manutenção'),
+(1311, 'Diretores e gerentes de operações em empresa de serviços pessoais, sociais e culturais'),
+(1312, 'Gestores e especialistas de operações em empresas, secretarias e unidades de serviços de saúde'),
+(1313, 'Diretores e gerentes de instituição de serviços educacionais'),
+(1411, 'Gerentes de produção e operações em empresa agropecuária, pesqueira, aqüícola e florestal'),
+(1412, 'Gerentes de produção e operações em empresa da indústria extrativa, de transformação e de serviços de utilidade pública'),
+(1413, 'Gerentes de obras em empresa de construção'),
+(1414, 'Gerentes de operações comerciais e de assistência técnica'),
+(1415, 'Gerentes de operações de serviços em empresa de turismo, de alojamento e alimentação'),
+(1416, 'Gerentes de operações de serviços em empresa de transporte, de comunicação e de logística (armazenagem e distribuição)'),
+(1417, 'Gerentes de operações de serviços em instituição de intermediação financeira'),
+(1418, 'Gerentes operacionais da aviação civil'),
+(1421, 'Gerentes administrativos, financeiros, de riscos e afins'),
+(1422, 'Gerentes de recursos humanos e de relações do trabalho'),
+(1423, 'Gerentes de comercialização, marketing e comunicação'),
+(1424, 'Gerentes de suprimentos e afins'),
+(1425, 'Gerentes de tecnologia da informação'),
+(1426, 'Gerentes de pesquisa e desenvolvimento e afins'),
+(1427, 'Gerentes de manutenção e afins'),
+(2011, 'Profissionais da biotecnologia'),
+(2012, 'Profissionais da metrologia'),
+(2021, 'Engenheiros de controle e automação, engenheiros mecatrônicos e afins'),
+(2030, 'Pesquisadores das ciências biológicas'),
+(2031, 'Pesquisadores das ciências naturais e exatas'),
+(2032, 'Pesquisadores de engenharia e tecnologia'),
+(2033, 'Pesquisadores das ciências da saúde'),
+(2034, 'Pesquisadores das ciências da agricultura'),
+(2035, 'Pesquisadores das ciências sociais e humanas'),
+(2041, 'Peritos criminais e judiciais'),
+(2111, 'Profissionais da matemática'),
+(2112, 'Profissionais de estatística e afins'),
+(2122, 'Engenheiros em computação'),
+(2123, 'Administradores de tecnologia da informação'),
+(2124, 'Analistas de tecnologia da informação'),
+(2131, 'Físicos'),
+(2132, 'Químicos'),
+(2133, 'Profissionais das ciências atmosféricas e espaciais e de astronomia'),
+(2134, 'Geólogos, oceanógrafos, geofísicos e afins'),
+(2140, 'Engenheiros ambientais e afins'),
+(2141, 'Arquitetos e urbanistas'),
+(2142, 'Engenheiros civis e afins'),
+(2143, 'Engenheiros eletricistas, eletrônicos e afins'),
+(2144, 'Engenheiros mecânicos e afins'),
+(2145, 'Engenheiros químicos e afins'),
+(2146, 'Engenheiros metalurgistas, de materiais e afins'),
+(2147, 'Engenheiros de minas e afins'),
+(2148, 'Engenheiros agrimensores e engenheiros cartógrafos'),
+(2149, 'Profissionais de produção, qualidade, saúde, segurança e afins'),
+(2151, 'Oficiais de convés e afins'),
+(2152, 'Oficiais de máquinas da marinha mercante'),
+(2153, 'Profissionais da pilotagem aeronáutica'),
+(2211, 'Biólogos e afins'),
+(2212, 'Biomédicos'),
+(2221, 'Engenheiros agrossilvipecuários'),
+(2222, 'Engenheiros de alimentos e afins'),
+(2232, 'Cirurgiões-dentistas'),
+(2233, 'Veterinários e zootecnistas'),
+(2234, 'Farmacêuticos'),
+(2235, 'Enfermeiros e afins'),
+(2236, 'Fisioterapeutas'),
+(2237, 'Nutricionistas'),
+(2238, 'Fonoaudiólogos'),
+(2239, 'Terapeutas ocupacionais, ortoptistas e psicomotricistas'),
+(2241, 'Profissionais da educação física'),
+(2251, 'Médicos clínicos'),
+(2252, 'Médicos em especialidades cirúrgicas'),
+(2253, 'Médicos em medicina diagnóstica e terapêutica'),
+(2261, 'Osteopatas e quiropraxistas'),
+(2263, 'Profissionais das terapias criativas,equoterápicas e naturológicas'),
+(2311, 'Professores de nível superior na educação infantil'),
+(2312, 'Professores de nível superior do ensino fundamental (primeira a quarta séries)'),
+(2313, 'Professores de nível superior no ensino fundamental de quinta a oitava série'),
+(2321, 'Professores do ensino médio'),
+(2331, 'Professores do ensino profissional'),
+(2332, 'Instrutores de ensino profissional'),
+(2341, 'Professores de matemática, estatística e informática do ensino superior'),
+(2342, 'Professores de ciências físicas, químicas e afins do ensino superior'),
+(2343, 'Professores de arquitetura e urbanismo, engenharia, geofísica e geologia do ensino superior'),
+(2344, 'Professores de ciências biológicas e da saúde do ensino superior'),
+(2345, 'Professores na área de formação pedagógica do ensino superior'),
+(2346, 'Professores nas áreas de língua e literatura do ensino superior'),
+(2347, 'Professores de ciências humanas do ensino superior'),
+(2348, 'Professores de ciências econômicas, administrativas e contábeis do ensino superior'),
+(2349, 'Professores de artes do ensino superior'),
+(2392, 'Professores de educação especial'),
+(2394, 'Programadores, avaliadores e orientadores de ensino'),
+(2410, 'Advogados'),
+(2412, 'Procuradores e advogados públicos'),
+(2413, 'Tabeliães e registradores'),
+(2414, 'Conselheiros julgadores'),
+(2422, 'Membros do ministério público'),
+(2423, 'Delegados de polícia'),
+(2424, 'Defensores públicos e procuradores da assistência judiciária'),
+(2429, 'Profissionais da inteligência'),
+(2511, 'Profissionais em pesquisa e análise antropológica sociológica'),
+(2512, 'Economistas'),
+(2513, 'Profissionais em pesquisa e análise geográfica'),
+(2514, 'Filósofos'),
+(2515, 'Psicólogos e psicanalistas'),
+(2516, 'Assistentes sociais e economistas domésticos'),
+(2521, 'Administradores'),
+(2522, 'Contadores e afins'),
+(2523, 'Secretárias(os) executivas(os) e afins'),
+(2524, 'Profissionais de recursos humanos'),
+(2525, 'Profissionais de administração ecônomico-financeira'),
+(2526, 'Profissionais da administração dos serviços de segurança'),
+(2527, 'Profissionais de planejamento, programação e controles logisticos'),
+(2531, 'Profissionais de publicidade'),
+(2532, 'Profissionais de comercializacão e consultoria de serviços bancários'),
+(2533, 'Corretores de valores, ativos financeiros, mercadorias e derivativos'),
+(2534, 'Profissionais de mídias digitais e afins'),
+(2541, 'Auditores fiscais e técnicos da receita federal'),
+(2542, 'Auditores fiscais da previdência social'),
+(2543, 'Auditores fiscais do trabalho'),
+(2544, 'Fiscais de tributos estaduais e municipais'),
+(2545, 'Profissionais da fiscalização de atividades urbanas'),
+(2611, 'Profissionais do jornalismo'),
+(2612, 'Profissionais da informação'),
+(2613, 'Arquivistas e museólogos'),
+(2614, 'Filólogos,tradutores ,intérpretes e afins'),
+(2615, 'Profissionais da escrita'),
+(2616, 'Editores'),
+(2617, 'Locutores, comentaristas e repórteres de mídias audiovisuais'),
+(2618, 'Fotógrafos profissionais'),
+(2619, 'Assistentes de direção (tv) e continuístas'),
+(2621, 'Produtores artísticos e culturais'),
+(2622, 'Diretores artísticos, de espetáculos e afins'),
+(2623, 'Cenógrafos'),
+(2624, 'Artistas visuais,desenhistas industriais e conservadores-restauradores de bens culturais'),
+(2625, 'Atores'),
+(2626, 'Músicos compositores, arranjadores, regentes e musicólogos'),
+(2627, 'Músicos intérpretes'),
+(2628, 'Artistas da dança (exceto dança tradicional e popular)'),
+(2629, 'Designer de interiores de nível superior'),
+(2631, 'Ministros de culto, missionários, teólogos e profissionais assemelhados'),
+(2711, 'Chefes de cozinha e afins'),
+(3001, 'Técnicos em mecatrônica'),
+(3003, 'Técnicos em eletromecânica'),
+(3011, 'Técnicos de laboratório industrial'),
+(3012, 'Técnicos de apoio à bioengenharia'),
+(3111, 'Técnicos químicos'),
+(3112, 'Técnicos de produção de indústrias químicas, petroquímicas, refino de petróleo, gás e afins'),
+(3113, 'Técnicos em materiais, produtos cerâmicos e vidros'),
+(3114, 'Técnicos em fabricação de produtos plásticos e de borracha'),
+(3115, 'Técnicos em controle ambiental, utilidades e tratamento de efluentes'),
+(3116, 'Técnicos têxteis'),
+(3117, 'Coloristas'),
+(3121, 'Técnicos em construção civil (edificações)'),
+(3122, 'Técnicos em construção civil (obras de infraestrutura)'),
+(3123, 'Técnicos em geomática'),
+(3131, 'Técnicos em eletricidade e eletrotécnica'),
+(3132, 'Técnicos em eletrônica'),
+(3133, 'Técnicos em telecomunicações'),
+(3134, 'Técnicos em calibração e instrumentação'),
+(3135, 'Técnicos em fotônica'),
+(3141, 'Técnicos mecânicos na fabricação e montagem de máquinas, sistemas e instrumentos'),
+(3142, 'Técnicos mecânicos (ferramentas)'),
+(3143, 'Técnicos em mecânica veicular'),
+(3144, 'Técnicos mecânicos na manutenção de máquinas, sistemas e instrumentos'),
+(3146, 'Técnicos em metalurgia (estruturas metálicas)'),
+(3147, 'Técnicos em siderurgia'),
+(3148, 'Especialistas em inspeções industriais'),
+(3161, 'Técnicos em geologia'),
+(3163, 'Técnicos em mineração'),
+(3171, 'Técnicos de desenvolvimento de sistemas e aplicações'),
+(3172, 'Técnicos de suporte e monitoração ao usuário de tecnologia da informação.'),
+(3180, 'Desenhistas técnicos, em geral'),
+(3181, 'Desenhistas técnicos da construção civil e arquitetura'),
+(3182, 'Desenhistas técnicos da mecânica'),
+(3183, 'Desenhistas técnicos em eletricidade, eletrônica, eletromecânica, calefação, ventilação e refrigeração'),
+(3184, 'Desenhistas técnicos de produtos e serviços diversos'),
+(3185, 'Desenhistas projetistas de construção civil e arquitetura'),
+(3186, 'Desenhistas projetistas da mecânica'),
+(3187, 'Desenhistas projetistas de eletricidade e eletrônica'),
+(3188, 'Desenhistas projetistas e modelistas de produtos e serviços diversos'),
+(3191, 'Técnicos do vestuário'),
+(3192, 'Técnicos do mobiliário e afins'),
+(3201, 'Técnicos em biologia'),
+(3211, 'Técnicos agrícolas'),
+(3212, 'Técnicos florestais'),
+(3213, 'Técnicos em aqüicultura'),
+(3221, 'Tecnólogos e técnicos em terapias complementares e estéticas'),
+(3222, 'Técnicos e auxiliares de enfermagem'),
+(3223, 'Técnicos em óptica e optometria'),
+(3224, 'Técnicos de odontologia'),
+(3225, 'Técnicos em próteses ortopédicas'),
+(3226, 'Técnicos de imobilizações ortopédicas'),
+(3227, 'Técnicos e profissionais em práticas integrativas e complementares (pics)'),
+(3231, 'Técnicos em pecuária'),
+(3241, 'Tecnólogos e técnicos em métodos de diagnósticos e terapêutica'),
+(3242, 'Técnicos de laboratórios de saúde e bancos de sangue'),
+(3250, 'Enólogos, perfumistas e aromistas'),
+(3251, 'Técnico em farmácia e em manipulação farmacêutica'),
+(3252, 'Técnicos em produção, conservação  e de qualidade de alimentos'),
+(3253, 'Técnicos de apoio à biotecnologia'),
+(3281, 'Técnicos em necrópsia e taxidermistas'),
+(3311, 'Professores de nível médio na educação infantil'),
+(3312, 'Professores de nível médio no ensino fundamental'),
+(3313, 'Professores de nível médio no ensino profissionalizante'),
+(3321, 'Professores leigos no ensino fundamental'),
+(3322, 'Professores práticos no ensino profissionalizante'),
+(3331, 'Instrutores e professores de cursos livres'),
+(3341, 'Inspetores de alunos e afins'),
+(3411, 'Pilotos de aviação comercial, mecânicos de vôo e afins'),
+(3412, 'Técnicos marítimos, fluviários e pescadores de convés'),
+(3413, 'Técnicos marítimos e fluviários de máquinas'),
+(3421, 'Especialistas em logística de transportes'),
+(3422, 'Despachantes aduaneiros'),
+(3423, 'Técnicos em transportes rodoviários'),
+(3424, 'Técnicos em transportes metroferroviários'),
+(3425, 'Técnicos em transportes aéreos'),
+(3426, 'Técnicos em transportes por vias navegáveis e operações portuárias'),
+(3511, 'Técnicos em contabilidade'),
+(3513, 'Técnicos em administração'),
+(3514, 'Serventuários da justiça e afins'),
+(3515, 'Técnicos em secretariado, taquígrafos e estenotipistas'),
+(3516, 'Técnicos em segurança do trabalho'),
+(3517, 'Técnicos de seguros e afins'),
+(3518, 'Agentes de investigação e identificação'),
+(3519, 'Técnicos da inteligência'),
+(3522, 'Agentes da saúde e do meio ambiente'),
+(3523, 'Agentes  fiscais metrológicos e de qualidade'),
+(3524, 'Profissionais de direitos autorais e de avaliacão de produtos dos meios de comunicação'),
+(3532, 'Técnicos em operações e serviços bancários'),
+(3541, 'Especialistas em promoção de produtos e vendas'),
+(3542, 'Compradores'),
+(3543, 'Analistas de comércio exterior'),
+(3544, 'Leiloeiros e avaliadores'),
+(3545, 'Corretores de seguros'),
+(3546, 'Corretores de imóveis e de grãos'),
+(3547, 'Representantes comerciais autônomos'),
+(3548, 'Técnicos em serviços de turismo e organização de eventos'),
+(3711, 'Técnicos em biblioteconomia'),
+(3712, 'Técnicos em museologia e afins'),
+(3713, 'Técnicos em artes gráficas'),
+(3714, 'Recreadores, brinquedistas e afins'),
+(3721, 'Captadores de imagens em movimento'),
+(3722, 'Operadores de rede de teleprocessamento e afins'),
+(3731, 'Técnicos de operação de registros sonoro/audiovisuais'),
+(3732, 'Supervisores operacionais e técnicos em mídias audiovisuais'),
+(3741, 'Técnicos em áudio'),
+(3742, 'Técnicos em cenografia'),
+(3743, 'Técnicos em operação de aparelhos de projeção'),
+(3744, 'Técnicos em montagem, edição e finalização de mídia audiovisual'),
+(3751, 'Designers de interiores, de vitrines e visual merchandiser e afins (nível médio)'),
+(3761, 'Dançarinos tradicionais e populares'),
+(3762, 'Artistas de circo (circenses)'),
+(3763, 'Apresentadores de eventos, programas e espetáculos'),
+(3764, 'Modelos'),
+(3771, 'Atletas profissionais'),
+(3772, 'Árbitros desportivos'),
+(3911, 'Planejadores, programadores e controladores de produção e manutenção'),
+(3912, 'Técnicos de controle da produção'),
+(3951, 'Técnicos de apoio em pesquisa e desenvolvimento'),
+(4101, 'Supervisores administrativos'),
+(4102, 'Supervisores de serviços financeiros, de câmbio e de controle'),
+(4110, 'Agentes, assistentes e auxiliares administrativos'),
+(4121, 'Operadores de equipamentos de entrada e transmissão de dados'),
+(4122, 'Contínuos'),
+(4131, 'Auxiliares de contabilidade'),
+(4132, 'Escriturários de serviços bancários'),
+(4141, 'Almoxarifes e armazenistas'),
+(4142, 'Apontadores e conferentes'),
+(4151, 'Auxiliares de serviços de documentação, informação e pesquisa'),
+(4152, 'Trabalhadores nos serviços de classificação e entregas de correspondências, encomendas e publicações'),
+(4153, 'Trabalhadores em registros e informações em saúde'),
+(4201, 'Supervisores de atendimento ao público e de pesquisa'),
+(4211, 'Caixas e bilheteiros (exceto caixa de banco)'),
+(4212, 'Coletadores de apostas e de jogos'),
+(4213, 'Cobradores e afins'),
+(4221, 'Recepcionistas'),
+(4222, 'Operadores de telefonia'),
+(4223, 'Operadores de telemarketing e afins'),
+(4231, 'Despachantes documentalistas e afins'),
+(4241, 'Entrevistadores e recenseadores'),
+(4242, 'Aplicadores de provas e afins'),
+(5101, 'Supervisores dos serviços de transporte, turismo, hotelaria e administração de edifícios'),
+(5102, 'Supervisores de lavanderia'),
+(5103, 'Supervisores dos serviços de proteção, segurança e outros'),
+(5111, 'Trabalhadores de segurança e atendimento aos usuários nos transportes'),
+(5112, 'Fiscais e cobradores dos transportes coletivos'),
+(5114, 'Guias de turismo'),
+(5115, 'Condutores de turismo'),
+(5121, 'Trabalhadores dos serviços domésticos em geral'),
+(5131, 'Mordomos e governantas'),
+(5132, 'Cozinheiros'),
+(5133, 'Camareiros, roupeiros e afins'),
+(5134, 'Trabalhadores no atendimento em estabelecimentos de serviços de alimentação, bebidas e hotelaria'),
+(5135, 'Trabalhadores auxiliares nos serviços de alimentação'),
+(5136, 'Churrasqueiros, pizzaiolos e sushimen'),
+(5141, 'Trabalhadores nos serviços de administração de edifícios'),
+(5142, 'Trabalhadores nos serviços de coleta de resíduos, de limpeza e conservação de áreas públicas'),
+(5143, 'Trabalhadores nos serviços de manutenção de edificações, estruturas e equipamentos industriais'),
+(5151, 'Trabalhadores em serviços de promoção e apoio à saúde'),
+(5152, 'Auxiliares de laboratório da saúde'),
+(5153, 'Trabalhadores de atenção, defesa e proteção a pessoas em situação de risco e adolescentes em conflito com a lei'),
+(5161, 'Trabalhadores nos serviços de embelezamento'),
+(5162, 'Cuidadores de crianças, jovens, adultos e idosos'),
+(5163, 'Tintureiros, lavadeiros e afins, a máquina'),
+(5164, 'Lavadores e passadores de roupa, a mão'),
+(5165, 'Trabalhadores dos serviços funerários'),
+(5166, 'Trabalhadores auxiliares dos serviços funerários'),
+(5167, 'Astrólogos e numerólogos'),
+(5168, 'Esotéricos e afins'),
+(5169, 'Trabalhadores nos serviços de arte corporal'),
+(5171, 'Bombeiros, salva-vidas e afins'),
+(5172, 'Policiais, guardas-civis municipais e agentes de trânsito'),
+(5173, 'Vigilantes e guardas de segurança'),
+(5174, 'Porteiros, vigias e afins'),
+(5191, 'Motociclistas e ciclistas de entregas rápidas'),
+(5192, 'Trabalhadores da coleta e seleção de material reciclável'),
+(5193, 'Trabalhadores cuidadores de animais domésticos'),
+(5198, 'Profissionais do sexo'),
+(5199, 'Outros trabalhadores dos serviços'),
+(5201, 'Supervisores de vendas e de prestação de serviços'),
+(5211, 'Operadores do comércio em lojas e mercados'),
+(5231, 'Instaladores de produtos e acessórios'),
+(5241, 'Vendedores em domicílio'),
+(5242, 'Vendedores em bancas, quiosques e barracas'),
+(5243, 'Vendedores ambulantes'),
+(6110, 'Produtores agropecuários em geral'),
+(6120, 'Produtores agrícolas polivalentes'),
+(6121, 'Produtores agrícolas na cultura de gramíneas'),
+(6122, 'Produtores agrícolas na cultura de plantas fibrosas'),
+(6123, 'Produtores agrícolas na olericultura'),
+(6124, 'Produtores agrícolas no cultivo de flores e plantas ornamentais'),
+(6125, 'Produtores agrícolas na fruticultura'),
+(6126, 'Produtores agrícolas na cultura de plantas estimulantes'),
+(6127, 'Produtores agrícolas na cultura de plantas oleaginosas'),
+(6128, 'Produtores de especiarias e de plantas aromáticas e medicinais'),
+(6130, 'Produtores em pecuária polivalente'),
+(6131, 'Produtores em pecuária de animais de grande porte'),
+(6132, 'Produtores em pecuária de animais de médio porte'),
+(6133, 'Produtores da avicultura e cunicultura'),
+(6134, 'Produtores de animais e insetos úteis'),
+(6201, 'Supervisores na exploração agropecuária'),
+(6210, 'Trabalhadores agropecuários em geral'),
+(6220, 'Trabalhadores de apoio à agricultura'),
+(6221, 'Trabalhadores agrícolas na cultura de gramíneas'),
+(6222, 'Trabalhadores agrícolas na cultura de plantas fibrosas'),
+(6223, 'Trabalhadores agrícolas na olericultura'),
+(6224, 'Trabalhadores agrícolas no cultivo de flores e plantas ornamentais'),
+(6225, 'Trabalhadores agrícolas na fruticultura'),
+(6226, 'Trabalhadores agrícolas nas culturas de plantas estimulantes'),
+(6227, 'Trabalhadores agrícolas na cultura de plantas oleaginosas'),
+(6228, 'Trabalhadores agrícolas da cultura de especiarias e de plantas aromáticas e medicinais'),
+(6230, 'Tratadores polivalentes de animais'),
+(6231, 'Trabalhadores na pecuária de animais de grande porte'),
+(6232, 'Trabalhadores na pecuária de animais de médio porte'),
+(6233, 'Trabalhadores na avicultura e cunicultura'),
+(6234, 'Trabalhadores na criação de insetos e animais úteis'),
+(6301, 'Supervisores na área florestal e aquicultura'),
+(6310, 'Pescadores polivalentes'),
+(6311, 'Pescadores profissionais artesanais de água doce'),
+(6312, 'Pescadores de água costeira e alto mar'),
+(6313, 'Criadores de animais aquáticos'),
+(6314, 'Trabalhadores de apoio à pesca'),
+(6320, 'Trabalhadores florestais polivalentes'),
+(6321, 'Extrativistas e reflorestadores de espécies produtoras de madeira'),
+(6322, 'Extrativistas florestais de espécies produtoras de gomas e resinas'),
+(6323, 'Extrativistas florestais de espécies produtoras de fibras, ceras e óleos'),
+(6324, 'Extrativistas florestais de espécies produtoras de alimentos silvestres'),
+(6325, 'Extrativistas florestais de espécies produtoras de substâncias aromáticas, medicinais e tóxicas'),
+(6326, 'Carvoejadores'),
+(6410, 'Trabalhadores da mecanização agrícola'),
+(6420, 'Trabalhadores da mecanização florestal'),
+(6430, 'Trabalhadores da irrigação e drenagem'),
+(7101, 'Supervisores da extração mineral'),
+(7102, 'Supervisores da construção civil'),
+(7111, 'Trabalhadores da extração de minerais sólidos'),
+(7112, 'Trabalhadores de extração de minerais sólidos (operadores de máquinas)'),
+(7113, 'Trabalhadores da extração de minerais líquidos e gasosos'),
+(7114, 'Garimpeiros e operadores de salinas'),
+(7121, 'Trabalhadores de beneficiamento de minérios'),
+(7122, 'Trabalhadores de beneficiamento de pedras ornamentais'),
+(7151, 'Trabalhadores na operação de máquinas de terraplenagem e fundações'),
+(7152, 'Trabalhadores de estruturas de alvenaria'),
+(7153, 'Montadores de estruturas de concreto armado'),
+(7154, 'Trabalhadores na operação de máquinas de concreto usinado e afins'),
+(7155, 'Trabalhadores de montagem de estruturas de madeira, metal e compósitos em obras civis'),
+(7156, 'Trabalhadores de instalações elétricas'),
+(7157, 'Aplicadores de materiais isolantes'),
+(7161, 'Revestidores de concreto'),
+(7162, 'Telhadores (revestimentos rígidos)'),
+(7163, 'Vidraceiros (revestimentos rígidos)'),
+(7164, 'Gesseiros'),
+(7165, 'Aplicadores de revestimentos cerâmicos, pastilhas, pedras e madeiras'),
+(7166, 'Pintores de obras e revestidores de interiores (revestimentos flexíveis)'),
+(7170, 'Operadores de equipamentos da construção civil'),
+(7201, 'Supervisores de usinagem, conformação e tratamento de metais'),
+(7202, 'Supervisores da fabricação e montagem metalmecânica'),
+(7211, 'Ferramenteiros e afins'),
+(7212, 'Preparadores e operadores de máquinas-ferramenta convencionais'),
+(7213, 'Afiadores e polidores de metais'),
+(7214, 'Operadores de máquinas de usinagem cnc'),
+(7221, 'Trabalhadores de forjamento de metais'),
+(7222, 'Trabalhadores de fundição de metais puros e de ligas metálicas'),
+(7223, 'Trabalhadores de moldagem de metais e de ligas metálicas'),
+(7224, 'Trabalhadores de trefilação e estiramento de metais puros e ligas metálicas'),
+(7231, 'Trabalhadores de tratamento térmico de metais'),
+(7232, 'Trabalhadores de tratamento de superfícies de metais e de compósitos (termoquímicos)'),
+(7233, 'Trabalhadores da pintura de equipamentos, veículos, estruturas metálicas e de compósitos'),
+(7241, 'Encanadores e instaladores de tubulações'),
+(7242, 'Trabalhadores de traçagem e montagem de estruturas metálicas e de compósitos'),
+(7243, 'Trabalhadores de soldagem e corte de ligas metálicas'),
+(7244, 'Trabalhadores de caldeiraria e serralheria'),
+(7245, 'Operadores de máquinas de conformação de metais'),
+(7246, 'Trançadores e laceiros de cabos de aço'),
+(7250, 'Ajustadores mecânicos polivalentes e afins'),
+(7251, 'Montadores de máquinas, aparelhos e acessórios em linhas de montagem'),
+(7252, 'Montadores de máquinas industriais'),
+(7253, 'Montadores de máquinas pesadas e equipamentos agrícolas'),
+(7254, 'Mecânicos montadores de motores e turboalimentadores'),
+(7255, 'Montadores de veículos automotores (linha de montagem)'),
+(7256, 'Montadores de sistemas e estruturas de aeronaves'),
+(7257, 'Instaladores de equipamentos de refrigeração e ventilação'),
+(7301, 'Supervisores de montagens e instalações eletroeletrônicas'),
+(7311, 'Montadores de equipamentos eletroeletrônicos'),
+(7312, 'Montadores de aparelhos de telecomunicações'),
+(7313, 'Instaladores-reparadores de  linhas e equipamentos de telecomunicações'),
+(7321, 'Instaladores e reparadores de linhas e cabos elétricos, telefônicos e de comunicação de dados'),
+(7401, 'Supervisores da mecânica de precisão e instrumentos musicais'),
+(7411, 'Mecânicos de instrumentos de precisão'),
+(7421, 'Confeccionadores de instrumentos musicais'),
+(7501, 'Supervisores de joalheria e afins'),
+(7502, 'Supervisores de vidraria, cerâmica e afins'),
+(7510, 'Joalheiros e lapidadores de gemas'),
+(7511, 'Artesãos de metais preciosos e semipreciosos'),
+(7521, 'Sopradores, moldadores e modeladores de vidros e afins'),
+(7522, 'Trabalhadores da transformação de vidros planos'),
+(7523, 'Ceramistas (preparação e fabricação)'),
+(7524, 'Vidreiros e ceramistas (arte e decoração)'),
+(7601, 'Supervisores da indústria têxtil'),
+(7602, 'Supervisores na indústria do curtimento'),
+(7603, 'Supervisores na confecção do vestuário'),
+(7604, 'Supervisores na confecção de calçados'),
+(7605, 'Supervisores da confecção de artefatos de tecidos, couros e afins'),
+(7606, 'Supervisores das artes gráficas'),
+(7610, 'Trabalhadores polivalentes das indústrias têxteis'),
+(7611, 'Trabalhadores da classificação de fibras têxteis e lavagem de lã'),
+(7612, 'Operadores da fiação'),
+(7613, 'Operadores de tear e máquinas similares'),
+(7614, 'Trabalhadores de acabamento, tingimento e estamparia das indústrias têxteis'),
+(7618, 'Inspetores e revisores de produção têxtil'),
+(7620, 'Trabalhadores polivalentes do curtimento de couros e peles'),
+(7621, 'Trabalhadores da preparação do curtimento de couros e peles'),
+(7622, 'Trabalhadores do curtimento de couros e peles'),
+(7623, 'Trabalhadores do acabamento de couros e peles'),
+(7630, 'Profissionais polivalentes da confecção de roupas'),
+(7631, 'Trabalhadores da preparação da confecção de roupas'),
+(7632, 'Operadores de máquinas para costura de peças do vestuário'),
+(7633, 'Operadores de máquinas para bordado e acabamento de roupas'),
+(7640, 'Trabalhadores polivalentes da confecção de calçados'),
+(7641, 'Trabalhadores da preparação da confecção de calçados'),
+(7642, 'Operadores de máquinas de costurar e montar calçados'),
+(7643, 'Trabalhadores de acabamento de calçados'),
+(7650, 'Trabalhadores polivalentes da confecção de artefatos de tecidos e couros'),
+(7651, 'Trabalhadores da preparação de artefatos de tecidos, couros e tapeçaria'),
+(7652, 'Trabalhadores da confecção de artefatos de tecidos, couros e sintéticos'),
+(7653, 'Operadores de máquinas na confecção de artefatos de  couro'),
+(7654, 'Trabalhadores do acabamento de artefatos de tecidos e couros'),
+(7661, 'Trabalhadores da pré-impressão gráfica'),
+(7662, 'Trabalhadores da impressão gráfica'),
+(7663, 'Trabalhadores do acabamento gráfico'),
+(7664, 'Trabalhadores de laboratório fotográfico e radiológico'),
+(7681, 'Trabalhadores de tecelagem manual, tricô, crochê, rendas e afins'),
+(7682, 'Trabalhadores artesanais da confecção de peças e tecidos'),
+(7683, 'Trabalhadores artesanais da confecção de calçados e artefatos de couros e peles'),
+(7686, 'Trabalhadores tipográficos linotipistas e afins'),
+(7687, 'Encadernadores e recuperadores de livros (pequenos lotes ou a unidade)'),
+(7701, 'Supervisores em indústria de madeira, mobiliário e da carpintaria veicular'),
+(7711, 'Marceneiros e afins'),
+(7721, 'Trabalhadores de tratamento e preparação da madeira'),
+(7731, 'Operadores de máquinas de desdobramento da madeira'),
+(7732, 'Operadores de máquinas de aglomeração e prensagem de chapas'),
+(7733, 'Operadores de usinagem convencional de madeira'),
+(7734, 'Operadores de máquina de usinar madeira (produção em série)'),
+(7735, 'Operadores de máquinas de usinagem de madeira cnc'),
+(7741, 'Montadores de móveis e artefatos de madeira'),
+(7751, 'Trabalhadores de arte e  do acabamento em madeira do mobiliário'),
+(7764, 'Confeccionadores de artefatos de madeira, móveis de vime e afins'),
+(7771, 'Carpinteiros navais'),
+(7772, 'Carpinteiros de carrocerias e carretas'),
+(7801, 'Supervisores de trabalhadores de embalagem e etiquetagem'),
+(7811, 'Condutores de processos robotizados'),
+(7813, 'Operadores de equipamentos pilotados remotamente'),
+(7817, 'Trabalhadores subaquáticos'),
+(7821, 'Operadores de máquinas e equipamentos de elevação'),
+(7822, 'Operadores de equipamentos de movimentação de cargas'),
+(7823, 'Motoristas de veículos de pequeno e médio porte'),
+(7824, 'Condutores de ônibus urbanos, metropolitanos e rodoviários'),
+(7825, 'Motoristas de veículos de cargas em geral'),
+(7826, 'Operadores de veículos sobre trilhos e cabos aéreos'),
+(7827, 'Trabalhadores aquaviários'),
+(7828, 'Condutores de animais e de veículos de tração animal e pedais'),
+(7831, 'Trabalhadores de manobras de transportes sobre trilhos'),
+(7832, 'Trabalhadores de cargas e descargas de mercadorias'),
+(7841, 'Trabalhadores de embalagem e de etiquetagem'),
+(7842, 'Alimentadores de linhas de produção'),
+(7911, 'Artesãos'),
+(8101, 'Supervisores de produção em indústrias químicas, petroquímicas e afins'),
+(8102, 'Supervisores de produção em indústrias de transformação de plásticos e borrachas'),
+(8103, 'Supervisores de produção em indústrias de produtos farmacêuticos, cosméticos e afins'),
+(8110, 'Operadores polivalentes de equipamentos em indústrias químicas, petroquímicas e afins'),
+(8111, 'Operadores de equipamentos de moagem e mistura de materiais (tratamentos químicos e afins)'),
+(8112, 'Operadores de calcinação e de tratamentos químicos de materiais radioativos'),
+(8113, 'Operadores de equipamentos de filtragem e separação'),
+(8114, 'Operadores de equipamentos de destilação, evaporação e reação'),
+(8115, 'Operadores de equipamentos de produção e refino de petróleo e gás'),
+(8116, 'Operadores de equipamentos de coqueificação'),
+(8117, 'Operadores de instalações e máquinas de produtos plásticos, de borracha e moldadores de parafinas'),
+(8118, 'Operadores de máquinas e instalações de produtos farmacêuticos, cosméticos e afins'),
+(8121, 'Trabalhadores da fabricação de munição e explosivos químicos'),
+(8131, 'Operadores de processos das indústrias de transformação de produtos químicos, petroquímicos e afins'),
+(8181, 'Laboratoristas industriais auxiliares'),
+(8201, 'Supervisores de produção em indústrias siderúrgicas'),
+(8202, 'Supervisores na fabricação de materiais para construção (vidros e cerâmicas)'),
+(8211, 'Operadores de instalações de sinterização'),
+(8212, 'Operadores de fornos de primeira  fusão e aciaria'),
+(8213, 'Operadores de equipamentos de laminação'),
+(8214, 'Operadores de equipamentos de acabamento de chapas e metais'),
+(8221, 'Forneiros metalúrgicos (segunda fusão e reaquecimento)'),
+(8231, 'Operadores na preparação de massas para abrasivo, vidro, cerâmica, porcelana e materiais de construção'),
+(8232, 'Operadores de equipamentos de fabricação  e beneficiamento de cristais, vidros, cerâmicas, porcelanas, fibras de vidro, abrasivos e afins'),
+(8233, 'Operadores de instalações e equipamentos de fabricação de materiais de construção'),
+(8281, 'Trabalhadores da fabricação de cerâmica estrutural para construção'),
+(8301, 'Supervisores da fabricação de celulose e papel'),
+(8311, 'Preparadores de pasta para fabricação de papel'),
+(8321, 'Operadores de máquinas de fabricar papel e papelão'),
+(8331, 'Operadores de máquinas na fabricação de produtos de papel e papelão'),
+(8332, 'Trabalhadores artesanais de produtos de papel e papelão'),
+(8401, 'Supervisores da fabricação de alimentos, bebidas e fumo'),
+(8411, 'Trabalhadores da indústria de beneficiamento de grãos, cereais e afins'),
+(8412, 'Trabalhadores no beneficiamento do sal'),
+(8413, 'Trabalhadores na fabricação e refino de açúcar'),
+(8414, 'Trabalhadores na fabricação e conservação de alimentos'),
+(8415, 'Trabalhadores na pasteurização do leite e na fabricação de laticínios  e afins'),
+(8416, 'Trabalhadores na industrialização de café, cacau, mate e de produtos afins'),
+(8417, 'Trabalhadores na fabricação de cachaça, cerveja, vinhos e outras bebidas'),
+(8418, 'Operadores de equipamentos na fabricação de pães, massas alimentícias, doces, chocolates e achocolatados'),
+(8421, 'Cigarreiros e beneficiadores de fumo'),
+(8422, 'Charuteiros'),
+(8423, 'Cigarreiros'),
+(8481, 'Trabalhadores artesanais na conservação de alimentos'),
+(8482, 'Trabalhadores artesanais na pasteurização do leite e na fabricação de laticínios e afins'),
+(8483, 'Padeiros, confeiteiros e afins'),
+(8484, 'Trabalhadores na degustação e classificação de grãos e afins'),
+(8485, 'Magarefes e afins'),
+(8486, 'Trabalhadores artesanais na indústria do fumo'),
+(8601, 'Supervisores da produção de utilidades'),
+(8611, 'Operadores de instalações de geração e distribuição de energia elétrica, hidráulica, térmica ou nuclear'),
+(8612, 'Operadores de instalações de distribuição de energia elétrica'),
+(8621, 'Operadores de máquinas a vapor e utilidades'),
+(8622, 'Operadores de instalações de captação, tratamento e distribuição de água'),
+(8623, 'Operadores de instalações de captação e esgotos'),
+(8624, 'Operadores de instalações de extração, processamento, envasamento e distribuição de gases'),
+(8625, 'Operadores de instalações de refrigeração e ar-condicionado'),
+(9101, 'Supervisores em serviços de reparação e manutenção de máquinas e equipamentos industriais, comerciais e residenciais'),
+(9102, 'Supervisores em serviços de reparação e manutenção veicular'),
+(9109, 'Supervisores de outros trabalhadores de serviços de reparação, conservação e manutenção'),
+(9111, 'Mecânicos de manutenção de bombas, motores, compressores e equipamentos de transmissão'),
+(9112, 'Mecânicos de manutenção e instalação de aparelhos de  climatização e refrigeração'),
+(9113, 'Mecânicos de manutenção de máquinas industriais'),
+(9131, 'Mecânicos de manutenção de máquinas pesadas e equipamentos agrícolas'),
+(9141, 'Mecânicos de manutenção aeronáutica'),
+(9142, 'Mecânicos de manutenção de motores e equipamentos navais'),
+(9143, 'Mecânicos de manutenção metroferroviária'),
+(9144, 'Mecânicos de manutenção de veículos automotores'),
+(9151, 'Técnicos em manutenção e reparação de instrumentos de medição e precisão'),
+(9152, 'Restauradores de instrumentos musicais'),
+(9153, 'Técnicos em manutenção e reparação de equipamentos biomédicos'),
+(9154, 'Reparadores de equipamentos fotográficos'),
+(9191, 'Lubrificadores'),
+(9192, 'Trabalhadores de manutenção de roçadeiras, motoserras e similares'),
+(9193, 'Mecânicos de manutenção de bicicletas e equipamentos esportivos e de ginástica'),
+(9501, 'Supervisores de manutenção eletroeletrônica industrial, comercial e predial'),
+(9502, 'Supervisores de manutenção eletroeletrônica veicular'),
+(9503, 'Supervisores de manutenção eletromecânica'),
+(9511, 'Eletricistas de manutenção eletroeletrônica'),
+(9513, 'Instaladores e mantenedores de sistemas eletroeletrônicos de segurança'),
+(9531, 'Eletricistas eletrônicos de manutenção veicular (aérea, terrestre e naval)'),
+(9541, 'Instaladores e mantenedores eletromecânicos de elevadores, escadas e portas automáticas'),
+(9542, 'Reparadores de aparelhos eletrodomésticos'),
+(9543, 'Reparadores de equipamentos de escritório'),
+(9911, 'Conservadores de vias permanentes (trilhos)'),
+(9912, 'Mantenedores de equipamentos de parques de diversões e similares'),
+(9913, 'Reparadores de carrocerias de veículos'),
+(9914, 'Mantenedores de edificações'),
+(9921, 'Trabalhadores elementares de serviços de manutenção veicular'),
+(9922, 'Trabalhadores operacionais de conservação de vias permanentes (exceto trilhos)');

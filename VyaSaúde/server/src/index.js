@@ -11,9 +11,8 @@ server.use(express.json());
 server.use("/", routes);
 
 AppDataSource.initialize().then(async () => {
-    console.log("Banco de dados conectado!!");
-
-    server.listen(process.env.PORT, () => {
-        console.log(`Servidor está funcionando, rodando na porta ${process.env.PORT}. http://localhost:${process.env.PORT}`);
+   const PORT = 3331;
+    server.listen(PORT, () => {
+        console.log(`\nBanco de dados conectado, rodando na porta ${PORT} - http://localhost:${PORT}`);
     });
 });

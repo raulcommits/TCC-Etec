@@ -1,6 +1,6 @@
-drop database if exists vya_saude;
-create database if not exists vya_saude;
-use vya_saude;
+drop database if exists bjup7jhfqavt4qodlvi5;
+create database if not exists bjup7jhfqavt4qodlvi5;
+use bjup7jhfqavt4qodlvi5;
 
 #-----------------------------------------------------------------
 # CONSULTAS:    
